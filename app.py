@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -10,5 +10,13 @@ app.register_blueprint(auth_bp)
 app.register_blueprint(admin_bp)
 app.register_blueprint(manager_bp)
 
-if __name__ == ('__main__'):
+@app.route('/', methods=['GET'])
+def login_superadmin():
+    return render_template('login.html')
+
+@app.route('/admindashboard')
+def superadmin_dashboard():
+    return render_template('admindashboard.html')
+
+if __name__ == '__main__':
     app.run(debug=True)
