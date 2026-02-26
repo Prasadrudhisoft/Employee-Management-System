@@ -41,7 +41,7 @@ CREATE TABLE departments (
 -- =========================================
 -- EMPLOYEE DETAILS TABLE
 -- =========================================
-CREATE TABLE emp_details (
+CREATE TABLE emp_detailes (
     id CHAR(36) PRIMARY KEY,
     user_id CHAR(36) NOT NULL,
     org_id CHAR(36) NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE emp_details (
 -- =========================================
 -- SALARY DETAILS TABLE
 -- =========================================
-CREATE TABLE salary_details (
+CREATE TABLE salary_detailes (
     id CHAR(36) PRIMARY KEY,
     user_id CHAR(36) NOT NULL,
     org_id CHAR(36) NOT NULL,
