@@ -10,13 +10,15 @@ app.register_blueprint(auth_bp)
 app.register_blueprint(admin_bp)
 app.register_blueprint(manager_bp)
 
+
+
 @app.route('/', methods=['GET'])
-def login_superadmin():
+def login_admin():
     return render_template('login.html')
 
 @app.route('/admindashboard')
-def superadmin_dashboard():
+def admin_dashboard():
     return render_template('admindashboard.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
