@@ -26,7 +26,7 @@ def login():
         else:
             cursor.execute("SELECT * FROM USERS where email = %s",(email,))
             user = cursor.fetchone()
-            pas = user["password"]
+            pas = user["Password"]
             if not user or not check_password_hash(pas, password):
                 return jsonify({
                     'status':'fail',
@@ -36,17 +36,17 @@ def login():
                 token_data = {
                     "id": user["id"],
                     "org_id": user["org_id"],
-                    "role": user["role"]
+                    "role": user["Role"]
                 }
                 token = create_token(token_data)
                 user_data = {
                     "id": user["id"],
-                    "name": user["name"],
-                    "email": user["email"],
-                    "role": user["role"],
+                    "name": user["Name"],
+                    "email": user["Email"],
+                    "role": user["Role"],
                     "org_id": user["org_id"],
-                    "status": user["status"],
-                    "contact": user["contact"]
+                    "status": user["Status"],
+                    "contact": user["Contact"]
                 }
                 return jsonify({
                     'status': 'success',
