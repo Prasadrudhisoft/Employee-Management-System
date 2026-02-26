@@ -11,7 +11,7 @@ CREATE TABLE users (
     profile_img VARCHAR(255),
     status ENUM('Active','Inactive') DEFAULT 'Active',
     contact MEDIUMTEXT,
-    org_id CHAR(36) NOT NULL,
+    org_id CHAR(36),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by CHAR(36),
 
