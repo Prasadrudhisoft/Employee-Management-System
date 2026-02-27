@@ -50,9 +50,9 @@ def add_emp(id = None, org_id = None, role = None):
         ifsc_code = data.get('ifsc_code')
         bank_name = data.get('bank_name')
         bank_address = data.get('bank_address')
-        pt = data.get('pt')
+        #pt = data.get('pt')
 
-        cursor.execute("insert into salary_detailes(id,user_id,org_id,base_salary,agp,da,dp,hra,tra,cla,pt,bank_acc_no,ifsc_code,bank_name,bank_address,created_by,created_at) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NOW())",(sal_det,user_id,org_id,base_salary,agp,da,dp,hra,tra,cla,pt,bank_acc_no,ifsc_code,bank_name,bank_address,id))
+        cursor.execute("insert into salary_detailes(id,user_id,org_id,base_salary,agp,da,dp,hra,tra,cla,bank_acc_no,ifsc_code,bank_name,bank_address,created_by,created_at) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NOW())",(sal_det,user_id,org_id,base_salary,agp,da,dp,hra,tra,cla,bank_acc_no,ifsc_code,bank_name,bank_address,id))
         conn.commit()
 
         return jsonify({
@@ -65,3 +65,4 @@ def add_emp(id = None, org_id = None, role = None):
             'status':'error',
             'message':str(e)
         })
+    
