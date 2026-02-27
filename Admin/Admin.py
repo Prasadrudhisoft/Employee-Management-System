@@ -7,7 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 admin_bp = Blueprint('admin',__name__)
 
-@admin_bp.route('/adddepartments', methods = ['GET','POST'])
+@admin_bp.route('/adddepartments', methods = ['POST'])
 @jwt_required
 def adddepartments(id = None, org_id = None, role = None):
     try:
@@ -34,7 +34,7 @@ def adddepartments(id = None, org_id = None, role = None):
     finally:
         cursor.close()
         conn.close()
-
+        
 
 @admin_bp.route('/get_departments', methods=['GET'])
 @jwt_required

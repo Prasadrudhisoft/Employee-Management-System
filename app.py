@@ -12,13 +12,22 @@ app.register_blueprint(manager_bp)
 
 
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def login_admin():
     return render_template('login.html')
 
 @app.route('/admindashboard')
 def admin_dashboard():
     return render_template('admindashboard.html')
+
+
+@app.route('/addmanager')
+def add_manager():
+    return render_template('addmanager.html')
+
+@app.route('/adddepartments')
+def add_department():
+    return render_template('adddepartments.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
