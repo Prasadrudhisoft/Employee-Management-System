@@ -954,19 +954,22 @@
                 body:    JSON.stringify({ email, password })
             });
             const data = await res.json();
+if (data.status === "success") {
 
-            if (data.status === "success") {
-                // ── Success ───────────────────────────────────────────
-                spinner.style.display = 'none';
-                label.textContent     = 'Welcome!';
-                btn.style.background  = '#10b981';
-                btn.style.boxShadow   = '0 4px 14px rgba(16,185,129,0.35)';
-                setValid('emailWrap');
-                setValid('passWrap');
-                showMsg('success', 'fa-circle-check', 'Login successful! Redirecting...');
-                setTimeout(() => window.location.href = "/dashboard", 1200);
+    // ✅ SAVE TOKEN
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user_data", JSON.stringify(data.user_data));
 
-            } else {
+    spinner.style.display = 'none';
+    label.textContent     = 'Welcome!';
+    btn.style.background  = '#10b981';
+    btn.style.boxShadow   = '0 4px 14px rgba(16,185,129,0.35)';
+    setValid('emailWrap');
+    setValid('passWrap');
+    showMsg('success', 'fa-circle-check', 'Login successful! Redirecting...');
+
+    setTimeout(() => window.location.href = "/admindashboard",1200);
+} else {
                 // ── Server error — highlight the right field ──────────
                 const serverMsg = data.message || '';
 
