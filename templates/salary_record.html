@@ -33,7 +33,6 @@
       min-height: 100vh;
     }
 
-    /* ── Header ─────────────────────────────── */
     header {
       background: var(--ink);
       color: #fff;
@@ -46,7 +45,6 @@
       top: 0;
       z-index: 50;
     }
-
     .logo {
       font-size: 1rem;
       font-weight: 800;
@@ -55,37 +53,11 @@
       align-items: center;
       gap: 10px;
     }
+    .logo-dot { width: 8px; height: 8px; background: #7dffb3; border-radius: 50%; display: inline-block; }
+    .header-meta { display: flex; align-items: center; gap: 16px; font-size: 0.78rem; color: rgba(255,255,255,.5); }
 
-    .logo-dot {
-      width: 8px; height: 8px;
-      background: #7dffb3;
-      border-radius: 50%;
-      display: inline-block;
-    }
+    .page { max-width: 1400px; margin: 0 auto; padding: 28px 24px 100px; }
 
-    .header-meta {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-size: 0.78rem;
-      color: rgba(255,255,255,.5);
-    }
-
-    #headerMonth {
-      background: rgba(255,255,255,.1);
-      border: none;
-      color: #fff;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.78rem;
-      padding: 5px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    /* ── Page wrapper ───────────────────────── */
-    .page { max-width: 1300px; margin: 0 auto; padding: 28px 24px 60px; }
-
-    /* ── Top bar ────────────────────────────── */
     .top-bar {
       display: flex;
       align-items: flex-end;
@@ -94,29 +66,11 @@
       gap: 16px;
       flex-wrap: wrap;
     }
+    .top-bar h2 { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.4px; }
+    .top-bar h2 small { display: block; font-size: 0.78rem; font-weight: 500; color: var(--muted); margin-top: 2px; letter-spacing: 0; }
 
-    .top-bar h2 {
-      font-size: 1.35rem;
-      font-weight: 800;
-      letter-spacing: -0.4px;
-    }
-
-    .top-bar h2 small {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--muted);
-      margin-top: 2px;
-      letter-spacing: 0;
-    }
-
-    .search-wrap {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .search-wrap input {
+    .controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .controls input {
       background: var(--surface);
       border: 1px solid var(--border);
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -124,135 +78,42 @@
       padding: 8px 14px;
       border-radius: var(--radius);
       color: var(--ink);
-      width: 200px;
       transition: border-color .2s;
     }
-    .search-wrap input:focus { outline: none; border-color: var(--blue); }
-    .search-wrap input::placeholder { color: var(--muted); }
+    .controls input[type="text"] { width: 200px; }
+    .controls input:focus { outline: none; border-color: var(--blue); }
+    .controls input::placeholder { color: var(--muted); }
 
-    /* ── Stats row ──────────────────────────── */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      box-shadow: var(--shadow);
-    }
-
-    .stat-card .label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-bottom: 6px;
-    }
-
-    .stat-card .amount {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.25rem;
-      font-weight: 500;
-    }
-
+    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 24px; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; box-shadow: var(--shadow); }
+    .stat-card .label { font-size: 0.72rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
+    .stat-card .amount { font-family: 'JetBrains Mono', monospace; font-size: 1.25rem; font-weight: 500; }
     .stat-card.green .amount { color: var(--green); }
-    .stat-card.red .amount   { color: var(--red); }
-    .stat-card.blue .amount  { color: var(--blue); }
+    .stat-card.red   .amount { color: var(--red); }
+    .stat-card.blue  .amount { color: var(--blue); }
 
-    /* ── Table card ─────────────────────────── */
-    .table-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
+    .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
     .table-scroll { overflow-x: auto; }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.82rem;
-      min-width: 1050px;
-    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; min-width: 1100px; }
+    thead tr { background: #f9f8f5; border-bottom: 1px solid var(--border); }
+    th { padding: 11px 14px; text-align: left; font-size: 0.70rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; white-space: nowrap; }
+    th.section-earn   { color: var(--green); border-bottom: 2px solid var(--green); }
+    th.section-deduct { color: var(--red);   border-bottom: 2px solid var(--red); }
+    th.section-net    { color: var(--blue);  border-bottom: 2px solid var(--blue); }
 
-    thead tr {
-      background: #f9f8f5;
-      border-bottom: 1px solid var(--border);
-    }
-
-    th {
-      padding: 11px 14px;
-      text-align: left;
-      font-size: 0.70rem;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      white-space: nowrap;
-    }
-
-    th.section-earn  { color: var(--green); border-bottom: 2px solid var(--green); }
-    th.section-deduct{ color: var(--red);   border-bottom: 2px solid var(--red); }
-    th.section-net   { color: var(--blue);  border-bottom: 2px solid var(--blue); }
-
-    tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background .15s;
-    }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: #fafaf8; }
+    td { padding: 12px 14px; white-space: nowrap; vertical-align: middle; }
 
-    td {
-      padding: 12px 14px;
-      white-space: nowrap;
-      vertical-align: middle;
-    }
+    .emp-name { font-weight: 700; font-size: 0.85rem; }
+    .emp-id { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+    .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+    .earn-val { color: var(--green); }
+    .gross-val { font-family: 'JetBrains Mono', monospace; font-weight: 500; color: var(--blue); }
+    .net-val { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.9rem; color: var(--ink); background: var(--blue-bg); padding: 4px 10px; border-radius: 6px; display: inline-block; }
 
-    .emp-name {
-      font-weight: 700;
-      font-size: 0.85rem;
-    }
-    .emp-id {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .mono {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-    }
-
-    .earn-val  { color: var(--green); }
-    .deduct-val{ color: var(--red);   }
-
-    .gross-val {
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 500;
-      color: var(--blue);
-    }
-
-    .net-val {
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 700;
-      font-size: 0.9rem;
-      color: var(--ink);
-      background: var(--blue-bg);
-      padding: 4px 10px;
-      border-radius: 6px;
-      display: inline-block;
-    }
-
-    /* ── Inline editable input ──────────────── */
     .deduct-input {
       background: var(--red-bg);
       border: 1px solid #e8c0c0;
@@ -265,18 +126,28 @@
       text-align: right;
       transition: border-color .2s, box-shadow .2s;
     }
-    .deduct-input:focus {
-      outline: none;
-      border-color: var(--red);
-      box-shadow: 0 0 0 3px rgba(184,50,50,.12);
-    }
+    .deduct-input:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(184,50,50,.12); }
     .deduct-input::placeholder { color: #d49090; }
 
-    /* ── Record button per row ──────────────── */
-    .record-btn {
-      background: var(--ink);
-      color: #fff;
-      border: none;
+    /* Status badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.70rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+    }
+    .status-badge.saved   { background: var(--green-bg); color: var(--green); border: 1px solid #b4d9c6; }
+    .status-badge.pending { background: var(--amber-bg); color: var(--amber); border: 1px solid #f0d89a; }
+
+    /* Update button (per row) */
+    .update-btn {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #b8cef0;
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 0.72rem;
       font-weight: 700;
@@ -284,47 +155,63 @@
       border-radius: 6px;
       cursor: pointer;
       letter-spacing: 0.3px;
-      transition: opacity .2s, transform .1s;
+      transition: background .2s, color .2s, transform .1s, opacity .2s;
       white-space: nowrap;
     }
-    .record-btn:hover  { opacity: .78; }
-    .record-btn:active { transform: scale(.97); }
-    .record-btn:disabled { opacity: .35; cursor: not-allowed; }
-    .record-btn.done {
-      background: var(--green-bg);
-      color: var(--green);
-      border: 1px solid #b4d9c6;
-    }
+    .update-btn:hover:not(:disabled) { background: var(--blue); color: #fff; }
+    .update-btn:active:not(:disabled) { transform: scale(.97); }
+    .update-btn:disabled { opacity: .3; cursor: not-allowed; }
 
-    /* ── Empty / loading state ──────────────── */
-    .state-box {
-      padding: 80px 20px;
-      text-align: center;
-      color: var(--muted);
+    /* Bottom save bar */
+    .save-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      z-index: 40;
+      box-shadow: 0 -4px 20px rgba(0,0,0,.06);
     }
-    .state-box .icon {
-      font-size: 2.4rem;
-      margin-bottom: 12px;
-      display: block;
+    .save-bar-info { font-size: 0.82rem; color: var(--muted); }
+    .save-bar-info strong { color: var(--ink); font-weight: 700; }
+
+    .save-all-btn {
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 11px 28px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: opacity .2s, transform .1s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+    .save-all-btn:hover:not(:disabled)  { opacity: .82; }
+    .save-all-btn:active:not(:disabled) { transform: scale(.98); }
+    .save-all-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+    /* States */
+    .state-box { padding: 80px 20px; text-align: center; color: var(--muted); }
+    .state-box .icon { font-size: 2.4rem; margin-bottom: 12px; display: block; }
     .state-box p { font-size: 0.88rem; }
 
-    .spinner {
-      display: inline-block;
-      width: 18px; height: 18px;
-      border: 2px solid rgba(0,0,0,.1);
-      border-top-color: var(--ink);
-      border-radius: 50%;
-      animation: spin .65s linear infinite;
-      vertical-align: middle;
-      margin-right: 6px;
-    }
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(0,0,0,.1); border-top-color: var(--ink); border-radius: 50%; animation: spin .65s linear infinite; vertical-align: middle; }
+    .spinner.white { border-color: rgba(255,255,255,.25); border-top-color: #fff; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── Toast ──────────────────────────────── */
+    /* Toast */
     #toast {
       position: fixed;
-      bottom: 24px; right: 24px;
+      bottom: 80px; right: 24px;
       padding: 12px 20px;
       border-radius: 10px;
       font-size: 0.82rem;
@@ -334,87 +221,49 @@
       transition: all .3s;
       pointer-events: none;
       z-index: 999;
-      max-width: 300px;
+      max-width: 320px;
       box-shadow: 0 8px 24px rgba(0,0,0,.12);
     }
-    #toast.show  { opacity: 1; transform: translateY(0); }
-    #toast.ok    { background: var(--green-bg); color: var(--green); border: 1px solid #b4d9c6; }
-    #toast.fail  { background: var(--red-bg);   color: var(--red);   border: 1px solid #e8c0c0; }
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast.ok   { background: var(--green-bg); color: var(--green); border: 1px solid #b4d9c6; }
+    #toast.fail { background: var(--red-bg);   color: var(--red);   border: 1px solid #e8c0c0; }
 
-    /* ── Month selector in header ───────────── */
-    #salaryMonthInput {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.82rem;
-      padding: 7px 12px;
-      border-radius: var(--radius);
-      color: var(--ink);
-    }
-
-    @media(max-width:900px) {
-      .stats-row { grid-template-columns: 1fr 1fr; }
-    }
-    @media(max-width:560px) {
-      .stats-row { grid-template-columns: 1fr; }
-      .top-bar { flex-direction: column; align-items: flex-start; }
-    }
+    @media(max-width:900px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:560px) { .stats-row { grid-template-columns: 1fr; } .top-bar { flex-direction: column; align-items: flex-start; } }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">
-    <span class="logo-dot"></span>
-    PayRoll
-  </div>
-  <div class="header-meta">
-    <span id="orgLabel">Loading…</span>
-  </div>
+  <div class="logo"><span class="logo-dot"></span> PayRoll</div>
+  <div class="header-meta"><span id="orgLabel">Loading…</span></div>
 </header>
 
 <div class="page">
 
-  <!-- Top bar -->
   <div class="top-bar">
     <div>
-      <h2>Salary Sheet
-        <small id="pageSubtitle">Fetching employee records…</small>
-      </h2>
+      <h2>Salary Sheet <small id="pageSubtitle">Fetching employee records…</small></h2>
     </div>
-    <div class="search-wrap">
-      <input type="month" id="salaryMonthInput" title="Salary Month for recording"/>
+    <div class="controls">
+      <input type="month" id="salaryMonthInput" title="Salary Month"/>
       <input type="text" id="searchBox" placeholder="Search employee…" oninput="filterRows()"/>
     </div>
   </div>
 
-  <!-- Stats row -->
   <div class="stats-row">
-    <div class="stat-card">
-      <div class="label">Employees</div>
-      <div class="amount" id="statEmp">—</div>
-    </div>
-    <div class="stat-card green">
-      <div class="label">Total Gross</div>
-      <div class="amount" id="statGross">—</div>
-    </div>
-    <div class="stat-card red">
-      <div class="label">Total Deductions</div>
-      <div class="amount" id="statDeduct">—</div>
-    </div>
-    <div class="stat-card blue">
-      <div class="label">Total Net Payable</div>
-      <div class="amount" id="statNet">—</div>
-    </div>
+    <div class="stat-card">       <div class="label">Employees</div>       <div class="amount" id="statEmp">—</div></div>
+    <div class="stat-card green"> <div class="label">Total Gross</div>     <div class="amount" id="statGross">—</div></div>
+    <div class="stat-card red">   <div class="label">Total Deductions</div><div class="amount" id="statDeduct">—</div></div>
+    <div class="stat-card blue">  <div class="label">Total Net Payable</div><div class="amount" id="statNet">—</div></div>
   </div>
 
-  <!-- Table -->
   <div class="table-card">
     <div class="table-scroll">
-      <table id="mainTable">
+      <table>
         <thead>
           <tr>
-            <th rowspan="2">Employee</th>
+            <th>Employee</th>
             <th class="section-earn">Base</th>
             <th class="section-earn">AGP</th>
             <th class="section-earn">DA</th>
@@ -428,18 +277,12 @@
             <th class="section-deduct">Other Deduction</th>
             <th class="section-deduct">Absent Deduction</th>
             <th class="section-net">Net Payable</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody id="tableBody">
-          <tr>
-            <td colspan="15">
-              <div class="state-box">
-                <span class="icon">⏳</span>
-                <p><span class="spinner"></span> Loading salary records…</p>
-              </div>
-            </td>
-          </tr>
+          <tr><td colspan="16"><div class="state-box"><span class="icon">⏳</span><p><span class="spinner"></span> Loading…</p></div></td></tr>
         </tbody>
       </table>
     </div>
@@ -447,58 +290,60 @@
 
 </div>
 
+<!-- Fixed bottom Save All bar -->
+<div class="save-bar">
+  <div class="save-bar-info" id="saveBarInfo">Select a month to begin.</div>
+  <button class="save-all-btn" id="saveAllBtn" onclick="saveAllSalaries()" disabled>
+    💾 Save All Salaries
+  </button>
+</div>
+
 <div id="toast"></div>
 
 <script>
-/* ══════════════════════════════════════════════
-   CONFIG – change BASE_URL to your Flask server
-   ══════════════════════════════════════════════ */
 const BASE_URL  = 'http://127.0.0.1:5000';
 const TOKEN_KEY = 'token';
 
-/* ── Helpers ─────────────────────────────────── */
-function getToken()      { return localStorage.getItem(TOKEN_KEY) || ''; }
-function authHeaders()   { return { 'Content-Type':'application/json', 'Authorization':`Bearer ${getToken()}` }; }
-function num(v)          { return parseFloat(v) || 0; }
-function currency(n)     { return '₹' + Number(n).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function getToken()    { return localStorage.getItem(TOKEN_KEY) || ''; }
+function authHeaders() { return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` }; }
+function num(v)        { return parseFloat(v) || 0; }
+function currency(n)   { return '₹' + Number(n).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
 
 let toastTimer;
-function toast(msg, type='ok') {
+function toast(msg, type = 'ok') {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.className = `show ${type}`;
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.className = '', 3000);
+  toastTimer = setTimeout(() => t.className = '', 3500);
 }
 
-/* ── State ───────────────────────────────────── */
-let employees = []; // raw data from API
+/* ── State ── */
+let employees    = [];  // base salary details from /get_salary_details
+let savedRecords = {};  // user_id → record, for the currently selected month
 
-/* ── Boot: set default month, fetch on load ─── */
+/* ── Boot ── */
 window.addEventListener('DOMContentLoaded', () => {
-  const now  = new Date();
-  const yyyy = now.getFullYear();
-  const mm   = String(now.getMonth() + 1).padStart(2, '0');
-  document.getElementById('salaryMonthInput').value = `${yyyy}-${mm}`;
+  const now = new Date();
+  document.getElementById('salaryMonthInput').value =
+    `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+
+  document.getElementById('salaryMonthInput').addEventListener('change', fetchMonthlyRecords);
+
   fetchSalaries();
 });
 
-/* ── Fetch /get_salary_details ───────────────── */
+/* ── Step 1: Load base salary details ── */
 async function fetchSalaries() {
   try {
-    const res  = await fetch(`${BASE_URL}/get_salary_details`, {
-      method: 'GET',
-      headers: authHeaders()
-    });
+    const res  = await fetch(`${BASE_URL}/get_salary_details`, { headers: authHeaders() });
     const data = await res.json();
-
     if (data.status === 'success') {
       employees = data.emp || [];
       document.getElementById('pageSubtitle').textContent =
         `${employees.length} employee${employees.length !== 1 ? 's' : ''} in your organisation`;
       document.getElementById('orgLabel').textContent = `Org · ${employees.length} staff`;
-      renderTable(employees);
-      updateStats(employees);
+      await fetchMonthlyRecords();
     } else {
       showError(data.message || 'Could not load records.');
     }
@@ -507,30 +352,60 @@ async function fetchSalaries() {
   }
 }
 
-function showError(msg) {
-  document.getElementById('tableBody').innerHTML = `
-    <tr><td colspan="15">
-      <div class="state-box">
-        <span class="icon">⚠️</span>
-        <p>${msg}</p>
-      </div>
-    </td></tr>`;
-  document.getElementById('pageSubtitle').textContent = 'Failed to load records.';
+/* ── Step 2: Load saved records for selected month ── */
+async function fetchMonthlyRecords() {
+  const month = document.getElementById('salaryMonthInput').value;
+  if (!month || !employees.length) return;
+
+  savedRecords = {};
+  try {
+    const res  = await fetch(`${BASE_URL}/get_monthly_salary_records?salary_month=${month}`, { headers: authHeaders() });
+    const data = await res.json();
+    if (data.status === 'success') {
+      (data.records || []).forEach(r => { savedRecords[r.user_id] = r; });
+    }
+  } catch (_) { /* non-fatal */ }
+
+  renderTable(employees);
+  updateStats(employees);
+  updateSaveBar();
 }
 
-/* ── Render table rows ───────────────────────── */
+function showError(msg) {
+  document.getElementById('tableBody').innerHTML =
+    `<tr><td colspan="16"><div class="state-box"><span class="icon">⚠️</span><p>${msg}</p></div></td></tr>`;
+}
+
+/* ── Render rows ── */
 function renderTable(rows) {
   const tbody = document.getElementById('tableBody');
-
   if (!rows.length) {
-    tbody.innerHTML = `<tr><td colspan="15"><div class="state-box"><span class="icon">📭</span><p>No employees found.</p></div></td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="16"><div class="state-box"><span class="icon">📭</span><p>No employees found.</p></div></td></tr>`;
     return;
   }
 
   tbody.innerHTML = rows.map((emp, idx) => {
-    const gross = num(emp.base_salary) + num(emp.agp) + num(emp.da) + num(emp.dp) + num(emp.hra) + num(emp.tra) + num(emp.cla);
+    const gross   = num(emp.base_salary) + num(emp.agp) + num(emp.da) + num(emp.dp) + num(emp.hra) + num(emp.tra) + num(emp.cla);
+    const isSaved = !!savedRecords[emp.user_id];
+    const rec     = savedRecords[emp.user_id] || {};
+
+    // Pre-fill deduction inputs from saved record if this month is already saved
+    const pfVal  = isSaved ? num(rec.pf)                   : '';
+    const ptVal  = isSaved ? num(rec.pt)                   : '';
+    const odVal  = isSaved ? num(rec.other_deduction)       : '';
+    const adVal  = isSaved ? num(rec.absent_days_deduction) : '';
+    const netVal = isSaved ? num(rec.net_salary)            : gross;
+
+    const badge = isSaved
+      ? `<span class="status-badge saved">✓ Saved</span>`
+      : `<span class="status-badge pending">Pending</span>`;
+
+    // Update button: only active when salary is already saved for this month
+    const updateDisabled = isSaved ? '' : 'disabled';
+    const updateTitle    = isSaved ? 'Update this employee\'s saved salary' : 'Save salary first to enable update';
+
     return `
-    <tr data-idx="${idx}" data-userid="${emp.user_id}">
+    <tr data-userid="${emp.user_id}">
       <td>
         <div class="emp-name">${emp.Name || '—'}</div>
         <div class="emp-id">${emp.user_id}</div>
@@ -544,87 +419,155 @@ function renderTable(rows) {
       <td class="mono earn-val">${currency(emp.cla)}</td>
       <td><span class="gross-val">${currency(gross)}</span></td>
 
-      <!-- Editable deductions -->
       <td><input class="deduct-input" type="number" min="0" step="0.01" placeholder="0.00"
-            id="pf_${idx}" oninput="recalcRow(${idx})" title="Provident Fund"/></td>
+            id="pf_${idx}" value="${pfVal}" oninput="recalcRow(${idx})" title="Provident Fund"/></td>
       <td><input class="deduct-input" type="number" min="0" step="0.01" placeholder="0.00"
-            id="pt_${idx}" oninput="recalcRow(${idx})" title="Professional Tax"/></td>
+            id="pt_${idx}" value="${ptVal}" oninput="recalcRow(${idx})" title="Professional Tax"/></td>
       <td><input class="deduct-input" type="number" min="0" step="0.01" placeholder="0.00"
-            id="od_${idx}" oninput="recalcRow(${idx})" title="Other Deduction"/></td>
+            id="od_${idx}" value="${odVal}" oninput="recalcRow(${idx})" title="Other Deduction"/></td>
       <td><input class="deduct-input" type="number" min="0" step="0.01" placeholder="0.00"
-            id="ad_${idx}" oninput="recalcRow(${idx})" title="Absent Days Deduction"/></td>
+            id="ad_${idx}" value="${adVal}" oninput="recalcRow(${idx})" title="Absent Days Deduction"/></td>
 
-      <td><span class="net-val" id="net_${idx}">${currency(gross)}</span></td>
-
+      <td><span class="net-val" id="net_${idx}">${currency(netVal)}</span></td>
+      <td id="status_${idx}">${badge}</td>
       <td>
-        <button class="record-btn" id="rbtn_${idx}" onclick="recordSalary(${idx})">Record</button>
+        <button class="update-btn" id="ubtn_${idx}" ${updateDisabled} title="${updateTitle}"
+          onclick="updateSalary(${idx})">↑ Update</button>
       </td>
     </tr>`;
   }).join('');
 }
 
-/* ── Live recalc for a row ───────────────────── */
+/* ── Live net recalc ── */
 function recalcRow(idx) {
   const emp   = employees[idx];
   const gross = num(emp.base_salary) + num(emp.agp) + num(emp.da) + num(emp.dp) + num(emp.hra) + num(emp.tra) + num(emp.cla);
-  const deduct = num(document.getElementById(`pf_${idx}`).value)
-               + num(document.getElementById(`pt_${idx}`).value)
-               + num(document.getElementById(`od_${idx}`).value)
-               + num(document.getElementById(`ad_${idx}`).value);
-  const net = gross - deduct;
-  document.getElementById(`net_${idx}`).textContent = currency(net);
-  updateStats(employees); // refresh totals
+  const d     = num(document.getElementById(`pf_${idx}`).value)
+              + num(document.getElementById(`pt_${idx}`).value)
+              + num(document.getElementById(`od_${idx}`).value)
+              + num(document.getElementById(`ad_${idx}`).value);
+  document.getElementById(`net_${idx}`).textContent = currency(gross - d);
+  updateStats(employees);
 }
 
-/* ── Summary stats (uses live inputs) ───────── */
+/* ── Stats ── */
 function updateStats(rows) {
   let totalGross = 0, totalDeduct = 0;
-
   rows.forEach((emp, idx) => {
     const gross = num(emp.base_salary) + num(emp.agp) + num(emp.da) + num(emp.dp) + num(emp.hra) + num(emp.tra) + num(emp.cla);
     totalGross += gross;
-
-    // Try reading live input values; fallback to 0 if row not rendered yet
-    const pf = num(document.getElementById(`pf_${idx}`)?.value);
-    const pt = num(document.getElementById(`pt_${idx}`)?.value);
-    const od = num(document.getElementById(`od_${idx}`)?.value);
-    const ad = num(document.getElementById(`ad_${idx}`)?.value);
-    totalDeduct += (pf + pt + od + ad);
+    totalDeduct += num(document.getElementById(`pf_${idx}`)?.value)
+                 + num(document.getElementById(`pt_${idx}`)?.value)
+                 + num(document.getElementById(`od_${idx}`)?.value)
+                 + num(document.getElementById(`ad_${idx}`)?.value);
   });
-
-  document.getElementById('statEmp').textContent   = rows.length;
+  document.getElementById('statEmp').textContent    = rows.length;
   document.getElementById('statGross').textContent  = currency(totalGross);
   document.getElementById('statDeduct').textContent = currency(totalDeduct);
   document.getElementById('statNet').textContent    = currency(totalGross - totalDeduct);
 }
 
-/* ── Search filter ───────────────────────────── */
-function filterRows() {
-  const q = document.getElementById('searchBox').value.toLowerCase().trim();
-  const filtered = q ? employees.filter(e => (e.Name || '').toLowerCase().includes(q)) : employees;
+/* ── Save bar label + button state ── */
+function updateSaveBar() {
+  const month    = document.getElementById('salaryMonthInput').value || '—';
+  const nSaved   = Object.keys(savedRecords).length;
+  const nPending = employees.length - nSaved;
+  const btn      = document.getElementById('saveAllBtn');
+  const info     = document.getElementById('saveBarInfo');
 
-  // Re-render with filtered set (loses live inputs — acceptable for search)
-  renderTable(filtered);
-  updateStats(filtered);
+  if (employees.length === 0) {
+    info.innerHTML = 'No employees loaded.';
+    btn.disabled = true;
+    return;
+  }
+
+  if (nPending === 0) {
+    // All saved → disable Save All, only Update available
+    info.innerHTML = `All <strong>${employees.length}</strong> employees already have salary saved for <strong>${month}</strong>. Use <strong>Update</strong> to make changes.`;
+    btn.disabled = true;
+    btn.innerHTML = '✓ All Saved';
+  } else {
+    info.innerHTML = `<strong>${nPending}</strong> unsaved · <strong>${nSaved}</strong> already saved for <strong>${month}</strong>`;
+    btn.disabled = false;
+    btn.innerHTML = '💾 Save All Salaries';
+  }
 }
 
-/* ── Record salary via /emp_salary ──────────── */
-async function recordSalary(idx) {
+/* ── Search ── */
+function filterRows() {
+  const q = document.getElementById('searchBox').value.toLowerCase().trim();
+  renderTable(q ? employees.filter(e => (e.Name || '').toLowerCase().includes(q)) : employees);
+  updateStats(employees);
+}
+
+/* ── Save All: calls original /emp_salary once per employee ── */
+async function saveAllSalaries() {
+  const month = document.getElementById('salaryMonthInput').value;
+  if (!month) { toast('Please select a salary month first.', 'fail'); return; }
+
+  const btn = document.getElementById('saveAllBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner white"></span> Saving…';
+
+  // Only send employees that are NOT yet saved for this month
+  const pending = employees.filter(emp => !savedRecords[emp.user_id]);
+
+  let savedCount = 0;
+  for (let idx = 0; idx < employees.length; idx++) {
+    const emp = employees[idx];
+    if (savedRecords[emp.user_id]) continue; // already saved, skip
+
+    const payload = {
+      user_id              : emp.user_id,
+      salary_month         : month,
+      salary_date          : new Date().toISOString().split('T')[0],
+      base_salary          : num(emp.base_salary),
+      agp                  : num(emp.agp),
+      da                   : num(emp.da),
+      dp                   : num(emp.dp),
+      hra                  : num(emp.hra),
+      tra                  : num(emp.tra),
+      cla                  : num(emp.cla),
+      pf                   : num(document.getElementById(`pf_${idx}`)?.value),
+      pt                   : num(document.getElementById(`pt_${idx}`)?.value),
+      other_deduction      : num(document.getElementById(`od_${idx}`)?.value),
+      absent_days_deduction: num(document.getElementById(`ad_${idx}`)?.value)
+    };
+
+    try {
+      const res  = await fetch(`${BASE_URL}/emp_salary`, {
+        method : 'POST',
+        headers: authHeaders(),
+        body   : JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (data.status === 'success') savedCount++;
+    } catch (_) {}
+  }
+
+  toast(`${savedCount} of ${pending.length} salary records saved.`, savedCount > 0 ? 'ok' : 'fail');
+
+  // Refresh monthly records to update badges and enable Update buttons
+  await fetchMonthlyRecords();
+}
+
+/* ── Update single employee salary ── */
+async function updateSalary(idx) {
   const emp   = employees[idx];
   const month = document.getElementById('salaryMonthInput').value;
 
-  if (!month) { toast('Please select a salary month first.', 'fail'); return; }
+  if (!savedRecords[emp.user_id]) {
+    toast('No saved record for this employee. Use Save All first.', 'fail');
+    return;
+  }
 
-  const gross = num(emp.base_salary) + num(emp.agp) + num(emp.da) + num(emp.dp) + num(emp.hra) + num(emp.tra) + num(emp.cla);
-  const pf    = num(document.getElementById(`pf_${idx}`).value);
-  const pt    = num(document.getElementById(`pt_${idx}`).value);
-  const od    = num(document.getElementById(`od_${idx}`).value);
-  const ad    = num(document.getElementById(`ad_${idx}`).value);
+  const btn = document.getElementById(`ubtn_${idx}`);
+  btn.disabled = true;
+  btn.textContent = '…';
 
   const payload = {
     user_id              : emp.user_id,
     salary_month         : month,
-    salary_date          : new Date().toISOString().split('T')[0],
     base_salary          : num(emp.base_salary),
     agp                  : num(emp.agp),
     da                   : num(emp.da),
@@ -632,37 +575,33 @@ async function recordSalary(idx) {
     hra                  : num(emp.hra),
     tra                  : num(emp.tra),
     cla                  : num(emp.cla),
-    pf,
-    pt,
-    other_deduction      : od,
-    absent_days_deduction: ad
+    pf                   : num(document.getElementById(`pf_${idx}`).value),
+    pt                   : num(document.getElementById(`pt_${idx}`).value),
+    other_deduction      : num(document.getElementById(`od_${idx}`).value),
+    absent_days_deduction: num(document.getElementById(`ad_${idx}`).value)
   };
 
-  const btn = document.getElementById(`rbtn_${idx}`);
-  btn.disabled    = true;
-  btn.textContent = '…';
-
   try {
-    const res  = await fetch(`${BASE_URL}/emp_salary`, {
-      method : 'POST',
+    const res  = await fetch(`${BASE_URL}/update_emp_salary`, {
+      method : 'PUT',
       headers: authHeaders(),
       body   : JSON.stringify(payload)
     });
     const data = await res.json();
 
     if (data.status === 'success') {
-      btn.textContent = '✓ Done';
-      btn.classList.add('done');
-      toast(`${emp.Name} — salary recorded ✓`, 'ok');
+      toast(`${emp.Name} — salary updated ✓`, 'ok');
+      btn.textContent = '✓ Updated';
+      setTimeout(() => { btn.disabled = false; btn.textContent = '↑ Update'; }, 2000);
     } else {
-      btn.disabled    = false;
-      btn.textContent = 'Record';
-      toast(data.message || 'Recording failed.', 'fail');
+      toast(data.message || 'Update failed.', 'fail');
+      btn.disabled = false;
+      btn.textContent = '↑ Update';
     }
   } catch (err) {
-    btn.disabled    = false;
-    btn.textContent = 'Record';
     toast('Network error: ' + err.message, 'fail');
+    btn.disabled = false;
+    btn.textContent = '↑ Update';
   }
 }
 </script>
