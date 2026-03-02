@@ -22,6 +22,9 @@ def login_admin():
 def admin_dashboard():
     return render_template('admindashboard.html')
 
+@app.route('/managerdashboard')
+def manager_dashboard():
+    return render_template('managerdashboard.html')
 
 @app.route('/addmanager')
 def add_manager():
