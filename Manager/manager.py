@@ -66,3 +66,7 @@ def add_emp(id = None, org_id = None, role = None):
             'message':str(e)
         })
     
+    finally:
+        cursor.close()
+        conn.close()
+    

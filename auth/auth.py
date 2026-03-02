@@ -16,7 +16,7 @@ def login():
         email = data.get('email')
         password = data.get('password')
 
-        cursor.execute("SELECT * FROM USERS where email = %s and Status='Active'",(email,))
+        cursor.execute("SELECT * FROM USERS where email = %s and Status='Active' and Role!='Super_Admin'",(email,))
         user_mail = cursor.fetchone()
         if not user_mail:
             return jsonify({
@@ -60,4 +60,7 @@ def login():
             'status':'error',
             'message': str(e)
         })
+    finally:
+        cursor.close()
+        conn.close()
 

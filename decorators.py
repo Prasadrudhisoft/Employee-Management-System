@@ -1,4 +1,4 @@
-from jose import jwt
+from jose import jwt, JWTError
 import os
 from functools import wraps
 from flask import request, jsonify
@@ -25,10 +25,10 @@ def jwt_required(func):
                 algorithms=[ALGORITHM]
             )
 
-        except jwt.ExpiredSignatureError:
+        except JWTError:
             return jsonify({"message": "Token expired"}), 401
 
-        except jwt.InvalidTokenError:
+        except JWTError:
             return jsonify({"message": "Invalid token"}), 401
 
         # Inject values like your FastAPI version

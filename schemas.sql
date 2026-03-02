@@ -103,3 +103,26 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- =========================================
 -- END OF FILE
 -- =========================================
+
+CREATE TABLE staff_salary_record(
+    id CHAR(36) NOT NULL PRIMARY KEY,
+    user_id CHAR(36) NOT NULL,
+    org_id CHAR(36) NOT NULL,
+    adj_base DECIMAL(10,2),
+    adj_agp DECIMAL(10,2),
+    adj_da DECIMAL(10,2),
+    adj_dp DECIMAL(10,2),
+    adj_hra DECIMAL(10,2),
+    adj_tra DECIMAL(10,2),
+    adj_cla DECIMAL(10,2),
+    pt DECIMAL(10,2) DEFAULT 0.00,
+    pf DECIMAL(10,2) DEFAULT 0.00,
+    other_deduction DECIMAL(10,2) DEFAULT 0.00,
+    absent_days_deduction DECIMAL(10,2) DEFAULT 0.00,
+    gross_salary DECIMAL(10,2) NOT NULL,
+    net_salary DECIMAL(10,2) NOT NULL,
+    salary_month varchar(200),
+    salary_date DATE NOT NULL,
+    created_by CHAR(36),
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

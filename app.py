@@ -5,10 +5,12 @@ app = Flask(__name__)
 from auth.auth import auth_bp
 from Admin.Admin import admin_bp
 from Manager.manager import manager_bp
+from account.account import account_bp
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(admin_bp)
 app.register_blueprint(manager_bp)
+app.register_blueprint(account_bp)
 
 
 
@@ -28,6 +30,10 @@ def add_manager():
 @app.route('/adddepartments')
 def add_department():
     return render_template('adddepartments.html')
+
+@app.route('/salary_record')
+def salary_record():
+    return render_template('salary_record.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

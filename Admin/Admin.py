@@ -56,6 +56,9 @@ def get_departments(id = None, org_id = None, role = None):
             'status':'error',
             'message':str(e)
         })
+    finally:
+        cursor.close()
+        conn.close()
     
 @admin_bp.route('/add_manager', methods=['GET','POST'])
 @jwt_required
@@ -116,3 +119,7 @@ def add_manager(id = None, org_id = None, role= None):
             'status':'error',
             'message':str(e)
         })
+    
+    finally:
+        cursor.close()
+        conn.close()
