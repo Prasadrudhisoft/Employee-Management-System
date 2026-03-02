@@ -30,6 +30,10 @@ def manager_dashboard():
 def add_manager():
     return render_template('addmanager.html')
 
+@app.route('/addemp')
+def add_emp():
+    return render_template('addemployee.html')
+
 @app.route('/adddepartments')
 def add_department():
     return render_template('adddepartments.html')

@@ -968,8 +968,27 @@ if (data.status === "success") {
     setValid('passWrap');
     showMsg('success', 'fa-circle-check', 'Login successful! Redirecting...');
 
-    setTimeout(() => window.location.href = "/admindashboard",1200);
-} else {
+    // 🔥 ROLE-BASED REDIRECT
+  // 🔥 ROLE-BASED REDIRECT
+setTimeout(() => {
+    const role = (data.user_data.role || "").toLowerCase();
+
+    if (role === "admin") {
+        window.location.href = "/admindashboard";
+    } 
+    else if (role === "emp") {
+        window.location.href = "/empdashboard";
+    } 
+    else if (role === "manager") {
+        window.location.href = "/managerdashboard";
+    } 
+    else {
+        console.warn("Unknown role:", role);
+        window.location.href = "/";
+    }
+
+}, 1200);}
+else {
                 // ── Server error — highlight the right field ──────────
                 const serverMsg = data.message || '';
 

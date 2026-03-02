@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Add Employee | EMS Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        :root{
+            --sidebar-width:280px;--header-height:75px;
+            --primary:#6366f1;--primary-dark:#4f46e5;--primary-light:#818cf8;--primary-lighter:#c7d2fe;--primary-glow:rgba(99,102,241,.35);
+            --secondary:#0ea5e9;
+            --bg-body:#f8fafc;--bg-sidebar:#ffffff;--bg-white:#ffffff;--bg-card:#ffffff;--bg-light:#f1f5f9;--bg-lighter:#f8fafc;
+            --bg-gradient:linear-gradient(135deg,#eef2ff 0%,#e0e7ff 100%);
+            --text-dark:#0f172a;--text-primary:#1e293b;--text-secondary:#475569;--text-muted:#94a3b8;
+            --border-color:#e2e8f0;
+            --success:#10b981;--success-light:#d1fae5;--warning:#f59e0b;--warning-light:#fef3c7;
+            --danger:#ef4444;--danger-light:#fee2e2;--info:#0ea5e9;--info-light:#e0f2fe;
+            --shadow-sm:0 1px 3px rgba(0,0,0,.04),0 1px 2px rgba(0,0,0,.03);
+            --radius-sm:8px;--radius:12px;--radius-lg:16px;--radius-xl:20px;--radius-2xl:24px;
+        }
+        html{font-size:16px;scroll-behavior:smooth}
+        body{font-family:'Inter',sans-serif;background:var(--bg-body);color:var(--text-primary);min-height:100vh;-webkit-font-smoothing:antialiased}
+        ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border-color);border-radius:10px}
+
+        /* ── Sidebar ── */
+        .sidebar{position:fixed;top:0;left:0;width:var(--sidebar-width);height:100vh;background:var(--bg-sidebar);border-right:1px solid var(--border-color);z-index:100;display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+        .sidebar-header{padding:24px 20px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:14px}
+        .logo-box{width:48px;height:48px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px var(--primary-glow);flex-shrink:0}
+        .logo-box i{font-size:20px;color:#fff}
+        .logo-info h1{font-size:22px;font-weight:800;color:var(--text-dark);letter-spacing:-.03em}
+        .logo-info span{font-size:11px;font-weight:600;color:var(--primary);text-transform:uppercase;letter-spacing:.08em}
+        .admin-profile-card{margin:20px 16px;padding:20px;background:var(--bg-gradient);border-radius:var(--radius-xl);border:1px solid var(--primary-lighter)}
+        .admin-profile-inner{display:flex;align-items:center;gap:14px}
+        .admin-avatar{width:52px;height:52px;border-radius:var(--radius-lg);background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 6px 20px var(--primary-glow);flex-shrink:0}
+        .admin-avatar i{font-size:22px;color:#fff}
+        .admin-avatar .status-indicator{position:absolute;bottom:-3px;right:-3px;width:16px;height:16px;background:var(--success);border:3px solid var(--bg-white);border-radius:50%}
+        .admin-meta h4{font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:3px}
+        .admin-meta p{font-size:12px;color:var(--primary);font-weight:600}
+        .admin-role-badge{margin-top:16px;display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(99,102,241,.12);border-radius:var(--radius);font-size:12px;font-weight:600;color:var(--primary-dark)}
+        .sidebar-nav{flex:1;padding:16px;overflow-y:auto}
+        .nav-section{margin-bottom:28px}
+        .nav-section-label{font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:.12em;padding:8px 16px;margin-bottom:8px}
+        .nav-link{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:var(--radius-lg);color:var(--text-secondary);text-decoration:none;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;margin-bottom:4px;position:relative}
+        .nav-link:hover{background:var(--bg-light);color:var(--text-dark)}
+        .nav-link:hover i{color:var(--primary)}
+        .nav-link.active{background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(99,102,241,.06));color:var(--primary-dark);font-weight:600}
+        .nav-link.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:28px;background:linear-gradient(180deg,var(--primary),var(--primary-dark));border-radius:0 6px 6px 0}
+        .nav-link.active i{color:var(--primary)}
+        .nav-link i{width:22px;font-size:18px;text-align:center;color:var(--text-muted);transition:all .2s}
+        .nav-link .badge{margin-left:auto;padding:4px 10px;background:linear-gradient(135deg,var(--danger),#dc2626);border-radius:20px;font-size:11px;font-weight:700;color:#fff;min-width:26px;text-align:center}
+        .nav-link .badge.info{background:linear-gradient(135deg,var(--info),#0284c7)}
+        .nav-link .badge.warning{background:linear-gradient(135deg,var(--warning),#d97706)}
+        .sidebar-footer{padding:20px 16px;border-top:1px solid var(--border-color)}
+        .logout-btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:16px;background:var(--danger-light);border:1px solid rgba(239,68,68,.2);border-radius:var(--radius-lg);color:var(--danger);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+        .logout-btn:hover{background:var(--danger);color:#fff;box-shadow:0 8px 20px rgba(239,68,68,.3);transform:translateY(-2px)}
+
+        /* ── Main ── */
+        .main-content{margin-left:var(--sidebar-width);min-height:100vh}
+        .header{position:sticky;top:0;height:var(--header-height);background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:50}
+        .header-left{display:flex;align-items:center;gap:24px}
+        .menu-toggle{display:none;width:46px;height:46px;border-radius:var(--radius-lg);background:var(--bg-light);border:1px solid var(--border-color);align-items:center;justify-content:center;cursor:pointer;color:var(--text-secondary);transition:all .2s}
+        .page-header h1{font-size:24px;font-weight:800;color:var(--text-dark);letter-spacing:-.03em}
+        .breadcrumb{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-muted);margin-top:4px}
+        .breadcrumb a{color:var(--text-secondary);text-decoration:none;font-weight:500}
+        .breadcrumb a:hover{color:var(--primary)}
+        .breadcrumb i{font-size:10px}
+        .header-right{display:flex;align-items:center;gap:16px}
+        .user-dropdown{display:flex;align-items:center;gap:14px;padding:8px 18px 8px 8px;background:var(--bg-light);border:1px solid var(--border-color);border-radius:var(--radius-lg);cursor:pointer}
+        .user-dropdown-avatar{width:40px;height:40px;border-radius:var(--radius);background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700}
+        .user-dropdown-info span{display:block;font-size:14px;font-weight:600;color:var(--text-dark)}
+        .user-dropdown-info small{font-size:12px;color:var(--text-muted)}
+
+        /* ── Page ── */
+        .page-body{padding:36px;max-width:1100px;margin:0 auto}
+
+        /* ── Banner ── */
+        .page-banner{background:linear-gradient(135deg,#0ea5e9 0%,#0284c7 50%,#0369a1 100%);border-radius:var(--radius-2xl);padding:36px 44px;margin-bottom:36px;color:#fff;position:relative;overflow:hidden;box-shadow:0 20px 50px rgba(14,165,233,.35)}
+        .page-banner::before{content:'';position:absolute;top:-50%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(255,255,255,.12) 0%,transparent 60%);animation:float-slow 10s ease-in-out infinite}
+        @keyframes float-slow{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(5deg)}}
+        .page-banner-inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between}
+        .page-banner-text h2{font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:-.02em}
+        .page-banner-text p{font-size:15px;opacity:.9;max-width:500px;line-height:1.7}
+        .page-banner-icon{width:80px;height:80px;border-radius:var(--radius-xl);background:rgba(255,255,255,.18);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;font-size:36px;border:1px solid rgba(255,255,255,.25)}
+
+        /* ── Form Card ── */
+        .form-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-2xl);box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:24px}
+        .section-block{padding:32px 36px;border-bottom:1px solid var(--border-color)}
+        .section-heading{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+        .section-icon{width:48px;height:48px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+        .section-icon.indigo{background:linear-gradient(135deg,rgba(99,102,241,.14),rgba(99,102,241,.06));color:var(--primary)}
+        .section-icon.cyan{background:linear-gradient(135deg,rgba(14,165,233,.14),rgba(14,165,233,.06));color:var(--secondary)}
+        .section-icon.emerald{background:linear-gradient(135deg,rgba(16,185,129,.14),rgba(16,185,129,.06));color:var(--success)}
+        .section-icon.amber{background:linear-gradient(135deg,rgba(245,158,11,.14),rgba(245,158,11,.06));color:var(--warning)}
+        .section-title h3{font-size:18px;font-weight:700;color:var(--text-dark)}
+        .section-title p{font-size:13px;color:var(--text-muted);margin-top:3px}
+
+        /* ── Form Grid ── */
+        .form-grid{display:grid;gap:22px}
+        .form-grid.cols2{grid-template-columns:1fr 1fr}
+        .form-grid.cols4{grid-template-columns:1fr 1fr 1fr 1fr}
+
+        /* ── Form Group ── */
+        .form-group{display:flex;flex-direction:column;gap:7px}
+        .form-label{font-size:13px;font-weight:600;color:var(--text-dark);display:flex;align-items:center;gap:8px}
+        .form-label i{font-size:12px;color:var(--primary)}
+        .form-label .req{color:var(--danger);margin-left:2px}
+        .form-label .opt{color:var(--text-muted);font-weight:400}
+        .field-hint{font-size:11.5px;color:var(--text-muted);margin-top:-4px}
+
+        /* ── Input Wrap ── */
+        .input-wrap{position:relative}
+        .input-wrap .icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--text-muted);transition:color .2s;pointer-events:none;z-index:1}
+        .input-wrap input,.input-wrap select,.input-wrap textarea{width:100%;padding:14px 18px 14px 50px;background:var(--bg-light);border:2px solid transparent;border-radius:var(--radius-lg);font-family:'Inter',sans-serif;font-size:14px;color:var(--text-dark);outline:none;transition:all .2s}
+        .input-wrap textarea{padding-top:14px;resize:vertical;min-height:80px}
+        .input-wrap select{appearance:none;cursor:pointer}
+        .input-wrap .chevron{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:12px;pointer-events:none}
+        .input-wrap input::placeholder,.input-wrap textarea::placeholder{color:var(--text-muted)}
+        .input-wrap input:focus,.input-wrap select:focus,.input-wrap textarea:focus{background:var(--bg-white);border-color:var(--primary);box-shadow:0 0 0 4px rgba(99,102,241,.1)}
+        .input-wrap:focus-within .icon{color:var(--primary)}
+        .char-count{position:absolute;right:14px;bottom:10px;font-size:11px;color:var(--text-muted);pointer-events:none}
+        .char-count.warn{color:var(--warning)}
+        .char-count.over{color:var(--danger)}
+        .pw-strength{height:4px;border-radius:4px;background:var(--bg-light);margin-top:6px;overflow:hidden}
+        .pw-strength-bar{height:100%;border-radius:4px;width:0;transition:width .3s,background .3s}
+
+        /* valid */
+        .input-wrap.valid input,.input-wrap.valid select,.input-wrap.valid textarea{border-color:var(--success);background:#f0fdf4}
+        .input-wrap.valid .icon{color:var(--success)}
+        .input-wrap.valid::after{content:'\f058';font-family:'Font Awesome 6 Free';font-weight:900;position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--success);font-size:15px;pointer-events:none}
+        .input-wrap.valid.has-toggle::after,.input-wrap.valid.has-chevron::after{display:none}
+
+        /* error */
+        .input-wrap.error input,.input-wrap.error select,.input-wrap.error textarea{border-color:var(--danger);background:var(--danger-light);box-shadow:0 0 0 3px rgba(239,68,68,.08)}
+        .input-wrap.error .icon{color:var(--danger)}
+        .field-err{display:none;align-items:center;gap:6px;font-size:12px;color:var(--danger);font-weight:500;animation:errIn .2s ease}
+        @keyframes errIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+        .input-wrap.error~.field-err{display:flex}
+
+        /* pw toggle */
+        .pw-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:16px;padding:4px;z-index:2;transition:color .2s}
+        .pw-toggle:hover{color:var(--text-secondary)}
+
+        /* avatar */
+        .avatar-upload{display:flex;align-items:center;gap:20px;padding:20px 24px;background:var(--bg-lighter);border:2px dashed var(--border-color);border-radius:var(--radius-lg);cursor:pointer;transition:all .2s;margin-bottom:28px}
+        .avatar-upload:hover{background:var(--bg-gradient);border-color:var(--primary)}
+        .avatar-preview{width:72px;height:72px;border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(99,102,241,.06));border:2px solid var(--primary-lighter);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+        .avatar-preview i{font-size:28px;color:var(--primary-light)}
+        .avatar-preview img{width:100%;height:100%;object-fit:cover}
+        .avatar-upload-text h5{font-size:14px;font-weight:600;color:var(--text-dark);margin-bottom:4px}
+        .avatar-upload-text p{font-size:12px;color:var(--text-muted)}
+        .avatar-upload-text p span{color:var(--primary);font-weight:600}
+        #profileInput{display:none}
+
+        /* salary note */
+        .salary-note{display:flex;align-items:flex-start;gap:14px;padding:16px 20px;background:var(--info-light);border:1px solid rgba(14,165,233,.25);border-radius:var(--radius-lg);margin-bottom:24px;font-size:13px;color:var(--info)}
+        .salary-note i{font-size:18px;flex-shrink:0;margin-top:1px}
+
+        /* form actions */
+        .form-actions{display:flex;align-items:center;justify-content:space-between;padding:28px 36px;background:var(--bg-lighter);border-top:1px solid var(--border-color)}
+        .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 26px;border-radius:var(--radius-lg);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;border:none;text-decoration:none}
+        .btn-secondary{background:var(--bg-light);border:1px solid var(--border-color);color:var(--text-secondary)}
+        .btn-secondary:hover{background:var(--bg-gradient);color:var(--primary);border-color:var(--primary-lighter)}
+        .btn-success{background:linear-gradient(135deg,var(--success),#059669);color:#fff;box-shadow:0 6px 20px rgba(16,185,129,.35);padding:16px 38px;font-size:15px}
+        .btn-success:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(16,185,129,.4)}
+        .btn-success:disabled{opacity:.7;cursor:not-allowed;transform:none}
+        .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:0 6px 20px var(--primary-glow)}
+        .btn-primary:hover{transform:translateY(-3px)}
+
+        /* alert */
+        .alert{padding:16px 20px;border-radius:var(--radius-lg);font-size:14px;font-weight:500;display:none;align-items:center;gap:14px;margin:0 36px 24px;animation:slideDown .35s cubic-bezier(.34,1.56,.64,1)}
+        @keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+        .alert.error{display:flex;background:var(--danger-light);border:1px solid rgba(239,68,68,.25);color:var(--danger)}
+        .alert.success{display:flex;background:var(--success-light);border:1px solid rgba(16,185,129,.25);color:var(--success)}
+        .alert i{font-size:20px;flex-shrink:0}
+        .alert-title{font-weight:700;margin-bottom:3px}
+        .alert-body{font-size:13px;opacity:.9}
+
+        /* success screen */
+        .success-screen{text-align:center;padding:60px 40px;animation:fadeUp .5s ease}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+        .success-circle{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--success),#059669);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:44px;color:#fff;box-shadow:0 16px 40px rgba(16,185,129,.4);animation:pop .6s cubic-bezier(.34,1.56,.64,1)}
+        @keyframes pop{from{transform:scale(0) rotate(-180deg)}to{transform:scale(1) rotate(0)}}
+        .success-screen h2{font-size:28px;font-weight:800;color:var(--text-dark);margin-bottom:12px}
+        .success-screen p{font-size:15px;color:var(--text-muted);max-width:400px;margin:0 auto 32px;line-height:1.7}
+        .success-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+        /* shake */
+        @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+        .shake{animation:shake .4s ease}
+
+        /* mobile */
+        .mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);z-index:99}
+        .mobile-overlay.active{display:block}
+
+        @media(max-width:1024px){.sidebar{transform:translateX(-100%)}.sidebar.mobile-open{transform:translateX(0)}.main-content{margin-left:0}.menu-toggle{display:flex}}
+        @media(max-width:900px){.form-grid.cols4{grid-template-columns:1fr 1fr}}
+        @media(max-width:768px){
+            .page-body{padding:20px}.page-banner{padding:24px}.page-banner-icon{display:none}
+            .form-grid.cols2,.form-grid.cols4{grid-template-columns:1fr}
+            .section-block{padding:22px 18px}
+            .form-actions{flex-direction:column;gap:12px;padding:20px 18px}
+            .form-actions .btn{width:100%;justify-content:center}
+            .alert{margin:0 18px 18px}
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-box"><i class="fas fa-building"></i></div>
+            <div class="logo-info"><h1>EMS Pro</h1><span>Admin Panel</span></div>
+        </div>
+        <div class="admin-profile-card">
+            <div class="admin-profile-inner">
+                <div class="admin-avatar"><i class="fas fa-user-tie"></i><span class="status-indicator"></span></div>
+                <div class="admin-meta">
+                    <h4 id="sidebarName">Admin User</h4>
+                    <p id="sidebarEmail">admin@company.com</p>
+                </div>
+            </div>
+            <div class="admin-role-badge"><i class="fas fa-shield-halved"></i> Organization Administrator</div>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-label">Main Menu</div>
+                <a href="/admindashboard" class="nav-link"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+                <a href="#" class="nav-link"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-label">Organization</div>
+                <a href="#" class="nav-link"><i class="fas fa-user-tie"></i><span>Managers</span></a>
+                <a href="#" class="nav-link"><i class="fas fa-users"></i><span>All Employees</span></a>
+                <a href="#" class="nav-link"><i class="fas fa-sitemap"></i><span>Departments</span></a>
+                <a href="#" class="nav-link active"><i class="fas fa-user-plus"></i><span>Add Employee</span></a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-label">Operations</div>
+                <a href="#" class="nav-link"><i class="fas fa-calendar-check"></i><span>Attendance</span></a>
+                <a href="#" class="nav-link"><i class="fas fa-plane-departure"></i><span>Leave Requests</span><span class="badge warning">8</span></a>
+                <a href="#" class="nav-link"><i class="fas fa-money-bill-wave"></i><span>Payroll</span></a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-label">Settings</div>
+                <a href="#" class="nav-link"><i class="fas fa-cog"></i><span>Settings</span></a>
+                <a href="#" class="nav-link"><i class="fas fa-bell"></i><span>Notifications</span><span class="badge info">3</span></a>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="logout-btn" onclick="logout()"><i class="fas fa-power-off"></i> Sign Out</button>
+        </div>
+    </aside>
+
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+
+    <!-- Main -->
+    <main class="main-content">
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+                <div class="page-header">
+                    <h1>Add Employee</h1>
+                    <div class="breadcrumb">
+                        <a href="/admindashboard">Home</a><i class="fas fa-chevron-right"></i>
+                        <a href="#">Employees</a><i class="fas fa-chevron-right"></i>
+                        <span>Add New</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="user-dropdown">
+                    <div class="user-dropdown-avatar" id="headerAvatar">AD</div>
+                    <div class="user-dropdown-info"><span id="headerName">Admin</span><small>Administrator</small></div>
+                    <i class="fas fa-chevron-down" style="font-size:12px;color:var(--text-muted);margin-left:8px"></i>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-body">
+
+            <!-- Banner -->
+            <div class="page-banner">
+                <div class="page-banner-inner">
+                    <div class="page-banner-text">
+                        <h2><i class="fas fa-user-plus" style="margin-right:10px"></i>Add New Employee</h2>
+                        <p>Fill in all the details below to create a complete employee profile — personal info, employment, salary, and bank details.</p>
+                    </div>
+                    <div class="page-banner-icon"><i class="fas fa-users"></i></div>
+                </div>
+            </div>
+
+            <!-- ══ MAIN FORM CARD ══ -->
+            <div class="form-card" id="formCard">
+
+                <!-- ─── SECTION 1: Personal Info ─── -->
+                <div class="section-block">
+                    <div class="section-heading">
+                        <div class="section-icon indigo"><i class="fas fa-user"></i></div>
+                        <div class="section-title">
+                            <h3>Personal Information</h3>
+                            <p>Basic details of the employee</p>
+                        </div>
+                    </div>
+
+                    <!-- Avatar -->
+                    <div class="avatar-upload" onclick="document.getElementById('profileInput').click()">
+                        <div class="avatar-preview" id="avatarPreview"><i class="fas fa-user"></i></div>
+                        <div class="avatar-upload-text">
+                            <h5>Click to upload photo</h5>
+                            <p>PNG, JPG, WEBP &nbsp;·&nbsp; Max <span>2 MB</span></p>
+                        </div>
+                    </div>
+                    <input type="file" id="profileInput" accept="image/png,image/jpeg,image/webp" onchange="handleAvatar(this)">
+
+                    <div class="form-grid cols2">
+
+                        <!-- Full Name -->
+                        <div class="form-group">
+                            <label class="form-label" for="f-name"><i class="fas fa-user"></i> Full Name <span class="req">*</span></label>
+                            <p class="field-hint">Letters and spaces only, 3–60 characters</p>
+                            <div class="input-wrap" id="wrap-name">
+                                <i class="fas fa-user icon"></i>
+                                <input type="text" id="f-name" placeholder="e.g. Rahul Sharma" maxlength="60" autocomplete="name">
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-name">Full name is required.</span></div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label class="form-label" for="f-email"><i class="fas fa-envelope"></i> Email Address <span class="req">*</span></label>
+                            <p class="field-hint">Must be a valid email, max 100 characters</p>
+                            <div class="input-wrap" id="wrap-email">
+                                <i class="fas fa-envelope icon"></i>
+                                <input type="email" id="f-email" placeholder="employee@company.com" maxlength="100" autocomplete="email">
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-email">Valid email is required.</span></div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group">
+                            <label class="form-label" for="f-password"><i class="fas fa-lock"></i> Password <span class="req">*</span></label>
+                            <p class="field-hint">8–32 chars · uppercase · number · special char</p>
+                            <div class="input-wrap has-toggle" id="wrap-password">
+                                <i class="fas fa-lock icon"></i>
+                                <input type="password" id="f-password" placeholder="e.g. Emp@2024" maxlength="32" autocomplete="new-password">
+                                <button type="button" class="pw-toggle" onclick="togglePw('f-password',this)"><i class="far fa-eye"></i></button>
+                            </div>
+                            <div class="pw-strength"><div class="pw-strength-bar" id="pwBar"></div></div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-password">Password must be at least 8 characters.</span></div>
+                        </div>
+
+                        <!-- Contact -->
+                        <div class="form-group">
+                            <label class="form-label" for="f-contact"><i class="fas fa-phone"></i> Contact Number <span class="req">*</span></label>
+                            <p class="field-hint">10-digit mobile number (Indian format)</p>
+                            <div class="input-wrap" id="wrap-contact">
+                                <i class="fas fa-phone icon"></i>
+                                <input type="tel" id="f-contact" placeholder="e.g. 9876543210" maxlength="10" pattern="[6-9][0-9]{9}" inputmode="numeric">
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-contact">Enter a valid 10-digit mobile number.</span></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ─── SECTION 2: Employment ─── -->
+                <div class="section-block">
+                    <div class="section-heading">
+                        <div class="section-icon cyan"><i class="fas fa-briefcase"></i></div>
+                        <div class="section-title">
+                            <h3>Employment Details</h3>
+                            <p>Department, designation and joining info</p>
+                        </div>
+                    </div>
+                    <div class="form-grid cols2">
+
+                        <!-- Department -->
+                        <div class="form-group">
+                            <label class="form-label" for="f-dept"><i class="fas fa-sitemap"></i> Department <span class="req">*</span></label>
+                            <div class="input-wrap has-chevron" id="wrap-dept">
+                                <i class="fas fa-sitemap icon"></i>
+                                <select id="f-dept">
+                                    <option value="">Select Department</option>
+                                </select>
+                                <i class="fas fa-chevron-down chevron"></i>
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> Please select a department.</div>
+                        </div>
+
+                        <!-- Designation -->
+                        <div class="form-group">
+                            <label class="form-label" for="f-designation"><i class="fas fa-id-badge"></i> Designation <span class="req">*</span></label>
+                            <p class="field-hint">Job title, 3–80 characters</p>
+                            <div class="input-wrap" id="wrap-designation">
+                                <i class="fas fa-id-badge icon"></i>
+                                <input type="text" id="f-designation" placeholder="e.g. Software Engineer" maxlength="80">
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> Designation is required.</div>
+                        </div>
+
+                        <!-- Joining Date -->
+                        <div class="form-group">
+                            <label class="form-label" for="f-joindate"><i class="fas fa-calendar"></i> Joining Date <span class="req">*</span></label>
+                            <p class="field-hint">Cannot be a future date</p>
+                            <div class="input-wrap" id="wrap-joindate">
+                                <i class="fas fa-calendar icon"></i>
+                                <input type="date" id="f-joindate">
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-joindate">Joining date is required.</span></div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="form-group">
+                            <label class="form-label" for="f-address"><i class="fas fa-location-dot"></i> Address <span class="opt">(Optional)</span></label>
+                            <p class="field-hint">Max 200 characters</p>
+                            <div class="input-wrap" id="wrap-address">
+                                <i class="fas fa-location-dot icon"></i>
+                                <input type="text" id="f-address" placeholder="Street, City, State" maxlength="200">
+                                <span class="char-count" id="cc-address">0/200</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ─── SECTION 3: Salary ─── -->
+                <div class="section-block">
+                    <div class="section-heading">
+                        <div class="section-icon emerald"><i class="fas fa-money-bill-wave"></i></div>
+                        <div class="section-title">
+                            <h3>Salary Details</h3>
+                            <p>CTC breakdown and allowances</p>
+                        </div>
+                    </div>
+                    <div class="salary-note">
+                        <i class="fas fa-circle-info"></i>
+                        <span>All salary fields are <strong>optional</strong>. Leave blank to update later. Values must be <strong>positive numbers</strong> only.</span>
+                    </div>
+                    <div class="form-grid cols4">
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-indian-rupee-sign"></i> Base Salary</label>
+                            <div class="input-wrap" id="wrap-base_salary">
+                                <i class="fas fa-indian-rupee-sign icon"></i>
+                                <input type="number" id="f-base_salary" placeholder="30000" min="0" max="9999999" step="1" inputmode="numeric">
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-percent"></i> AGP</label>
+                            <div class="input-wrap" id="wrap-agp">
+                                <i class="fas fa-percent icon"></i>
+                                <input type="number" id="f-agp" placeholder="5000" min="0" max="9999999" step="1" inputmode="numeric">
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-coins"></i> DA</label>
+                            <div class="input-wrap" id="wrap-da">
+                                <i class="fas fa-coins icon"></i>
+                                <input type="number" id="f-da" placeholder="3000" min="0" max="9999999" step="1" inputmode="numeric">
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-coins"></i> DP</label>
+                            <div class="input-wrap" id="wrap-dp">
+                                <i class="fas fa-coins icon"></i>
+                                <input type="number" id="f-dp" placeholder="1500" min="0" max="9999999" step="1" inputmode="numeric">
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-house"></i> HRA</label>
+                            <div class="input-wrap" id="wrap-hra">
+                                <i class="fas fa-house icon"></i>
+                                <input type="number" id="f-hra" placeholder="8000" min="0" max="9999999" step="1" inputmode="numeric">
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-bus"></i> TRA</label>
+                            <div class="input-wrap" id="wrap-tra">
+                                <i class="fas fa-bus icon"></i>
+                                <input type="number" id="f-tra" placeholder="1600" min="0" max="9999999" step="1" inputmode="numeric">
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-stethoscope"></i> CLA</label>
+                            <div class="input-wrap" id="wrap-cla">
+                                <i class="fas fa-stethoscope icon"></i>
+                                <input type="number" id="f-cla" placeholder="1000" min="0" max="9999999" step="1" inputmode="numeric">
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
+                        </div>
+                        <!-- PT removed per backend (commented out in API) -->
+                    </div>
+                </div>
+
+                <!-- ─── SECTION 4: Bank Details ─── -->
+                <div class="section-block" style="border-bottom:none">
+                    <div class="section-heading">
+                        <div class="section-icon amber"><i class="fas fa-building-columns"></i></div>
+                        <div class="section-title">
+                            <h3>Bank Details</h3>
+                            <p>For salary disbursement — all optional</p>
+                        </div>
+                    </div>
+                    <div class="form-grid cols2">
+
+                        <!-- Account Number -->
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-hashtag"></i> Account Number <span class="opt">(Optional)</span></label>
+                            <p class="field-hint">9–18 digits only</p>
+                            <div class="input-wrap" id="wrap-bank_acc_no">
+                                <i class="fas fa-hashtag icon"></i>
+                                <input type="text" id="f-bank_acc_no" placeholder="e.g. 1234567890" maxlength="18" inputmode="numeric">
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> Account number must be 9–18 digits.</div>
+                        </div>
+
+                        <!-- IFSC -->
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-code-branch"></i> IFSC Code <span class="opt">(Optional)</span></label>
+                            <p class="field-hint">Format: ABCD0123456 (11 characters)</p>
+                            <div class="input-wrap" id="wrap-ifsc_code">
+                                <i class="fas fa-code-branch icon"></i>
+                                <input type="text" id="f-ifsc_code" placeholder="e.g. SBIN0001234" maxlength="11" style="text-transform:uppercase">
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> Invalid IFSC (e.g. SBIN0001234).</div>
+                        </div>
+
+                        <!-- Bank Name -->
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-building-columns"></i> Bank Name <span class="opt">(Optional)</span></label>
+                            <p class="field-hint">Max 80 characters</p>
+                            <div class="input-wrap" id="wrap-bank_name">
+                                <i class="fas fa-building-columns icon"></i>
+                                <input type="text" id="f-bank_name" placeholder="e.g. State Bank of India" maxlength="80">
+                            </div>
+                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> Bank name is too short.</div>
+                        </div>
+
+                        <!-- Branch Address -->
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-location-dot"></i> Branch Address <span class="opt">(Optional)</span></label>
+                            <p class="field-hint">Max 200 characters</p>
+                            <div class="input-wrap" id="wrap-bank_address">
+                                <i class="fas fa-location-dot icon"></i>
+                                <input type="text" id="f-bank_address" placeholder="Branch address" maxlength="200">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Bottom Actions -->
+                <div class="form-actions">
+                    <a href="/admindashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
+                    <button class="btn btn-success" id="submitBtn" onclick="submitForm()">
+                        <i class="fas fa-user-plus"></i> Create Employee
+                    </button>
+                </div>
+
+                <div class="alert" id="formAlert"></div>
+
+            </div><!-- /form-card -->
+
+            <!-- Success Card -->
+            <div class="form-card" id="successCard" style="display:none">
+                <div class="success-screen">
+                    <div class="success-circle"><i class="fas fa-check"></i></div>
+                    <h2>Employee Added Successfully!</h2>
+                    <p id="successMsg">The new employee has been created and can now log in.</p>
+                    <div class="success-actions">
+                        <button class="btn btn-secondary" onclick="resetForm()"><i class="fas fa-plus"></i> Add Another</button>
+                        <a href="/admindashboard" class="btn btn-primary"><i class="fas fa-th-large"></i> Go to Dashboard</a>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /page-body -->
+    </main>
+
+    <script>
+        'use strict';
+        let profileBase64 = '';
+
+        /* ── Sidebar ── */
+        function toggleSidebar(){document.getElementById('sidebar').classList.toggle('mobile-open');document.getElementById('mobileOverlay').classList.toggle('active')}
+        function closeMobileMenu(){document.getElementById('sidebar').classList.remove('mobile-open');document.getElementById('mobileOverlay').classList.remove('active')}
+        window.addEventListener('resize',()=>{if(window.innerWidth>1024)closeMobileMenu()});
+        function logout(){if(confirm('Sign out?')){localStorage.removeItem('token');localStorage.removeItem('user_data');window.location.href='/login'}}
+
+        /* ── Avatar ── */
+        function handleAvatar(input){
+            const file=input.files&&input.files[0];if(!file)return;
+            if(!file.type.match(/image\/(jpeg|png|webp)/)){showAlert('Only PNG, JPG, or WEBP images are allowed.','error');input.value='';return}
+            if(file.size>2*1024*1024){showAlert('Image must be under 2 MB.','error');input.value='';return}
+            const reader=new FileReader();
+            reader.onload=e=>{profileBase64=e.target.result;document.getElementById('avatarPreview').innerHTML=`<img src="${e.target.result}" alt="Preview">`};
+            reader.readAsDataURL(file);
+        }
+
+        /* ── Password Toggle ── */
+        function togglePw(id,btn){
+            const inp=document.getElementById(id);const ico=btn.querySelector('i');
+            if(inp.type==='password'){inp.type='text';ico.className='far fa-eye-slash'}else{inp.type='password';ico.className='far fa-eye'}
+        }
+
+        /* ── Input Restrictions ── */
+        document.getElementById('f-name').addEventListener('keypress',e=>{if(!/[a-zA-Z\s.\-']/.test(e.key))e.preventDefault()});
+        document.getElementById('f-name').addEventListener('input',e=>{e.target.value=e.target.value.replace(/[^a-zA-Z\s.\-']/g,'')});
+        document.getElementById('f-contact').addEventListener('keypress',e=>{if(!/[0-9]/.test(e.key))e.preventDefault()});
+        document.getElementById('f-contact').addEventListener('input',e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,10)});
+        document.getElementById('f-bank_acc_no').addEventListener('keypress',e=>{if(!/[0-9]/.test(e.key))e.preventDefault()});
+        document.getElementById('f-bank_acc_no').addEventListener('input',e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,18)});
+        document.getElementById('f-ifsc_code').addEventListener('keypress',e=>{if(!/[a-zA-Z0-9]/.test(e.key))e.preventDefault()});
+        document.getElementById('f-ifsc_code').addEventListener('input',e=>{e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,11)});
+        ['base_salary','agp','da','dp','hra','tra','cla'].forEach(key=>{
+            const el=document.getElementById(`f-${key}`);
+            el.addEventListener('keypress',e=>{if(!/[0-9]/.test(e.key))e.preventDefault()});
+            el.addEventListener('input',e=>{let v=parseInt(e.target.value,10);if(isNaN(v)||v<0){e.target.value='';return}if(v>9999999)e.target.value=9999999});
+        });
+        document.getElementById('f-designation').addEventListener('keypress',e=>{if(!/[a-zA-Z0-9\s.\-&(),/]/.test(e.key))e.preventDefault()});
+
+        (function(){const d=document.getElementById('f-joindate');d.max=new Date().toISOString().split('T')[0];d.min='1990-01-01'})();
+
+        function attachCharCounter(inputId,counterId,max){
+            const inp=document.getElementById(inputId);const ctr=document.getElementById(counterId);if(!inp||!ctr)return;
+            inp.addEventListener('input',()=>{const len=inp.value.length;ctr.textContent=`${len}/${max}`;ctr.className='char-count'+(len>max*.9?(len>=max?' over':' warn'):'')});
+        }
+        attachCharCounter('f-address','cc-address',200);
+
+        /* ── Password Strength ── */
+        document.getElementById('f-password').addEventListener('input',function(){
+            const v=this.value;let score=0;
+            if(v.length>=8)score++;if(/[A-Z]/.test(v))score++;if(/[0-9]/.test(v))score++;if(/[^A-Za-z0-9]/.test(v))score++;
+            const bar=document.getElementById('pwBar');
+            const colors=['','#ef4444','#f59e0b','#3b82f6','#10b981'];
+            bar.style.width=(score*25)+'%';bar.style.background=colors[score]||'';
+        });
+
+        /* ── Validators ── */
+        const VALIDATORS={
+            name:{fn:v=>v.trim().length>=3&&/^[a-zA-Z\s.\-']+$/.test(v.trim()),msgs:{empty:'Full name is required.',invalid:'Only letters, spaces, dots and hyphens allowed (min 3 chars).'}},
+            email:{fn:v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()),msgs:{empty:'Email is required.',invalid:'Enter a valid email address.'}},
+            password:{fn:v=>v.length>=8&&v.length<=32&&/[A-Z]/.test(v)&&/[0-9]/.test(v)&&/[^A-Za-z0-9]/.test(v),msgs:{empty:'Password is required.',invalid:'Min 8 chars, include uppercase, number & special character.'}},
+            contact:{fn:v=>/^[6-9][0-9]{9}$/.test(v),msgs:{empty:'Contact number is required.',invalid:'Enter a valid 10-digit Indian mobile number starting with 6-9.'}},
+            dept:{fn:v=>v!=='',msgs:{empty:'Please select a department.',invalid:'Please select a department.'}},
+            designation:{fn:v=>v.trim().length>=3,msgs:{empty:'Designation is required.',invalid:'Must be at least 3 characters.'}},
+            joindate:{fn:v=>{if(!v)return false;return new Date(v)<=new Date()},msgs:{empty:'Joining date is required.',invalid:'Joining date cannot be in the future.'}},
+            bank_acc_no:{optional:true,fn:v=>!v||/^[0-9]{9,18}$/.test(v),msgs:{invalid:'Account number must be 9–18 digits.'}},
+            ifsc_code:{optional:true,fn:v=>!v||/^[A-Z]{4}0[A-Z0-9]{6}$/.test(v),msgs:{invalid:'IFSC format must be like SBIN0001234.'}},
+            bank_name:{optional:true,fn:v=>!v||v.trim().length>=3,msgs:{invalid:'Bank name should be at least 3 characters.'}}
+        };
+
+        function setFieldState(key,state,msg){
+            const wrap=document.getElementById(`wrap-${key}`);if(!wrap)return;
+            wrap.classList.remove('error','valid');
+            if(state==='error'){wrap.classList.add('error');const errSpan=document.getElementById(`err-${key}`);if(errSpan&&msg)errSpan.textContent=msg}
+            else if(state==='valid')wrap.classList.add('valid');
+        }
+
+        function validateField(key){
+            const v=VALIDATORS[key];if(!v)return true;
+            const inp=document.getElementById(`f-${key}`);if(!inp)return true;
+            const val=inp.value;
+            if(!val&&v.optional){setFieldState(key,'');return true}
+            if(!val&&!v.optional){setFieldState(key,'error',v.msgs.empty);return false}
+            if(!v.fn(val)){setFieldState(key,'error',v.msgs.invalid);return false}
+            setFieldState(key,'valid');return true;
+        }
+
+        Object.keys(VALIDATORS).forEach(key=>{
+            const inp=document.getElementById(`f-${key}`);if(!inp)return;
+            inp.addEventListener('blur',()=>validateField(key));
+            inp.addEventListener('focus',()=>{const wrap=document.getElementById(`wrap-${key}`);if(wrap)wrap.classList.remove('error','valid')});
+        });
+
+        function validateAll(){
+            const keys=Object.keys(VALIDATORS);let ok=true,firstBad=null;
+            keys.forEach(key=>{if(!validateField(key)){ok=false;if(!firstBad)firstBad=document.getElementById(`f-${key}`)}});
+            if(firstBad){
+                firstBad.focus();firstBad.closest('.form-group').scrollIntoView({behavior:'smooth',block:'center'});
+                const wrap=firstBad.closest('.input-wrap');wrap.classList.add('shake');setTimeout(()=>wrap.classList.remove('shake'),500);
+            }
+            return ok;
+        }
+
+        /* ── Alert ── */
+        function showAlert(msg,type){
+            const el=document.getElementById('formAlert');
+            el.className=`alert ${type}`;
+            el.innerHTML=`<i class="fas fa-${type==='error'?'triangle-exclamation':'check-circle'}"></i><div><div class="alert-title">${type==='error'?'Error':'Success'}</div><div class="alert-body">${msg}</div></div>`;
+        }
+
+        /* ── Submit ── */
+        async function submitForm(){
+            document.getElementById('formAlert').className='alert';
+            if(!validateAll()){showAlert('Please fix the highlighted errors before submitting.','error');return}
+
+            const payload={
+                name:document.getElementById('f-name').value.trim(),
+                email:document.getElementById('f-email').value.trim().toLowerCase(),
+                password:document.getElementById('f-password').value,
+                contact:document.getElementById('f-contact').value.trim(),
+                department_id:document.getElementById('f-dept').value,
+                designation:document.getElementById('f-designation').value.trim(),
+                join_date:document.getElementById('f-joindate').value,
+                address:document.getElementById('f-address').value.trim()||null,
+                base_salary:document.getElementById('f-base_salary').value||null,
+                agp:document.getElementById('f-agp').value||null,
+                da:document.getElementById('f-da').value||null,
+                dp:document.getElementById('f-dp').value||null,
+                hra:document.getElementById('f-hra').value||null,
+                tra:document.getElementById('f-tra').value||null,
+                cla:document.getElementById('f-cla').value||null,
+                bank_acc_no:document.getElementById('f-bank_acc_no').value.trim()||null,
+                ifsc_code:document.getElementById('f-ifsc_code').value.trim().toUpperCase()||null,
+                bank_name:document.getElementById('f-bank_name').value.trim()||null,
+                bank_address:document.getElementById('f-bank_address').value.trim()||null,
+                profile_img:profileBase64||null,
+            };
+
+            const btn=document.getElementById('submitBtn');
+            const orig=btn.innerHTML;
+            btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Creating Employee…';
+            btn.disabled=true;
+
+            try{
+                const token=localStorage.getItem('token');
+                const res=await fetch('/add_emp',{
+                    method:'POST',
+                    headers:{'Content-Type':'application/json','Authorization':`Bearer ${token}`},
+                    body:JSON.stringify(payload)
+                });
+                const data=await res.json();
+                if(data.status==='success'||res.ok){
+                    document.getElementById('formCard').style.display='none';
+                    document.getElementById('successCard').style.display='block';
+                    document.getElementById('successMsg').textContent=`${payload.name} has been added as an Employee and can now log in to the system.`;
+                    window.scrollTo({top:0,behavior:'smooth'});
+                }else{
+                    showAlert(data.message||'An unexpected error occurred.','error');
+                }
+            }catch(err){
+                showAlert('Could not reach the server. Please check your connection and try again.','error');
+            }
+
+            btn.innerHTML=orig;btn.disabled=false;
+        }
+
+        /* ── Reset ── */
+        function resetForm(){
+            document.querySelectorAll('input, select, textarea').forEach(el=>el.value='');
+            document.querySelectorAll('.input-wrap').forEach(w=>w.classList.remove('error','valid'));
+            document.getElementById('avatarPreview').innerHTML='<i class="fas fa-user"></i>';
+            document.getElementById('pwBar').style.width='0';
+            document.getElementById('formAlert').className='alert';
+            document.getElementById('cc-address').textContent='0/200';
+            profileBase64='';
+            document.getElementById('successCard').style.display='none';
+            document.getElementById('formCard').style.display='block';
+            window.scrollTo({top:0,behavior:'smooth'});
+        }
+
+        /* ── Load Departments ── */
+        async function loadDepts(){
+            try{
+                const token=localStorage.getItem('token');
+                const res=await fetch('/get_departments',{headers:{'Authorization':`Bearer ${token}`}});
+                const data=await res.json();
+                const sel=document.getElementById('f-dept');
+                (data.dep_data||[]).forEach(d=>{
+                    const opt=document.createElement('option');opt.value=d.id;
+                    opt.textContent=d.department_name||d.name||d.dept_name;sel.appendChild(opt);
+                });
+            }catch(e){console.warn('Could not load departments:',e)}
+        }
+
+        /* ── Init ── */
+        window.addEventListener('load',()=>{
+            const raw=localStorage.getItem('user_data');
+            if(raw){
+                const u=JSON.parse(raw);const name=u.name||'Admin';
+                document.getElementById('sidebarName').textContent=name;
+                document.getElementById('sidebarEmail').textContent=u.email||'';
+                document.getElementById('headerName').textContent=name.split(' ')[0];
+                document.getElementById('headerAvatar').textContent=name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+            }
+            loadDepts();
+        });
+    </script>
+</body>
+</html>
