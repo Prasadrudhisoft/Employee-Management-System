@@ -22,63 +22,69 @@
       --amber-bg: #fef9ed;
       --blue:     #2356a8;
       --blue-bg:  #eef3fc;
+      --purple:   #6d35c9;
+      --purple-bg:#f3eefb;
       --radius:   10px;
       --shadow:   0 1px 3px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
     }
 
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      min-height: 100vh;
-    }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
 
     header {
-      background: var(--ink);
-      color: #fff;
-      padding: 0 32px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 50;
+      background: var(--ink); color: #fff;
+      padding: 0 32px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 50;
     }
-    .logo {
-      font-size: 1rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .logo { font-size: 1rem; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
     .logo-dot { width: 8px; height: 8px; background: #7dffb3; border-radius: 50%; display: inline-block; }
     .header-meta { display: flex; align-items: center; gap: 16px; font-size: 0.78rem; color: rgba(255,255,255,.5); }
 
+    /* ── Tab Nav ── */
+    .tab-nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      display: flex;
+      gap: 4px;
+      position: sticky;
+      top: 60px;
+      z-index: 40;
+    }
+    .tab-btn {
+      padding: 14px 18px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.80rem;
+      font-weight: 700;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: color .2s, border-color .2s;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tab-btn:hover { color: var(--ink); }
+    .tab-btn.active { color: var(--ink); border-bottom-color: var(--ink); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
     .page { max-width: 1400px; margin: 0 auto; padding: 28px 24px 100px; }
 
-    .top-bar {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin-bottom: 24px;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
+    .top-bar { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 24px; gap: 16px; flex-wrap: wrap; }
     .top-bar h2 { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.4px; }
     .top-bar h2 small { display: block; font-size: 0.78rem; font-weight: 500; color: var(--muted); margin-top: 2px; letter-spacing: 0; }
 
     .controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
     .controls input {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.82rem;
-      padding: 8px 14px;
-      border-radius: var(--radius);
-      color: var(--ink);
-      transition: border-color .2s;
+      background: var(--surface); border: 1px solid var(--border);
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.82rem;
+      padding: 8px 14px; border-radius: var(--radius); color: var(--ink); transition: border-color .2s;
     }
     .controls input[type="text"] { width: 200px; }
     .controls input:focus { outline: none; border-color: var(--blue); }
@@ -115,91 +121,117 @@
     .net-val { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.9rem; color: var(--ink); background: var(--blue-bg); padding: 4px 10px; border-radius: 6px; display: inline-block; }
 
     .deduct-input {
-      background: var(--red-bg);
-      border: 1px solid #e8c0c0;
-      color: var(--red);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      padding: 5px 8px;
-      border-radius: 6px;
-      width: 90px;
-      text-align: right;
+      background: var(--red-bg); border: 1px solid #e8c0c0; color: var(--red);
+      font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+      padding: 5px 8px; border-radius: 6px; width: 90px; text-align: right;
       transition: border-color .2s, box-shadow .2s;
     }
     .deduct-input:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(184,50,50,.12); }
     .deduct-input::placeholder { color: #d49090; }
 
-    /* Status badge */
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 0.70rem;
-      font-weight: 700;
-      padding: 3px 9px;
-      border-radius: 20px;
-      letter-spacing: 0.3px;
-    }
+    .status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.70rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; letter-spacing: 0.3px; }
     .status-badge.saved   { background: var(--green-bg); color: var(--green); border: 1px solid #b4d9c6; }
     .status-badge.pending { background: var(--amber-bg); color: var(--amber); border: 1px solid #f0d89a; }
 
-    /* Update button (per row) */
     .update-btn {
-      background: var(--blue-bg);
-      color: var(--blue);
-      border: 1px solid #b8cef0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 6px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      letter-spacing: 0.3px;
-      transition: background .2s, color .2s, transform .1s, opacity .2s;
-      white-space: nowrap;
+      background: var(--blue-bg); color: var(--blue); border: 1px solid #b8cef0;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.72rem; font-weight: 700;
+      padding: 6px 14px; border-radius: 6px; cursor: pointer; letter-spacing: 0.3px;
+      transition: background .2s, color .2s, transform .1s, opacity .2s; white-space: nowrap;
     }
     .update-btn:hover:not(:disabled) { background: var(--blue); color: #fff; }
     .update-btn:active:not(:disabled) { transform: scale(.97); }
     .update-btn:disabled { opacity: .3; cursor: not-allowed; }
 
-    /* Bottom save bar */
+    /* ── Salary Slip Button ── */
+    .slip-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--purple-bg); color: var(--purple); border: 1px solid #c9b4f0;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.72rem; font-weight: 700;
+      padding: 6px 12px; border-radius: 6px; cursor: pointer; letter-spacing: 0.3px;
+      transition: background .2s, color .2s, transform .1s, opacity .2s; white-space: nowrap;
+    }
+    .slip-btn:hover:not(:disabled) { background: var(--purple); color: #fff; }
+    .slip-btn:active:not(:disabled) { transform: scale(.97); }
+    .slip-btn:disabled { opacity: .35; cursor: not-allowed; }
+    .slip-btn svg { width: 12px; height: 12px; fill: currentColor; flex-shrink: 0; }
+
+    /* ── Save Bar ── */
     .save-bar {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 14px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      z-index: 40;
-      box-shadow: 0 -4px 20px rgba(0,0,0,.06);
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 14px 32px; display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; z-index: 40; box-shadow: 0 -4px 20px rgba(0,0,0,.06);
     }
     .save-bar-info { font-size: 0.82rem; color: var(--muted); }
     .save-bar-info strong { color: var(--ink); font-weight: 700; }
-
     .save-all-btn {
-      background: var(--ink);
-      color: #fff;
-      border: none;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      padding: 11px 28px;
-      border-radius: var(--radius);
-      cursor: pointer;
-      letter-spacing: 0.3px;
-      transition: opacity .2s, transform .1s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      background: var(--ink); color: #fff; border: none;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; font-weight: 700;
+      padding: 11px 28px; border-radius: var(--radius); cursor: pointer; letter-spacing: 0.3px;
+      transition: opacity .2s, transform .1s; display: flex; align-items: center; gap: 8px;
     }
     .save-all-btn:hover:not(:disabled)  { opacity: .82; }
     .save-all-btn:active:not(:disabled) { transform: scale(.98); }
     .save-all-btn:disabled { opacity: .4; cursor: not-allowed; }
 
-    /* States */
+    /* ── Summary Tab ── */
+    .summary-controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 24px; }
+    .summary-controls input[type="month"] {
+      background: var(--surface); border: 1px solid var(--border);
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.82rem;
+      padding: 9px 14px; border-radius: var(--radius); color: var(--ink);
+    }
+    .summary-controls input:focus { outline: none; border-color: var(--blue); }
+
+    .btn-pdf {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.80rem; font-weight: 700;
+      padding: 9px 18px; border-radius: var(--radius); cursor: pointer;
+      letter-spacing: 0.3px; border: none; transition: opacity .2s, transform .1s;
+    }
+    .btn-pdf:hover:not(:disabled) { opacity: .82; }
+    .btn-pdf:active:not(:disabled) { transform: scale(.97); }
+    .btn-pdf:disabled { opacity: .35; cursor: not-allowed; }
+    .btn-pdf.red-pdf { background: var(--red); color: #fff; }
+    .btn-pdf.blue-pdf { background: var(--blue); color: #fff; }
+
+    .fetch-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.80rem; font-weight: 700;
+      padding: 9px 18px; border-radius: var(--radius); cursor: pointer; letter-spacing: 0.3px;
+      background: var(--ink); color: #fff; border: none; transition: opacity .2s, transform .1s;
+    }
+    .fetch-btn:hover { opacity: .82; }
+    .fetch-btn:active { transform: scale(.97); }
+
+    /* Summary grid cards */
+    .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+    .sum-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow); }
+    .sum-card .s-label { font-size: 0.70rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .sum-card .s-val { font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; font-weight: 500; }
+    .sum-card.g .s-val { color: var(--green); }
+    .sum-card.r .s-val { color: var(--red); }
+    .sum-card.b .s-val { color: var(--blue); }
+
+    /* Breakdown two-column */
+    .breakdown-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .breakdown-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .breakdown-card .bc-header { padding: 13px 18px; border-bottom: 1px solid var(--border); font-size: 0.80rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .bc-header.earn { color: var(--green); background: var(--green-bg); }
+    .bc-header.deduct { color: var(--red); background: var(--red-bg); }
+    .bc-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; border-bottom: 1px solid var(--border); font-size: 0.82rem; }
+    .bc-row:last-child { border-bottom: none; font-weight: 700; background: #fafaf8; }
+    .bc-row .bc-label { color: var(--muted); }
+    .bc-row.total .bc-label { color: var(--ink); }
+    .bc-row .bc-amount { font-family: 'JetBrains Mono', monospace; font-size: 0.80rem; }
+    .bc-row.earn-total .bc-amount { color: var(--green); }
+    .bc-row.deduct-total .bc-amount { color: var(--red); }
+
+    /* Disbursement table */
+    .dis-table { min-width: 780px; }
+
+    /* State boxes */
     .state-box { padding: 80px 20px; text-align: center; color: var(--muted); }
     .state-box .icon { font-size: 2.4rem; margin-bottom: 12px; display: block; }
     .state-box p { font-size: 0.88rem; }
@@ -208,28 +240,30 @@
     .spinner.white { border-color: rgba(255,255,255,.25); border-top-color: #fff; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Toast */
     #toast {
-      position: fixed;
-      bottom: 80px; right: 24px;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all .3s;
-      pointer-events: none;
-      z-index: 999;
-      max-width: 320px;
-      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      position: fixed; bottom: 80px; right: 24px;
+      padding: 12px 20px; border-radius: 10px; font-size: 0.82rem; font-weight: 600;
+      opacity: 0; transform: translateY(10px); transition: all .3s; pointer-events: none;
+      z-index: 999; max-width: 320px; box-shadow: 0 8px 24px rgba(0,0,0,.12);
     }
     #toast.show { opacity: 1; transform: translateY(0); }
     #toast.ok   { background: var(--green-bg); color: var(--green); border: 1px solid #b4d9c6; }
     #toast.fail { background: var(--red-bg);   color: var(--red);   border: 1px solid #e8c0c0; }
 
-    @media(max-width:900px) { .stats-row { grid-template-columns: 1fr 1fr; } }
-    @media(max-width:560px) { .stats-row { grid-template-columns: 1fr; } .top-bar { flex-direction: column; align-items: flex-start; } }
+    /* Table shared for disbursement */
+    .simple-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .simple-table thead tr { background: #f9f8f5; border-bottom: 1px solid var(--border); }
+    .simple-table th { padding: 11px 14px; text-align: left; font-size: 0.70rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; }
+    .simple-table tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
+    .simple-table tbody tr:last-child { border-bottom: none; }
+    .simple-table tbody tr:hover { background: #fafaf8; }
+    .simple-table td { padding: 12px 14px; vertical-align: middle; }
+
+    .bank-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; background: var(--blue-bg); color: var(--blue); padding: 3px 8px; border-radius: 5px; }
+    .ifsc-mono { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--muted); }
+
+    @media(max-width:900px) { .stats-row,.summary-grid { grid-template-columns: 1fr 1fr; } .breakdown-row { grid-template-columns: 1fr; } }
+    @media(max-width:560px) { .stats-row,.summary-grid { grid-template-columns: 1fr; } .top-bar { flex-direction: column; align-items: flex-start; } }
   </style>
 </head>
 <body>
@@ -239,63 +273,193 @@
   <div class="header-meta"><span id="orgLabel">Loading…</span></div>
 </header>
 
-<div class="page">
-
-  <div class="top-bar">
-    <div>
-      <h2>Salary Sheet <small id="pageSubtitle">Fetching employee records…</small></h2>
-    </div>
-    <div class="controls">
-      <input type="month" id="salaryMonthInput" title="Salary Month"/>
-      <input type="text" id="searchBox" placeholder="Search employee…" oninput="filterRows()"/>
-    </div>
-  </div>
-
-  <div class="stats-row">
-    <div class="stat-card">       <div class="label">Employees</div>       <div class="amount" id="statEmp">—</div></div>
-    <div class="stat-card green"> <div class="label">Total Gross</div>     <div class="amount" id="statGross">—</div></div>
-    <div class="stat-card red">   <div class="label">Total Deductions</div><div class="amount" id="statDeduct">—</div></div>
-    <div class="stat-card blue">  <div class="label">Total Net Payable</div><div class="amount" id="statNet">—</div></div>
-  </div>
-
-  <div class="table-card">
-    <div class="table-scroll">
-      <table>
-        <thead>
-          <tr>
-            <th>Employee</th>
-            <th class="section-earn">Base</th>
-            <th class="section-earn">AGP</th>
-            <th class="section-earn">DA</th>
-            <th class="section-earn">DP</th>
-            <th class="section-earn">HRA</th>
-            <th class="section-earn">TRA</th>
-            <th class="section-earn">CLA</th>
-            <th class="section-earn">Gross</th>
-            <th class="section-deduct">PF</th>
-            <th class="section-deduct">PT</th>
-            <th class="section-deduct">Other Deduction</th>
-            <th class="section-deduct">Absent Deduction</th>
-            <th class="section-net">Net Payable</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody">
-          <tr><td colspan="16"><div class="state-box"><span class="icon">⏳</span><p><span class="spinner"></span> Loading…</p></div></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
+<!-- Tab Navigation -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('sheet')">📋 Salary Sheet</button>
+  <button class="tab-btn" onclick="switchTab('summary')">📊 Salary Summary</button>
+  <button class="tab-btn" onclick="switchTab('disbursement')">🏦 Disbursement</button>
 </div>
 
-<!-- Fixed bottom Save All bar -->
-<div class="save-bar">
-  <div class="save-bar-info" id="saveBarInfo">Select a month to begin.</div>
-  <button class="save-all-btn" id="saveAllBtn" onclick="saveAllSalaries()" disabled>
-    💾 Save All Salaries
-  </button>
+<!-- ════════════════════ TAB 1: SALARY SHEET ════════════════════ -->
+<div class="tab-panel active" id="tab-sheet">
+  <div class="page">
+
+    <div class="top-bar">
+      <div>
+        <h2>Salary Sheet <small id="pageSubtitle">Fetching employee records…</small></h2>
+      </div>
+      <div class="controls">
+        <input type="month" id="salaryMonthInput" title="Salary Month"/>
+        <input type="text" id="searchBox" placeholder="Search employee…" oninput="filterRows()"/>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">       <div class="label">Employees</div>       <div class="amount" id="statEmp">—</div></div>
+      <div class="stat-card green"> <div class="label">Total Gross</div>     <div class="amount" id="statGross">—</div></div>
+      <div class="stat-card red">   <div class="label">Total Deductions</div><div class="amount" id="statDeduct">—</div></div>
+      <div class="stat-card blue">  <div class="label">Total Net Payable</div><div class="amount" id="statNet">—</div></div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Employee</th>
+              <th class="section-earn">Base</th>
+              <th class="section-earn">AGP</th>
+              <th class="section-earn">DA</th>
+              <th class="section-earn">DP</th>
+              <th class="section-earn">HRA</th>
+              <th class="section-earn">TRA</th>
+              <th class="section-earn">CLA</th>
+              <th class="section-earn">Gross</th>
+              <th class="section-deduct">PF</th>
+              <th class="section-deduct">PT</th>
+              <th class="section-deduct">Other Deduction</th>
+              <th class="section-deduct">Absent Deduction</th>
+              <th class="section-net">Net Payable</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr><td colspan="16"><div class="state-box"><span class="icon">⏳</span><p><span class="spinner"></span> Loading…</p></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Fixed Save Bar (only visible on sheet tab) -->
+  <div class="save-bar" id="saveBar">
+    <div class="save-bar-info" id="saveBarInfo">Select a month to begin.</div>
+    <button class="save-all-btn" id="saveAllBtn" onclick="saveAllSalaries()" disabled>💾 Save All Salaries</button>
+  </div>
+</div>
+
+
+<!-- ════════════════════ TAB 2: SALARY SUMMARY ════════════════════ -->
+<div class="tab-panel" id="tab-summary">
+  <div class="page">
+
+    <div class="top-bar">
+      <div>
+        <h2>Salary Summary <small>Aggregate view for a selected month</small></h2>
+      </div>
+      <div class="summary-controls">
+        <input type="month" id="summaryMonthInput" title="Summary Month"/>
+        <button class="fetch-btn" onclick="loadSummary()">🔍 Load Summary</button>
+        <button class="btn-pdf red-pdf" id="summaryPdfBtn" onclick="downloadSummaryPdf()" disabled>
+          ⬇ Download PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- KPI cards -->
+    <div class="summary-grid" id="summaryKpi" style="display:none">
+      <div class="sum-card">   <div class="s-label">Total Employees</div><div class="s-val" id="sk-emp">—</div></div>
+      <div class="sum-card g"> <div class="s-label">Total Gross</div>    <div class="s-val" id="sk-gross">—</div></div>
+      <div class="sum-card r"> <div class="s-label">Total Deductions</div><div class="s-val" id="sk-ded">—</div></div>
+      <div class="sum-card b"> <div class="s-label">Total Net Payable</div><div class="s-val" id="sk-net">—</div></div>
+    </div>
+
+    <!-- Breakdown -->
+    <div class="breakdown-row" id="summaryBreakdown" style="display:none">
+      <!-- Earnings -->
+      <div class="breakdown-card">
+        <div class="bc-header earn">📈 Earnings Breakdown</div>
+        <div class="bc-row"><span class="bc-label">Basic Salary</span><span class="bc-amount" id="sb-base">—</span></div>
+        <div class="bc-row"><span class="bc-label">AGP</span>         <span class="bc-amount" id="sb-agp">—</span></div>
+        <div class="bc-row"><span class="bc-label">DA</span>          <span class="bc-amount" id="sb-da">—</span></div>
+        <div class="bc-row"><span class="bc-label">DP</span>          <span class="bc-amount" id="sb-dp">—</span></div>
+        <div class="bc-row"><span class="bc-label">HRA</span>         <span class="bc-amount" id="sb-hra">—</span></div>
+        <div class="bc-row"><span class="bc-label">TRA</span>         <span class="bc-amount" id="sb-tra">—</span></div>
+        <div class="bc-row"><span class="bc-label">CLA</span>         <span class="bc-amount" id="sb-cla">—</span></div>
+        <div class="bc-row earn-total total"><span class="bc-label">Total Earnings</span><span class="bc-amount" id="sb-earn-total">—</span></div>
+      </div>
+      <!-- Deductions -->
+      <div class="breakdown-card">
+        <div class="bc-header deduct">📉 Deductions Breakdown</div>
+        <div class="bc-row"><span class="bc-label">Professional Tax (PT)</span><span class="bc-amount" id="sb-pt">—</span></div>
+        <div class="bc-row"><span class="bc-label">Provident Fund (PF)</span>  <span class="bc-amount" id="sb-pf">—</span></div>
+        <div class="bc-row"><span class="bc-label">Other Deductions</span>      <span class="bc-amount" id="sb-od">—</span></div>
+        <div class="bc-row"><span class="bc-label">Absent Day Deduction</span>  <span class="bc-amount" id="sb-ad">—</span></div>
+        <div class="bc-row deduct-total total"><span class="bc-label">Total Deductions</span><span class="bc-amount" id="sb-ded-total">—</span></div>
+      </div>
+    </div>
+
+    <!-- Placeholder -->
+    <div id="summaryPlaceholder">
+      <div class="table-card">
+        <div class="state-box">
+          <span class="icon">📊</span>
+          <p>Select a month and click <strong>Load Summary</strong> to view data.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════ TAB 3: DISBURSEMENT ════════════════════ -->
+<div class="tab-panel" id="tab-disbursement">
+  <div class="page">
+
+    <div class="top-bar">
+      <div>
+        <h2>Salary Disbursement <small>Bank details &amp; net salary per employee</small></h2>
+      </div>
+      <div class="summary-controls">
+        <input type="month" id="disbMonthInput" title="Disbursement Month"/>
+        <button class="fetch-btn" onclick="loadDisbursement()">🔍 Load Records</button>
+        <button class="btn-pdf blue-pdf" id="disbPdfBtn" onclick="downloadDisbPdf()" disabled>
+          ⬇ Download PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Summary strip -->
+    <div class="summary-grid" id="disbKpi" style="display:none; grid-template-columns: repeat(2,1fr)">
+      <div class="sum-card">   <div class="s-label">Total Employees</div>       <div class="s-val" id="dk-emp">—</div></div>
+      <div class="sum-card b"> <div class="s-label">Total Amount to Disburse</div><div class="s-val" id="dk-net">—</div></div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-card" id="disbTableCard" style="display:none">
+      <div class="table-scroll">
+        <table class="simple-table dis-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Employee Name</th>
+              <th>Bank Name</th>
+              <th>Account Number</th>
+              <th>IFSC Code</th>
+              <th class="section-net">Net Salary</th>
+              <!-- ── NEW COLUMN ── -->
+              <th style="color:var(--purple); border-bottom:2px solid var(--purple)">Salary Slip</th>
+            </tr>
+          </thead>
+          <tbody id="disbTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Placeholder -->
+    <div id="disbPlaceholder">
+      <div class="table-card">
+        <div class="state-box">
+          <span class="icon">🏦</span>
+          <p>Select a month and click <strong>Load Records</strong> to view disbursement data.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <div id="toast"></div>
@@ -307,7 +471,7 @@ const TOKEN_KEY = 'token';
 function getToken()    { return localStorage.getItem(TOKEN_KEY) || ''; }
 function authHeaders() { return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` }; }
 function num(v)        { return parseFloat(v) || 0; }
-function currency(n)   { return '₹' + Number(n).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function currency(n)   { return '₹' + Number(n || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
 
 let toastTimer;
 function toast(msg, type = 'ok') {
@@ -318,30 +482,36 @@ function toast(msg, type = 'ok') {
   toastTimer = setTimeout(() => t.className = '', 3500);
 }
 
-/* ── State ── */
-let employees    = [];  // base salary details from /get_salary_details
-let savedRecords = {};  // user_id → record, for the currently selected month
+/* ── Tab Switching ── */
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', ['sheet','summary','disbursement'][i] === name));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(`tab-${name}`).classList.add('active');
+  document.getElementById('saveBar').style.display = name === 'sheet' ? '' : 'none';
+}
 
-/* ── Boot ── */
+/* ─────────────────────── SHEET TAB STATE ─────────────────────── */
+let employees    = [];
+let savedRecords = {};
+
 window.addEventListener('DOMContentLoaded', () => {
   const now = new Date();
-  document.getElementById('salaryMonthInput').value =
-    `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  const monthVal = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  document.getElementById('salaryMonthInput').value  = monthVal;
+  document.getElementById('summaryMonthInput').value = monthVal;
+  document.getElementById('disbMonthInput').value    = monthVal;
 
   document.getElementById('salaryMonthInput').addEventListener('change', fetchMonthlyRecords);
-
   fetchSalaries();
 });
 
-/* ── Step 1: Load base salary details ── */
 async function fetchSalaries() {
   try {
     const res  = await fetch(`${BASE_URL}/get_salary_details`, { headers: authHeaders() });
     const data = await res.json();
     if (data.status === 'success') {
       employees = data.emp || [];
-      document.getElementById('pageSubtitle').textContent =
-        `${employees.length} employee${employees.length !== 1 ? 's' : ''} in your organisation`;
+      document.getElementById('pageSubtitle').textContent = `${employees.length} employee${employees.length !== 1 ? 's' : ''} in your organisation`;
       document.getElementById('orgLabel').textContent = `Org · ${employees.length} staff`;
       await fetchMonthlyRecords();
     } else {
@@ -352,11 +522,9 @@ async function fetchSalaries() {
   }
 }
 
-/* ── Step 2: Load saved records for selected month ── */
 async function fetchMonthlyRecords() {
   const month = document.getElementById('salaryMonthInput').value;
   if (!month || !employees.length) return;
-
   savedRecords = {};
   try {
     const res  = await fetch(`${BASE_URL}/get_monthly_salary_records?salary_month=${month}`, { headers: authHeaders() });
@@ -364,8 +532,7 @@ async function fetchMonthlyRecords() {
     if (data.status === 'success') {
       (data.records || []).forEach(r => { savedRecords[r.user_id] = r; });
     }
-  } catch (_) { /* non-fatal */ }
-
+  } catch (_) {}
   renderTable(employees);
   updateStats(employees);
   updateSaveBar();
@@ -376,40 +543,27 @@ function showError(msg) {
     `<tr><td colspan="16"><div class="state-box"><span class="icon">⚠️</span><p>${msg}</p></div></td></tr>`;
 }
 
-/* ── Render rows ── */
 function renderTable(rows) {
   const tbody = document.getElementById('tableBody');
   if (!rows.length) {
     tbody.innerHTML = `<tr><td colspan="16"><div class="state-box"><span class="icon">📭</span><p>No employees found.</p></div></td></tr>`;
     return;
   }
-
   tbody.innerHTML = rows.map((emp, idx) => {
     const gross   = num(emp.base_salary) + num(emp.agp) + num(emp.da) + num(emp.dp) + num(emp.hra) + num(emp.tra) + num(emp.cla);
     const isSaved = !!savedRecords[emp.user_id];
     const rec     = savedRecords[emp.user_id] || {};
-
-    // Pre-fill deduction inputs from saved record if this month is already saved
-    const pfVal  = isSaved ? num(rec.pf)                   : '';
-    const ptVal  = isSaved ? num(rec.pt)                   : '';
-    const odVal  = isSaved ? num(rec.other_deduction)       : '';
-    const adVal  = isSaved ? num(rec.absent_days_deduction) : '';
-    const netVal = isSaved ? num(rec.net_salary)            : gross;
-
-    const badge = isSaved
+    const pfVal   = isSaved ? num(rec.pf)                   : '';
+    const ptVal   = isSaved ? num(rec.pt)                   : '';
+    const odVal   = isSaved ? num(rec.other_deduction)       : '';
+    const adVal   = isSaved ? num(rec.absent_days_deduction) : '';
+    const netVal  = isSaved ? num(rec.net_salary)            : gross;
+    const badge   = isSaved
       ? `<span class="status-badge saved">✓ Saved</span>`
       : `<span class="status-badge pending">Pending</span>`;
-
-    // Update button: only active when salary is already saved for this month
-    const updateDisabled = isSaved ? '' : 'disabled';
-    const updateTitle    = isSaved ? 'Update this employee\'s saved salary' : 'Save salary first to enable update';
-
     return `
     <tr data-userid="${emp.user_id}">
-      <td>
-        <div class="emp-name">${emp.Name || '—'}</div>
-        <div class="emp-id">${emp.user_id}</div>
-      </td>
+      <td><div class="emp-name">${emp.Name || '—'}</div><div class="emp-id">${emp.user_id}</div></td>
       <td class="mono earn-val">${currency(emp.base_salary)}</td>
       <td class="mono earn-val">${currency(emp.agp)}</td>
       <td class="mono earn-val">${currency(emp.da)}</td>
@@ -418,27 +572,17 @@ function renderTable(rows) {
       <td class="mono earn-val">${currency(emp.tra)}</td>
       <td class="mono earn-val">${currency(emp.cla)}</td>
       <td><span class="gross-val">${currency(gross)}</span></td>
-
-      <td><input class="deduct-input" type="number" min="0" step="0.01" placeholder="0.00"
-            id="pf_${idx}" value="${pfVal}" oninput="recalcRow(${idx})" title="Provident Fund"/></td>
-      <td><input class="deduct-input" type="number" min="0" step="0.01" placeholder="0.00"
-            id="pt_${idx}" value="${ptVal}" oninput="recalcRow(${idx})" title="Professional Tax"/></td>
-      <td><input class="deduct-input" type="number" min="0" step="0.01" placeholder="0.00"
-            id="od_${idx}" value="${odVal}" oninput="recalcRow(${idx})" title="Other Deduction"/></td>
-      <td><input class="deduct-input" type="number" min="0" step="0.01" placeholder="0.00"
-            id="ad_${idx}" value="${adVal}" oninput="recalcRow(${idx})" title="Absent Days Deduction"/></td>
-
+      <td><input class="deduct-input" type="number" min="0" step="0.01" placeholder="0.00" id="pf_${idx}" value="${pfVal}" oninput="recalcRow(${idx})" title="Provident Fund"/></td>
+      <td><input class="deduct-input" type="number" min="0" step="0.01" placeholder="0.00" id="pt_${idx}" value="${ptVal}" oninput="recalcRow(${idx})" title="Professional Tax"/></td>
+      <td><input class="deduct-input" type="number" min="0" step="0.01" placeholder="0.00" id="od_${idx}" value="${odVal}" oninput="recalcRow(${idx})" title="Other Deduction"/></td>
+      <td><input class="deduct-input" type="number" min="0" step="0.01" placeholder="0.00" id="ad_${idx}" value="${adVal}" oninput="recalcRow(${idx})" title="Absent Days Deduction"/></td>
       <td><span class="net-val" id="net_${idx}">${currency(netVal)}</span></td>
       <td id="status_${idx}">${badge}</td>
-      <td>
-        <button class="update-btn" id="ubtn_${idx}" ${updateDisabled} title="${updateTitle}"
-          onclick="updateSalary(${idx})">↑ Update</button>
-      </td>
+      <td><button class="update-btn" id="ubtn_${idx}" ${isSaved ? '' : 'disabled'} title="${isSaved ? 'Update this employee\'s saved salary' : 'Save salary first'}" onclick="updateSalary(${idx})">↑ Update</button></td>
     </tr>`;
   }).join('');
 }
 
-/* ── Live net recalc ── */
 function recalcRow(idx) {
   const emp   = employees[idx];
   const gross = num(emp.base_salary) + num(emp.agp) + num(emp.da) + num(emp.dp) + num(emp.hra) + num(emp.tra) + num(emp.cla);
@@ -450,7 +594,6 @@ function recalcRow(idx) {
   updateStats(employees);
 }
 
-/* ── Stats ── */
 function updateStats(rows) {
   let totalGross = 0, totalDeduct = 0;
   rows.forEach((emp, idx) => {
@@ -467,141 +610,303 @@ function updateStats(rows) {
   document.getElementById('statNet').textContent    = currency(totalGross - totalDeduct);
 }
 
-/* ── Save bar label + button state ── */
 function updateSaveBar() {
   const month    = document.getElementById('salaryMonthInput').value || '—';
   const nSaved   = Object.keys(savedRecords).length;
   const nPending = employees.length - nSaved;
   const btn      = document.getElementById('saveAllBtn');
   const info     = document.getElementById('saveBarInfo');
-
-  if (employees.length === 0) {
-    info.innerHTML = 'No employees loaded.';
-    btn.disabled = true;
-    return;
-  }
-
+  if (employees.length === 0) { info.innerHTML = 'No employees loaded.'; btn.disabled = true; return; }
   if (nPending === 0) {
-    // All saved → disable Save All, only Update available
-    info.innerHTML = `All <strong>${employees.length}</strong> employees already have salary saved for <strong>${month}</strong>. Use <strong>Update</strong> to make changes.`;
-    btn.disabled = true;
-    btn.innerHTML = '✓ All Saved';
+    info.innerHTML = `All <strong>${employees.length}</strong> employees already saved for <strong>${month}</strong>. Use <strong>Update</strong> to make changes.`;
+    btn.disabled = true; btn.innerHTML = '✓ All Saved';
   } else {
     info.innerHTML = `<strong>${nPending}</strong> unsaved · <strong>${nSaved}</strong> already saved for <strong>${month}</strong>`;
-    btn.disabled = false;
-    btn.innerHTML = '💾 Save All Salaries';
+    btn.disabled = false; btn.innerHTML = '💾 Save All Salaries';
   }
 }
 
-/* ── Search ── */
 function filterRows() {
   const q = document.getElementById('searchBox').value.toLowerCase().trim();
   renderTable(q ? employees.filter(e => (e.Name || '').toLowerCase().includes(q)) : employees);
   updateStats(employees);
 }
 
-/* ── Save All: calls original /emp_salary once per employee ── */
 async function saveAllSalaries() {
   const month = document.getElementById('salaryMonthInput').value;
   if (!month) { toast('Please select a salary month first.', 'fail'); return; }
-
   const btn = document.getElementById('saveAllBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner white"></span> Saving…';
-
-  // Only send employees that are NOT yet saved for this month
+  btn.disabled = true; btn.innerHTML = '<span class="spinner white"></span> Saving…';
   const pending = employees.filter(emp => !savedRecords[emp.user_id]);
-
   let savedCount = 0;
   for (let idx = 0; idx < employees.length; idx++) {
     const emp = employees[idx];
-    if (savedRecords[emp.user_id]) continue; // already saved, skip
-
+    if (savedRecords[emp.user_id]) continue;
     const payload = {
-      user_id              : emp.user_id,
-      salary_month         : month,
-      salary_date          : new Date().toISOString().split('T')[0],
-      base_salary          : num(emp.base_salary),
-      agp                  : num(emp.agp),
-      da                   : num(emp.da),
-      dp                   : num(emp.dp),
-      hra                  : num(emp.hra),
-      tra                  : num(emp.tra),
-      cla                  : num(emp.cla),
-      pf                   : num(document.getElementById(`pf_${idx}`)?.value),
-      pt                   : num(document.getElementById(`pt_${idx}`)?.value),
-      other_deduction      : num(document.getElementById(`od_${idx}`)?.value),
+      user_id: emp.user_id, salary_month: month,
+      salary_date: new Date().toISOString().split('T')[0],
+      base_salary: num(emp.base_salary), agp: num(emp.agp), da: num(emp.da),
+      dp: num(emp.dp), hra: num(emp.hra), tra: num(emp.tra), cla: num(emp.cla),
+      pf: num(document.getElementById(`pf_${idx}`)?.value),
+      pt: num(document.getElementById(`pt_${idx}`)?.value),
+      other_deduction: num(document.getElementById(`od_${idx}`)?.value),
       absent_days_deduction: num(document.getElementById(`ad_${idx}`)?.value)
     };
-
     try {
-      const res  = await fetch(`${BASE_URL}/emp_salary`, {
-        method : 'POST',
-        headers: authHeaders(),
-        body   : JSON.stringify(payload)
-      });
+      const res  = await fetch(`${BASE_URL}/emp_salary`, { method:'POST', headers: authHeaders(), body: JSON.stringify(payload) });
       const data = await res.json();
       if (data.status === 'success') savedCount++;
     } catch (_) {}
   }
-
   toast(`${savedCount} of ${pending.length} salary records saved.`, savedCount > 0 ? 'ok' : 'fail');
-
-  // Refresh monthly records to update badges and enable Update buttons
   await fetchMonthlyRecords();
 }
 
-/* ── Update single employee salary ── */
 async function updateSalary(idx) {
   const emp   = employees[idx];
   const month = document.getElementById('salaryMonthInput').value;
-
-  if (!savedRecords[emp.user_id]) {
-    toast('No saved record for this employee. Use Save All first.', 'fail');
-    return;
-  }
-
+  if (!savedRecords[emp.user_id]) { toast('No saved record. Use Save All first.', 'fail'); return; }
   const btn = document.getElementById(`ubtn_${idx}`);
-  btn.disabled = true;
-  btn.textContent = '…';
-
+  btn.disabled = true; btn.textContent = '…';
   const payload = {
-    user_id              : emp.user_id,
-    salary_month         : month,
-    base_salary          : num(emp.base_salary),
-    agp                  : num(emp.agp),
-    da                   : num(emp.da),
-    dp                   : num(emp.dp),
-    hra                  : num(emp.hra),
-    tra                  : num(emp.tra),
-    cla                  : num(emp.cla),
-    pf                   : num(document.getElementById(`pf_${idx}`).value),
-    pt                   : num(document.getElementById(`pt_${idx}`).value),
-    other_deduction      : num(document.getElementById(`od_${idx}`).value),
+    user_id: emp.user_id, salary_month: month,
+    base_salary: num(emp.base_salary), agp: num(emp.agp), da: num(emp.da),
+    dp: num(emp.dp), hra: num(emp.hra), tra: num(emp.tra), cla: num(emp.cla),
+    pf: num(document.getElementById(`pf_${idx}`).value),
+    pt: num(document.getElementById(`pt_${idx}`).value),
+    other_deduction: num(document.getElementById(`od_${idx}`).value),
     absent_days_deduction: num(document.getElementById(`ad_${idx}`).value)
   };
-
   try {
-    const res  = await fetch(`${BASE_URL}/update_emp_salary`, {
-      method : 'PUT',
-      headers: authHeaders(),
-      body   : JSON.stringify(payload)
-    });
+    const res  = await fetch(`${BASE_URL}/update_emp_salary`, { method:'PUT', headers: authHeaders(), body: JSON.stringify(payload) });
     const data = await res.json();
-
     if (data.status === 'success') {
       toast(`${emp.Name} — salary updated ✓`, 'ok');
       btn.textContent = '✓ Updated';
       setTimeout(() => { btn.disabled = false; btn.textContent = '↑ Update'; }, 2000);
     } else {
       toast(data.message || 'Update failed.', 'fail');
-      btn.disabled = false;
-      btn.textContent = '↑ Update';
+      btn.disabled = false; btn.textContent = '↑ Update';
     }
   } catch (err) {
     toast('Network error: ' + err.message, 'fail');
+    btn.disabled = false; btn.textContent = '↑ Update';
+  }
+}
+
+/* ─────────────────────── SUMMARY TAB ─────────────────────── */
+async function loadSummary() {
+  const month = document.getElementById('summaryMonthInput').value;
+  if (!month) { toast('Please select a month.', 'fail'); return; }
+
+  document.getElementById('summaryKpi').style.display = 'none';
+  document.getElementById('summaryBreakdown').style.display = 'none';
+  document.getElementById('summaryPlaceholder').innerHTML =
+    `<div class="table-card"><div class="state-box"><span class="icon">⏳</span><p><span class="spinner"></span> Loading summary…</p></div></div>`;
+  document.getElementById('summaryPdfBtn').disabled = true;
+
+  try {
+    const res  = await fetch(`${BASE_URL}/salary_summary?salary_month=${month}`, { headers: authHeaders() });
+    const data = await res.json();
+
+    if (data.status !== 'success' || !data.summary) {
+      document.getElementById('summaryPlaceholder').innerHTML =
+        `<div class="table-card"><div class="state-box"><span class="icon">📭</span><p>${data.message || 'No records found for this month.'}</p></div></div>`;
+      return;
+    }
+
+    const s = data.summary;
+
+    document.getElementById('sk-emp').textContent   = parseInt(s.total_emp || 0);
+    document.getElementById('sk-gross').textContent = currency(s.earnings);
+    document.getElementById('sk-ded').textContent   = currency(s.deductions);
+    document.getElementById('sk-net').textContent   = currency(s.net_salary);
+    document.getElementById('summaryKpi').style.display = '';
+
+    document.getElementById('sb-base').textContent      = currency(s.base);
+    document.getElementById('sb-agp').textContent       = currency(s.agp);
+    document.getElementById('sb-da').textContent        = currency(s.da);
+    document.getElementById('sb-dp').textContent        = currency(s.dp);
+    document.getElementById('sb-hra').textContent       = currency(s.hra);
+    document.getElementById('sb-tra').textContent       = currency(s.tra);
+    document.getElementById('sb-cla').textContent       = currency(s.cla);
+    document.getElementById('sb-earn-total').textContent= currency(s.earnings);
+    document.getElementById('sb-pt').textContent        = currency(s.pt);
+    document.getElementById('sb-pf').textContent        = currency(s.pf);
+    document.getElementById('sb-od').textContent        = currency(s.other_deduction);
+    document.getElementById('sb-ad').textContent        = currency(s.absent_days_deduction);
+    document.getElementById('sb-ded-total').textContent = currency(s.deductions);
+    document.getElementById('summaryBreakdown').style.display = '';
+
+    document.getElementById('summaryPlaceholder').innerHTML = '';
+    document.getElementById('summaryPdfBtn').disabled = false;
+    toast('Summary loaded for ' + month, 'ok');
+
+  } catch (err) {
+    document.getElementById('summaryPlaceholder').innerHTML =
+      `<div class="table-card"><div class="state-box"><span class="icon">⚠️</span><p>Network error: ${err.message}</p></div></div>`;
+  }
+}
+
+async function downloadSummaryPdf() {
+  const month = document.getElementById('summaryMonthInput').value;
+  if (!month) { toast('Please select a month first.', 'fail'); return; }
+  const btn = document.getElementById('summaryPdfBtn');
+  btn.disabled = true; btn.textContent = '⏳ Generating…';
+  try {
+    const res = await fetch(`${BASE_URL}/salary_summary_pdf?salary_month=${month}`, { headers: authHeaders() });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ message: 'Unknown error' }));
+      toast(err.message || 'Failed to generate PDF.', 'fail');
+      return;
+    }
+    const blob = await res.blob();
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href = url; a.download = `Salary_Summary_${month}.pdf`; a.click();
+    URL.revokeObjectURL(url);
+    toast('Summary PDF downloaded ✓', 'ok');
+  } catch (err) {
+    toast('Network error: ' + err.message, 'fail');
+  } finally {
+    btn.disabled = false; btn.innerHTML = '⬇ Download PDF';
+  }
+}
+
+/* ─────────────────────── DISBURSEMENT TAB ─────────────────────── */
+async function loadDisbursement() {
+  const month = document.getElementById('disbMonthInput').value;
+  if (!month) { toast('Please select a month.', 'fail'); return; }
+
+  document.getElementById('disbKpi').style.display = 'none';
+  document.getElementById('disbTableCard').style.display = 'none';
+  document.getElementById('disbPdfBtn').disabled = true;
+  document.getElementById('disbPlaceholder').innerHTML =
+    `<div class="table-card"><div class="state-box"><span class="icon">⏳</span><p><span class="spinner"></span> Loading disbursement records…</p></div></div>`;
+
+  try {
+    const res  = await fetch(`${BASE_URL}/salary_disbursement?salary_month=${month}`, { headers: authHeaders() });
+    const data = await res.json();
+
+    if (data.status !== 'success' || !data.users || data.users.length === 0) {
+      document.getElementById('disbPlaceholder').innerHTML =
+        `<div class="table-card"><div class="state-box"><span class="icon">📭</span><p>${data.message || 'No disbursement records found for this month.'}</p></div></div>`;
+      return;
+    }
+
+    const users    = data.users;
+    const totalNet = users.reduce((s, u) => s + num(u.net_salary), 0);
+
+    // KPI
+    document.getElementById('dk-emp').textContent = users.length;
+    document.getElementById('dk-net').textContent = currency(totalNet);
+    document.getElementById('disbKpi').style.display = '';
+
+    // ── Table rows — now with Salary Slip button ──────────────────────
+    document.getElementById('disbTableBody').innerHTML = users.map((u, i) => `
+      <tr>
+        <td class="mono" style="color:var(--muted)">${i + 1}</td>
+        <td><div class="emp-name">${u.Name || '—'}</div></td>
+        <td><span class="bank-badge">${u.bank_name || '—'}</span></td>
+        <td class="mono">${u.bank_acc_no || '—'}</td>
+        <td class="ifsc-mono">${u.ifsc_code || '—'}</td>
+        <td><span class="net-val">${currency(u.net_salary)}</span></td>
+        <td>
+          <button
+            class="slip-btn"
+            id="slipBtn_${i}"
+            title="Download salary slip for ${u.Name}"
+            onclick="downloadSlip('${u.user_id}', '${u.Name}', ${i})"
+          >
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM8 13h8v1H8v-1zm0 3h5v1H8v-1zm0-6h3v1H8v-1z"/>
+            </svg>
+            Salary Slip
+          </button>
+        </td>
+      </tr>
+    `).join('') + `
+      <tr style="font-weight:700; background:#f9f8f5;">
+        <td></td>
+        <td style="color:var(--ink)">TOTAL</td>
+        <td></td><td></td><td></td>
+        <td><span class="net-val" style="background:var(--green-bg);color:var(--green)">${currency(totalNet)}</span></td>
+        <td></td>
+      </tr>`;
+
+    document.getElementById('disbTableCard').style.display = '';
+    document.getElementById('disbPlaceholder').innerHTML = '';
+    document.getElementById('disbPdfBtn').disabled = false;
+    toast('Disbursement records loaded ✓', 'ok');
+
+  } catch (err) {
+    document.getElementById('disbPlaceholder').innerHTML =
+      `<div class="table-card"><div class="state-box"><span class="icon">⚠️</span><p>Network error: ${err.message}</p></div></div>`;
+  }
+}
+
+/* ── Download individual salary slip ── */
+async function downloadSlip(userId, empName, idx) {
+  const month = document.getElementById('disbMonthInput').value;
+  if (!month) { toast('Month not selected.', 'fail'); return; }
+
+  const btn = document.getElementById(`slipBtn_${idx}`);
+  const orig = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> …';
+
+  try {
+    const res = await fetch(
+      `${BASE_URL}/salary_slip_pdf?salary_month=${month}&user_id=${encodeURIComponent(userId)}`,
+      { headers: authHeaders() }
+    );
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ message: 'Unknown error' }));
+      toast(err.message || 'Failed to generate slip.', 'fail');
+      return;
+    }
+
+    const blob = await res.blob();
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    const safe = (empName || 'Employee').replace(/\s+/g, '_');
+    a.href = url;
+    a.download = `SalarySlip_${safe}_${month}.pdf`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast(`Salary slip downloaded for ${empName} ✓`, 'ok');
+
+  } catch (err) {
+    toast('Network error: ' + err.message, 'fail');
+  } finally {
     btn.disabled = false;
-    btn.textContent = '↑ Update';
+    btn.innerHTML = orig;
+  }
+}
+
+async function downloadDisbPdf() {
+  const month = document.getElementById('disbMonthInput').value;
+  if (!month) { toast('Please select a month first.', 'fail'); return; }
+  const btn = document.getElementById('disbPdfBtn');
+  btn.disabled = true; btn.textContent = '⏳ Generating…';
+  try {
+    const res = await fetch(`${BASE_URL}/salary_disbursement_pdf?salary_month=${month}`, { headers: authHeaders() });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ message: 'Unknown error' }));
+      toast(err.message || 'Failed to generate PDF.', 'fail');
+      return;
+    }
+    const blob = await res.blob();
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href = url; a.download = `Salary_Disbursement_${month}.pdf`; a.click();
+    URL.revokeObjectURL(url);
+    toast('Disbursement PDF downloaded ✓', 'ok');
+  } catch (err) {
+    toast('Network error: ' + err.message, 'fail');
+  } finally {
+    btn.disabled = false; btn.innerHTML = '⬇ Download PDF';
   }
 }
 </script>
