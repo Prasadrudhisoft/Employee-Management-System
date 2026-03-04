@@ -12,7 +12,7 @@ account_bp = Blueprint('account',__name__)
 def get_salary_detailes(id = None, role= None, org_id=None):
     try:
         conn = get_connection()
-        cursor = conn.cursor()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
 
         cursor.execute("select u.Name,s.user_id, s.base_salary, s.agp,s.da,s.dp,s.hra,s.tra,s.cla from users u inner join salary_detailes s on u.id = s.user_id where s.org_id = %s",(org_id,))
         emp = cursor.fetchall()
@@ -37,7 +37,7 @@ def get_salary_detailes(id = None, role= None, org_id=None):
 def get_monthly_salary_records(id=None, role=None, org_id=None):
     try:
         conn = get_connection()
-        cursor = conn.cursor()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
 
         salary_month = request.args.get('salary_month')
         if not salary_month:
@@ -67,7 +67,7 @@ def get_monthly_salary_records(id=None, role=None, org_id=None):
 def emp_salary(id = None, org_id = None, role = None):
     try:
         conn = get_connection()
-        cursor = conn.cursor()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
 
         data = request.json
         
@@ -76,18 +76,18 @@ def emp_salary(id = None, org_id = None, role = None):
         sal_record = str(uuid.uuid4())
 
         user_id = data.get('user_id')
-        base_salary = data.get('base_salary')
-        agp = data.get('agp')
-        da = data.get('da')
-        dp = data.get('dp')
-        hra = data.get('hra')
-        tra = data.get('tra')
-        cla = data.get('cla')
-        pt = data.get('pt') #this is the new it can be manual entry from frontend.
-        pf = data.get('pf') #this is the new it can be manual entry from frontend.
-        other_deduction = data.get('other_deduction') #this is the new it can be manual entry from frontend.
+        base_salary = float(data.get('base_salary'))
+        agp = float(data.get('agp',0))
+        da = float(data.get('da',0))
+        dp = float(data.get('dp',0))
+        hra = float(data.get('hra',0))
+        tra = float(data.get('tra',0))
+        cla = float(data.get('cla',0))
+        pt = float(data.get('pt',0)) #this is the new it can be manual entry from frontend.
+        pf = float(data.get('pf',0)) #this is the new it can be manual entry from frontend.
+        other_deduction = float(data.get('other_deduction',0)) #this is the new it can be manual entry from frontend.
         
-        absent_days_deduction =data.get('absent_days_deduction') #this is the new it can be manual entry from frontend.
+        absent_days_deduction =float(data.get('absent_days_deduction',0)) #this is the new it can be manual entry from frontend.
 
         gross_salary = base_salary + agp + da + dp + hra + tra + cla
 
@@ -126,7 +126,7 @@ def emp_salary(id = None, org_id = None, role = None):
 def update_emp_salary(id=None, org_id=None, role=None):
     try:
         conn = get_connection()
-        cursor = conn.cursor()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
 
         data = request.json
         user_id = data.get('user_id')
@@ -183,3 +183,70 @@ def update_emp_salary(id=None, org_id=None, role=None):
     finally:
         cursor.close()
         conn.close()
+
+
+#Salary Summary Part
+@account_bp.route('/salary_summary', methods=['GET'])
+@jwt_required
+def salary_summary(id = None, org_id = None, role = None):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+        salary_month = request.args.get('salary_month')
+        if not salary_month:
+            return jsonify({'status':'fail', 'message':'Salary Records Not Found For Selected Month'})
+        
+        cursor.execute("select SUM(adj_base) as base, SUM(adj_agp) as agp, SUM(adj_da) as da, SUM(adj_dp) as dp, SUM(adj_hra) as hra, SUM(adj_tra) as tra, SUM(adj_cla) as cla, SUM(pt) as pt, SUM(pf) as pf, SUM(other_deduction) as other_deduction, SUM(absent_days_deduction) as absent_days_deduction, SUM(net_salary) as net_salary, (SUM(adj_base) + SUM(adj_agp) + SUM(adj_da) + SUM(adj_dp) + SUM(adj_hra) + SUM(adj_tra) + SUM(adj_cla)) as earnings, (SUM(pt)+SUM(pf)+SUM(other_deduction)+SUM(absent_days_deduction)) as deductions from staff_salary_record where org_id = %s and salary_month = %s",(org_id,salary_month))
+        summary = cursor.fetchone()
+
+        return jsonify({
+            'status':'success',
+            'message':'All Salary Summary Loaded',
+            'summary':summary
+        })
+    except Exception as e:
+        return jsonify({
+            'status':'error',
+            'message':str(e)
+        })
+    
+    finally:
+        cursor.close()
+        conn.close()
+
+
+#Salary Disbursement
+@account_bp.route('/salary_disbursement', methods=['GET'])
+@jwt_required
+def salary_disbursement(id = None, org_id = None, role = None):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+        salary_month = request.args.get('salary_month')
+        if not salary_month:
+            return jsonify({
+                'status':'fail',
+                'message':'Month Selected have no salary detailes'
+            })
+
+        cursor.execute("select u.Name, sd.bank_acc_no, sd.ifsc_code, sd.bank_name, ss.net_salary from users u join salary_detailes sd ON u.id = sd.user_id join staff_salary_record ss ON u.id = ss.user_id where ss.org_id = %s and ss.salary_month = %s",(org_id, salary_month))
+        users = cursor.fetchall()
+        
+        return jsonify({
+            'status':'success',
+            'message':f'All Salary Records For Selected Month {salary_month} fetched successfully.',
+            'users': users
+        })
+
+    except Exception as e:
+        return jsonify({
+            'status':'error',
+            'message':str(e)
+        })
+    
+    finally:
+        cursor.close()
+        conn.close()
+
