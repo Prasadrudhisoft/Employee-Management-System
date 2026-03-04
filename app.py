@@ -26,6 +26,10 @@ def admin_dashboard():
 def manager_dashboard():
     return render_template('managerdashboard.html')
 
+@app.route('/empdashboard')
+def empdashboard():
+    return render_template('employeedashboard.html')
+
 @app.route('/addmanager')
 def add_manager():
     return render_template('addmanager.html')
@@ -41,6 +45,8 @@ def add_department():
 @app.route('/salary_record')
 def salary_record():
     return render_template('salary_record.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
