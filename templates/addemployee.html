@@ -600,14 +600,23 @@
         function logout(){if(confirm('Sign out?')){localStorage.removeItem('token');localStorage.removeItem('user_data');window.location.href='/login'}}
 
         /* ── Avatar ── */
-        function handleAvatar(input){
-            const file=input.files&&input.files[0];if(!file)return;
-            if(!file.type.match(/image\/(jpeg|png|webp)/)){showAlert('Only PNG, JPG, or WEBP images are allowed.','error');input.value='';return}
-            if(file.size>2*1024*1024){showAlert('Image must be under 2 MB.','error');input.value='';return}
-            const reader=new FileReader();
-            reader.onload=e=>{profileBase64=e.target.result;document.getElementById('avatarPreview').innerHTML=`<img src="${e.target.result}" alt="Preview">`};
-            reader.readAsDataURL(file);
-        }
+        function handleAvatar(input) {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    if (!file.type.match(/image\/(jpeg|png|webp)/)) {
+        showAlert('Only PNG, JPG, or WEBP images are allowed.', 'error');
+        input.value = '';
+        return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+        showAlert('Image must be under 2 MB.', 'error');
+        input.value = '';
+        return;
+    }
+    // Object URL preview — no base64
+    const previewUrl = URL.createObjectURL(file);
+    document.getElementById('avatarPreview').innerHTML = `<img src="${previewUrl}" alt="Preview">`;
+}
 
         /* ── Password Toggle ── */
         function togglePw(id,btn){
@@ -703,61 +712,74 @@
         }
 
         /* ── Submit ── */
-        async function submitForm(){
-            document.getElementById('formAlert').className='alert';
-            if(!validateAll()){showAlert('Please fix the highlighted errors before submitting.','error');return}
+        async function submitForm() {
+    document.getElementById('formAlert').className = 'alert';
+    if (!validateAll()) {
+        showAlert('Please fix the highlighted errors before submitting.', 'error');
+        return;
+    }
 
-            const payload={
-                name:document.getElementById('f-name').value.trim(),
-                email:document.getElementById('f-email').value.trim().toLowerCase(),
-                password:document.getElementById('f-password').value,
-                contact:document.getElementById('f-contact').value.trim(),
-                department_id:document.getElementById('f-dept').value,
-                designation:document.getElementById('f-designation').value.trim(),
-                join_date:document.getElementById('f-joindate').value,
-                address:document.getElementById('f-address').value.trim()||null,
-                base_salary:document.getElementById('f-base_salary').value||null,
-                agp:document.getElementById('f-agp').value||null,
-                da:document.getElementById('f-da').value||null,
-                dp:document.getElementById('f-dp').value||null,
-                hra:document.getElementById('f-hra').value||null,
-                tra:document.getElementById('f-tra').value||null,
-                cla:document.getElementById('f-cla').value||null,
-                bank_acc_no:document.getElementById('f-bank_acc_no').value.trim()||null,
-                ifsc_code:document.getElementById('f-ifsc_code').value.trim().toUpperCase()||null,
-                bank_name:document.getElementById('f-bank_name').value.trim()||null,
-                bank_address:document.getElementById('f-bank_address').value.trim()||null,
-                profile_img:profileBase64||null,
-            };
+    // ── FormData instead of JSON ──
+    const formData = new FormData();
+    formData.append('name',          document.getElementById('f-name').value.trim());
+    formData.append('email',         document.getElementById('f-email').value.trim().toLowerCase());
+    formData.append('password',      document.getElementById('f-password').value);
+    formData.append('contact',       document.getElementById('f-contact').value.trim());
+    formData.append('department_id', document.getElementById('f-dept').value);
+    formData.append('designation',   document.getElementById('f-designation').value.trim());
+    formData.append('join_date',     document.getElementById('f-joindate').value);
+    formData.append('address',       document.getElementById('f-address').value.trim());
+    formData.append('base_salary',   document.getElementById('f-base_salary').value);
+    formData.append('agp',           document.getElementById('f-agp').value);
+    formData.append('da',            document.getElementById('f-da').value);
+    formData.append('dp',            document.getElementById('f-dp').value);
+    formData.append('hra',           document.getElementById('f-hra').value);
+    formData.append('tra',           document.getElementById('f-tra').value);
+    formData.append('cla',           document.getElementById('f-cla').value);
+    formData.append('bank_acc_no',   document.getElementById('f-bank_acc_no').value.trim());
+    formData.append('ifsc_code',     document.getElementById('f-ifsc_code').value.trim().toUpperCase());
+    formData.append('bank_name',     document.getElementById('f-bank_name').value.trim());
+    formData.append('bank_address',  document.getElementById('f-bank_address').value.trim());
 
-            const btn=document.getElementById('submitBtn');
-            const orig=btn.innerHTML;
-            btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Creating Employee…';
-            btn.disabled=true;
+    // ── Real file, not base64 ──
+    const profileFile = document.getElementById('profileInput').files[0];
+    if (profileFile) {
+        formData.append('profile_img', profileFile);
+    }
 
-            try{
-                const token=localStorage.getItem('token');
-                const res=await fetch('/add_emp',{
-                    method:'POST',
-                    headers:{'Content-Type':'application/json','Authorization':`Bearer ${token}`},
-                    body:JSON.stringify(payload)
-                });
-                const data=await res.json();
-                if(data.status==='success'||res.ok){
-                    document.getElementById('formCard').style.display='none';
-                    document.getElementById('successCard').style.display='block';
-                    document.getElementById('successMsg').textContent=`${payload.name} has been added as an Employee and can now log in to the system.`;
-                    window.scrollTo({top:0,behavior:'smooth'});
-                }else{
-                    showAlert(data.message||'An unexpected error occurred.','error');
-                }
-            }catch(err){
-                showAlert('Could not reach the server. Please check your connection and try again.','error');
-            }
+    const btn = document.getElementById('submitBtn');
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Employee…';
+    btn.disabled = true;
 
-            btn.innerHTML=orig;btn.disabled=false;
+    try {
+        const token = localStorage.getItem('token');
+        const res = await fetch('/add_emp', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+                // ❌ NO Content-Type — browser sets it automatically for FormData
+            },
+            body: formData
+        });
+
+        const data = await res.json();
+        if (data.status === 'success') {
+            document.getElementById('formCard').style.display = 'none';
+            document.getElementById('successCard').style.display = 'block';
+            document.getElementById('successMsg').textContent =
+                `${formData.get('name')} has been added as an Employee and can now log in.`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            showAlert(data.message || 'An unexpected error occurred.', 'error');
         }
+    } catch (err) {
+        showAlert('Could not reach the server. Please check your connection and try again.', 'error');
+    }
 
+    btn.innerHTML = orig;
+    btn.disabled = false;
+}
         /* ── Reset ── */
         function resetForm(){
             document.querySelectorAll('input, select, textarea').forEach(el=>el.value='');

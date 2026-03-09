@@ -35,6 +35,7 @@ def jwt_required(func):
         kwargs["id"] = str(payload.get("id"))
         kwargs["role"] = payload.get("role")
         kwargs["org_id"] = payload.get("org_id")
+        kwargs["org_name"] = payload.get("org_name")
 
         return func(*args, **kwargs)
 

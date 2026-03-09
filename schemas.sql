@@ -14,6 +14,7 @@ CREATE TABLE users (
     org_id CHAR(36),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by CHAR(36),
+    org_name VARCHAR(200) NOT NULL,
 
     INDEX idx_users_org (org_id),
     INDEX idx_users_role (role)
@@ -72,14 +73,14 @@ CREATE TABLE salary_detailes (
     user_id CHAR(36) NOT NULL,
     org_id CHAR(36) NOT NULL,
 
-    base_salary INT DEFAULT 0,
-    agp INT DEFAULT 0,
-    da INT DEFAULT 0,
-    dp INT DEFAULT 0,
-    hra INT DEFAULT 0,
-    tra INT DEFAULT 0,
-    cla INT DEFAULT 0,
-    pt INT DEFAULT 0,
+    base_salary INT DEFAULT 0 NULL,
+    agp INT DEFAULT 0 NULL,
+    da INT DEFAULT 0 NULL,
+    dp INT DEFAULT 0 NULL,
+    hra INT DEFAULT 0 NULL,
+    tra INT DEFAULT 0 NULL,
+    cla INT DEFAULT 0 NULL,
+    pt INT DEFAULT 0 NULL,
 
     bank_acc_no VARCHAR(100),
     ifsc_code VARCHAR(20),
@@ -110,7 +111,7 @@ CREATE TABLE staff_salary_record(
     org_id CHAR(36) NOT NULL,
     adj_base DECIMAL(10,2),
     adj_agp DECIMAL(10,2),
-    adj_da DECIMAL(10,2),
+    adj_da DECIMAL(10,2), NULL
     adj_dp DECIMAL(10,2),
     adj_hra DECIMAL(10,2),
     adj_tra DECIMAL(10,2),

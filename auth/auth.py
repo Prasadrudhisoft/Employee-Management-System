@@ -36,7 +36,8 @@ def login():
                 token_data = {
                     "id": user["id"],
                     "org_id": user["org_id"],
-                    "role": user["Role"]
+                    "role": user["Role"],
+                    "org_name": user["org_name"]
                 }
                 token = create_token(token_data)
                 user_data = {
@@ -46,7 +47,8 @@ def login():
                     "role": user["Role"],
                     "org_id": user["org_id"],
                     "status": user["Status"],
-                    "contact": user["Contact"]
+                    "contact": user["Contact"],
+                    "org_name":user["org_name"]
                 }
                 return jsonify({
                     'status': 'success',
