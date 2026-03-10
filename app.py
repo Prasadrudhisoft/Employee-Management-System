@@ -6,11 +6,13 @@ from auth.auth import auth_bp
 from Admin.Admin import admin_bp
 from Manager.manager import manager_bp
 from account.account import account_bp
+from leave import leave_bp
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(admin_bp)
 app.register_blueprint(manager_bp)
 app.register_blueprint(account_bp)
+app.register_blueprint(leave_bp)
 
 
 
@@ -46,6 +48,21 @@ def add_department():
 def salary_record():
     return render_template('salary_record.html')
 
+@app.route('/leave_requests')
+def leave_requests():
+    return render_template('leave_requests.html')
+
+@app.route('/leave_types')
+def leave_types():
+    return render_template('leave_types.html')
+
+@app.route('/holidays')
+def holidays():
+    return render_template('holidays.html')
+
+@app.route('/employee/leaves')
+def employee_leaves():
+    return render_template('employee_leaves.html')
 
 
 if __name__ == '__main__':

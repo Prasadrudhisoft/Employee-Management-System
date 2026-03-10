@@ -388,7 +388,6 @@
             margin: 0 6px;
         }
 
-        /* User dropdown */
         .user-dropdown-wrapper {
             position: relative;
         }
@@ -581,7 +580,6 @@
             margin: 0 auto;
         }
 
-        /* WELCOME BANNER */
         .welcome-banner {
             background: var(--text-primary);
             border-radius: var(--radius-2xl);
@@ -636,12 +634,31 @@
         }
 
         @keyframes wave-hand {
-            0%, 100% { transform: rotate(0deg); }
-            15% { transform: rotate(14deg); }
-            30% { transform: rotate(-8deg); }
-            45% { transform: rotate(14deg); }
-            60% { transform: rotate(-4deg); }
-            75% { transform: rotate(10deg); }
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            15% {
+                transform: rotate(14deg);
+            }
+
+            30% {
+                transform: rotate(-8deg);
+            }
+
+            45% {
+                transform: rotate(14deg);
+            }
+
+            60% {
+                transform: rotate(-4deg);
+            }
+
+            75% {
+                transform: rotate(10deg);
+            }
         }
 
         .welcome-text p {
@@ -652,7 +669,6 @@
             font-weight: 400;
         }
 
-        /* CHECK IN/OUT WIDGET */
         .checkin-widget {
             flex-shrink: 0;
             background: rgba(255, 255, 255, 0.08);
@@ -782,12 +798,25 @@
             font-size: 19px;
         }
 
-        .stat-card.blue .stat-icon { background: var(--primary-subtle); color: var(--primary); }
-        .stat-card.green .stat-icon { background: var(--success-light); color: var(--success); }
-        .stat-card.orange .stat-icon { background: var(--warning-light); color: var(--warning); }
-        .stat-card.red .stat-icon { background: var(--danger-light); color: var(--danger); }
-        .stat-card.purple .stat-icon { background: var(--violet-light); color: var(--violet); }
-        .stat-card.cyan .stat-icon { background: var(--info-light); color: var(--info); }
+        .stat-card.blue .stat-icon {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+
+        .stat-card.green .stat-icon {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .stat-card.orange .stat-icon {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .stat-card.red .stat-icon {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
 
         .stat-mini-label {
             font-size: 11px;
@@ -827,10 +856,21 @@
             transition: width 1s ease;
         }
 
-        .stat-card.blue .stat-progress-bar { background: var(--primary); }
-        .stat-card.green .stat-progress-bar { background: var(--success); }
-        .stat-card.orange .stat-progress-bar { background: var(--warning); }
-        .stat-card.red .stat-progress-bar { background: var(--danger); }
+        .stat-card.blue .stat-progress-bar {
+            background: var(--primary);
+        }
+
+        .stat-card.green .stat-progress-bar {
+            background: var(--success);
+        }
+
+        .stat-card.orange .stat-progress-bar {
+            background: var(--warning);
+        }
+
+        .stat-card.red .stat-progress-bar {
+            background: var(--danger);
+        }
 
         /* SECTION HEADERS */
         .section-header {
@@ -910,13 +950,34 @@
             transition: transform 0.2s;
         }
 
-        .action-card.blue .action-card-icon { background: var(--primary-subtle); color: var(--primary); }
-        .action-card.green .action-card-icon { background: var(--success-light); color: var(--success); }
-        .action-card.orange .action-card-icon { background: var(--warning-light); color: var(--warning); }
-        .action-card.cyan .action-card-icon { background: var(--info-light); color: var(--info); }
-        .action-card.purple .action-card-icon { background: var(--violet-light); color: var(--violet); }
+        .action-card.blue .action-card-icon {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
 
-        .action-card:hover .action-card-icon { transform: scale(1.08); }
+        .action-card.green .action-card-icon {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .action-card.orange .action-card-icon {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .action-card.cyan .action-card-icon {
+            background: var(--info-light);
+            color: var(--info);
+        }
+
+        .action-card.purple .action-card-icon {
+            background: var(--violet-light);
+            color: var(--violet);
+        }
+
+        .action-card:hover .action-card-icon {
+            transform: scale(1.08);
+        }
 
         .action-card h3 {
             font-size: 13.5px;
@@ -979,10 +1040,25 @@
             color: var(--text-tertiary);
         }
 
-        .card-title-icon.green { background: var(--success-light); color: var(--success); }
-        .card-title-icon.orange { background: var(--warning-light); color: var(--warning); }
-        .card-title-icon.cyan { background: var(--info-light); color: var(--info); }
-        .card-title-icon.purple { background: var(--violet-light); color: var(--violet); }
+        .card-title-icon.green {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .card-title-icon.orange {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .card-title-icon.cyan {
+            background: var(--info-light);
+            color: var(--info);
+        }
+
+        .card-title-icon.purple {
+            background: var(--violet-light);
+            color: var(--violet);
+        }
 
         .card-title div h3 {
             font-size: 15px;
@@ -1001,8 +1077,13 @@
             gap: 8px;
         }
 
-        .card-body { padding: 0; }
-        .card-body-padded { padding: 24px; }
+        .card-body {
+            padding: 0;
+        }
+
+        .card-body-padded {
+            padding: 24px;
+        }
 
         .btn {
             display: inline-flex;
@@ -1083,14 +1164,37 @@
             letter-spacing: 0.04em;
         }
 
-        .leave-balance-item.casual .count { color: var(--primary); }
-        .leave-balance-item.casual .type { color: var(--primary); }
-        .leave-balance-item.sick .count { color: var(--danger); }
-        .leave-balance-item.sick .type { color: var(--danger); }
-        .leave-balance-item.earned .count { color: var(--success); }
-        .leave-balance-item.earned .type { color: var(--success); }
-        .leave-balance-item.unpaid .count { color: var(--warning); }
-        .leave-balance-item.unpaid .type { color: var(--warning); }
+        .leave-balance-item.casual .count {
+            color: var(--primary);
+        }
+
+        .leave-balance-item.casual .type {
+            color: var(--primary);
+        }
+
+        .leave-balance-item.sick .count {
+            color: var(--danger);
+        }
+
+        .leave-balance-item.sick .type {
+            color: var(--danger);
+        }
+
+        .leave-balance-item.earned .count {
+            color: var(--success);
+        }
+
+        .leave-balance-item.earned .type {
+            color: var(--success);
+        }
+
+        .leave-balance-item.unpaid .count {
+            color: var(--warning);
+        }
+
+        .leave-balance-item.unpaid .type {
+            color: var(--warning);
+        }
 
         /* LEAVE HISTORY */
         .leave-item {
@@ -1102,8 +1206,13 @@
             transition: background 0.15s;
         }
 
-        .leave-item:last-child { border-bottom: none; }
-        .leave-item:hover { background: var(--bg-hover); }
+        .leave-item:last-child {
+            border-bottom: none;
+        }
+
+        .leave-item:hover {
+            background: var(--bg-hover);
+        }
 
         .leave-info {
             display: flex;
@@ -1121,10 +1230,25 @@
             font-size: 17px;
         }
 
-        .leave-type-icon.sick { background: var(--danger-light); color: var(--danger); }
-        .leave-type-icon.vacation { background: var(--info-light); color: var(--info); }
-        .leave-type-icon.casual { background: var(--primary-subtle); color: var(--primary); }
-        .leave-type-icon.personal { background: var(--warning-light); color: var(--warning); }
+        .leave-type-icon.sick {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .leave-type-icon.vacation {
+            background: var(--info-light);
+            color: var(--info);
+        }
+
+        .leave-type-icon.casual {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+
+        .leave-type-icon.personal {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
 
         .leave-details h4 {
             font-size: 14px;
@@ -1165,9 +1289,20 @@
             font-weight: 500;
         }
 
-        .leave-status.pending { background: var(--warning-light); color: var(--warning); }
-        .leave-status.approved { background: var(--success-light); color: var(--success); }
-        .leave-status.rejected { background: var(--danger-light); color: var(--danger); }
+        .leave-status.pending {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .leave-status.approved {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .leave-status.rejected {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
 
         /* PROJECT LIST */
         .project-item {
@@ -1179,8 +1314,13 @@
             transition: background 0.15s;
         }
 
-        .project-item:last-child { border-bottom: none; }
-        .project-item:hover { background: var(--bg-hover); }
+        .project-item:last-child {
+            border-bottom: none;
+        }
+
+        .project-item:hover {
+            background: var(--bg-hover);
+        }
 
         .project-info {
             display: flex;
@@ -1198,9 +1338,20 @@
             font-size: 17px;
         }
 
-        .project-icon.blue { background: var(--primary-subtle); color: var(--primary); }
-        .project-icon.green { background: var(--success-light); color: var(--success); }
-        .project-icon.purple { background: var(--violet-light); color: var(--violet); }
+        .project-icon.blue {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+
+        .project-icon.green {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .project-icon.purple {
+            background: var(--violet-light);
+            color: var(--violet);
+        }
 
         .project-details h4 {
             font-size: 14px;
@@ -1241,9 +1392,17 @@
             transition: width 0.8s ease;
         }
 
-        .project-progress-bar .fill.blue { background: var(--primary); }
-        .project-progress-bar .fill.green { background: var(--success); }
-        .project-progress-bar .fill.purple { background: var(--violet); }
+        .project-progress-bar .fill.blue {
+            background: var(--primary);
+        }
+
+        .project-progress-bar .fill.green {
+            background: var(--success);
+        }
+
+        .project-progress-bar .fill.purple {
+            background: var(--violet);
+        }
 
         .project-progress-text {
             font-size: 12px;
@@ -1259,9 +1418,20 @@
             font-weight: 500;
         }
 
-        .project-status.active { background: var(--success-light); color: var(--success); }
-        .project-status.review { background: var(--warning-light); color: var(--warning); }
-        .project-status.completed { background: var(--primary-subtle); color: var(--primary); }
+        .project-status.active {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .project-status.review {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .project-status.completed {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
 
         /* MANAGER INFO CARD */
         .manager-info-card {
@@ -1335,7 +1505,9 @@
             border-bottom: 1px solid var(--border-light);
         }
 
-        .attendance-log-item:last-child { border-bottom: none; }
+        .attendance-log-item:last-child {
+            border-bottom: none;
+        }
 
         .attendance-log-item .day-info {
             display: flex;
@@ -1393,8 +1565,13 @@
             color: var(--text-primary);
         }
 
-        .time-block .value.success { color: var(--success); }
-        .time-block .value.danger { color: var(--danger); }
+        .time-block .value.success {
+            color: var(--success);
+        }
+
+        .time-block .value.danger {
+            color: var(--danger);
+        }
 
         .hours-badge {
             padding: 5px 12px;
@@ -1405,8 +1582,15 @@
             color: var(--text-secondary);
         }
 
-        .hours-badge.full { background: var(--success-light); color: var(--success); }
-        .hours-badge.half { background: var(--warning-light); color: var(--warning); }
+        .hours-badge.full {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .hours-badge.half {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
 
         /* CALENDAR MINI */
         .mini-calendar {
@@ -1520,8 +1704,13 @@
             transition: background 0.15s;
         }
 
-        .event-item:last-child { border-bottom: none; }
-        .event-item:hover { background: var(--bg-hover); }
+        .event-item:last-child {
+            border-bottom: none;
+        }
+
+        .event-item:hover {
+            background: var(--bg-hover);
+        }
 
         .event-dot {
             width: 4px;
@@ -1530,10 +1719,21 @@
             margin-top: 4px;
         }
 
-        .event-dot.blue { background: var(--primary); }
-        .event-dot.green { background: var(--success); }
-        .event-dot.orange { background: var(--warning); }
-        .event-dot.purple { background: var(--violet); }
+        .event-dot.blue {
+            background: var(--primary);
+        }
+
+        .event-dot.green {
+            background: var(--success);
+        }
+
+        .event-dot.orange {
+            background: var(--warning);
+        }
+
+        .event-dot.purple {
+            background: var(--violet);
+        }
 
         .event-content h4 {
             font-size: 13.5px;
@@ -1615,8 +1815,13 @@
             color: var(--text-primary);
         }
 
-        .salary-breakdown li .item-value.green { color: var(--success); }
-        .salary-breakdown li .item-value.red { color: var(--danger); }
+        .salary-breakdown li .item-value.green {
+            color: var(--success);
+        }
+
+        .salary-breakdown li .item-value.red {
+            color: var(--danger);
+        }
 
         /* CHARTS */
         .chart-container {
@@ -1634,7 +1839,9 @@
             z-index: 99;
         }
 
-        .mobile-overlay.active { display: block; }
+        .mobile-overlay.active {
+            display: block;
+        }
 
         /* LEAVE APPLY MODAL */
         .modal-overlay {
@@ -1664,8 +1871,15 @@
         }
 
         @keyframes modalSlideIn {
-            from { opacity: 0; transform: translateY(-16px) scale(0.97); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+            from {
+                opacity: 0;
+                transform: translateY(-16px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .modal-header {
@@ -1762,14 +1976,27 @@
 
         /* ==================== RESPONSIVE ==================== */
         @media (max-width: 1400px) {
-            .quick-actions { grid-template-columns: repeat(3, 1fr); }
+            .quick-actions {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
         @media (max-width: 1300px) {
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .dashboard-grid-2 { grid-template-columns: 1fr; }
-            .dashboard-grid-3 { grid-template-columns: 1fr; }
-            .leave-balance-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .leave-balance-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 1100px) {
@@ -1778,73 +2005,189 @@
                 align-items: flex-start;
                 gap: 24px;
             }
-            .checkin-widget { width: 100%; }
-            .search-box input { width: 200px; }
+
+            .checkin-widget {
+                width: 100%;
+            }
+
+            .search-box input {
+                width: 200px;
+            }
         }
 
         @media (max-width: 1024px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.mobile-open { transform: translateX(0); }
-            .main-content { margin-left: 0; }
-            .menu-toggle { display: flex; }
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
         }
 
         @media (max-width: 768px) {
-            .header { padding: 0 20px; }
-            .search-box { display: none; }
-            .user-dropdown-info { display: none; }
-            .user-dropdown { padding: 6px; }
-            .dashboard { padding: 20px; }
-            .welcome-banner { padding: 28px; }
-            .welcome-text h1 { font-size: 22px; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .quick-actions { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .header {
+                padding: 0 20px;
+            }
+
+            .search-box {
+                display: none;
+            }
+
+            .user-dropdown-info {
+                display: none;
+            }
+
+            .user-dropdown {
+                padding: 6px;
+            }
+
+            .dashboard {
+                padding: 20px;
+            }
+
+            .welcome-banner {
+                padding: 28px;
+            }
+
+            .welcome-text h1 {
+                font-size: 22px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
             .action-card {
                 flex-direction: row;
                 text-align: left;
                 gap: 14px;
                 padding: 18px;
             }
-            .action-card-icon { margin-bottom: 0; width: 44px; height: 44px; font-size: 20px; }
+
+            .action-card-icon {
+                margin-bottom: 0;
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+            }
+
             .card-header {
                 padding: 16px 20px;
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 12px;
             }
-            .card-actions { width: 100%; }
-            .card-actions .btn { flex: 1; }
-            .leave-item, .project-item {
+
+            .card-actions {
+                width: 100%;
+            }
+
+            .card-actions .btn {
+                flex: 1;
+            }
+
+            .leave-item,
+            .project-item {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 12px;
                 padding: 16px 20px;
             }
-            .leave-meta, .project-meta { width: 100%; justify-content: flex-end; }
-            .user-dropdown-menu { width: 220px; right: -8px; }
+
+            .leave-meta,
+            .project-meta {
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            .user-dropdown-menu {
+                width: 220px;
+                right: -8px;
+            }
+
             .attendance-log-item {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 10px;
                 padding: 14px 20px;
             }
-            .attendance-log-item .time-info { width: 100%; justify-content: space-between; }
-            .form-row { grid-template-columns: 1fr; }
+
+            .attendance-log-item .time-info {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 500px) {
-            .header { padding: 0 16px; height: 60px; }
-            .page-header h1 { font-size: 17px; }
-            .page-header .breadcrumb { display: none; }
-            .dashboard { padding: 16px; }
-            .welcome-banner { padding: 24px; border-radius: var(--radius-lg); }
-            .welcome-text h1 { font-size: 20px; }
-            .welcome-text p { font-size: 13px; }
-            .stats-grid { grid-template-columns: 1fr; gap: 10px; }
-            .stat-card { padding: 20px; }
-            .stat-value { font-size: 28px; }
-            .quick-actions { grid-template-columns: 1fr; }
-            .leave-balance-grid { grid-template-columns: 1fr; }
+            .header {
+                padding: 0 16px;
+                height: 60px;
+            }
+
+            .page-header h1 {
+                font-size: 17px;
+            }
+
+            .page-header .breadcrumb {
+                display: none;
+            }
+
+            .dashboard {
+                padding: 16px;
+            }
+
+            .welcome-banner {
+                padding: 24px;
+                border-radius: var(--radius-lg);
+            }
+
+            .welcome-text h1 {
+                font-size: 20px;
+            }
+
+            .welcome-text p {
+                font-size: 13px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 20px;
+            }
+
+            .stat-value {
+                font-size: 28px;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .leave-balance-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -1866,15 +2209,21 @@
             </div>
             <div class="nav-section">
                 <div class="nav-section-label">Leave</div>
-                <a href="#" class="nav-link" onclick="openLeaveModal(); return false;"><i class="fas fa-paper-plane"></i><span>Apply Leave</span></a>
-                <a href="#" class="nav-link"><i class="fas fa-clipboard-list"></i><span>My Leaves</span><span class="badge warning">2</span></a>
-                <a href="#" class="nav-link"><i class="fas fa-calendar-minus"></i><span>Leave Balance</span></a>
-                <a href="#" class="nav-link"><i class="fas fa-list-ul"></i><span>Leave Policy</span></a>
+                <a href="#" class="nav-link" onclick="openLeaveModal(); return false;"><i
+                        class="fas fa-paper-plane"></i><span>Apply Leave</span></a>
+                <a href="#" class="nav-link" onclick="showSection('my-leaves'); return false;"><i
+                        class="fas fa-clipboard-list"></i><span>My Leaves</span><span class="badge warning">2</span></a>
+                <a href="#" class="nav-link" onclick="showSection('leave-balance'); return false;"><i
+                        class="fas fa-calendar-minus"></i><span>Leave Balance</span></a>
+                <a href="#" class="nav-link" onclick="showSection('holiday-calendar'); return false;"><i
+                        class="fas fa-list-ul"></i><span>Holiday Calendar</span></a>
             </div>
             <div class="nav-section">
                 <div class="nav-section-label">Work</div>
-                <a href="#" class="nav-link"><i class="fas fa-project-diagram"></i><span>My Projects</span><span class="badge info">3</span></a>
-                <a href="#" class="nav-link"><i class="fas fa-tasks"></i><span>Tasks</span><span class="badge">7</span></a>
+                <a href="#" class="nav-link"><i class="fas fa-project-diagram"></i><span>My Projects</span><span
+                        class="badge info">3</span></a>
+                <a href="#" class="nav-link"><i class="fas fa-tasks"></i><span>Tasks</span><span
+                        class="badge">7</span></a>
                 <a href="#" class="nav-link"><i class="fas fa-file-alt"></i><span>Documents</span></a>
             </div>
             <div class="nav-section">
@@ -1882,7 +2231,8 @@
                 <a href="#" class="nav-link"><i class="fas fa-calendar-alt"></i><span>Calendar</span></a>
                 <a href="#" class="nav-link"><i class="fas fa-user-tie"></i><span>My Manager</span></a>
                 <a href="#" class="nav-link"><i class="fas fa-wallet"></i><span>Payslips</span></a>
-                <a href="#" class="nav-link"><i class="fas fa-bell"></i><span>Notifications</span><span class="badge danger">4</span></a>
+                <a href="#" class="nav-link"><i class="fas fa-bell"></i><span>Notifications</span><span
+                        class="badge danger">4</span></a>
                 <a href="#" class="nav-link"><i class="fas fa-cog"></i><span>Settings</span></a>
             </div>
         </nav>
@@ -1895,7 +2245,8 @@
     <div class="modal-overlay" id="leaveModal">
         <div class="modal">
             <div class="modal-header">
-                <h3><i class="fas fa-paper-plane" style="color: var(--primary); margin-right: 10px;"></i>Apply for Leave</h3>
+                <h3><i class="fas fa-paper-plane" style="color: var(--primary); margin-right: 10px;"></i>Apply for Leave
+                </h3>
                 <button class="modal-close" onclick="closeLeaveModal()"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-body">
@@ -1903,12 +2254,6 @@
                     <label>Leave Type</label>
                     <select id="leaveType">
                         <option value="">Select leave type</option>
-                        <option value="casual">Casual Leave</option>
-                        <option value="sick">Sick Leave</option>
-                        <option value="earned">Earned Leave</option>
-                        <option value="unpaid">Unpaid Leave</option>
-                        <option value="maternity">Maternity Leave</option>
-                        <option value="paternity">Paternity Leave</option>
                     </select>
                 </div>
                 <div class="form-row">
@@ -1924,9 +2269,8 @@
                 <div class="form-group">
                     <label>Duration</label>
                     <select id="leaveDuration">
-                        <option value="full">Full Day</option>
-                        <option value="half-first">First Half</option>
-                        <option value="half-second">Second Half</option>
+                        <option value="Full Day">Full Day</option>
+                        <option value="Half Day">Half Day</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -1940,7 +2284,8 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeLeaveModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="submitLeave()"><i class="fas fa-paper-plane"></i> Submit Request</button>
+                <button class="btn btn-primary" onclick="submitLeave()"><i class="fas fa-paper-plane"></i> Submit
+                    Request</button>
             </div>
         </div>
     </div>
@@ -1949,9 +2294,7 @@
     <main class="main-content">
         <header class="header">
             <div class="header-left">
-                <button class="menu-toggle" onclick="toggleSidebar()">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
                 <div class="page-header">
                     <h1>My Dashboard</h1>
                     <div class="breadcrumb">
@@ -1971,9 +2314,7 @@
                         <i class="fas fa-bell"></i>
                         <span class="notif-badge"></span>
                     </button>
-                    <button class="header-icon-btn">
-                        <i class="fas fa-envelope"></i>
-                    </button>
+                    <button class="header-icon-btn"><i class="fas fa-envelope"></i></button>
                 </div>
                 <div class="header-divider"></div>
                 <div class="user-dropdown-wrapper" id="userDropdownWrapper">
@@ -1997,7 +2338,8 @@
                             <a href="#" class="dropdown-menu-item"><i class="fas fa-user"></i> My Profile</a>
                             <a href="#" class="dropdown-menu-item"><i class="fas fa-wallet"></i> Payslips</a>
                             <a href="#" class="dropdown-menu-item"><i class="fas fa-cog"></i> Settings</a>
-                            <a href="#" class="dropdown-menu-item"><i class="fas fa-question-circle"></i> Help & Support</a>
+                            <a href="#" class="dropdown-menu-item"><i class="fas fa-question-circle"></i> Help &
+                                Support</a>
                             <div class="dropdown-menu-divider"></div>
                             <button class="dropdown-menu-item danger" onclick="logout()">
                                 <i class="fas fa-arrow-right-from-bracket"></i> Sign Out
@@ -2009,12 +2351,13 @@
         </header>
 
         <div class="dashboard">
-            <!-- Welcome Banner with Check In/Out -->
+            <!-- Welcome Banner -->
             <section class="welcome-banner">
                 <div class="welcome-inner">
                     <div class="welcome-text">
                         <h1>Good Morning, <span id="welcomeName">Employee</span> <span class="wave">👋</span></h1>
-                        <p>Track your attendance, manage leaves, view projects, and stay connected with your team. Have a productive day!</p>
+                        <p>Track your attendance, manage leaves, view projects, and stay connected with your team. Have
+                            a productive day!</p>
                     </div>
                     <div class="checkin-widget">
                         <div class="checkin-time" id="liveTime">09:15 AM</div>
@@ -2139,7 +2482,8 @@
                                 <p>Current year allocation</p>
                             </div>
                         </div>
-                        <button class="btn btn-primary btn-sm" onclick="openLeaveModal()"><i class="fas fa-plus"></i> Apply</button>
+                        <button class="btn btn-primary btn-sm" onclick="openLeaveModal()"><i class="fas fa-plus"></i>
+                            Apply</button>
                     </div>
                     <div class="card-body">
                         <div class="leave-balance-grid">
@@ -2164,46 +2508,8 @@
                                 <div class="type">Unpaid</div>
                             </div>
                         </div>
-                        <!-- Recent Leave History -->
-                        <div class="leave-item">
-                            <div class="leave-info">
-                                <div class="leave-type-icon casual"><i class="fas fa-sun"></i></div>
-                                <div class="leave-details">
-                                    <h4>Casual Leave</h4>
-                                    <p>Personal work</p>
-                                    <div class="leave-dates"><i class="fas fa-calendar"></i> Jan 10, 2025 (1 day)</div>
-                                </div>
-                            </div>
-                            <div class="leave-meta">
-                                <div class="leave-status approved">Approved</div>
-                            </div>
-                        </div>
-                        <div class="leave-item">
-                            <div class="leave-info">
-                                <div class="leave-type-icon sick"><i class="fas fa-briefcase-medical"></i></div>
-                                <div class="leave-details">
-                                    <h4>Sick Leave</h4>
-                                    <p>Fever & cold</p>
-                                    <div class="leave-dates"><i class="fas fa-calendar"></i> Jan 15 – Jan 16, 2025 (2 days)</div>
-                                </div>
-                            </div>
-                            <div class="leave-meta">
-                                <div class="leave-status pending">Pending</div>
-                            </div>
-                        </div>
-                        <div class="leave-item">
-                            <div class="leave-info">
-                                <div class="leave-type-icon vacation"><i class="fas fa-umbrella-beach"></i></div>
-                                <div class="leave-details">
-                                    <h4>Earned Leave</h4>
-                                    <p>Family vacation</p>
-                                    <div class="leave-dates"><i class="fas fa-calendar"></i> Dec 24 – Dec 26, 2024 (3 days)</div>
-                                </div>
-                            </div>
-                            <div class="leave-meta">
-                                <div class="leave-status rejected">Rejected</div>
-                            </div>
-                        </div>
+                        <!-- ✅ FIX 1: Dynamic leave history loaded from API -->
+                        <div id="leaveHistoryList"></div>
                     </div>
                 </div>
 
@@ -2222,61 +2528,103 @@
                     <div class="card-body">
                         <div class="attendance-log-item">
                             <div class="day-info">
-                                <div class="day-badge"><span class="date-num">20</span><span class="date-day">Mon</span></div>
+                                <div class="day-badge"><span class="date-num">20</span><span class="date-day">Mon</span>
+                                </div>
                             </div>
                             <div class="time-info">
-                                <div class="time-block"><div class="label">In</div><div class="value success">09:02</div></div>
-                                <div class="time-block"><div class="label">Out</div><div class="value danger">—</div></div>
+                                <div class="time-block">
+                                    <div class="label">In</div>
+                                    <div class="value success">09:02</div>
+                                </div>
+                                <div class="time-block">
+                                    <div class="label">Out</div>
+                                    <div class="value danger">—</div>
+                                </div>
                                 <div class="hours-badge half">Working...</div>
                             </div>
                         </div>
                         <div class="attendance-log-item">
                             <div class="day-info">
-                                <div class="day-badge"><span class="date-num">17</span><span class="date-day">Fri</span></div>
+                                <div class="day-badge"><span class="date-num">17</span><span class="date-day">Fri</span>
+                                </div>
                             </div>
                             <div class="time-info">
-                                <div class="time-block"><div class="label">In</div><div class="value success">08:55</div></div>
-                                <div class="time-block"><div class="label">Out</div><div class="value danger">18:10</div></div>
+                                <div class="time-block">
+                                    <div class="label">In</div>
+                                    <div class="value success">08:55</div>
+                                </div>
+                                <div class="time-block">
+                                    <div class="label">Out</div>
+                                    <div class="value danger">18:10</div>
+                                </div>
                                 <div class="hours-badge full">9h 15m</div>
                             </div>
                         </div>
                         <div class="attendance-log-item">
                             <div class="day-info">
-                                <div class="day-badge"><span class="date-num">16</span><span class="date-day">Thu</span></div>
+                                <div class="day-badge"><span class="date-num">16</span><span class="date-day">Thu</span>
+                                </div>
                             </div>
                             <div class="time-info">
-                                <div class="time-block"><div class="label">In</div><div class="value success">09:10</div></div>
-                                <div class="time-block"><div class="label">Out</div><div class="value danger">18:05</div></div>
+                                <div class="time-block">
+                                    <div class="label">In</div>
+                                    <div class="value success">09:10</div>
+                                </div>
+                                <div class="time-block">
+                                    <div class="label">Out</div>
+                                    <div class="value danger">18:05</div>
+                                </div>
                                 <div class="hours-badge full">8h 55m</div>
                             </div>
                         </div>
                         <div class="attendance-log-item">
                             <div class="day-info">
-                                <div class="day-badge"><span class="date-num">15</span><span class="date-day">Wed</span></div>
+                                <div class="day-badge"><span class="date-num">15</span><span class="date-day">Wed</span>
+                                </div>
                             </div>
                             <div class="time-info">
-                                <div class="time-block"><div class="label">In</div><div class="value success">09:00</div></div>
-                                <div class="time-block"><div class="label">Out</div><div class="value danger">17:45</div></div>
+                                <div class="time-block">
+                                    <div class="label">In</div>
+                                    <div class="value success">09:00</div>
+                                </div>
+                                <div class="time-block">
+                                    <div class="label">Out</div>
+                                    <div class="value danger">17:45</div>
+                                </div>
                                 <div class="hours-badge full">8h 45m</div>
                             </div>
                         </div>
                         <div class="attendance-log-item">
                             <div class="day-info">
-                                <div class="day-badge"><span class="date-num">14</span><span class="date-day">Tue</span></div>
+                                <div class="day-badge"><span class="date-num">14</span><span class="date-day">Tue</span>
+                                </div>
                             </div>
                             <div class="time-info">
-                                <div class="time-block"><div class="label">In</div><div class="value success">09:22</div></div>
-                                <div class="time-block"><div class="label">Out</div><div class="value danger">18:30</div></div>
+                                <div class="time-block">
+                                    <div class="label">In</div>
+                                    <div class="value success">09:22</div>
+                                </div>
+                                <div class="time-block">
+                                    <div class="label">Out</div>
+                                    <div class="value danger">18:30</div>
+                                </div>
                                 <div class="hours-badge full">9h 08m</div>
                             </div>
                         </div>
                         <div class="attendance-log-item">
                             <div class="day-info">
-                                <div class="day-badge"><span class="date-num">13</span><span class="date-day">Mon</span></div>
+                                <div class="day-badge"><span class="date-num">13</span><span class="date-day">Mon</span>
+                                </div>
                             </div>
                             <div class="time-info">
-                                <div class="time-block"><div class="label">In</div><div class="value success">08:48</div></div>
-                                <div class="time-block"><div class="label">Out</div><div class="value danger">18:00</div></div>
+                                <div class="time-block">
+                                    <div class="label">In</div>
+                                    <div class="value success">08:48</div>
+                                </div>
+                                <div class="time-block">
+                                    <div class="label">Out</div>
+                                    <div class="value danger">18:00</div>
+                                </div>
                                 <div class="hours-badge full">9h 12m</div>
                             </div>
                         </div>
@@ -2286,7 +2634,6 @@
 
             <!-- Projects + Calendar/Manager -->
             <section class="dashboard-grid-3">
-                <!-- Projects -->
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
@@ -2309,8 +2656,9 @@
                             </div>
                             <div class="project-meta">
                                 <div class="project-progress-wrap">
-                                    <div class="project-progress-bar"><div class="fill blue" style="width:72%"></div></div>
-                                    <span class="project-progress-text">72%</span>
+                                    <div class="project-progress-bar">
+                                        <div class="fill blue" style="width:72%"></div>
+                                    </div><span class="project-progress-text">72%</span>
                                 </div>
                                 <div class="project-status active">Active</div>
                             </div>
@@ -2325,8 +2673,9 @@
                             </div>
                             <div class="project-meta">
                                 <div class="project-progress-wrap">
-                                    <div class="project-progress-bar"><div class="fill green" style="width:45%"></div></div>
-                                    <span class="project-progress-text">45%</span>
+                                    <div class="project-progress-bar">
+                                        <div class="fill green" style="width:45%"></div>
+                                    </div><span class="project-progress-text">45%</span>
                                 </div>
                                 <div class="project-status active">Active</div>
                             </div>
@@ -2341,8 +2690,9 @@
                             </div>
                             <div class="project-meta">
                                 <div class="project-progress-wrap">
-                                    <div class="project-progress-bar"><div class="fill purple" style="width:90%"></div></div>
-                                    <span class="project-progress-text">90%</span>
+                                    <div class="project-progress-bar">
+                                        <div class="fill purple" style="width:90%"></div>
+                                    </div><span class="project-progress-text">90%</span>
                                 </div>
                                 <div class="project-status review">In Review</div>
                             </div>
@@ -2350,9 +2700,7 @@
                     </div>
                 </div>
 
-                <!-- Right column: Calendar + Manager -->
                 <div style="display: flex; flex-direction: column; gap: 24px;">
-                    <!-- Mini Calendar -->
                     <div class="card">
                         <div class="card-body">
                             <div class="mini-calendar">
@@ -2364,18 +2712,52 @@
                                     </div>
                                 </div>
                                 <div class="cal-grid" id="calendarGrid">
-                                    <div class="day-label">Su</div><div class="day-label">Mo</div><div class="day-label">Tu</div><div class="day-label">We</div><div class="day-label">Th</div><div class="day-label">Fr</div><div class="day-label">Sa</div>
-                                    <div class="day-cell muted"></div><div class="day-cell muted"></div><div class="day-cell muted"></div><div class="day-cell">1</div><div class="day-cell">2</div><div class="day-cell">3</div><div class="day-cell">4</div>
-                                    <div class="day-cell">5</div><div class="day-cell">6</div><div class="day-cell">7</div><div class="day-cell has-event">8</div><div class="day-cell">9</div><div class="day-cell">10</div><div class="day-cell">11</div>
-                                    <div class="day-cell">12</div><div class="day-cell">13</div><div class="day-cell">14</div><div class="day-cell has-event">15</div><div class="day-cell">16</div><div class="day-cell">17</div><div class="day-cell">18</div>
-                                    <div class="day-cell">19</div><div class="day-cell today has-event">20</div><div class="day-cell">21</div><div class="day-cell">22</div><div class="day-cell">23</div><div class="day-cell">24</div><div class="day-cell">25</div>
-                                    <div class="day-cell has-event">26</div><div class="day-cell">27</div><div class="day-cell">28</div><div class="day-cell">29</div><div class="day-cell">30</div><div class="day-cell">31</div><div class="day-cell muted"></div>
+                                    <div class="day-label">Su</div>
+                                    <div class="day-label">Mo</div>
+                                    <div class="day-label">Tu</div>
+                                    <div class="day-label">We</div>
+                                    <div class="day-label">Th</div>
+                                    <div class="day-label">Fr</div>
+                                    <div class="day-label">Sa</div>
+                                    <div class="day-cell muted"></div>
+                                    <div class="day-cell muted"></div>
+                                    <div class="day-cell muted"></div>
+                                    <div class="day-cell">1</div>
+                                    <div class="day-cell">2</div>
+                                    <div class="day-cell">3</div>
+                                    <div class="day-cell">4</div>
+                                    <div class="day-cell">5</div>
+                                    <div class="day-cell">6</div>
+                                    <div class="day-cell">7</div>
+                                    <div class="day-cell has-event">8</div>
+                                    <div class="day-cell">9</div>
+                                    <div class="day-cell">10</div>
+                                    <div class="day-cell">11</div>
+                                    <div class="day-cell">12</div>
+                                    <div class="day-cell">13</div>
+                                    <div class="day-cell">14</div>
+                                    <div class="day-cell has-event">15</div>
+                                    <div class="day-cell">16</div>
+                                    <div class="day-cell">17</div>
+                                    <div class="day-cell">18</div>
+                                    <div class="day-cell">19</div>
+                                    <div class="day-cell today has-event">20</div>
+                                    <div class="day-cell">21</div>
+                                    <div class="day-cell">22</div>
+                                    <div class="day-cell">23</div>
+                                    <div class="day-cell">24</div>
+                                    <div class="day-cell">25</div>
+                                    <div class="day-cell has-event">26</div>
+                                    <div class="day-cell">27</div>
+                                    <div class="day-cell">28</div>
+                                    <div class="day-cell">29</div>
+                                    <div class="day-cell">30</div>
+                                    <div class="day-cell">31</div>
+                                    <div class="day-cell muted"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Manager Info -->
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
@@ -2407,9 +2789,8 @@
                 </div>
             </section>
 
-            <!-- Salary + Upcoming Events + Attendance Chart -->
+            <!-- Salary + Events + Chart -->
             <section class="dashboard-grid-2">
-                <!-- Salary Summary -->
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
@@ -2428,38 +2809,24 @@
                                 <div class="label">Net Take Home</div>
                             </div>
                             <ul class="salary-breakdown">
-                                <li>
-                                    <span class="item-label"><i class="fas fa-plus-circle"></i> Basic Salary</span>
-                                    <span class="item-value">$5,500</span>
-                                </li>
-                                <li>
-                                    <span class="item-label"><i class="fas fa-plus-circle"></i> HRA</span>
-                                    <span class="item-value">$1,200</span>
-                                </li>
-                                <li>
-                                    <span class="item-label"><i class="fas fa-plus-circle"></i> Transport</span>
-                                    <span class="item-value">$400</span>
-                                </li>
-                                <li>
-                                    <span class="item-label"><i class="fas fa-plus-circle"></i> Bonus</span>
-                                    <span class="item-value green">$800</span>
-                                </li>
-                                <li>
-                                    <span class="item-label"><i class="fas fa-minus-circle"></i> Tax Deduction</span>
-                                    <span class="item-value red">-$450</span>
-                                </li>
-                                <li>
-                                    <span class="item-label"><i class="fas fa-minus-circle"></i> Insurance</span>
-                                    <span class="item-value red">-$200</span>
-                                </li>
+                                <li><span class="item-label"><i class="fas fa-plus-circle"></i> Basic Salary</span><span
+                                        class="item-value">$5,500</span></li>
+                                <li><span class="item-label"><i class="fas fa-plus-circle"></i> HRA</span><span
+                                        class="item-value">$1,200</span></li>
+                                <li><span class="item-label"><i class="fas fa-plus-circle"></i> Transport</span><span
+                                        class="item-value">$400</span></li>
+                                <li><span class="item-label"><i class="fas fa-plus-circle"></i> Bonus</span><span
+                                        class="item-value green">$800</span></li>
+                                <li><span class="item-label"><i class="fas fa-minus-circle"></i> Tax
+                                        Deduction</span><span class="item-value red">-$450</span></li>
+                                <li><span class="item-label"><i class="fas fa-minus-circle"></i> Insurance</span><span
+                                        class="item-value red">-$200</span></li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <!-- Attendance Chart + Upcoming Events -->
                 <div style="display: flex; flex-direction: column; gap: 24px;">
-                    <!-- Attendance Chart -->
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
@@ -2470,12 +2837,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="chart-container">
-                            <canvas id="attendanceChart"></canvas>
-                        </div>
+                        <div class="chart-container"><canvas id="attendanceChart"></canvas></div>
                     </div>
-
-                    <!-- Upcoming Events -->
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
@@ -2520,81 +2883,142 @@
                 </div>
             </section>
         </div>
+        <!-- ========== MY LEAVES SECTION ========== -->
+        <div id="section-my-leaves" style="display:none">
+            <div class="section-header" style="margin-bottom:24px">
+                <div class="section-title">
+                    <div class="section-title-icon" style="background:#fffbeb;color:#d97706"><i
+                            class="fas fa-clipboard-list"></i></div>
+                    <div>
+                        <h2>My Leave Requests</h2>
+                        <p>All your submitted leave requests</p>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="openLeaveModal()"><i class="fas fa-plus"></i> Apply
+                    Leave</button>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div style="display:flex;gap:8px;flex-wrap:wrap">
+                        <button class="btn btn-primary btn-sm leave-filter-btn"
+                            onclick="filterLeaves('all', this)">All</button>
+                        <button class="btn btn-secondary btn-sm leave-filter-btn"
+                            onclick="filterLeaves('Pending', this)">Pending</button>
+                        <button class="btn btn-secondary btn-sm leave-filter-btn"
+                            onclick="filterLeaves('Approved', this)">Approved</button>
+                        <button class="btn btn-secondary btn-sm leave-filter-btn"
+                            onclick="filterLeaves('Rejected', this)">Rejected</button>
+                    </div>
+                </div>
+                <div class="card-body" id="myLeavesFullList">
+                    <div style="padding:40px;text-align:center;color:#9ca3af">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== LEAVE BALANCE SECTION ========== -->
+        <div id="section-leave-balance" style="display:none">
+            <div class="section-header" style="margin-bottom:24px">
+                <div class="section-title">
+                    <div class="section-title-icon" style="background:#ecfdf5;color:#059669"><i
+                            class="fas fa-umbrella-beach"></i></div>
+                    <div>
+                        <h2>Leave Balance</h2>
+                        <p>Your current leave allocation & usage</p>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="openLeaveModal()"><i class="fas fa-plus"></i> Apply
+                    Leave</button>
+            </div>
+            <div id="leaveBalanceSection">
+                <div style="padding:40px;text-align:center;color:#9ca3af">Loading...</div>
+            </div>
+        </div>
+
+        <!-- ========== HOLIDAY CALENDAR SECTION ========== -->
+        <div id="section-holiday-calendar" style="display:none">
+            <div class="section-header" style="margin-bottom:24px">
+                <div class="section-title">
+                    <div class="section-title-icon" style="background:#f0f9ff;color:#0284c7"><i
+                            class="fas fa-calendar-alt"></i></div>
+                    <div>
+                        <h2>Holiday Calendar</h2>
+                        <p>Official holidays for this year</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body" id="holidayCalendarList">
+                    <div style="padding:40px;text-align:center;color:#9ca3af">Loading...</div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <script>
-        // ==================== SIDEBAR TOGGLE ====================
+        // ==================== SIDEBAR ====================
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('mobile-open');
             document.getElementById('mobileOverlay').classList.toggle('active');
         }
-
         function closeMobileMenu() {
             document.getElementById('sidebar').classList.remove('mobile-open');
             document.getElementById('mobileOverlay').classList.remove('active');
         }
-
         window.addEventListener('resize', function () {
-            if (window.innerWidth > 1024) {
-                document.getElementById('sidebar').classList.remove('mobile-open');
-                document.getElementById('mobileOverlay').classList.remove('active');
-            }
+            if (window.innerWidth > 1024) closeMobileMenu();
         });
 
         // ==================== USER DROPDOWN ====================
         function toggleUserDropdown() {
             const wrapper = document.getElementById('userDropdownWrapper');
             const backdrop = document.getElementById('dropdownBackdrop');
-            if (wrapper.classList.contains('open')) {
-                closeUserDropdown();
-            } else {
-                wrapper.classList.add('open');
-                backdrop.classList.add('active');
-            }
+            if (wrapper.classList.contains('open')) { closeUserDropdown(); }
+            else { wrapper.classList.add('open'); backdrop.classList.add('active'); }
         }
-
         function closeUserDropdown() {
             document.getElementById('userDropdownWrapper').classList.remove('open');
             document.getElementById('dropdownBackdrop').classList.remove('active');
         }
-
         document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                closeUserDropdown();
-                closeLeaveModal();
-            }
+            if (e.key === 'Escape') { closeUserDropdown(); closeLeaveModal(); }
         });
 
         // ==================== LEAVE MODAL ====================
-        function openLeaveModal() {
-            document.getElementById('leaveModal').classList.add('active');
-        }
+        function openLeaveModal() { document.getElementById('leaveModal').classList.add('active'); }
+        function closeLeaveModal() { document.getElementById('leaveModal').classList.remove('active'); }
 
-        function closeLeaveModal() {
-            document.getElementById('leaveModal').classList.remove('active');
-        }
-
-        function submitLeave() {
+        async function submitLeave() {
             const type = document.getElementById('leaveType').value;
             const from = document.getElementById('leaveFrom').value;
             const to = document.getElementById('leaveTo').value;
             const reason = document.getElementById('leaveReason').value;
 
-            if (!type || !from || !to || !reason) {
-                alert('Please fill in all required fields.');
-                return;
-            }
+            if (!type || !from || !to) { alert('Please fill in all required fields.'); return; }
 
-            alert('Leave request submitted successfully!');
-            closeLeaveModal();
-            // Reset form
+            try {
+                const res = await fetch('/apply_leave', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+                    body: JSON.stringify({ leave_type_id: type, from_date: from, to_date: to, day_type: document.getElementById('leaveDuration').value, reason: reason })
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    alert('Leave request submitted successfully!');
+                    closeLeaveModal();
+                    loadLeaveHistory(); // ✅ FIX 3: Refresh history after submit
+                } else {
+                    alert(data.message || 'Failed to submit leave.');
+                }
+            } catch (e) {
+                alert('Server error. Please try again.');
+            }
             document.getElementById('leaveType').value = '';
             document.getElementById('leaveFrom').value = '';
             document.getElementById('leaveTo').value = '';
             document.getElementById('leaveReason').value = '';
         }
 
-        // Click outside modal to close
         document.getElementById('leaveModal').addEventListener('click', function (e) {
             if (e.target === this) closeLeaveModal();
         });
@@ -2606,10 +3030,8 @@
         function handleCheckIn() {
             const btn = document.getElementById('checkinBtn');
             const status = document.getElementById('checkinStatus');
-
             if (!isCheckedIn) {
-                isCheckedIn = true;
-                checkInTime = new Date();
+                isCheckedIn = true; checkInTime = new Date();
                 btn.className = 'checkin-btn check-out';
                 btn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Check Out';
                 status.innerHTML = '<span class="dot green"></span> Checked in at ' + formatTime(checkInTime);
@@ -2618,7 +3040,6 @@
                 const diff = checkOutTime - checkInTime;
                 const hours = Math.floor(diff / 3600000);
                 const mins = Math.floor((diff % 3600000) / 60000);
-
                 isCheckedIn = false;
                 btn.className = 'checkin-btn disabled';
                 btn.innerHTML = '<i class="fas fa-check-circle"></i> Done for today';
@@ -2633,14 +3054,9 @@
         // ==================== LIVE CLOCK ====================
         function updateClock() {
             const now = new Date();
-            document.getElementById('liveTime').textContent = now.toLocaleTimeString('en-US', {
-                hour: '2-digit', minute: '2-digit', second: undefined, hour12: true
-            });
-            document.getElementById('liveDate').textContent = now.toLocaleDateString('en-US', {
-                weekday: 'long', month: 'short', day: 'numeric', year: 'numeric'
-            });
+            document.getElementById('liveTime').textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+            document.getElementById('liveDate').textContent = now.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' });
         }
-
         setInterval(updateClock, 1000);
         updateClock();
 
@@ -2654,21 +3070,91 @@
             }
         }
 
+        // ==================== LEAVE HISTORY (DYNAMIC) ====================
+        // ✅ FIX 2: Wrapped in function and called on load
+        function loadLeaveHistory() {
+            const token = localStorage.getItem('token');
+            fetch('/get_my_leaves', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+                .then(r => r.json())
+                .then(data => {
+                    const leaves = (data.leaves || []).slice(0, 3);
+                    const container = document.getElementById('leaveHistoryList');
+                    if (!leaves.length) {
+                        container.innerHTML = '<div style="padding:20px 24px;color:#9ca3af;font-size:13px">No leave requests yet.</div>';
+                        return;
+                    }
+                    container.innerHTML = leaves.map(l => {
+                        const n = (l.leave_type_name || '').toLowerCase();
+                        const type = n.includes('sick') ? 'sick' : n.includes('casual') ? 'casual' : n.includes('vac') ? 'vacation' : 'personal';
+                        const icons = { sick: 'fa-briefcase-medical', casual: 'fa-sun', vacation: 'fa-umbrella-beach', personal: 'fa-user' };
+                        const statusClass = l.status === 'Approved' ? 'approved' : l.status === 'Rejected' ? 'rejected' : 'pending';
+                        return `
+                    <div class="leave-item">
+                        <div class="leave-info">
+                            <div class="leave-type-icon ${type}"><i class="fas ${icons[type]}"></i></div>
+                            <div class="leave-details">
+                                <h4>${l.leave_type_name}</h4>
+                                <p>${l.reason || '—'}</p>
+                                <div class="leave-dates"><i class="fas fa-calendar"></i> ${l.from_date} – ${l.to_date} (${l.leave_days} day${l.leave_days != 1 ? 's' : ''})</div>
+                                ${l.manager_comment ? `<div style="margin-top:6px;font-size:12px;color:#d97706;background:#fffbeb;padding:4px 8px;border-radius:4px"><i class="fas fa-comment" style="margin-right:4px"></i>${l.manager_comment}</div>` : ''}
+                            </div>
+                        </div>
+                        <div class="leave-meta">
+                            <div class="leave-status ${statusClass}">${l.status}</div>
+                        </div>
+                    </div>`;
+                    }).join('');
+                })
+                .catch(() => { });
+        }
+
         // ==================== LOAD USER DATA ====================
         window.addEventListener('load', () => {
             const token = localStorage.getItem('token');
-            if (!token) {
-                window.location.href = '/';
-                return;
-            }
+            if (!token) { window.location.href = '/'; return; }
 
+            // Load leave types into modal
+            fetch('/get_leave_types', { headers: { 'Authorization': `Bearer ${token}` } })
+                .then(r => r.json())
+                .then(data => {
+                    const sel = document.getElementById('leaveType');
+                    (data.leave_types || []).forEach(lt => {
+                        const o = document.createElement('option');
+                        o.value = lt.id;
+                        o.textContent = `${lt.name} (${lt.total_days} days/yr)`;
+                        sel.appendChild(o);
+                    });
+                }).catch(() => { });
+
+            // Load upcoming holidays
+            fetch(`/get_holidays?year=${new Date().getFullYear()}`, { headers: { 'Authorization': `Bearer ${token}` } })
+                .then(r => r.json())
+                .then(data => {
+                    const today = new Date(); today.setHours(0, 0, 0, 0);
+                    const upcoming = (data.holidays || [])
+                        .filter(h => new Date(h.holiday_date + 'T00:00:00') >= today)
+                        .sort((a, b) => a.holiday_date.localeCompare(b.holiday_date))
+                        .slice(0, 3);
+                    const eventItems = document.querySelectorAll('.event-item');
+                    upcoming.forEach((h, i) => {
+                        if (eventItems[i]) {
+                            const title = eventItems[i].querySelector('h4');
+                            const date = eventItems[i].querySelector('p');
+                            if (title) title.textContent = h.name;
+                            if (date) date.innerHTML = `<i class="fas fa-calendar"></i> ${h.holiday_date}`;
+                        }
+                    });
+                }).catch(() => { });
+
+            // Load user info
             const userData = localStorage.getItem('user_data');
             if (userData) {
                 const u = JSON.parse(userData);
                 const name = u.name || 'Employee';
                 const email = u.email || 'employee@company.com';
                 const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-
                 document.getElementById('welcomeName').textContent = name.split(' ')[0];
                 document.getElementById('headerName').textContent = name.split(' ')[0];
                 document.getElementById('headerAvatar').textContent = initials;
@@ -2684,6 +3170,9 @@
             else if (hour >= 17) greeting = 'Good Evening';
             document.querySelector('.welcome-text h1').innerHTML =
                 `${greeting}, <span id="welcomeName">${document.getElementById('welcomeName')?.textContent || 'Employee'}</span> <span class="wave">👋</span>`;
+
+            // ✅ FIX 2: Call loadLeaveHistory on page load
+            loadLeaveHistory();
         });
 
         // ==================== CHART ====================
@@ -2691,68 +3180,24 @@
             const chartFont = { family: 'Inter', size: 12, weight: '500' };
             const gridColor = '#f3f4f6';
             const tickColor = '#9ca3af';
-
             const ctx = document.getElementById('attendanceChart');
             if (ctx) {
                 new Chart(ctx.getContext('2d'), {
                     type: 'bar',
                     data: {
                         labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                        datasets: [{
-                            label: 'Present',
-                            data: [5, 4, 5, 4],
-                            backgroundColor: '#059669',
-                            borderRadius: 4,
-                            borderSkipped: false,
-                            barPercentage: 0.5,
-                            categoryPercentage: 0.7
-                        }, {
-                            label: 'Absent',
-                            data: [0, 1, 0, 0],
-                            backgroundColor: '#dc2626',
-                            borderRadius: 4,
-                            borderSkipped: false,
-                            barPercentage: 0.5,
-                            categoryPercentage: 0.7
-                        }, {
-                            label: 'Leave',
-                            data: [0, 0, 0, 1],
-                            backgroundColor: '#d97706',
-                            borderRadius: 4,
-                            borderSkipped: false,
-                            barPercentage: 0.5,
-                            categoryPercentage: 0.7
-                        }]
+                        datasets: [
+                            { label: 'Present', data: [5, 4, 5, 4], backgroundColor: '#059669', borderRadius: 4, borderSkipped: false, barPercentage: 0.5, categoryPercentage: 0.7 },
+                            { label: 'Absent', data: [0, 1, 0, 0], backgroundColor: '#dc2626', borderRadius: 4, borderSkipped: false, barPercentage: 0.5, categoryPercentage: 0.7 },
+                            { label: 'Leave', data: [0, 0, 0, 1], backgroundColor: '#d97706', borderRadius: 4, borderSkipped: false, barPercentage: 0.5, categoryPercentage: 0.7 }
+                        ]
                     },
                     options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                                align: 'end',
-                                labels: {
-                                    usePointStyle: true,
-                                    pointStyle: 'rectRounded',
-                                    padding: 16,
-                                    font: chartFont,
-                                    color: tickColor
-                                }
-                            }
-                        },
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, pointStyle: 'rectRounded', padding: 16, font: chartFont, color: tickColor } } },
                         scales: {
-                            x: {
-                                grid: { display: false },
-                                ticks: { font: chartFont, color: tickColor },
-                                border: { display: false }
-                            },
-                            y: {
-                                beginAtZero: true,
-                                max: 6,
-                                grid: { color: gridColor, drawBorder: false },
-                                ticks: { font: chartFont, color: tickColor, stepSize: 1 },
-                                border: { display: false }
-                            }
+                            x: { grid: { display: false }, ticks: { font: chartFont, color: tickColor }, border: { display: false } },
+                            y: { beginAtZero: true, max: 6, grid: { color: gridColor, drawBorder: false }, ticks: { font: chartFont, color: tickColor, stepSize: 1 }, border: { display: false } }
                         }
                     }
                 });
@@ -2766,6 +3211,188 @@
                 this.classList.add('active');
             });
         });
+
+        // ==================== SECTION NAVIGATION ====================
+        let allMyLeaves = [];
+
+        function showSection(section) {
+            // Hide main dashboard content
+            document.querySelector('.welcome-banner').style.display = section === 'dashboard' ? '' : 'none';
+            document.querySelector('.stats-grid').style.display = section === 'dashboard' ? '' : 'none';
+            // Hide all sections
+            ['my-leaves', 'leave-balance', 'holiday-calendar'].forEach(s => {
+                const el = document.getElementById('section-' + s);
+                if (el) el.style.display = 'none';
+            });
+            // Hide quick actions and grid sections (dashboard-only)
+            document.querySelectorAll('.dashboard > section').forEach(s => {
+                s.style.display = section === 'dashboard' ? '' : 'none';
+            });
+            // Update nav active state
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+
+            if (section !== 'dashboard') {
+                const el = document.getElementById('section-' + section);
+                if (el) el.style.display = 'block';
+                // Load data for that section
+                if (section === 'my-leaves') loadMyLeavesPage();
+                if (section === 'leave-balance') loadLeaveBalancePage();
+                if (section === 'holiday-calendar') loadHolidayCalendarPage();
+            }
+        }
+
+        function filterLeaves(status, btn) {
+            document.querySelectorAll('.leave-filter-btn').forEach(b => {
+                b.className = 'btn btn-secondary btn-sm leave-filter-btn';
+            });
+            btn.className = 'btn btn-primary btn-sm leave-filter-btn';
+            const filtered = status === 'all' ? allMyLeaves : allMyLeaves.filter(l => l.status === status);
+            renderLeaveList(filtered, 'myLeavesFullList');
+        }
+
+        function renderLeaveList(leaves, containerId) {
+            const container = document.getElementById(containerId);
+            if (!leaves.length) {
+                container.innerHTML = '<div style="padding:40px;text-align:center;color:#9ca3af;font-size:14px"><i class="fas fa-inbox" style="font-size:32px;margin-bottom:12px;display:block"></i>No leave requests found.</div>';
+                return;
+            }
+            container.innerHTML = leaves.map(l => {
+                const n = (l.leave_type_name || '').toLowerCase();
+                const type = n.includes('sick') ? 'sick' : n.includes('casual') ? 'casual' : n.includes('vac') ? 'vacation' : 'personal';
+                const icons = { sick: 'fa-briefcase-medical', casual: 'fa-sun', vacation: 'fa-umbrella-beach', personal: 'fa-user' };
+                const statusClass = l.status === 'Approved' ? 'approved' : l.status === 'Rejected' ? 'rejected' : 'pending';
+                return `
+        <div class="leave-item">
+            <div class="leave-info">
+                <div class="leave-type-icon ${type}"><i class="fas ${icons[type]}"></i></div>
+                <div class="leave-details">
+                    <h4>${l.leave_type_name}</h4>
+                    <p>${l.reason || '—'}</p>
+                    <div class="leave-dates"><i class="fas fa-calendar"></i> ${l.from_date} – ${l.to_date} (${l.leave_days} day${l.leave_days != 1 ? 's' : ''})</div>
+                    ${l.manager_comment ? `<div style="margin-top:6px;font-size:12px;color:#d97706;background:#fffbeb;padding:4px 8px;border-radius:4px"><i class="fas fa-comment" style="margin-right:4px"></i>${l.manager_comment}</div>` : ''}
+                </div>
+            </div>
+            <div class="leave-meta">
+                <div class="leave-status ${statusClass}">${l.status}</div>
+            </div>
+        </div>`;
+            }).join('');
+        }
+
+        function loadMyLeavesPage() {
+            const token = localStorage.getItem('token');
+            fetch('/get_my_leaves', { headers: { 'Authorization': `Bearer ${token}` } })
+                .then(r => r.json())
+                .then(data => {
+                    allMyLeaves = data.leaves || [];
+                    renderLeaveList(allMyLeaves, 'myLeavesFullList');
+                }).catch(() => {
+                    document.getElementById('myLeavesFullList').innerHTML = '<div style="padding:40px;text-align:center;color:#dc2626">Failed to load leaves.</div>';
+                });
+        }
+
+        function loadLeaveBalancePage() {
+            const token = localStorage.getItem('token');
+            fetch('/get_leave_balance', { headers: { 'Authorization': `Bearer ${token}` } })
+                .then(r => r.json())
+                .then(data => {
+                    const balances = data.balances || [];
+                    const colorMap = ['casual', 'sick', 'earned', 'unpaid', 'personal'];
+                    const colorStyles = {
+                        casual: { bg: '#eff6ff', color: '#2563eb' },
+                        sick: { bg: '#fef2f2', color: '#dc2626' },
+                        earned: { bg: '#ecfdf5', color: '#059669' },
+                        unpaid: { bg: '#fffbeb', color: '#d97706' },
+                        personal: { bg: '#f5f3ff', color: '#7c3aed' }
+                    };
+                    if (!balances.length) {
+                        document.getElementById('leaveBalanceSection').innerHTML = '<div class="card" style="padding:40px;text-align:center;color:#9ca3af">No leave balances found.</div>';
+                        return;
+                    }
+                    const cards = balances.map((b, i) => {
+                        const key = colorMap[i % colorMap.length];
+                        const style = colorStyles[key];
+                        const used = (b.total_days || 0) - (b.remaining_days || 0);
+                        const pct = b.total_days ? Math.round((used / b.total_days) * 100) : 0;
+                        return `
+                <div class="card" style="padding:24px">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+                        <div style="display:flex;align-items:center;gap:12px">
+                            <div style="width:44px;height:44px;border-radius:10px;background:${style.bg};color:${style.color};display:flex;align-items:center;justify-content:center;font-size:20px">
+                                <i class="fas fa-umbrella-beach"></i>
+                            </div>
+                            <div>
+                                <div style="font-size:15px;font-weight:600;color:#111827">${b.leave_type_name}</div>
+                                <div style="font-size:12px;color:#9ca3af">${b.total_days} days/year</div>
+                            </div>
+                        </div>
+                        <div style="text-align:right">
+                            <div style="font-size:28px;font-weight:700;color:${style.color}">${b.remaining_days}</div>
+                            <div style="font-size:12px;color:#9ca3af">remaining</div>
+                        </div>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;font-size:12px;color:#6b7280;margin-bottom:8px">
+                        <span>Used: <strong>${used}</strong></span><span>Total: <strong>${b.total_days}</strong></span>
+                    </div>
+                    <div style="height:6px;background:#f3f4f6;border-radius:10px;overflow:hidden">
+                        <div style="height:100%;width:${pct}%;background:${style.color};border-radius:10px;transition:width 0.8s ease"></div>
+                    </div>
+                </div>`;
+                    }).join('');
+                    document.getElementById('leaveBalanceSection').innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px">${cards}</div>`;
+                }).catch(() => {
+                    document.getElementById('leaveBalanceSection').innerHTML = '<div class="card" style="padding:40px;text-align:center;color:#dc2626">Failed to load balances.</div>';
+                });
+        }
+
+        function loadHolidayCalendarPage() {
+            const token = localStorage.getItem('token');
+            fetch(`/get_holidays?year=${new Date().getFullYear()}`, { headers: { 'Authorization': `Bearer ${token}` } })
+                .then(r => r.json())
+                .then(data => {
+                    const holidays = (data.holidays || []).sort((a, b) => a.holiday_date.localeCompare(b.holiday_date));
+                    const today = new Date(); today.setHours(0, 0, 0, 0);
+                    if (!holidays.length) {
+                        document.getElementById('holidayCalendarList').innerHTML = '<div style="padding:40px;text-align:center;color:#9ca3af">No holidays found.</div>';
+                        return;
+                    }
+                    const months = {};
+                    holidays.forEach(h => {
+                        const d = new Date(h.holiday_date + 'T00:00:00');
+                        const key = d.toLocaleString('default', { month: 'long', year: 'numeric' });
+                        if (!months[key]) months[key] = [];
+                        months[key].push({ ...h, dateObj: d });
+                    });
+                    let html = '';
+                    for (const [month, items] of Object.entries(months)) {
+                        html += `<div style="padding:16px 24px 4px;font-size:12px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.06em">${month}</div>`;
+                        items.forEach(h => {
+                            const isPast = h.dateObj < today;
+                            const isToday = h.dateObj.toDateString() === today.toDateString();
+                            const dayName = h.dateObj.toLocaleDateString('en-US', { weekday: 'short' });
+                            const dayNum = h.dateObj.getDate();
+                            html += `
+                    <div style="display:flex;align-items:center;gap:16px;padding:14px 24px;border-bottom:1px solid #f3f4f6;opacity:${isPast ? '0.5' : '1'}">
+                        <div style="width:48px;height:48px;border-radius:10px;background:${isToday ? '#2563eb' : '#f3f4f6'};color:${isToday ? '#fff' : '#374151'};display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0">
+                            <span style="font-size:16px;font-weight:700;line-height:1">${dayNum}</span>
+                            <span style="font-size:10px;font-weight:600;text-transform:uppercase">${dayName}</span>
+                        </div>
+                        <div style="flex:1">
+                            <div style="font-size:14px;font-weight:600;color:#111827">${h.name}</div>
+                            <div style="font-size:12px;color:#9ca3af;margin-top:2px">${h.holiday_date}</div>
+                        </div>
+                        <div style="padding:4px 12px;border-radius:6px;font-size:12px;font-weight:500;background:${isToday ? '#eff6ff' : isPast ? '#f3f4f6' : '#ecfdf5'};color:${isToday ? '#2563eb' : isPast ? '#9ca3af' : '#059669'}">
+                            ${isToday ? 'Today' : isPast ? 'Past' : 'Upcoming'}
+                        </div>
+                    </div>`;
+                        });
+                    }
+                    document.getElementById('holidayCalendarList').innerHTML = html;
+                }).catch(() => {
+                    document.getElementById('holidayCalendarList').innerHTML = '<div style="padding:40px;text-align:center;color:#dc2626">Failed to load holidays.</div>';
+                });
+        }
     </script>
 </body>
+
 </html>

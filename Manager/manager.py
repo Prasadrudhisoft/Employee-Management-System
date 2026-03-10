@@ -6,6 +6,7 @@ import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 from decorators import jwt_required
 import os
+from leave import _auto_create_balance_for_employee   # ← ADD THIS IMPORT AT TOP
 
 manager_bp = Blueprint('manager',__name__)
 
@@ -84,6 +85,9 @@ def add_emp(id = None, org_id = None, role = None, org_name = None):
         cursor.execute("insert into salary_detailes(id,user_id,org_id,base_salary,agp,da,dp,hra,tra,cla,bank_acc_no,ifsc_code,bank_name,bank_address,created_by,created_at) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NOW())",(sal_det,user_id,org_id,base_salary,agp,da,dp,hra,tra,cla,bank_acc_no,ifsc_code,bank_name,bank_address,id))
         conn.commit()
 
+        # ↓↓↓ ADD THIS — auto-creates leave balance for all existing leave types
+        _auto_create_balance_for_employee(user_id, org_id, cursor, conn)
+
         return jsonify({
             'status':'success',
             'message':'New Employee Added Successfully.'
@@ -98,4 +102,3 @@ def add_emp(id = None, org_id = None, role = None, org_name = None):
     finally:
         cursor.close()
         conn.close()
-    

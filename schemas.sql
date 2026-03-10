@@ -127,3 +127,69 @@ CREATE TABLE staff_salary_record(
     created_by CHAR(36),
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+--################ For leave management system ####################
+
+CREATE TABLE IF NOT EXISTS leave_types (
+    id            VARCHAR(36)   PRIMARY KEY,
+    org_id        VARCHAR(36)   NOT NULL,
+    name          VARCHAR(80)   NOT NULL,        -- e.g. Casual Leave, Sick Leave
+    total_days    DECIMAL(5,1)  NOT NULL,         -- e.g. 12.0
+    description   VARCHAR(255)  DEFAULT NULL,
+    is_active     TINYINT(1)    DEFAULT 1,        -- soft delete
+    created_by    VARCHAR(36)   DEFAULT NULL,
+    created_at    DATETIME      DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_lt_org (org_id)
+);
+
+-- 2. Leave Balances (auto-created per employee × leave type)
+CREATE TABLE IF NOT EXISTS leave_balances (
+    id              VARCHAR(36)   PRIMARY KEY,
+    user_id         VARCHAR(36)   NOT NULL,
+    org_id          VARCHAR(36)   NOT NULL,
+    leave_type_id   VARCHAR(36)   NOT NULL,
+    total_days      DECIMAL(5,1)  NOT NULL,
+    used_days       DECIMAL(5,1)  DEFAULT 0.0,
+    remaining_days  DECIMAL(5,1)  NOT NULL,
+    year            YEAR          NOT NULL DEFAULT (YEAR(CURDATE())),
+    updated_at      DATETIME      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uq_balance (user_id, leave_type_id, year),
+    INDEX idx_lb_org  (org_id),
+    INDEX idx_lb_user (user_id)
+);
+
+-- 3. Leave Requests (Employee applies)
+CREATE TABLE IF NOT EXISTS leave_requests (
+    id              VARCHAR(36)   PRIMARY KEY,
+    user_id         VARCHAR(36)   NOT NULL,       -- employee
+    org_id          VARCHAR(36)   NOT NULL,
+    leave_type_id   VARCHAR(36)   NOT NULL,
+    from_date       DATE          NOT NULL,
+    to_date         DATE          NOT NULL,
+    leave_days      DECIMAL(5,1)  NOT NULL,        -- 0.5 for half-day
+    day_type        ENUM('Full Day','Half Day')    DEFAULT 'Full Day',
+    reason          TEXT          DEFAULT NULL,
+    status          ENUM('Pending','Approved','Rejected') DEFAULT 'Pending',
+    manager_comment TEXT          DEFAULT NULL,
+    reviewed_by     VARCHAR(36)   DEFAULT NULL,    -- manager id
+    reviewed_at     DATETIME      DEFAULT NULL,
+    created_at      DATETIME      DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_lr_org    (org_id),
+    INDEX idx_lr_user   (user_id),
+    INDEX idx_lr_status (status)
+);
+
+-- 4. Holidays (Manager manages)
+CREATE TABLE IF NOT EXISTS holidays (
+    id            VARCHAR(36)   PRIMARY KEY,
+    org_id        VARCHAR(36)   NOT NULL,
+    name          VARCHAR(120)  NOT NULL,
+    holiday_date  DATE          NOT NULL,
+    description   VARCHAR(255)  DEFAULT NULL,
+    created_by    VARCHAR(36)   DEFAULT NULL,
+    created_at    DATETIME      DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uq_holiday (org_id, holiday_date),
+    INDEX idx_hol_org (org_id)
+);
+

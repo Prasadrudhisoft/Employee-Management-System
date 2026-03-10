@@ -620,12 +620,31 @@
         }
 
         @keyframes wave-hand {
-            0%, 100% { transform: rotate(0deg); }
-            15% { transform: rotate(14deg); }
-            30% { transform: rotate(-8deg); }
-            45% { transform: rotate(14deg); }
-            60% { transform: rotate(-4deg); }
-            75% { transform: rotate(10deg); }
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            15% {
+                transform: rotate(14deg);
+            }
+
+            30% {
+                transform: rotate(-8deg);
+            }
+
+            45% {
+                transform: rotate(14deg);
+            }
+
+            60% {
+                transform: rotate(-4deg);
+            }
+
+            75% {
+                transform: rotate(10deg);
+            }
         }
 
         .welcome-text p {
@@ -675,10 +694,25 @@
             font-size: 19px;
         }
 
-        .stat-card.indigo .stat-icon { background: var(--primary-subtle); color: var(--primary); }
-        .stat-card.cyan .stat-icon { background: var(--info-light); color: var(--info); }
-        .stat-card.emerald .stat-icon { background: var(--success-light); color: var(--success); }
-        .stat-card.amber .stat-icon { background: var(--warning-light); color: var(--warning); }
+        .stat-card.indigo .stat-icon {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+
+        .stat-card.cyan .stat-icon {
+            background: var(--info-light);
+            color: var(--info);
+        }
+
+        .stat-card.emerald .stat-icon {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .stat-card.amber .stat-icon {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
 
         .stat-trend {
             display: flex;
@@ -690,8 +724,15 @@
             font-weight: 600;
         }
 
-        .stat-trend.up { background: var(--success-light); color: var(--success); }
-        .stat-trend.down { background: var(--danger-light); color: var(--danger); }
+        .stat-trend.up {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .stat-trend.down {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
 
         .stat-value {
             font-size: 32px;
@@ -722,10 +763,21 @@
             transition: width 1s ease;
         }
 
-        .stat-card.indigo .stat-progress-bar { background: var(--primary); }
-        .stat-card.cyan .stat-progress-bar { background: var(--info); }
-        .stat-card.emerald .stat-progress-bar { background: var(--success); }
-        .stat-card.amber .stat-progress-bar { background: var(--warning); }
+        .stat-card.indigo .stat-progress-bar {
+            background: var(--primary);
+        }
+
+        .stat-card.cyan .stat-progress-bar {
+            background: var(--info);
+        }
+
+        .stat-card.emerald .stat-progress-bar {
+            background: var(--success);
+        }
+
+        .stat-card.amber .stat-progress-bar {
+            background: var(--warning);
+        }
 
         /* SECTION HEADERS */
         .section-header {
@@ -807,12 +859,29 @@
             transition: transform 0.2s;
         }
 
-        .action-card.indigo .action-card-icon { background: var(--primary-subtle); color: var(--primary); }
-        .action-card.cyan .action-card-icon { background: var(--info-light); color: var(--info); }
-        .action-card.emerald .action-card-icon { background: var(--success-light); color: var(--success); }
-        .action-card.amber .action-card-icon { background: var(--warning-light); color: var(--warning); }
+        .action-card.indigo .action-card-icon {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
 
-        .action-card:hover .action-card-icon { transform: scale(1.08); }
+        .action-card.cyan .action-card-icon {
+            background: var(--info-light);
+            color: var(--info);
+        }
+
+        .action-card.emerald .action-card-icon {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .action-card.amber .action-card-icon {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .action-card:hover .action-card-icon {
+            transform: scale(1.08);
+        }
 
         .action-card h3 {
             font-size: 14px;
@@ -868,9 +937,20 @@
             color: var(--text-tertiary);
         }
 
-        .card-title-icon.emerald { background: var(--success-light); color: var(--success); }
-        .card-title-icon.amber { background: var(--warning-light); color: var(--warning); }
-        .card-title-icon.cyan { background: var(--info-light); color: var(--info); }
+        .card-title-icon.emerald {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .card-title-icon.amber {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .card-title-icon.cyan {
+            background: var(--info-light);
+            color: var(--info);
+        }
 
         .card-title div h3 {
             font-size: 15px;
@@ -945,7 +1025,9 @@
         }
 
         /* EMPLOYEE LIST */
-        .employee-list { padding: 0; }
+        .employee-list {
+            padding: 0;
+        }
 
         .employee-item {
             display: flex;
@@ -956,8 +1038,13 @@
             transition: background 0.15s;
         }
 
-        .employee-item:last-child { border-bottom: none; }
-        .employee-item:hover { background: var(--bg-hover); }
+        .employee-item:last-child {
+            border-bottom: none;
+        }
+
+        .employee-item:hover {
+            background: var(--bg-hover);
+        }
 
         .employee-info {
             display: flex;
@@ -978,12 +1065,29 @@
             flex-shrink: 0;
         }
 
-        .employee-avatar.indigo { background: var(--primary); }
-        .employee-avatar.cyan { background: var(--info); }
-        .employee-avatar.emerald { background: var(--success); }
-        .employee-avatar.amber { background: var(--warning); }
-        .employee-avatar.rose { background: #e11d48; }
-        .employee-avatar.violet { background: #7c3aed; }
+        .employee-avatar.indigo {
+            background: var(--primary);
+        }
+
+        .employee-avatar.cyan {
+            background: var(--info);
+        }
+
+        .employee-avatar.emerald {
+            background: var(--success);
+        }
+
+        .employee-avatar.amber {
+            background: var(--warning);
+        }
+
+        .employee-avatar.rose {
+            background: #e11d48;
+        }
+
+        .employee-avatar.violet {
+            background: #7c3aed;
+        }
 
         .employee-details h4 {
             font-size: 14px;
@@ -1038,9 +1142,20 @@
             font-weight: 500;
         }
 
-        .employee-status.active { background: var(--success-light); color: var(--success); }
-        .employee-status.inactive { background: var(--danger-light); color: var(--danger); }
-        .employee-status.on-leave { background: var(--warning-light); color: var(--warning); }
+        .employee-status.active {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .employee-status.inactive {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .employee-status.on-leave {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
 
         .employee-status .status-dot {
             width: 6px;
@@ -1059,8 +1174,13 @@
             transition: background 0.15s;
         }
 
-        .leave-item:last-child { border-bottom: none; }
-        .leave-item:hover { background: var(--bg-hover); }
+        .leave-item:last-child {
+            border-bottom: none;
+        }
+
+        .leave-item:hover {
+            background: var(--bg-hover);
+        }
 
         .leave-info {
             display: flex;
@@ -1078,9 +1198,20 @@
             font-size: 17px;
         }
 
-        .leave-type-icon.sick { background: var(--danger-light); color: var(--danger); }
-        .leave-type-icon.vacation { background: var(--info-light); color: var(--info); }
-        .leave-type-icon.personal { background: var(--warning-light); color: var(--warning); }
+        .leave-type-icon.sick {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .leave-type-icon.vacation {
+            background: var(--info-light);
+            color: var(--info);
+        }
+
+        .leave-type-icon.personal {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
 
         .leave-details h4 {
             font-size: 14px;
@@ -1121,9 +1252,20 @@
             font-weight: 500;
         }
 
-        .leave-status.pending { background: var(--warning-light); color: var(--warning); }
-        .leave-status.approved { background: var(--success-light); color: var(--success); }
-        .leave-status.rejected { background: var(--danger-light); color: var(--danger); }
+        .leave-status.pending {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .leave-status.approved {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .leave-status.rejected {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
 
         /* CHARTS */
         .charts-row {
@@ -1147,8 +1289,13 @@
             transition: background 0.15s;
         }
 
-        .activity-item:last-child { border-bottom: none; }
-        .activity-item:hover { background: var(--bg-hover); }
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-item:hover {
+            background: var(--bg-hover);
+        }
 
         .activity-icon {
             width: 38px;
@@ -1161,13 +1308,35 @@
             flex-shrink: 0;
         }
 
-        .activity-icon.add { background: var(--success-light); color: var(--success); }
-        .activity-icon.edit { background: var(--info-light); color: var(--info); }
-        .activity-icon.leave { background: var(--warning-light); color: var(--warning); }
-        .activity-icon.salary { background: var(--success-light); color: var(--success); }
-        .activity-icon.calendar { background: var(--primary-subtle); color: var(--primary); }
+        .activity-icon.add {
+            background: var(--success-light);
+            color: var(--success);
+        }
 
-        .activity-content { flex: 1; min-width: 0; }
+        .activity-icon.edit {
+            background: var(--info-light);
+            color: var(--info);
+        }
+
+        .activity-icon.leave {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .activity-icon.salary {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .activity-icon.calendar {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+
+        .activity-content {
+            flex: 1;
+            min-width: 0;
+        }
 
         .activity-content p {
             font-size: 13.5px;
@@ -1189,7 +1358,9 @@
             gap: 5px;
         }
 
-        .activity-content .time i { font-size: 10px; }
+        .activity-content .time i {
+            font-size: 10px;
+        }
 
         /* MOBILE */
         .mobile-overlay {
@@ -1201,7 +1372,9 @@
             z-index: 99;
         }
 
-        .mobile-overlay.active { display: block; }
+        .mobile-overlay.active {
+            display: block;
+        }
 
         /* Click outside to close dropdown */
         .dropdown-backdrop {
@@ -1217,9 +1390,17 @@
 
         /* ==================== RESPONSIVE ==================== */
         @media (max-width: 1300px) {
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .quick-actions { grid-template-columns: repeat(2, 1fr); }
-            .dashboard-grid-2 { grid-template-columns: 1fr; }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid-2 {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 1100px) {
@@ -1228,72 +1409,183 @@
                 align-items: flex-start;
                 gap: 24px;
             }
-            .search-box input { width: 200px; }
-            .charts-row { grid-template-columns: 1fr; }
+
+            .search-box input {
+                width: 200px;
+            }
+
+            .charts-row {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 1024px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.mobile-open { transform: translateX(0); }
-            .main-content { margin-left: 0; }
-            .menu-toggle { display: flex; }
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
         }
 
         @media (max-width: 768px) {
-            .header { padding: 0 20px; }
-            .search-box { display: none; }
-            .user-dropdown-info { display: none; }
-            .user-dropdown { padding: 6px; }
-            .dashboard { padding: 20px; }
-            .welcome-banner { padding: 28px; }
-            .welcome-text h1 { font-size: 22px; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .quick-actions { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .header {
+                padding: 0 20px;
+            }
+
+            .search-box {
+                display: none;
+            }
+
+            .user-dropdown-info {
+                display: none;
+            }
+
+            .user-dropdown {
+                padding: 6px;
+            }
+
+            .dashboard {
+                padding: 20px;
+            }
+
+            .welcome-banner {
+                padding: 28px;
+            }
+
+            .welcome-text h1 {
+                font-size: 22px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
             .action-card {
                 flex-direction: row;
                 text-align: left;
                 gap: 14px;
                 padding: 18px;
             }
-            .action-card-icon { margin-bottom: 0; width: 44px; height: 44px; font-size: 20px; }
+
+            .action-card-icon {
+                margin-bottom: 0;
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+            }
+
             .card-header {
                 padding: 16px 20px;
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 12px;
             }
-            .card-actions { width: 100%; }
-            .card-actions .btn { flex: 1; }
+
+            .card-actions {
+                width: 100%;
+            }
+
+            .card-actions .btn {
+                flex: 1;
+            }
+
             .employee-item {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 12px;
                 padding: 16px 20px;
             }
-            .employee-meta { width: 100%; justify-content: space-between; }
+
+            .employee-meta {
+                width: 100%;
+                justify-content: space-between;
+            }
+
             .leave-item {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 12px;
                 padding: 16px 20px;
             }
-            .leave-meta { width: 100%; justify-content: flex-end; }
-            .user-dropdown-menu { width: 220px; right: -8px; }
+
+            .leave-meta {
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            .user-dropdown-menu {
+                width: 220px;
+                right: -8px;
+            }
         }
 
         @media (max-width: 500px) {
-            .header { padding: 0 16px; height: 60px; }
-            .page-header h1 { font-size: 17px; }
-            .page-header .breadcrumb { display: none; }
-            .dashboard { padding: 16px; }
-            .welcome-banner { padding: 24px; border-radius: var(--radius-lg); }
-            .welcome-text h1 { font-size: 20px; }
-            .welcome-text p { font-size: 13px; }
-            .stats-grid { grid-template-columns: 1fr; gap: 10px; }
-            .stat-card { padding: 20px; }
-            .stat-value { font-size: 28px; }
-            .quick-actions { grid-template-columns: 1fr; }
-            .charts-row { gap: 16px; }
+            .header {
+                padding: 0 16px;
+                height: 60px;
+            }
+
+            .page-header h1 {
+                font-size: 17px;
+            }
+
+            .page-header .breadcrumb {
+                display: none;
+            }
+
+            .dashboard {
+                padding: 16px;
+            }
+
+            .welcome-banner {
+                padding: 24px;
+                border-radius: var(--radius-lg);
+            }
+
+            .welcome-text h1 {
+                font-size: 20px;
+            }
+
+            .welcome-text p {
+                font-size: 13px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 20px;
+            }
+
+            .stat-value {
+                font-size: 28px;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .charts-row {
+                gap: 16px;
+            }
         }
     </style>
 </head>
@@ -1305,29 +1597,46 @@
         <nav class="sidebar-nav">
             <div class="nav-section">
                 <div class="nav-section-label">Main Menu</div>
-                <a href="/manager/dashboard" class="nav-link active"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
-                <a href="/manager/analytics" class="nav-link"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+                <a href="/manager/dashboard" class="nav-link active"><i
+                        class="fas fa-th-large"></i><span>Dashboard</span></a>
+                <a href="/manager/analytics" class="nav-link"><i
+                        class="fas fa-chart-line"></i><span>Analytics</span></a>
             </div>
             <div class="nav-section">
                 <div class="nav-section-label">Team Management</div>
-                <a href="/manager/employees" class="nav-link"><i class="fas fa-users"></i><span>My Employees</span><span class="badge success">18</span></a>
-                <a href="/manager/add-employee" class="nav-link"><i class="fas fa-user-plus"></i><span>Add Employee</span></a>
-                <a href="/manager/attendance" class="nav-link"><i class="fas fa-calendar-check"></i><span>Attendance</span></a>
+                <a href="/manager/employees" class="nav-link"><i class="fas fa-users"></i><span>My Employees</span><span
+                        class="badge success">18</span></a>
+                <a href="/manager/add-employee" class="nav-link"><i class="fas fa-user-plus"></i><span>Add
+                        Employee</span></a>
+                <a href="/manager/attendance" class="nav-link"><i
+                        class="fas fa-calendar-check"></i><span>Attendance</span></a>
             </div>
             <div class="nav-section">
                 <div class="nav-section-label">Leave & Time</div>
-                <a href="/manager/leave-requests" class="nav-link"><i class="fas fa-plane-departure"></i><span>Leave Requests</span><span class="badge warning">5</span></a>
-                <a href="/manager/calendar" class="nav-link"><i class="fas fa-calendar-alt"></i><span>Calendar</span></a>
+                <a href="/leave_requests" class="nav-link"><i class="fas fa-plane-departure"></i><span>Leave
+                        Requests</span><span class="badge warning">5</span></a>
+                <a href="/leave_types" class="nav-link"><i class="fas fa-list-check"></i><span>Leave Types</span></a>
+                <a href="/holidays" class="nav-link"><i class="fas fa-calendar-days"></i><span>Holiday
+                        Calendar</span></a>
+
+                <a href="#" class="nav-link" onclick="openLeaveHistoryModal(); return false;">
+                    <i class="fas fa-clock-rotate-left"></i><span>Employee Leave History</span>
+                </a>
+                <!-- <a href="/manager/calendar" class="nav-link"><i
+                        class="fas fa-calendar-alt"></i><span>Calendar</span></a> -->
             </div>
             <div class="nav-section">
                 <div class="nav-section-label">Financials</div>
-                <a href="/salary_record" class="nav-link"><i class="fas fa-money-bill-wave"></i><span>Salary Management</span></a>
-                <a href="/manager/payroll" class="nav-link"><i class="fas fa-file-invoice-dollar"></i><span>Payroll Reports</span></a>
+                <a href="/salary_record" class="nav-link"><i class="fas fa-money-bill-wave"></i><span>Salary
+                        Management</span></a>
+                <a href="/manager/payroll" class="nav-link"><i class="fas fa-file-invoice-dollar"></i><span>Payroll
+                        Reports</span></a>
             </div>
             <div class="nav-section">
                 <div class="nav-section-label">Settings</div>
                 <a href="/manager/settings" class="nav-link"><i class="fas fa-cog"></i><span>Settings</span></a>
-                <a href="/manager/notifications" class="nav-link"><i class="fas fa-bell"></i><span>Notifications</span><span class="badge info">3</span></a>
+                <a href="/manager/notifications" class="nav-link"><i
+                        class="fas fa-bell"></i><span>Notifications</span><span class="badge info">3</span></a>
             </div>
         </nav>
     </aside>
@@ -1415,7 +1724,8 @@
                 <div class="welcome-inner">
                     <div class="welcome-text">
                         <h1>Good Morning, <span id="welcomeName">Manager</span> <span class="wave">👋</span></h1>
-                        <p>Manage your team effectively, track attendance, handle leave requests, and process salaries. Your team is performing great this month.</p>
+                        <p>Manage your team effectively, track attendance, handle leave requests, and process salaries.
+                            Your team is performing great this month.</p>
                     </div>
                 </div>
             </section>
@@ -1507,6 +1817,23 @@
                             <p>Manage events & schedules</p>
                         </div>
                     </a>
+
+                    <!-- ↓ ADD THESE 2 NEW CARDS HERE ↓ -->
+                    <a href="/leave_types" class="action-card violet">
+                        <div class="action-card-icon"><i class="fas fa-list-check"></i></div>
+                        <div>
+                            <h3>Leave Types</h3>
+                            <p>Define leave categories</p>
+                        </div>
+                    </a>
+                    <a href="/holidays" class="action-card rose">
+                        <div class="action-card-icon"><i class="fas fa-calendar-days"></i></div>
+                        <div>
+                            <h3>Holiday Calendar</h3>
+                            <p>Manage public holidays</p>
+                        </div>
+                    </a>
+
                 </div>
             </section>
 
@@ -1522,8 +1849,10 @@
                             </div>
                         </div>
                         <div class="card-actions">
-                            <a href="/manager/employees" class="btn btn-secondary btn-sm">View All <i class="fas fa-arrow-right"></i></a>
-                            <a href="/manager/add-employee" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add</a>
+                            <a href="/manager/employees" class="btn btn-secondary btn-sm">View All <i
+                                    class="fas fa-arrow-right"></i></a>
+                            <a href="/manager/add-employee" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>
+                                Add</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -1608,7 +1937,8 @@
                             </div>
                         </div>
                         <div class="card-actions">
-                            <a href="/manager/leave-requests" class="btn btn-secondary btn-sm">View All <i class="fas fa-arrow-right"></i></a>
+                            <a href="/manager/leave-requests" class="btn btn-secondary btn-sm">View All <i
+                                    class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -1986,6 +2316,311 @@
                 this.classList.add('active');
             });
         });
+        // ==================== EMPLOYEE LEAVE HISTORY MODAL ====================
+        let lhAllLeaves = [];
+        let lhActiveFilter = '';
+
+        function openLeaveHistoryModal() {
+            const modal = document.getElementById('leaveHistoryModal');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            loadLHEmployees();
+            // Populate year dropdown
+            const yearSel = document.getElementById('lhYearDropdown');
+            yearSel.innerHTML = '';
+            const curYear = new Date().getFullYear();
+            for (let y = curYear; y >= curYear - 3; y--) {
+                const o = document.createElement('option');
+                o.value = y; o.textContent = y;
+                yearSel.appendChild(o);
+            }
+        }
+
+        function closeLeaveHistoryModal() {
+            document.getElementById('leaveHistoryModal').style.display = 'none';
+            document.body.style.overflow = '';
+            // Reset
+            lhAllLeaves = [];
+            lhActiveFilter = '';
+            document.getElementById('lhSummaryCards').style.display = 'none';
+            document.getElementById('lhFilterBar').style.display = 'none';
+            document.getElementById('lhLeaveList').innerHTML = `
+        <div style="padding:60px;text-align:center;color:#9ca3af;">
+            <i class="fas fa-user-circle" style="font-size:40px;margin-bottom:12px;display:block;color:#d1d5db;"></i>
+            Select an employee and click "View History"
+        </div>`;
+        }
+
+        // Close modal when clicking backdrop
+        document.getElementById('leaveHistoryModal').addEventListener('click', function (e) {
+            if (e.target === this) closeLeaveHistoryModal();
+        });
+
+        async function loadLHEmployees() {
+            const token = localStorage.getItem('token');
+            try {
+                const res = await fetch('/get_org_employees', { headers: { 'Authorization': `Bearer ${token}` } });
+                const data = await res.json();
+                const sel = document.getElementById('lhEmpDropdown');
+                sel.innerHTML = '<option value="">-- Select an employee --</option>';
+                (data.employees || []).forEach(emp => {
+                    const o = document.createElement('option');
+                    o.value = emp.id;
+                    o.textContent = `${emp.Name}  (${emp.Email})`;
+                    sel.appendChild(o);
+                });
+            } catch (e) { console.warn('Failed to load employees'); }
+        }
+
+        async function loadEmployeeLeaveHistory() {
+            const empId = document.getElementById('lhEmpDropdown').value;
+            const year = document.getElementById('lhYearDropdown').value;
+            const token = localStorage.getItem('token');
+
+            if (!empId) { alert('Please select an employee.'); return; }
+
+            document.getElementById('lhLeaveList').innerHTML = `
+        <div style="padding:40px;text-align:center;color:#9ca3af;">
+            <i class="fas fa-spinner fa-spin" style="font-size:28px;margin-bottom:10px;display:block;color:#2563eb;"></i>
+            Loading...
+        </div>`;
+
+            try {
+                const res = await fetch(`/get_employee_leave_summary?user_id=${empId}&year=${year}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (data.status !== 'success') {
+                    document.getElementById('lhLeaveList').innerHTML = `<div style="padding:40px;text-align:center;color:#dc2626;">${data.message}</div>`;
+                    return;
+                }
+
+                lhAllLeaves = data.leaves || [];
+                lhActiveFilter = '';
+                document.querySelectorAll('.lh-filter').forEach(b => {
+                    b.style.background = '#f3f4f6'; b.style.color = '#374151';
+                });
+                document.querySelector('.lh-filter').style.background = '#2563eb';
+                document.querySelector('.lh-filter').style.color = '#fff';
+
+                // Summary cards
+                const s = data.summary;
+                document.getElementById('lhTotalApproved').textContent = s.total_approved_days;
+                document.getElementById('lhPending').textContent = s.total_pending_days;
+                document.getElementById('lhFullDays').textContent = s.approved_full_days;
+                document.getElementById('lhHalfDays').textContent = s.approved_half_days;
+                document.getElementById('lhRejected').textContent = s.total_rejected;
+
+                // Balance grid
+                const colors = ['#2563eb', '#059669', '#0284c7', '#d97706', '#dc2626', '#7c3aed'];
+                document.getElementById('lhBalanceGrid').innerHTML = (data.balances || []).map((b, i) => {
+                    const pct = b.total_days > 0 ? Math.round((b.remaining_days / b.total_days) * 100) : 0;
+                    const col = colors[i % colors.length];
+                    return `
+            <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:14px;">
+                <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:8px;">${b.leave_type_name}</div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:#6b7280;margin-bottom:6px;">
+                    <span>Used: <strong>${b.used_days}</strong></span>
+                    <span>Left: <strong style="color:${col}">${b.remaining_days}</strong></span>
+                    <span>Total: <strong>${b.total_days}</strong></span>
+                </div>
+                <div style="height:5px;background:#e5e7eb;border-radius:10px;overflow:hidden;">
+                    <div style="height:100%;width:${100 - pct}%;background:${col};border-radius:10px;"></div>
+                </div>
+            </div>`;
+                }).join('');
+
+                document.getElementById('lhSummaryCards').style.display = 'block';
+                document.getElementById('lhFilterBar').style.display = 'flex';
+                renderLHLeaves();
+
+            } catch (e) {
+                document.getElementById('lhLeaveList').innerHTML = `<div style="padding:40px;text-align:center;color:#dc2626;">Server error. Please try again.</div>`;
+            }
+        }
+
+        function lhFilter(btn, filter) {
+            lhActiveFilter = filter;
+            document.querySelectorAll('.lh-filter').forEach(b => { b.style.background = '#f3f4f6'; b.style.color = '#374151'; });
+            btn.style.background = '#2563eb'; btn.style.color = '#fff';
+            renderLHLeaves();
+        }
+
+        function renderLHLeaves() {
+            let filtered = lhAllLeaves;
+            if (lhActiveFilter === 'Half Day') {
+                filtered = lhAllLeaves.filter(l => l.day_type === 'Half Day');
+            } else if (lhActiveFilter) {
+                filtered = lhAllLeaves.filter(l => l.status === lhActiveFilter);
+            }
+
+            if (!filtered.length) {
+                document.getElementById('lhLeaveList').innerHTML = `
+            <div style="padding:50px;text-align:center;color:#9ca3af;">
+                <i class="fas fa-inbox" style="font-size:32px;margin-bottom:12px;display:block;"></i>
+                No records found.
+            </div>`;
+                return;
+            }
+
+            const fmt = d => d ? new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
+            const typeMap = n => {
+                n = (n || '').toLowerCase();
+                if (n.includes('sick')) return { cls: '#fef2f2', col: '#dc2626', icon: 'fa-briefcase-medical' };
+                if (n.includes('casual')) return { cls: '#fffbeb', col: '#d97706', icon: 'fa-mug-hot' };
+                if (n.includes('vac')) return { cls: '#f0f9ff', col: '#0284c7', icon: 'fa-umbrella-beach' };
+                return { cls: '#eff6ff', col: '#2563eb', icon: 'fa-calendar-days' };
+            };
+            const statusColors = { Approved: ['#ecfdf5', '#059669'], Pending: ['#fffbeb', '#d97706'], Rejected: ['#fef2f2', '#dc2626'] };
+
+            document.getElementById('lhLeaveList').innerHTML = filtered.map(l => {
+                const t = typeMap(l.leave_type_name);
+                const sc = statusColors[l.status] || ['#f3f4f6', '#6b7280'];
+                const dayTypeBadge = l.day_type === 'Half Day'
+                    ? `<span style="padding:3px 8px;background:#f0f9ff;color:#0284c7;border-radius:4px;font-size:11px;font-weight:600;">½ Half Day</span>`
+                    : `<span style="padding:3px 8px;background:#eff6ff;color:#2563eb;border-radius:4px;font-size:11px;font-weight:600;">Full Day</span>`;
+                return `
+        <div style="display:flex;gap:14px;padding:16px 28px;border-bottom:1px solid #f3f4f6;transition:background .15s;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background=''">
+            <div style="width:44px;height:44px;border-radius:10px;background:${t.cls};color:${t.col};display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">
+                <i class="fas ${t.icon}"></i>
+            </div>
+            <div style="flex:1;min-width:0;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;gap:8px;flex-wrap:wrap;">
+                    <div style="font-size:14px;font-weight:600;color:#111827;display:flex;align-items:center;gap:8px;">
+                        ${l.leave_type_name} ${dayTypeBadge}
+                    </div>
+                    <span style="padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:${sc[0]};color:${sc[1]};">${l.status}</span>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:#6b7280;margin-bottom:6px;">
+                    <span><i class="fas fa-calendar" style="margin-right:4px;"></i>${fmt(l.from_date)} → ${fmt(l.to_date)}</span>
+                    <span><i class="fas fa-sun" style="margin-right:4px;"></i>${l.leave_days} day${l.leave_days != 1 ? 's' : ''}</span>
+                    <span><i class="fas fa-clock" style="margin-right:4px;"></i>Applied: ${fmt(l.created_at)}</span>
+                </div>
+                ${l.reason ? `<div style="font-size:12px;color:#6b7280;font-style:italic;padding:6px 10px;background:#f9fafb;border-radius:6px;border-left:3px solid #e5e7eb;">"${l.reason}"</div>` : ''}
+                ${l.manager_comment ? `<div style="margin-top:6px;font-size:12px;padding:6px 10px;background:#fffbeb;border-radius:6px;border-left:3px solid #fde68a;color:#92400e;"><strong>Comment:</strong> ${l.manager_comment}</div>` : ''}
+            </div>
+        </div>`;
+            }).join('');
+        }
     </script>
+
+    <!-- EMPLOYEE LEAVE HISTORY MODAL -->
+    <div id="leaveHistoryModal"
+        style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:300;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;">
+        <div
+            style="background:#fff;border-radius:16px;width:100%;max-width:900px;box-shadow:0 30px 80px rgba(0,0,0,0.2);margin:auto;">
+
+            <!-- Modal Header -->
+            <div
+                style="padding:24px 28px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <div
+                        style="width:42px;height:42px;background:#fffbeb;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#d97706;font-size:18px;">
+                        <i class="fas fa-clock-rotate-left"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-size:17px;font-weight:700;color:#111827;">Employee Leave History</h3>
+                        <p style="font-size:13px;color:#9ca3af;margin-top:2px;">Select an employee to view their leave
+                            records</p>
+                    </div>
+                </div>
+                <button onclick="closeLeaveHistoryModal()"
+                    style="width:36px;height:36px;border-radius:8px;border:none;background:#f3f4f6;color:#6b7280;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Employee Selector -->
+            <div
+                style="padding:24px 28px;border-bottom:1px solid #e5e7eb;display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;">
+                <div style="flex:1;min-width:200px;">
+                    <label style="font-size:13px;font-weight:600;color:#374151;display:block;margin-bottom:8px;">Select
+                        Employee</label>
+                    <div style="position:relative;">
+                        <i class="fas fa-user"
+                            style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#9ca3af;font-size:13px;"></i>
+                        <select id="lhEmpDropdown"
+                            style="width:100%;padding:11px 14px 11px 38px;background:#f3f4f6;border:1.5px solid transparent;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:#111827;outline:none;appearance:none;cursor:pointer;">
+                            <option value="">-- Select an employee --</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="min-width:140px;">
+                    <label
+                        style="font-size:13px;font-weight:600;color:#374151;display:block;margin-bottom:8px;">Year</label>
+                    <div style="position:relative;">
+                        <i class="fas fa-calendar"
+                            style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#9ca3af;font-size:13px;"></i>
+                        <select id="lhYearDropdown"
+                            style="width:100%;padding:11px 14px 11px 38px;background:#f3f4f6;border:1.5px solid transparent;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:#111827;outline:none;appearance:none;cursor:pointer;">
+                        </select>
+                    </div>
+                </div>
+                <button onclick="loadEmployeeLeaveHistory()"
+                    style="padding:11px 22px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;">
+                    <i class="fas fa-search"></i> View History
+                </button>
+            </div>
+
+            <!-- Summary Cards -->
+            <div id="lhSummaryCards" style="display:none;padding:24px 28px;border-bottom:1px solid #e5e7eb;">
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;">
+                    <div style="background:#ecfdf5;border-radius:10px;padding:16px;text-align:center;">
+                        <div id="lhTotalApproved" style="font-size:28px;font-weight:700;color:#059669;">0</div>
+                        <div style="font-size:12px;color:#6b7280;margin-top:4px;">Days Approved</div>
+                    </div>
+                    <div style="background:#fffbeb;border-radius:10px;padding:16px;text-align:center;">
+                        <div id="lhPending" style="font-size:28px;font-weight:700;color:#d97706;">0</div>
+                        <div style="font-size:12px;color:#6b7280;margin-top:4px;">Days Pending</div>
+                    </div>
+                    <div style="background:#eff6ff;border-radius:10px;padding:16px;text-align:center;">
+                        <div id="lhFullDays" style="font-size:28px;font-weight:700;color:#2563eb;">0</div>
+                        <div style="font-size:12px;color:#6b7280;margin-top:4px;">Full Day Leaves</div>
+                    </div>
+                    <div style="background:#f0f9ff;border-radius:10px;padding:16px;text-align:center;">
+                        <div id="lhHalfDays" style="font-size:28px;font-weight:700;color:#0284c7;">0</div>
+                        <div style="font-size:12px;color:#6b7280;margin-top:4px;">Half Day Leaves</div>
+                    </div>
+                    <div style="background:#fef2f2;border-radius:10px;padding:16px;text-align:center;">
+                        <div id="lhRejected" style="font-size:28px;font-weight:700;color:#dc2626;">0</div>
+                        <div style="font-size:12px;color:#6b7280;margin-top:4px;">Rejected</div>
+                    </div>
+                </div>
+
+                <!-- Balance per leave type -->
+                <div id="lhBalanceGrid"
+                    style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:16px;">
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div id="lhFilterBar"
+                style="display:none;padding:16px 28px;border-bottom:1px solid #e5e7eb;display:none;gap:8px;flex-wrap:wrap;">
+                <button class="lh-filter active" onclick="lhFilter(this,'')"
+                    style="padding:8px 16px;border-radius:20px;border:none;background:#2563eb;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;">All</button>
+                <button class="lh-filter" onclick="lhFilter(this,'Pending')"
+                    style="padding:8px 16px;border-radius:20px;border:none;background:#f3f4f6;color:#374151;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;">Pending</button>
+                <button class="lh-filter" onclick="lhFilter(this,'Approved')"
+                    style="padding:8px 16px;border-radius:20px;border:none;background:#f3f4f6;color:#374151;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;">Approved</button>
+                <button class="lh-filter" onclick="lhFilter(this,'Rejected')"
+                    style="padding:8px 16px;border-radius:20px;border:none;background:#f3f4f6;color:#374151;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;">Rejected</button>
+                <button class="lh-filter" onclick="lhFilter(this,'Half Day')"
+                    style="padding:8px 16px;border-radius:20px;border:none;background:#f3f4f6;color:#374151;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;">Half
+                    Day Only</button>
+            </div>
+
+            <!-- Leave List -->
+            <div id="lhLeaveList" style="max-height:420px;overflow-y:auto;padding:8px 0;">
+                <div style="padding:60px;text-align:center;color:#9ca3af;">
+                    <i class="fas fa-user-circle"
+                        style="font-size:40px;margin-bottom:12px;display:block;color:#d1d5db;"></i>
+                    Select an employee and click "View History"
+                </div>
+            </div>
+
+        </div>
+    </div>
 </body>
+
 </html>
