@@ -64,6 +64,10 @@ def holidays():
 def employee_leaves():
     return render_template('employee_leaves.html')
 
+@app.route('/emp_status')
+def emp_status():
+    return render_template('employee_status.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

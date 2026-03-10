@@ -102,3 +102,90 @@ def add_emp(id = None, org_id = None, role = None, org_name = None):
     finally:
         cursor.close()
         conn.close()
+    
+@manager_bp.route('/get_emp', methods=['GET'])
+@jwt_required
+def get_emp(role = None, id = None, org_id = None, org_name = None):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+        cursor.execute("SELECT * FROM USERS WHERE org_id = %s and Status = 'Active' and role = 'EMP'",(org_id,))
+        active_users = cursor.fetchall()
+
+        cursor.execute("SELECT * FROM USERS WHERE org_id = %s and Status != 'Active' and role = 'EMP'",(org_id,))
+        deactive_users = cursor.fetchall()
+
+        if not active_users and not deactive_users:
+            return jsonify({
+                'status':'fail',
+                'message':'No User Found'
+            })
+        
+        else:
+            return jsonify({
+                'status':'success',
+                'message':'Employees Fetched Succcessfully..',
+                'active_users':active_users,
+                'deactive_users':deactive_users
+            })
+        
+
+    except Exception as e:
+        return jsonify({
+            'status':'Error',
+            'message':str(e)
+        })
+    
+# ── Add this route to your manager_bp in manager.py ──
+
+@manager_bp.route('/toggle_emp_status', methods=['POST'])
+@jwt_required
+def toggle_emp_status(id=None, org_id=None, role=None, org_name=None):
+    """
+    Toggle employee status between 'Active' and 'Deactive'.
+    Expects JSON body: { "user_id": "<employee_uuid>" }
+    Only operates on employees belonging to the manager's org.
+    """
+    try:
+        conn = get_connection()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+        data = request.get_json()
+        user_id = data.get('user_id')
+
+        if not user_id:
+            return jsonify({'status': 'error', 'message': 'user_id is required'}), 400
+
+        # Fetch current status — scoped to manager's org for security
+        cursor.execute(
+            "SELECT id, name, status FROM users WHERE id = %s AND org_id = %s AND role = 'EMP'",
+            (user_id, org_id)
+        )
+        emp = cursor.fetchone()
+
+        if not emp:
+            return jsonify({'status': 'error', 'message': 'Employee not found'}), 404
+
+        # Flip status
+        new_status = 'Deactive' if emp['status'] == 'Active' else 'Active'
+
+        cursor.execute(
+            "UPDATE users SET status = %s WHERE id = %s AND org_id = %s",
+            (new_status, user_id, org_id)
+        )
+        conn.commit()
+
+        return jsonify({
+            'status': 'success',
+            'message': f"Employee status updated to '{new_status}'.",
+            'user_id': user_id,
+            'new_status': new_status
+        })
+
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+    finally:
+        cursor.close()
+        conn.close()

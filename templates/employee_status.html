@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Employee Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161d;
+    --surface2: #1a1e28;
+    --border: #252a38;
+    --accent: #4f8aff;
+    --accent-glow: rgba(79,138,255,0.18);
+    --green: #22d3a0;
+    --green-glow: rgba(34,211,160,0.15);
+    --red: #ff5f6d;
+    --red-glow: rgba(255,95,109,0.15);
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --heading-font: 'Syne', sans-serif;
+    --body-font: 'DM Sans', sans-serif;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body-font);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Background grid ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(79,138,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,138,255,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .header-left h1 {
+    font-family: var(--heading-font);
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    background: linear-gradient(135deg, #fff 40%, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header-left p {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 300;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  .stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .stat-pill .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+  .dot-green { background: var(--green); box-shadow: 0 0 6px var(--green); }
+  .dot-red   { background: var(--red);   box-shadow: 0 0 6px var(--red); }
+
+  .stat-pill strong {
+    font-family: var(--heading-font);
+    font-weight: 700;
+  }
+
+  /* ── Tab Bar ── */
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 28px;
+    width: fit-content;
+  }
+
+  .tab {
+    padding: 9px 24px;
+    border-radius: 9px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--body-font);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tab.active {
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .tab:hover:not(.active) { color: var(--text); }
+
+  /* ── Search ── */
+  .search-bar {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .search-bar input {
+    width: 100%;
+    max-width: 360px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 16px 10px 40px;
+    color: var(--text);
+    font-family: var(--body-font);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-bar input:focus { border-color: var(--accent); }
+  .search-bar input::placeholder { color: var(--muted); }
+
+  .search-bar svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    pointer-events: none;
+  }
+
+  /* ── Table ── */
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead tr {
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+
+  thead th {
+    padding: 14px 20px;
+    text-align: left;
+    font-family: var(--heading-font);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--surface2); }
+
+  tbody td {
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    vertical-align: middle;
+  }
+
+  /* ── Avatar ── */
+  .avatar-cell { display: flex; align-items: center; gap: 12px; }
+
+  .avatar {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), #8b5cf6);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--heading-font);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #fff;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+  .emp-name { font-weight: 500; line-height: 1.3; }
+  .emp-email { font-size: 0.78rem; color: var(--muted); }
+
+  /* ── Status Badge ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
+
+  .badge-active {
+    background: var(--green-glow);
+    color: var(--green);
+    border: 1px solid rgba(34,211,160,0.25);
+  }
+
+  .badge-inactive {
+    background: var(--red-glow);
+    color: var(--red);
+    border: 1px solid rgba(255,95,109,0.25);
+  }
+
+  /* ── Toggle Button ── */
+  .toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 1px solid;
+    font-family: var(--body-font);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .toggle-btn.enable {
+    background: var(--green-glow);
+    border-color: rgba(34,211,160,0.3);
+    color: var(--green);
+  }
+
+  .toggle-btn.enable:hover {
+    background: rgba(34,211,160,0.25);
+    box-shadow: 0 0 16px var(--green-glow);
+    transform: translateY(-1px);
+  }
+
+  .toggle-btn.disable {
+    background: var(--red-glow);
+    border-color: rgba(255,95,109,0.3);
+    color: var(--red);
+  }
+
+  .toggle-btn.disable:hover {
+    background: rgba(255,95,109,0.25);
+    box-shadow: 0 0 16px var(--red-glow);
+    transform: translateY(-1px);
+  }
+
+  .toggle-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Spinner inside button */
+  .spinner {
+    width: 12px; height: 12px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    display: none;
+  }
+
+  .toggle-btn.loading .spinner { display: block; }
+  .toggle-btn.loading .btn-icon { display: none; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Empty State ── */
+  .empty-state {
+    padding: 64px 24px;
+    text-align: center;
+    color: var(--muted);
+  }
+
+  .empty-state svg {
+    width: 48px; height: 48px;
+    margin: 0 auto 16px;
+    opacity: 0.4;
+    display: block;
+  }
+
+  .empty-state p { font-size: 0.95rem; }
+
+  /* ── Toast ── */
+  #toast-container {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border-radius: 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    font-size: 0.88rem;
+    font-weight: 500;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    animation: slideIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    min-width: 260px;
+    max-width: 360px;
+  }
+
+  .toast.success { border-color: rgba(34,211,160,0.3); color: var(--green); }
+  .toast.error   { border-color: rgba(255,95,109,0.3); color: var(--red); }
+
+  @keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to   { transform: translateX(0);   opacity: 1; }
+  }
+
+  /* ── Loading skeleton ── */
+  .skeleton { background: linear-gradient(90deg, var(--surface2) 25%, var(--border) 50%, var(--surface2) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 6px; height: 18px; }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+  /* ── Responsive ── */
+  @media (max-width: 680px) {
+    .header { flex-direction: column; align-items: flex-start; }
+    thead th:nth-child(3), tbody td:nth-child(3) { display: none; }
+    .header-left h1 { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Employees</h1>
+      <p>Manage and control employee access</p>
+    </div>
+    <div class="stats-row">
+      <div class="stat-pill">
+        <span class="dot dot-green"></span>
+        <span>Active: <strong id="count-active">–</strong></span>
+      </div>
+      <div class="stat-pill">
+        <span class="dot dot-red"></span>
+        <span>Inactive: <strong id="count-inactive">–</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tab-bar">
+    <button class="tab active" onclick="switchTab('active', this)">Active</button>
+    <button class="tab" onclick="switchTab('inactive', this)">Deactivated</button>
+    <button class="tab" onclick="switchTab('all', this)">All</button>
+  </div>
+
+  <!-- Search -->
+  <div class="search-bar">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input type="text" id="search-input" placeholder="Search by name or email…" oninput="renderTable()"/>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrap">
+    <table id="emp-table">
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Department</th>
+          <th>Joined</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <!-- Skeleton rows -->
+        <tr><td colspan="5"><div class="skeleton" style="margin:18px 20px; width:60%"></div></td></tr>
+        <tr><td colspan="5"><div class="skeleton" style="margin:18px 20px; width:75%"></div></td></tr>
+        <tr><td colspan="5"><div class="skeleton" style="margin:18px 20px; width:50%"></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<script>
+  // ── CONFIG ──────────────────────────────────────────────
+  const API_BASE = '';           // e.g. 'http://localhost:5000'
+  const TOKEN    = localStorage.getItem('token') || '';   // JWT from login
+  // ────────────────────────────────────────────────────────
+
+  let allEmployees = [];
+  let currentTab   = 'active';
+
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${TOKEN}`
+  };
+
+  // ── Fetch all employees ──────────────────────────────────
+  async function loadEmployees() {
+    try {
+      const res  = await fetch(`${API_BASE}/get_emp`, { headers });
+      const data = await res.json();
+
+      if (data.status !== 'success') { showToast(data.message, 'error'); return; }
+
+      // Normalize keys: API returns capitalized (Name, Email, Status…) → map to lowercase
+      const normalize = (e, forcedStatus) => ({
+        ...e,
+        id:          e.id,
+        name:        e.Name        || e.name        || '',
+        email:       e.Email       || e.email       || '',
+        status:      forcedStatus,
+        contact:     e.Contact     || e.contact     || '',
+        profile_img: e.Profile_img || e.profile_img || '',
+        department_id: e.department_id || '',
+        join_date:   e.join_date   || '',
+      });
+
+      const active   = (data.active_users   || []).map(e => normalize(e, 'Active'));
+      const inactive = (data.deactive_users || []).map(e => normalize(e, 'Deactive'));
+
+      allEmployees = [...active, ...inactive];
+
+      document.getElementById('count-active').textContent   = active.length;
+      document.getElementById('count-inactive').textContent = inactive.length;
+
+      renderTable();
+    } catch (err) {
+      showToast('Failed to load employees', 'error');
+    }
+  }
+
+  // ── Render table based on tab + search ──────────────────
+  function renderTable() {
+    const query = document.getElementById('search-input').value.toLowerCase();
+    const tbody  = document.getElementById('table-body');
+
+    let filtered = allEmployees.filter(emp => {
+      if (currentTab === 'active'   && emp.status !== 'Active')   return false;
+      if (currentTab === 'inactive' && emp.status !== 'Deactive') return false;
+      if (query) {
+        const inName  = (emp.name  || '').toLowerCase().includes(query);
+        const inEmail = (emp.email || '').toLowerCase().includes(query);
+        if (!inName && !inEmail) return false;
+      }
+      return true;
+    });
+
+    if (!filtered.length) {
+      tbody.innerHTML = `
+        <tr><td colspan="5">
+          <div class="empty-state">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+            </svg>
+            <p>No employees found</p>
+          </div>
+        </td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = filtered.map(emp => {
+      const isActive  = emp.status === 'Active';
+      const initials  = (emp.name || 'U').split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
+      const avatarHtml = emp.profile_img
+        ? `<img src="/${emp.profile_img}" alt="${emp.name}" onerror="this.style.display='none'">`
+        : initials;
+      const joinDate  = emp.join_date ? new Date(emp.join_date).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' }) : '—';
+
+      return `
+        <tr id="row-${emp.id}">
+          <td>
+            <div class="avatar-cell">
+              <div class="avatar">${avatarHtml}</div>
+              <div>
+                <div class="emp-name">${emp.name || '—'}</div>
+                <div class="emp-email">${emp.email || '—'}</div>
+              </div>
+            </div>
+          </td>
+          <td>${emp.department_id || '—'}</td>
+          <td>${joinDate}</td>
+          <td>
+            <span class="badge ${isActive ? 'badge-active' : 'badge-inactive'}">
+              <span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block"></span>
+              ${isActive ? 'Active' : 'Inactive'}
+            </span>
+          </td>
+          <td>
+            <button
+              class="toggle-btn ${isActive ? 'disable' : 'enable'}"
+              id="btn-${emp.id}"
+              onclick="toggleStatus('${emp.id}', '${emp.status}')">
+              <span class="btn-icon">
+                ${isActive
+                  ? `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg> Disable`
+                  : `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Enable`
+                }
+              </span>
+              <span class="spinner"></span>
+            </button>
+          </td>
+        </tr>`;
+    }).join('');
+  }
+
+  // ── Toggle employee status ───────────────────────────────
+  async function toggleStatus(userId, currentStatus) {
+    const btn = document.getElementById(`btn-${userId}`);
+    btn.disabled = true;
+    btn.classList.add('loading');
+
+    try {
+      const res  = await fetch(`${API_BASE}/toggle_emp_status`, {
+        method:  'POST',
+        headers,
+        body:    JSON.stringify({ user_id: userId })
+      });
+      const data = await res.json();
+
+      if (data.status !== 'success') {
+        showToast(data.message || 'Update failed', 'error');
+        btn.disabled = false;
+        btn.classList.remove('loading');
+        return;
+      }
+
+      // Update local data
+      const emp = allEmployees.find(e => e.id === userId);
+      if (emp) emp.status = data.new_status;
+
+      // Update counters
+      const activeCount   = allEmployees.filter(e => e.status === 'Active').length;
+      const inactiveCount = allEmployees.filter(e => e.status === 'Deactive').length;
+      document.getElementById('count-active').textContent   = activeCount;
+      document.getElementById('count-inactive').textContent = inactiveCount;
+
+      showToast(data.message, 'success');
+      renderTable();
+
+    } catch (err) {
+      showToast('Network error — please try again', 'error');
+      btn.disabled = false;
+      btn.classList.remove('loading');
+    }
+  }
+
+  // ── Tab switching ────────────────────────────────────────
+  function switchTab(tab, el) {
+    currentTab = tab;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('search-input').value = '';
+    renderTable();
+  }
+
+  // ── Toast notifications ──────────────────────────────────
+  function showToast(msg, type = 'success') {
+    const container = document.getElementById('toast-container');
+    const icon = type === 'success'
+      ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`
+      : `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z"/></svg>`;
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `${icon} ${msg}`;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 3500);
+  }
+
+  // ── Init ─────────────────────────────────────────────────
+  loadEmployees();
+</script>
+</body>
+</html>

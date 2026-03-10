@@ -138,7 +138,7 @@ def get_salary_detailes(id=None, role=None, org_id=None, org_name=None):
             "s.hra, s.tra, s.cla "
             "FROM users u "
             "INNER JOIN salary_detailes s ON u.id = s.user_id "
-            "WHERE s.org_id = %s",
+            "WHERE u.status = 'Active' AND s.org_id = %s",
             (org_id,)
         )
         emp = cursor.fetchall()
