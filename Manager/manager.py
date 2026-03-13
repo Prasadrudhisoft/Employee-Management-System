@@ -196,7 +196,6 @@ def toggle_emp_status(id=None, org_id=None, role=None, org_name=None):
 def total_emp(role=None, id=None, org_id = None, org_name = None):
     try:
 
-        print("ORG ID:", org_id)
         conn = get_connection()
         cursor = conn.cursor()
 
@@ -214,3 +213,7 @@ def total_emp(role=None, id=None, org_id = None, org_name = None):
             'status':'error',
             'message':str(e)
         })
+    
+    finally:
+        cursor.close()
+        conn.close()

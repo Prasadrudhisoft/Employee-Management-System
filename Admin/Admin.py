@@ -162,3 +162,36 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
     finally:
         cursor.close()
         conn.close()
+
+
+@admin_bp.route('/total_managers',methods=['GET'])
+def total_managers(org_name = None, id = None, role=None, org_id=None):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("select count(*) from users where role='Manager' and org_id = %s",(org_id,))
+        mangers = cursor.fetchone()
+
+        cursor.execute("select count(*) from departments where org_id = %s",(org_id,))
+        dept = cursor.fetchone()
+
+        cursor.execute("select count(*) from users where role!='Admin' and org_id = %s",(org_id,))
+        total_emp = cursor.fetchone()
+
+        return jsonify({
+            'status':'success',
+            'message':'Count of total Managers fetched..',
+            'managers':mangers,
+            'dept': dept,
+            'total_emp': total_emp
+        })
+    except Exception as e:
+        return jsonify({
+            'status':'error',
+            'message':str(e)
+        })
+    
+    finally:
+        cursor.close()
+        conn.close()
