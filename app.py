@@ -1,18 +1,25 @@
 from flask import Flask, render_template
+from flask import send_from_directory
+import os
 
 app = Flask(__name__)
+
+UPLOAD_FOLDER = 'static/profile_imgs'
+
 
 from auth.auth import auth_bp
 from Admin.Admin import admin_bp
 from Manager.manager import manager_bp
 from account.account import account_bp
 from leave import leave_bp
+from models.models import models_bp
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(admin_bp)
 app.register_blueprint(manager_bp)
 app.register_blueprint(account_bp)
 app.register_blueprint(leave_bp)
+app.register_blueprint(models_bp)
 
 
 
@@ -67,6 +74,10 @@ def employee_leaves():
 @app.route('/emp_status')
 def emp_status():
     return render_template('employee_status.html')
+
+@app.route('/static/profile_imgs/<filename>')
+def serve_profile_img(filename):
+    return send_from_directory(UPLOAD_FOLDER, filename)
 
 
 if __name__ == '__main__':
