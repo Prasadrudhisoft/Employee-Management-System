@@ -189,3 +189,28 @@ def toggle_emp_status(id=None, org_id=None, role=None, org_name=None):
     finally:
         cursor.close()
         conn.close()
+
+
+@manager_bp.route('/total_emp',methods=['GET'])
+@jwt_required
+def total_emp(role=None, id=None, org_id = None, org_name = None):
+    try:
+
+        print("ORG ID:", org_id)
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("select count(*) as total_emp, SUM(status='Active') as active_emp, SUM(status='Deactive')as deactive_emp from users where org_id = %s AND role!='Admin'",(org_id,))
+        total_emp = cursor.fetchone()
+
+        return jsonify({
+            'status':'success',
+            'message':'Successfully Total Counts Fetched..',
+            'total_emp':total_emp,
+        })
+
+    except Exception as e:
+        return jsonify({
+            'status':'error',
+            'message':str(e)
+        })
