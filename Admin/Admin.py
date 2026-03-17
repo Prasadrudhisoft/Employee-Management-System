@@ -169,16 +169,16 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
 def total_managers(org_name = None, id = None, role=None, org_id=None):
     try:
         conn = get_connection()
-        cursor = conn.cursor()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
 
         cursor.execute("select count(*) from users where role='Manager' and org_id = %s",(org_id,))
-        mangers = cursor.fetchone()
+        mangers = cursor.fetchone()[0]
 
         cursor.execute("select count(*) from departments where org_id = %s",(org_id,))
-        dept = cursor.fetchone()
+        dept = cursor.fetchone()[0]
 
         cursor.execute("select count(*) from users where role!='Admin' and org_id = %s",(org_id,))
-        total_emp = cursor.fetchone()
+        total_emp = cursor.fetchone()[0]
 
         return jsonify({
             'status':'success',
