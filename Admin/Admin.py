@@ -164,35 +164,42 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
         conn.close()
 
 
-@admin_bp.route('/total_managers',methods=['GET'])
+@admin_bp.route('/total_managers', methods=['GET'])
 @jwt_required
-def total_managers(org_name = None, id = None, role=None, org_id=None):
+def total_managers(org_name=None, id=None, role=None, org_id=None):
     try:
+        if not org_id:
+            return jsonify({
+                'status': 'error',
+                'message': 'org_id is missing'
+            })
+
         conn = get_connection()
-        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cursor = conn.cursor()
 
-        cursor.execute("select count(*) from users where role='Manager' and org_id = %s",(org_id,))
-        mangers = cursor.fetchone()[0]
+        cursor.execute("SELECT COUNT(*) FROM users WHERE role='Manager' AND org_id=%s", (org_id,))
+        managers = cursor.fetchone()[0]
 
-        cursor.execute("select count(*) from departments where org_id = %s",(org_id,))
+        cursor.execute("SELECT COUNT(*) FROM departments WHERE org_id=%s", (org_id,))
         dept = cursor.fetchone()[0]
 
-        cursor.execute("select count(*) from users where role!='Admin' and org_id = %s",(org_id,))
+        cursor.execute("SELECT COUNT(*) FROM users WHERE role!='Admin' AND org_id=%s", (org_id,))
         total_emp = cursor.fetchone()[0]
 
         return jsonify({
-            'status':'success',
-            'message':'Count of total Managers fetched..',
-            'managers':mangers,
+            'status': 'success',
+            'message': 'Dashboard counts fetched successfully',
+            'managers': managers,
             'dept': dept,
             'total_emp': total_emp
         })
+
     except Exception as e:
         return jsonify({
-            'status':'error',
-            'message':str(e)
+            'status': 'error',
+            'message': str(e)
         })
-    
+
     finally:
         cursor.close()
         conn.close()
