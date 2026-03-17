@@ -80,5 +80,26 @@ def serve_profile_img(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
 
 
+@app.route('/apply_leave')
+def apply_leave():
+    return render_template('applyleave.html')
+
+@app.route('/myleaves')
+def my_leave():
+    return render_template('myleaves.html')
+
+@app.route('/leave_balance')
+def leave_balance():
+    return render_template('leavebalance.html')
+
+@app.route('/holiday_calender')
+def holiday_calender():
+    return render_template('holidaycalender.html')
+
+
+@app.route('/Leave_history')
+def leave_history():
+    return render_template('leavehistory.html')
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

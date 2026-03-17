@@ -760,13 +760,13 @@
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-receipt"></i> PT</label>
-                        <div class="input-wrap" id="wrap-pt">
+                        <!-- <label class="form-label"><i class="fas fa-receipt"></i> PT</label> -->
+                        <!-- <div class="input-wrap" id="wrap-pt">
                             <i class="fas fa-receipt icon"></i>
                             <input type="number" id="f-pt" placeholder="200" min="0" max="2500" step="1" inputmode="numeric">
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–2,500.</div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -1063,7 +1063,7 @@
             if (!token) return;
 
             try {
-                const res = await fetch('/admin/get_departments', {
+                const res = await fetch('/get_departments', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

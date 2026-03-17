@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Holiday Calendar | EMS Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #6366f1;
+            --primary-lighter: #e0e7ff;
+            --primary-subtle: #eef2ff;
+            --primary-glow: rgba(79, 70, 229, 0.15);
+            --success: #059669;
+            --success-light: #ecfdf5;
+            --success-border: #a7f3d0;
+            --warning: #d97706;
+            --warning-light: #fffbeb;
+            --warning-border: #fde68a;
+            --danger: #dc2626;
+            --danger-light: #fef2f2;
+            --danger-border: #fecaca;
+            --info: #0284c7;
+            --info-light: #f0f9ff;
+            --info-border: #bae6fd;
+            --violet: #7c3aed;
+            --violet-light: #f5f3ff;
+            --bg-body: #f5f6fa;
+            --bg-white: #ffffff;
+            --bg-muted: #f1f5f9;
+            --bg-hover: #f8fafc;
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-tertiary: #64748b;
+            --text-muted: #94a3b8;
+            --text-placeholder: #cbd5e1;
+            --shadow-xl: 0 25px 50px -12px rgba(0,0,0,0.15);
+            --shadow-card-hover: 0 10px 28px -5px rgba(0,0,0,0.10);
+            --radius-sm: 6px;
+            --radius: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 20px;
+            --radius-full: 9999px;
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-secondary);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.4); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.6); }
+
+        /* ========== TOPBAR ========== */
+        .topbar {
+            position: sticky; top: 0; height: 68px;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 32px; z-index: 50;
+        }
+        .topbar-left { display: flex; align-items: center; gap: 13px; }
+        .topbar-icon {
+            width: 40px; height: 40px; border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 16px;
+            box-shadow: 0 4px 12px var(--primary-glow); flex-shrink: 0;
+        }
+        .topbar-info h1 { font-size: 17px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.2; }
+        .topbar-info span { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+
+        .btn-back {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 9px 20px;
+            background: var(--bg-white); border: 1.5px solid var(--border);
+            border-radius: var(--radius-full);
+            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+            color: var(--text-secondary); text-decoration: none; cursor: pointer;
+            transition: all var(--transition-fast); white-space: nowrap;
+        }
+        .btn-back i { font-size: 11px; transition: transform var(--transition-fast); }
+        .btn-back:hover { background: var(--primary-subtle); border-color: var(--primary-lighter); color: var(--primary); }
+        .btn-back:hover i { transform: translateX(-3px); }
+
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 9px 18px; border-radius: var(--radius);
+            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+            cursor: pointer; transition: all var(--transition-fast);
+            border: none; text-decoration: none; white-space: nowrap;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); box-shadow: 0 4px 14px var(--primary-glow); transform: translateY(-1px); }
+        .btn-secondary { background: var(--bg-white); border: 1.5px solid var(--border); color: var(--text-secondary); }
+        .btn-secondary:hover { background: var(--bg-muted); color: var(--text-primary); }
+
+        /* ========== PAGE BODY ========== */
+        .page-body { padding: 28px 32px; max-width: 1100px; margin: 0 auto; }
+
+        /* ========== BANNER ========== */
+        .page-banner {
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 45%, #818cf8 100%);
+            border-radius: var(--radius-2xl); padding: 30px 38px;
+            margin-bottom: 24px; color: white;
+            position: relative; overflow: hidden;
+        }
+        .page-banner::before {
+            content: ''; position: absolute; top: -60%; right: -8%;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.09) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .page-banner .decor-ring {
+            position: absolute; bottom: -25px; right: 160px;
+            width: 100px; height: 100px;
+            border: 2px solid rgba(255,255,255,0.08);
+            border-radius: 50%; pointer-events: none;
+        }
+        .banner-inner { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        .banner-text h2 { font-size: 22px; font-weight: 700; margin-bottom: 7px; letter-spacing: -0.02em; }
+        .banner-text p  { font-size: 13.5px; opacity: 0.78; max-width: 460px; line-height: 1.7; }
+        .banner-icon {
+            width: 68px; height: 68px; border-radius: var(--radius-xl);
+            background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.22);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; flex-shrink: 0;
+        }
+
+        /* ========== SUMMARY STRIP ========== */
+        .summary-strip {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 14px; margin-bottom: 24px;
+        }
+        .summary-card {
+            background: var(--bg-white); border: 1px solid var(--border);
+            border-radius: var(--radius-xl); padding: 18px 20px;
+            display: flex; align-items: center; gap: 14px;
+            transition: all var(--transition-base); position: relative; overflow: hidden;
+        }
+        .summary-card::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            opacity: 0; transition: opacity var(--transition-base);
+        }
+        .summary-card:hover { box-shadow: var(--shadow-card-hover); transform: translateY(-2px); border-color: transparent; }
+        .summary-card:hover::after { opacity: 1; }
+        .summary-card.s1::after { background: var(--primary); }
+        .summary-card.s2::after { background: var(--success); }
+        .summary-card.s3::after { background: var(--warning); }
+        .summary-card.s4::after { background: var(--info); }
+
+        .summary-icon {
+            width: 44px; height: 44px; border-radius: var(--radius-lg);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; flex-shrink: 0;
+        }
+        .summary-icon.s1 { background: var(--primary-subtle); color: var(--primary); }
+        .summary-icon.s2 { background: var(--success-light);  color: var(--success); }
+        .summary-icon.s3 { background: var(--warning-light);  color: var(--warning); }
+        .summary-icon.s4 { background: var(--info-light);     color: var(--info); }
+
+        .summary-info small  { font-size: 11.5px; color: var(--text-muted); font-weight: 500; display: block; }
+        .summary-info strong { font-size: 24px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.03em; line-height: 1.1; }
+
+        /* ========== LAYOUT ========== */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* ========== CARD ========== */
+        .card {
+            background: var(--bg-white); border: 1px solid var(--border);
+            border-radius: var(--radius-2xl); overflow: hidden;
+        }
+
+        /* ========== CARD TOOLBAR ========== */
+        .card-toolbar {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 14px; padding: 18px 24px;
+            border-bottom: 1px solid var(--border-light); flex-wrap: wrap;
+        }
+        .toolbar-left { display: flex; align-items: center; gap: 12px; }
+        .section-icon {
+            width: 40px; height: 40px; border-radius: var(--radius-lg);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; flex-shrink: 0;
+        }
+        .section-icon.indigo  { background: var(--primary-subtle); color: var(--primary); }
+        .section-icon.emerald { background: var(--success-light);  color: var(--success); }
+        .section-icon.amber   { background: var(--warning-light);  color: var(--warning); }
+        .section-icon.info    { background: var(--info-light);     color: var(--info); }
+
+        .section-title h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+        .section-title p  { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+
+        .toolbar-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+        /* Year nav */
+        .year-nav {
+            display: flex; align-items: center; gap: 4px;
+            background: var(--bg-muted); border-radius: var(--radius);
+            padding: 4px;
+        }
+        .year-nav-btn {
+            width: 30px; height: 30px; border-radius: var(--radius-sm);
+            border: none; background: transparent; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); font-size: 12px;
+            transition: all var(--transition-fast); font-family: 'Inter', sans-serif;
+        }
+        .year-nav-btn:hover { background: var(--bg-white); color: var(--primary); box-shadow: var(--shadow-card-hover); }
+        .year-nav-label {
+            font-size: 13px; font-weight: 700; color: var(--text-primary);
+            min-width: 42px; text-align: center;
+        }
+
+        /* Search */
+        .search-wrap { position: relative; }
+        .search-wrap i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--text-muted); pointer-events: none; }
+        .search-wrap input {
+            padding: 8px 14px 8px 34px;
+            background: var(--bg-muted); border: 1.5px solid transparent;
+            border-radius: var(--radius-full);
+            font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text-primary);
+            outline: none; width: 190px; transition: all var(--transition-base);
+        }
+        .search-wrap input::placeholder { color: var(--text-muted); }
+        .search-wrap input:focus { background: var(--bg-white); border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); width: 220px; }
+
+        /* Filter pills */
+        .filter-pills { display: flex; gap: 6px; }
+        .pill {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 6px 13px; border-radius: var(--radius-full);
+            font-size: 12.5px; font-weight: 600; cursor: pointer;
+            border: 1.5px solid transparent; transition: all var(--transition-fast);
+            background: var(--bg-muted); color: var(--text-tertiary);
+            font-family: 'Inter', sans-serif;
+        }
+        .pill:hover { background: var(--primary-subtle); border-color: var(--primary-lighter); color: var(--primary); }
+        .pill.active-all      { background: var(--primary-subtle); border-color: var(--primary);         color: var(--primary); }
+        .pill.active-upcoming { background: var(--success-light);  border-color: var(--success-border);  color: var(--success); }
+        .pill.active-past     { background: var(--bg-muted);       border-color: var(--border);           color: var(--text-tertiary); }
+
+        /* ========== MONTH GROUP ========== */
+        .month-group { border-bottom: 1px solid var(--border-light); }
+        .month-group:last-child { border-bottom: none; }
+
+        .month-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 12px 24px 10px;
+            background: var(--bg-muted);
+            border-bottom: 1px solid var(--border-light);
+            position: sticky; top: 68px; z-index: 10;
+        }
+        .month-label {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 11px; font-weight: 700; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.09em;
+        }
+        .month-label i { font-size: 11px; }
+        .month-count {
+            font-size: 11px; font-weight: 600; color: var(--text-muted);
+            background: var(--bg-white); border: 1px solid var(--border);
+            padding: 2px 8px; border-radius: var(--radius-full);
+        }
+
+        /* ========== HOLIDAY ITEM ========== */
+        .holiday-item {
+            display: flex; align-items: center; gap: 16px;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-light);
+            transition: background var(--transition-fast);
+            animation: itemIn .3s ease forwards; opacity: 0;
+            position: relative;
+        }
+        @keyframes itemIn { from { opacity:0; transform:translateX(-6px); } to { opacity:1; transform:translateX(0); } }
+        .holiday-item:last-child { border-bottom: none; }
+        .holiday-item:hover { background: var(--bg-hover); }
+
+        /* today glow line */
+        .holiday-item.is-today::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+            width: 3px; background: var(--primary); border-radius: 0 3px 3px 0;
+        }
+        .holiday-item.is-past { opacity: 0.55; }
+
+        /* date block */
+        .holiday-date-block {
+            width: 52px; height: 56px; border-radius: var(--radius-lg);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            flex-shrink: 0; transition: all var(--transition-base);
+        }
+        .holiday-date-block .day-num  { font-size: 20px; font-weight: 800; line-height: 1; }
+        .holiday-date-block .day-name { font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+
+        .holiday-date-block.upcoming { background: var(--primary-subtle); color: var(--primary); }
+        .holiday-date-block.today    { background: var(--primary); color: #fff; box-shadow: 0 4px 12px var(--primary-glow); }
+        .holiday-date-block.past     { background: var(--bg-muted); color: var(--text-muted); }
+
+        /* info */
+        .holiday-info { flex: 1; min-width: 0; }
+        .holiday-name { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+        .holiday-item.is-past .holiday-name { color: var(--text-secondary); }
+
+        .holiday-meta-row {
+            display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+        }
+        .holiday-meta-chip {
+            display: flex; align-items: center; gap: 5px;
+            font-size: 12px; color: var(--text-muted);
+        }
+        .holiday-meta-chip i { font-size: 10px; }
+
+        /* right side */
+        .holiday-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+        .status-pill {
+            padding: 5px 13px; border-radius: var(--radius-full);
+            font-size: 12px; font-weight: 600;
+        }
+        .status-pill.today    { background: var(--primary-subtle); color: var(--primary); }
+        .status-pill.upcoming { background: var(--success-light);  color: var(--success); }
+        .status-pill.past     { background: var(--bg-muted);       color: var(--text-muted); }
+
+        .countdown-chip {
+            font-size: 11.5px; font-weight: 600; color: var(--text-muted);
+            white-space: nowrap;
+        }
+        .countdown-chip.soon { color: var(--warning); }
+
+        /* ========== EMPTY STATE ========== */
+        .empty-state {
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; padding: 56px 24px; text-align: center;
+            animation: itemIn .3s ease;
+        }
+        .empty-icon {
+            width: 72px; height: 72px; border-radius: var(--radius-xl);
+            background: var(--bg-muted);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 30px; color: var(--text-muted); margin-bottom: 18px;
+        }
+        .empty-state h3 { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+        .empty-state p  { font-size: 13px; color: var(--text-muted); max-width: 260px; line-height: 1.6; }
+
+        /* ========== SKELETON ========== */
+        @keyframes shimmer {
+            0%   { background-position: -500px 0; }
+            100% { background-position:  500px 0; }
+        }
+        .skel {
+            background: linear-gradient(90deg, var(--bg-muted) 25%, #e8edf2 50%, var(--bg-muted) 75%);
+            background-size: 500px 100%;
+            animation: shimmer 1.4s infinite linear;
+            border-radius: var(--radius);
+        }
+        .skel-item {
+            display: flex; align-items: center; gap: 16px;
+            padding: 16px 24px; border-bottom: 1px solid var(--border-light);
+        }
+        .skel-item:last-child { border-bottom: none; }
+        .skel-box  { width: 52px; height: 56px; border-radius: var(--radius-lg); flex-shrink: 0; }
+        .skel-lines { flex: 1; }
+        .skel-line  { height: 10px; margin-bottom: 8px; }
+        .skel-line:last-child { margin-bottom: 0; }
+        .skel-badge { width: 70px; height: 28px; border-radius: var(--radius-full); flex-shrink: 0; }
+
+        /* ========== SIDEBAR WIDGETS ========== */
+
+        /* Mini Calendar */
+        .mini-cal-card {
+            background: var(--bg-white); border: 1px solid var(--border);
+            border-radius: var(--radius-2xl); overflow: hidden; margin-bottom: 16px;
+        }
+        .mini-cal-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 18px; border-bottom: 1px solid var(--border-light);
+        }
+        .mini-cal-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+        .mini-cal-nav { display: flex; gap: 4px; }
+        .mini-nav-btn {
+            width: 26px; height: 26px; border-radius: var(--radius-sm);
+            border: 1px solid var(--border); background: var(--bg-muted);
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); font-size: 10px; transition: all var(--transition-fast);
+        }
+        .mini-nav-btn:hover { background: var(--primary-subtle); color: var(--primary); border-color: var(--primary-lighter); }
+
+        .mini-cal-grid { padding: 14px 18px; }
+        .mini-cal-days-header {
+            display: grid; grid-template-columns: repeat(7, 1fr);
+            margin-bottom: 8px;
+        }
+        .mini-cal-days-header span {
+            text-align: center; font-size: 10px; font-weight: 700;
+            color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .mini-cal-dates { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+        .mini-date {
+            aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+            font-size: 11.5px; font-weight: 500; border-radius: var(--radius-sm);
+            cursor: default; transition: all var(--transition-fast);
+            color: var(--text-secondary);
+        }
+        .mini-date.other-month { color: var(--text-placeholder); }
+        .mini-date.today { background: var(--primary); color: white; font-weight: 700; border-radius: var(--radius-sm); }
+        .mini-date.holiday { background: var(--success-light); color: var(--success); font-weight: 700; }
+        .mini-date.holiday.past { background: var(--bg-muted); color: var(--text-muted); }
+        .mini-date.weekend { color: var(--danger); }
+        .mini-date:not(.today):not(.other-month):hover { background: var(--bg-muted); }
+
+        /* Legend */
+        .mini-legend {
+            display: flex; flex-direction: column; gap: 7px;
+            padding: 12px 18px; border-top: 1px solid var(--border-light);
+        }
+        .legend-row { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--text-muted); }
+        .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+        /* Upcoming widget */
+        .upcoming-card {
+            background: var(--bg-white); border: 1px solid var(--border);
+            border-radius: var(--radius-2xl); overflow: hidden; margin-bottom: 16px;
+        }
+        .upcoming-header {
+            display: flex; align-items: center; gap: 10px;
+            padding: 14px 18px; border-bottom: 1px solid var(--border-light);
+        }
+        .upcoming-header-icon {
+            width: 32px; height: 32px; border-radius: var(--radius);
+            background: var(--success-light); color: var(--success);
+            display: flex; align-items: center; justify-content: center; font-size: 14px;
+        }
+        .upcoming-header h4 { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+        .upcoming-header p  { font-size: 11px; color: var(--text-muted); }
+
+        .upcoming-list { padding: 8px 0; }
+        .upcoming-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 18px;
+            transition: background var(--transition-fast);
+        }
+        .upcoming-item:hover { background: var(--bg-hover); }
+        .upcoming-item-date {
+            width: 38px; height: 40px; border-radius: var(--radius);
+            background: var(--primary-subtle); color: var(--primary);
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; flex-shrink: 0;
+        }
+        .upcoming-item-date .ud-num  { font-size: 14px; font-weight: 800; line-height: 1; }
+        .upcoming-item-date .ud-mon  { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+        .upcoming-item-info .ui-name { font-size: 12.5px; font-weight: 600; color: var(--text-primary); }
+        .upcoming-item-info .ui-days {
+            font-size: 11px; color: var(--text-muted); margin-top: 1px;
+        }
+        .upcoming-item-info .ui-days.soon { color: var(--warning); font-weight: 600; }
+
+        /* Quick apply */
+        .quick-apply-card {
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            border-radius: var(--radius-2xl); padding: 20px;
+            color: white; text-align: center;
+        }
+        .quick-apply-card i { font-size: 28px; opacity: 0.85; margin-bottom: 10px; display: block; }
+        .quick-apply-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
+        .quick-apply-card p  { font-size: 12px; opacity: 0.75; margin-bottom: 14px; line-height: 1.5; }
+        .quick-apply-card a {
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 9px 18px; border-radius: var(--radius);
+            background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3);
+            color: white; font-size: 13px; font-weight: 600;
+            text-decoration: none; transition: all var(--transition-fast);
+            font-family: 'Inter', sans-serif;
+        }
+        .quick-apply-card a:hover { background: rgba(255,255,255,0.28); }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+            .quick-apply-card { grid-column: span 2; }
+        }
+        @media (max-width: 900px) {
+            .summary-strip { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .topbar { padding: 0 16px; }
+            .topbar-info span { display: none; }
+            .page-body { padding: 16px; }
+            .page-banner { padding: 20px 18px; }
+            .banner-icon { display: none; }
+            .card-toolbar { flex-direction: column; align-items: flex-start; }
+            .toolbar-right { width: 100%; flex-wrap: wrap; }
+            .search-wrap input { width: 100%; }
+            .search-wrap input:focus { width: 100%; }
+            .sidebar-col { grid-template-columns: 1fr; }
+            .quick-apply-card { grid-column: auto; }
+        }
+        @media (max-width: 480px) {
+            .topbar { height: 60px; }
+            .btn-back-label { display: none; }
+            .summary-strip { grid-template-columns: 1fr 1fr; }
+            .filter-pills { gap: 4px; }
+            .pill { padding: 5px 10px; font-size: 12px; }
+            .holiday-item { gap: 12px; }
+            .holiday-date-block { width: 44px; height: 48px; }
+            .holiday-date-block .day-num { font-size: 17px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== TOPBAR ========== -->
+    <header class="topbar">
+        <a href="/empdashboard" class="btn-back">
+            <i class="fas fa-arrow-left"></i>
+            <span class="btn-back-label">Back to Dashboard</span>
+        </a>
+        <div class="topbar-left">
+            <div class="topbar-info" style="text-align:right">
+                <h1>Holiday Calendar</h1>
+                <span>EMS Pro &nbsp;·&nbsp; Employee Portal</span>
+            </div>
+            <div class="topbar-icon"><i class="fas fa-list-ul"></i></div>
+        </div>
+    </header>
+
+    <!-- ========== PAGE BODY ========== -->
+    <div class="page-body">
+
+        <!-- Banner -->
+        <div class="page-banner">
+            <div class="decor-ring"></div>
+            <div class="banner-inner">
+                <div class="banner-text">
+                    <h2>Official Holiday Calendar</h2>
+                    <p>View all company-declared public holidays for the year. Plan your leaves around upcoming holidays to make the most of your time off.</p>
+                </div>
+                <div class="banner-icon"><i class="fas fa-calendar-days"></i></div>
+            </div>
+        </div>
+
+        <!-- Summary Strip -->
+        <div class="summary-strip" id="summaryStrip">
+            <div class="summary-card s1">
+                <div class="summary-icon s1"><i class="fas fa-spinner fa-spin"></i></div>
+                <div class="summary-info"><small>Total Holidays</small><strong id="sTot">—</strong></div>
+            </div>
+            <div class="summary-card s2">
+                <div class="summary-icon s2"><i class="fas fa-spinner fa-spin"></i></div>
+                <div class="summary-info"><small>Upcoming</small><strong id="sUp">—</strong></div>
+            </div>
+            <div class="summary-card s3">
+                <div class="summary-icon s3"><i class="fas fa-spinner fa-spin"></i></div>
+                <div class="summary-info"><small>This Month</small><strong id="sMon">—</strong></div>
+            </div>
+            <div class="summary-card s4">
+                <div class="summary-icon s4"><i class="fas fa-spinner fa-spin"></i></div>
+                <div class="summary-info"><small>Past Holidays</small><strong id="sPast">—</strong></div>
+            </div>
+        </div>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+
+            <!-- Left: Holiday List -->
+            <div>
+                <div class="card">
+                    <!-- Toolbar -->
+                    <div class="card-toolbar">
+                        <div class="toolbar-left">
+                            <div class="section-icon indigo"><i class="fas fa-list-ul"></i></div>
+                            <div class="section-title">
+                                <h3>Holiday List</h3>
+                                <p id="listSubtitle">Loading holidays…</p>
+                            </div>
+                        </div>
+                        <div class="toolbar-right">
+                            <!-- Year Nav -->
+                            <div class="year-nav">
+                                <button class="year-nav-btn" onclick="changeYear(-1)"><i class="fas fa-chevron-left"></i></button>
+                                <span class="year-nav-label" id="yearLabel">2025</span>
+                                <button class="year-nav-btn" onclick="changeYear(1)"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <!-- Search -->
+                            <div class="search-wrap">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchInput" placeholder="Search holidays…" oninput="applyFilters()">
+                            </div>
+                            <!-- Filter Pills -->
+                            <div class="filter-pills">
+                                <button class="pill active-all"      onclick="setFilter('all',this)">All</button>
+                                <button class="pill"                 onclick="setFilter('upcoming',this)">Upcoming</button>
+                                <button class="pill"                 onclick="setFilter('past',this)">Past</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- List -->
+                    <div id="holidayList">
+                        <!-- skeleton -->
+                        <div id="skeletonLoader">
+                            <div style="padding:10px 24px 4px;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.09em;background:var(--bg-muted)">Loading…</div>
+                            ${[1,2,3,4,5].map(() => `
+                            <div class="skel-item">
+                                <div class="skel skel-box"></div>
+                                <div class="skel-lines">
+                                    <div class="skel skel-line" style="width:55%;height:13px"></div>
+                                    <div class="skel skel-line" style="width:38%"></div>
+                                </div>
+                                <div class="skel skel-badge"></div>
+                            </div>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Sidebar -->
+            <div class="sidebar-col">
+
+                <!-- Mini Calendar -->
+                <div class="mini-cal-card">
+                    <div class="mini-cal-header">
+                        <span class="mini-cal-title" id="calMonthLabel">—</span>
+                        <div class="mini-cal-nav">
+                            <button class="mini-nav-btn" onclick="changeCalMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                            <button class="mini-nav-btn" onclick="changeCalMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="mini-cal-grid">
+                        <div class="mini-cal-days-header">
+                            <span>Su</span><span>Mo</span><span>Tu</span><span>We</span>
+                            <span>Th</span><span>Fr</span><span>Sa</span>
+                        </div>
+                        <div class="mini-cal-dates" id="miniCalDates"></div>
+                    </div>
+                    <div class="mini-legend">
+                        <div class="legend-row"><div class="legend-dot" style="background:var(--primary)"></div> Today</div>
+                        <div class="legend-row"><div class="legend-dot" style="background:var(--success-light);border:1px solid var(--success-border)"></div> Upcoming Holiday</div>
+                        <div class="legend-row"><div class="legend-dot" style="background:var(--bg-muted);border:1px solid var(--border)"></div> Past Holiday</div>
+                        <div class="legend-row"><div class="legend-dot" style="background:none;border:1px solid transparent;color:var(--danger)"><span style="font-size:10px;color:var(--danger);font-weight:700">7</span></div> Weekend</div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Holidays -->
+                <div class="upcoming-card" id="upcomingWidget">
+                    <div class="upcoming-header">
+                        <div class="upcoming-header-icon"><i class="fas fa-bell"></i></div>
+                        <div>
+                            <h4>Next Holidays</h4>
+                            <p>Coming up soon</p>
+                        </div>
+                    </div>
+                    <div class="upcoming-list" id="upcomingList">
+                        <div style="padding:16px;text-align:center;color:var(--text-muted);font-size:12px">
+                            <i class="fas fa-spinner fa-spin" style="color:var(--primary);margin-right:6px"></i>Loading…
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Apply -->
+                <div class="quick-apply-card">
+                    <i class="fas fa-paper-plane"></i>
+                    <h4>Plan Your Leave</h4>
+                    <p>Spot a long weekend? Apply for leave now to make the most of it.</p>
+                    <a href="/apply_leave"><i class="fas fa-plus"></i> Apply for Leave</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div><!-- /page-body -->
+
+    <script>
+        'use strict';
+
+        /* ── STATE ── */
+        let allHolidays   = [];
+        let filteredList  = [];
+        let currentFilter = 'all';
+        let currentYear   = new Date().getFullYear();
+        let calMonth      = new Date().getMonth();
+        let calYear       = new Date().getFullYear();
+
+        const TODAY = new Date();
+        TODAY.setHours(0, 0, 0, 0);
+
+        /* ── AUTH ── */
+        function getToken() {
+            const keys = ['token','authToken','access_token','auth_token','user_token','x-access-token'];
+            for (const k of keys) { const t = localStorage.getItem(k); if (t) return t; }
+            for (const k of keys) { const t = sessionStorage.getItem(k); if (t) return t; }
+            return null;
+        }
+
+        /* ── DATE HELPERS ── */
+        function parseDate(str) {
+            const d = new Date(str + 'T00:00:00');
+            return d;
+        }
+
+        function isSameDay(d1, d2) {
+            return d1.getFullYear() === d2.getFullYear() &&
+                   d1.getMonth()    === d2.getMonth()    &&
+                   d1.getDate()     === d2.getDate();
+        }
+
+        function formatFull(str) {
+            return parseDate(str).toLocaleDateString('en-IN', { day:'2-digit', month:'long', year:'numeric' });
+        }
+
+        function dayName(str) {
+            return parseDate(str).toLocaleDateString('en-IN', { weekday:'long' });
+        }
+
+        function daysFromToday(d) {
+            return Math.round((d - TODAY) / (1000 * 60 * 60 * 24));
+        }
+
+        /* ── SUMMARY STRIP ── */
+        function renderSummary(holidays) {
+            const total    = holidays.length;
+            const upcoming = holidays.filter(h => parseDate(h.holiday_date) >= TODAY).length;
+            const past     = holidays.filter(h => parseDate(h.holiday_date) < TODAY).length;
+            const thisMonth= holidays.filter(h => {
+                const d = parseDate(h.holiday_date);
+                return d.getFullYear() === TODAY.getFullYear() && d.getMonth() === TODAY.getMonth();
+            }).length;
+
+            document.getElementById('sTot').textContent  = total;
+            document.getElementById('sUp').textContent   = upcoming;
+            document.getElementById('sMon').textContent  = thisMonth;
+            document.getElementById('sPast').textContent = past;
+
+            /* replace spinner icons */
+            const icons = ['fa-calendar-days','fa-calendar-check','fa-calendar','fa-history'];
+            document.querySelectorAll('.summary-icon').forEach((el, i) => {
+                el.innerHTML = `<i class="fas ${icons[i]}"></i>`;
+            });
+        }
+
+        /* ── FILTER ── */
+        function setFilter(f, btn) {
+            currentFilter = f;
+            document.querySelectorAll('.pill').forEach(p => p.className = 'pill');
+            const map = { all:'active-all', upcoming:'active-upcoming', past:'active-past' };
+            btn.className = `pill ${map[f] || ''}`;
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const q = document.getElementById('searchInput').value.toLowerCase().trim();
+            filteredList = allHolidays.filter(h => {
+                const d      = parseDate(h.holiday_date);
+                const isUpcoming = d >= TODAY;
+                const statusOk =
+                    currentFilter === 'all' ||
+                    (currentFilter === 'upcoming' && isUpcoming) ||
+                    (currentFilter === 'past'     && !isUpcoming);
+                const searchOk = !q ||
+                    (h.name || h.holiday_name || '').toLowerCase().includes(q) ||
+                    (h.holiday_date || '').includes(q);
+                return statusOk && searchOk;
+            });
+            renderList();
+        }
+
+        /* ── RENDER LIST ── */
+        function renderList() {
+            const container = document.getElementById('holidayList');
+
+            if (!filteredList.length) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon"><i class="fas fa-calendar-xmark"></i></div>
+                        <h3>No Holidays Found</h3>
+                        <p>${currentFilter !== 'all' || document.getElementById('searchInput').value
+                            ? 'Try changing your filter or search term.'
+                            : `No holidays declared for ${currentYear}.`}</p>
+                    </div>`;
+                document.getElementById('listSubtitle').textContent = '0 holidays';
+                return;
+            }
+
+            document.getElementById('listSubtitle').textContent =
+                `${filteredList.length} holiday${filteredList.length !== 1 ? 's' : ''} · ${currentYear}`;
+
+            /* group by month */
+            const groups = {};
+            filteredList.forEach(h => {
+                const d   = parseDate(h.holiday_date);
+                const key = d.toLocaleString('en-IN', { month: 'long', year: 'numeric' });
+                if (!groups[key]) groups[key] = [];
+                groups[key].push(h);
+            });
+
+            let html = '';
+            let delay = 0;
+            for (const [month, items] of Object.entries(groups)) {
+                html += `
+                    <div class="month-group">
+                        <div class="month-header">
+                            <div class="month-label"><i class="fas fa-calendar"></i> ${month}</div>
+                            <span class="month-count">${items.length} holiday${items.length !== 1 ? 's' : ''}</span>
+                        </div>`;
+
+                items.forEach(h => {
+                    const name      = h.name || h.holiday_name || 'Holiday';
+                    const d         = parseDate(h.holiday_date);
+                    const isToday   = isSameDay(d, TODAY);
+                    const isPast    = d < TODAY && !isToday;
+                    const diff      = daysFromToday(d);
+                    const dayNum    = d.getDate();
+                    const dayShort  = d.toLocaleDateString('en-IN', { weekday: 'short' });
+                    const fullDate  = formatFull(h.holiday_date);
+                    const weekday   = dayName(h.holiday_date);
+
+                    const blockClass = isToday ? 'today' : isPast ? 'past' : 'upcoming';
+                    const itemClass  = isToday ? 'holiday-item is-today' : isPast ? 'holiday-item is-past' : 'holiday-item';
+
+                    let pillHtml = '';
+                    let countdownHtml = '';
+
+                    if (isToday) {
+                        pillHtml = `<span class="status-pill today"><i class="fas fa-star" style="font-size:9px;margin-right:3px"></i>Today</span>`;
+                    } else if (isPast) {
+                        pillHtml = `<span class="status-pill past">Past</span>`;
+                    } else {
+                        pillHtml = `<span class="status-pill upcoming"><i class="fas fa-circle-check" style="font-size:9px;margin-right:3px"></i>Upcoming</span>`;
+                        const soon = diff <= 7;
+                        countdownHtml = diff === 1
+                            ? `<span class="countdown-chip soon">Tomorrow!</span>`
+                            : diff <= 7
+                            ? `<span class="countdown-chip soon">in ${diff} days</span>`
+                            : `<span class="countdown-chip">in ${diff} days</span>`;
+                    }
+
+                    html += `
+                        <div class="${itemClass}" style="animation-delay:${delay}ms">
+                            <div class="holiday-date-block ${blockClass}">
+                                <span class="day-num">${dayNum}</span>
+                                <span class="day-name">${dayShort}</span>
+                            </div>
+                            <div class="holiday-info">
+                                <div class="holiday-name">${name}</div>
+                                <div class="holiday-meta-row">
+                                    <div class="holiday-meta-chip"><i class="fas fa-calendar"></i> ${fullDate}</div>
+                                    <div class="holiday-meta-chip"><i class="fas fa-clock"></i> ${weekday}</div>
+                                </div>
+                            </div>
+                            <div class="holiday-right">
+                                ${countdownHtml}
+                                ${pillHtml}
+                            </div>
+                        </div>`;
+                    delay += 35;
+                });
+
+                html += `</div>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        /* ── UPCOMING WIDGET ── */
+        function renderUpcoming(holidays) {
+            const upcoming = holidays
+                .filter(h => parseDate(h.holiday_date) >= TODAY)
+                .slice(0, 5);
+
+            const ul = document.getElementById('upcomingList');
+            if (!upcoming.length) {
+                ul.innerHTML = `<div style="padding:16px;text-align:center;color:var(--text-muted);font-size:12px">No upcoming holidays.</div>`;
+                return;
+            }
+
+            ul.innerHTML = upcoming.map(h => {
+                const d    = parseDate(h.holiday_date);
+                const name = h.name || h.holiday_name || 'Holiday';
+                const num  = d.getDate();
+                const mon  = d.toLocaleString('en-IN', { month: 'short' });
+                const diff = daysFromToday(d);
+                const isSoon = diff <= 7;
+                const label = diff === 0 ? 'Today!' : diff === 1 ? 'Tomorrow' : `in ${diff} days`;
+
+                return `
+                    <div class="upcoming-item">
+                        <div class="upcoming-item-date">
+                            <span class="ud-num">${num}</span>
+                            <span class="ud-mon">${mon}</span>
+                        </div>
+                        <div class="upcoming-item-info">
+                            <div class="ui-name">${name}</div>
+                            <div class="ui-days ${isSoon ? 'soon' : ''}">${label}</div>
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+
+        /* ── MINI CALENDAR ── */
+        function renderMiniCal() {
+            const label = new Date(calYear, calMonth, 1)
+                .toLocaleString('en-IN', { month: 'long', year: 'numeric' });
+            document.getElementById('calMonthLabel').textContent = label;
+
+            const holidayDates = new Set(
+                allHolidays
+                    .filter(h => {
+                        const d = parseDate(h.holiday_date);
+                        return d.getFullYear() === calYear && d.getMonth() === calMonth;
+                    })
+                    .map(h => parseDate(h.holiday_date).getDate())
+            );
+
+            const pastHolidayDates = new Set(
+                allHolidays
+                    .filter(h => {
+                        const d = parseDate(h.holiday_date);
+                        return d.getFullYear() === calYear && d.getMonth() === calMonth && d < TODAY;
+                    })
+                    .map(h => parseDate(h.holiday_date).getDate())
+            );
+
+            const firstDay = new Date(calYear, calMonth, 1).getDay();
+            const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+            const prevDays    = new Date(calYear, calMonth, 0).getDate();
+
+            let html = '';
+
+            /* prev month fill */
+            for (let i = firstDay - 1; i >= 0; i--) {
+                html += `<div class="mini-date other-month">${prevDays - i}</div>`;
+            }
+
+            /* current month */
+            for (let d = 1; d <= daysInMonth; d++) {
+                const isToday   = d === TODAY.getDate() && calMonth === TODAY.getMonth() && calYear === TODAY.getFullYear();
+                const isHoliday = holidayDates.has(d);
+                const isPastH   = pastHolidayDates.has(d);
+                const cell      = new Date(calYear, calMonth, d);
+                const isWeekend = cell.getDay() === 0 || cell.getDay() === 6;
+
+                let cls = 'mini-date';
+                if (isToday)        cls += ' today';
+                else if (isPastH)   cls += ' holiday past';
+                else if (isHoliday) cls += ' holiday';
+                else if (isWeekend) cls += ' weekend';
+
+                html += `<div class="${cls}">${d}</div>`;
+            }
+
+            /* next month fill */
+            const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
+            for (let i = 1; i <= totalCells - firstDay - daysInMonth; i++) {
+                html += `<div class="mini-date other-month">${i}</div>`;
+            }
+
+            document.getElementById('miniCalDates').innerHTML = html;
+        }
+
+        function changeCalMonth(dir) {
+            calMonth += dir;
+            if (calMonth < 0)  { calMonth = 11; calYear--; }
+            if (calMonth > 11) { calMonth = 0;  calYear++; }
+            renderMiniCal();
+        }
+
+        /* ── YEAR NAV ── */
+        function changeYear(dir) {
+            currentYear += dir;
+            document.getElementById('yearLabel').textContent = currentYear;
+            loadHolidays();
+        }
+
+        /* ── LOAD DATA ── */
+        async function loadHolidays() {
+            document.getElementById('holidayList').innerHTML = `
+                <div id="skeletonLoader">
+                    <div style="padding:10px 24px 4px;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.09em;background:var(--bg-muted)">Loading…</div>
+                    ${[1,2,3,4,5].map(() => `
+                    <div class="skel-item">
+                        <div class="skel skel-box"></div>
+                        <div class="skel-lines">
+                            <div class="skel skel-line" style="width:55%;height:13px"></div>
+                            <div class="skel skel-line" style="width:38%"></div>
+                        </div>
+                        <div class="skel skel-badge"></div>
+                    </div>`).join('')}
+                </div>`;
+
+            const token = getToken();
+            try {
+                const res  = await fetch(`/get_holidays?year=${currentYear}`, { headers: { 'Authorization': `Bearer ${token}` } });
+                const data = await res.json();
+
+                allHolidays = (data.holidays || []).sort((a, b) =>
+                    a.holiday_date.localeCompare(b.holiday_date));
+
+                renderSummary(allHolidays);
+                applyFilters();
+                renderUpcoming(allHolidays);
+                renderMiniCal();
+
+            } catch {
+                document.getElementById('holidayList').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon" style="background:var(--danger-light);color:var(--danger)">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <h3>Could Not Load Holidays</h3>
+                        <p>Please check your connection and try again.</p>
+                        <button class="btn btn-primary" onclick="loadHolidays()" style="margin-top:4px">
+                            <i class="fas fa-rotate-right"></i> Retry
+                        </button>
+                    </div>`;
+                document.getElementById('listSubtitle').textContent = 'Error loading data';
+            }
+        }
+
+        /* ── INIT ── */
+        window.addEventListener('load', () => {
+            const token = getToken();
+            if (!token) { window.location.href = '/'; return; }
+            document.getElementById('yearLabel').textContent = currentYear;
+            renderMiniCal(); // render empty cal first
+            loadHolidays();
+        });
+    </script>
+</body>
+</html>

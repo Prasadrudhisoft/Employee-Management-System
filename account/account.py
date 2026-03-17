@@ -24,7 +24,7 @@ account_bp = Blueprint('account', __name__)
 #  SHARED COLOUR PALETTE
 # ════════════════════════════════════════════════════════════════════════════
 # -- Summary / Slip colours
-PRIMARY    = colors.HexColor('#353333')
+PRIMARY    = colors.HexColor("#ADADAD")
 ACCENT     = colors.HexColor('#2e86c1')
 GREEN      = colors.HexColor('#27ae60')
 RED        = colors.HexColor('#c0392b')

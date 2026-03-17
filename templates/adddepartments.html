@@ -8,577 +8,793 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
         :root {
-            --sidebar-width: 280px;
-            --header-height: 75px;
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --primary-light: #818cf8;
-            --primary-lighter: #c7d2fe;
-            --primary-glow: rgba(99,102,241,0.35);
-            --secondary: #0ea5e9;
-            --bg-body: #f8fafc;
-            --bg-sidebar: #ffffff;
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #6366f1;
+            --primary-lighter: #e0e7ff;
+            --primary-subtle: #eef2ff;
+            --primary-glow: rgba(79, 70, 229, 0.15);
+            --success: #059669;
+            --success-light: #ecfdf5;
+            --success-border: #a7f3d0;
+            --warning: #d97706;
+            --warning-light: #fffbeb;
+            --danger: #dc2626;
+            --danger-light: #fef2f2;
+            --danger-border: #fecaca;
+            --info: #0284c7;
+            --info-light: #f0f9ff;
+            --bg-body: #f5f6fa;
             --bg-white: #ffffff;
-            --bg-card: #ffffff;
-            --bg-light: #f1f5f9;
-            --bg-lighter: #f8fafc;
-            --bg-gradient: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
-            --text-dark: #0f172a;
-            --text-primary: #1e293b;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
-            --border-color: #e2e8f0;
+            --bg-muted: #f1f5f9;
+            --border: #e2e8f0;
             --border-light: #f1f5f9;
-            --success: #10b981;
-            --success-light: #d1fae5;
-            --warning: #f59e0b;
-            --warning-light: #fef3c7;
-            --danger: #ef4444;
-            --danger-light: #fee2e2;
-            --info: #0ea5e9;
-            --info-light: #e0f2fe;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
-            --shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.06);
-            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.07);
-            --radius-sm: 8px;
-            --radius: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 20px;
-            --radius-2xl: 24px;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #94a3b8;
+            --text-placeholder: #cbd5e1;
+            --radius-sm: 6px;
+            --radius: 8px;
+            --radius-md: 10px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 20px;
+            --radius-full: 9999px;
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         html { font-size: 16px; scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; }
-        ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
 
-        /* ── Sidebar ── */
-        .sidebar { position: fixed; top: 0; left: 0; width: var(--sidebar-width); height: 100vh; background: var(--bg-sidebar); border-right: 1px solid var(--border-color); z-index: 100; display: flex; flex-direction: column; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); }
-        .sidebar-header { padding: 24px 20px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 14px; }
-        .logo-box { width: 48px; height: 48px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px var(--primary-glow); flex-shrink: 0; }
-        .logo-box i { font-size: 20px; color: white; }
-        .logo-info h1 { font-size: 22px; font-weight: 800; color: var(--text-dark); letter-spacing: -0.03em; }
-        .logo-info span { font-size: 11px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; }
-        .admin-profile-card { margin: 20px 16px; padding: 20px; background: var(--bg-gradient); border-radius: var(--radius-xl); border: 1px solid var(--primary-lighter); }
-        .admin-profile-inner { display: flex; align-items: center; gap: 14px; }
-        .admin-avatar { width: 52px; height: 52px; border-radius: var(--radius-lg); background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 6px 20px var(--primary-glow); flex-shrink: 0; }
-        .admin-avatar i { font-size: 22px; color: white; }
-        .admin-avatar .status-indicator { position: absolute; bottom: -3px; right: -3px; width: 16px; height: 16px; background: var(--success); border: 3px solid var(--bg-white); border-radius: 50%; }
-        .admin-meta h4 { font-size: 15px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px; }
-        .admin-meta p { font-size: 12px; color: var(--primary); font-weight: 600; }
-        .admin-role-badge { margin-top: 16px; display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: rgba(99,102,241,0.12); border-radius: var(--radius); font-size: 12px; font-weight: 600; color: var(--primary-dark); }
-        .sidebar-nav { flex: 1; padding: 16px; overflow-y: auto; }
-        .nav-section { margin-bottom: 28px; }
-        .nav-section-label { font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; padding: 8px 16px; margin-bottom: 8px; }
-        .nav-link { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: var(--radius-lg); color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; margin-bottom: 4px; position: relative; }
-        .nav-link:hover { background: var(--bg-light); color: var(--text-dark); }
-        .nav-link:hover i { color: var(--primary); }
-        .nav-link.active { background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(99,102,241,0.06)); color: var(--primary-dark); font-weight: 600; }
-        .nav-link.active::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 4px; height: 28px; background: linear-gradient(180deg, var(--primary), var(--primary-dark)); border-radius: 0 6px 6px 0; }
-        .nav-link.active i { color: var(--primary); }
-        .nav-link i { width: 22px; font-size: 18px; text-align: center; color: var(--text-muted); transition: all 0.2s; }
-        .nav-link .badge { margin-left: auto; padding: 4px 10px; background: linear-gradient(135deg, var(--danger), #dc2626); border-radius: 20px; font-size: 11px; font-weight: 700; color: white; min-width: 26px; text-align: center; }
-        .nav-link .badge.info { background: linear-gradient(135deg, var(--info), #0284c7); }
-        .nav-link .badge.warning { background: linear-gradient(135deg, var(--warning), #d97706); }
-        .sidebar-footer { padding: 20px 16px; border-top: 1px solid var(--border-color); }
-        .logout-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 16px; background: var(--danger-light); border: 1px solid rgba(239,68,68,0.2); border-radius: var(--radius-lg); color: var(--danger); font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-        .logout-btn:hover { background: var(--danger); color: white; box-shadow: 0 8px 20px rgba(239,68,68,0.3); transform: translateY(-2px); }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-secondary);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
 
-        /* ── Main ── */
-        .main-content { margin-left: var(--sidebar-width); min-height: 100vh; }
-        .header { position: sticky; top: 0; height: var(--header-height); background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 36px; z-index: 50; }
-        .header-left { display: flex; align-items: center; gap: 24px; }
-        .menu-toggle { display: none; width: 46px; height: 46px; border-radius: var(--radius-lg); background: var(--bg-light); border: 1px solid var(--border-color); align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary); transition: all 0.2s; }
-        .menu-toggle:hover { background: var(--bg-gradient); color: var(--primary); }
-        .page-header h1 { font-size: 24px; font-weight: 800; color: var(--text-dark); letter-spacing: -0.03em; }
-        .breadcrumb { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted); margin-top: 4px; }
-        .breadcrumb a { color: var(--text-secondary); text-decoration: none; font-weight: 500; }
-        .breadcrumb a:hover { color: var(--primary); }
-        .breadcrumb i { font-size: 10px; }
-        .header-right { display: flex; align-items: center; gap: 16px; }
-        .user-dropdown { display: flex; align-items: center; gap: 14px; padding: 8px 18px 8px 8px; background: var(--bg-light); border: 1px solid var(--border-color); border-radius: var(--radius-lg); cursor: pointer; transition: all 0.2s; }
-        .user-dropdown:hover { background: var(--bg-gradient); border-color: var(--primary-lighter); }
-        .user-dropdown-avatar { width: 40px; height: 40px; border-radius: var(--radius); background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; font-weight: 700; }
-        .user-dropdown-info span { display: block; font-size: 14px; font-weight: 600; color: var(--text-dark); }
-        .user-dropdown-info small { font-size: 12px; color: var(--text-muted); }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.4); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.6); }
 
-        /* ── Page Body ── */
-        .page-body { padding: 36px; max-width: 1200px; margin: 0 auto; }
+        /* ========== TOPBAR ========== */
+        .topbar {
+            position: sticky;
+            top: 0;
+            height: 68px;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            z-index: 50;
+        }
 
-        /* ── Banner ── */
-        .page-banner { background: linear-gradient(135deg, var(--success) 0%, #059669 60%, #047857 100%); border-radius: var(--radius-2xl); padding: 36px 44px; margin-bottom: 36px; color: white; position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(16,185,129,0.35); }
-        .page-banner::before { content: ''; position: absolute; top: -50%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 60%); animation: float-slow 10s ease-in-out infinite; }
-        @keyframes float-slow { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-20px) rotate(5deg)} }
-        .page-banner-inner { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; }
-        .page-banner-text h2 { font-size: 28px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.02em; }
-        .page-banner-text p { font-size: 15px; opacity: 0.9; }
-        .page-banner-icon { width: 80px; height: 80px; border-radius: var(--radius-xl); background: rgba(255,255,255,0.18); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; font-size: 36px; border: 1px solid rgba(255,255,255,0.25); }
+        .topbar-left { display: flex; align-items: center; gap: 13px; }
 
-        /* ── Card ── */
-        .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); overflow: hidden; margin-bottom: 28px; }
-        .card-header { display: flex; align-items: center; justify-content: space-between; padding: 24px 32px; border-bottom: 1px solid var(--border-color); background: var(--bg-lighter); }
-        .card-title { display: flex; align-items: center; gap: 16px; }
-        .card-title-icon { width: 48px; height: 48px; border-radius: var(--radius-lg); background: var(--bg-gradient); display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--primary); }
-        .card-title div h3 { font-size: 18px; font-weight: 700; color: var(--text-dark); }
-        .card-title div p { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
-        .card-body { padding: 36px 32px; }
+        .topbar-icon {
+            width: 40px; height: 40px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 16px;
+            box-shadow: 0 4px 12px var(--primary-glow);
+            flex-shrink: 0;
+        }
 
-        /* ── Form ── */
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-        .form-grid.full { grid-template-columns: 1fr; }
-        .form-group { display: flex; flex-direction: column; gap: 10px; }
-        .form-group.span2 { grid-column: span 2; }
-        .form-label { font-size: 13px; font-weight: 600; color: var(--text-dark); display: flex; align-items: center; gap: 8px; }
-        .form-label i { font-size: 12px; color: var(--primary); }
-        .form-label .req { color: var(--danger); }
+        .topbar-info h1 { font-size: 17px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.2; }
+        .topbar-info span { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+
+        .btn-back {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 9px 20px;
+            background: var(--bg-white);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-full);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px; font-weight: 600;
+            color: var(--text-secondary);
+            text-decoration: none; cursor: pointer;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+        }
+        .btn-back i { font-size: 11px; transition: transform var(--transition-fast); }
+        .btn-back:hover { background: var(--primary-subtle); border-color: var(--primary-lighter); color: var(--primary); }
+        .btn-back:hover i { transform: translateX(-3px); }
+
+        /* ========== PAGE BODY ========== */
+        .page-body { padding: 28px 32px; max-width: 1000px; margin: 0 auto; }
+
+        /* ========== BANNER ========== */
+        .page-banner {
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 45%, #818cf8 100%);
+            border-radius: var(--radius-2xl);
+            padding: 30px 38px;
+            margin-bottom: 24px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-banner::before {
+            content: '';
+            position: absolute; top: -60%; right: -8%;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.09) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .page-banner .decor-ring {
+            position: absolute; bottom: -25px; right: 160px;
+            width: 100px; height: 100px;
+            border: 2px solid rgba(255,255,255,0.08);
+            border-radius: 50%; pointer-events: none;
+        }
+        .banner-inner { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        .banner-text h2 { font-size: 22px; font-weight: 700; margin-bottom: 7px; letter-spacing: -0.02em; }
+        .banner-text p { font-size: 13.5px; opacity: 0.78; max-width: 460px; line-height: 1.7; }
+        .banner-icon {
+            width: 68px; height: 68px;
+            border-radius: var(--radius-xl);
+            background: rgba(255,255,255,0.14);
+            border: 1px solid rgba(255,255,255,0.22);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; flex-shrink: 0;
+        }
+
+        /* ========== LAYOUT GRID ========== */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* ========== FORM CARD ========== */
+        .form-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+
+        /* ========== SECTION BLOCK ========== */
+        .section-block { padding: 26px 30px; border-bottom: 1px solid var(--border-light); }
+
+        .section-heading { display: flex; align-items: center; gap: 13px; margin-bottom: 22px; }
+
+        .section-icon {
+            width: 42px; height: 42px;
+            border-radius: var(--radius-lg);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 17px; flex-shrink: 0;
+        }
+        .section-icon.indigo  { background: var(--primary-subtle); color: var(--primary); }
+        .section-icon.emerald { background: var(--success-light);   color: var(--success); }
+
+        .section-title h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; }
+        .section-title p  { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+        /* ========== FORM GROUP ========== */
+        .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 18px; }
+        .form-group:last-child { margin-bottom: 0; }
+
+        .form-label {
+            font-size: 12.5px; font-weight: 600; color: var(--text-primary);
+            display: flex; align-items: center; gap: 6px;
+        }
+        .form-label i   { font-size: 11px; color: var(--primary); }
+        .form-label .req { color: var(--danger); margin-left: 1px; }
+        .form-label .opt { color: var(--text-muted); font-weight: 400; font-size: 11.5px; }
+        .field-hint { font-size: 11px; color: var(--text-muted); }
+
+        /* ========== INPUT WRAP ========== */
         .input-wrap { position: relative; }
-        .input-wrap .icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font-size: 17px; color: var(--text-muted); transition: color 0.2s; pointer-events: none; z-index: 1; }
+        .input-wrap .icon {
+            position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
+            font-size: 13px; color: var(--text-muted);
+            transition: color var(--transition-fast); pointer-events: none; z-index: 1;
+        }
         .input-wrap input,
         .input-wrap select,
-        .input-wrap textarea { width: 100%; padding: 16px 18px 16px 52px; background: var(--bg-light); border: 2px solid transparent; border-radius: var(--radius-lg); font-family: 'Inter', sans-serif; font-size: 15px; color: var(--text-dark); outline: none; transition: all 0.2s; }
-        .input-wrap textarea { padding-top: 16px; resize: vertical; min-height: 110px; }
-        .input-wrap select { appearance: none; cursor: pointer; }
-        .input-wrap .chevron { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 13px; pointer-events: none; }
-        .input-wrap input::placeholder, .input-wrap textarea::placeholder { color: var(--text-muted); }
-        .input-wrap input:focus, .input-wrap select:focus, .input-wrap textarea:focus { background: var(--bg-white); border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99,102,241,0.1); }
+        .input-wrap textarea {
+            width: 100%;
+            padding: 10px 14px 10px 38px;
+            background: var(--bg-muted);
+            border: 1.5px solid transparent;
+            border-radius: var(--radius-lg);
+            font-family: 'Inter', sans-serif;
+            font-size: 13.5px; color: var(--text-primary);
+            outline: none; transition: all var(--transition-base);
+        }
+        .input-wrap textarea { padding-top: 10px; resize: vertical; min-height: 80px; }
+        .input-wrap input::placeholder, .input-wrap textarea::placeholder { color: var(--text-placeholder); }
+        .input-wrap input:focus, .input-wrap select:focus, .input-wrap textarea:focus {
+            background: var(--bg-white);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
         .input-wrap:focus-within .icon { color: var(--primary); }
-        .input-wrap.error input, .input-wrap.error select { border-color: var(--danger); background: var(--danger-light); }
+
+        /* valid / error states */
+        .input-wrap.valid input, .input-wrap.valid textarea { border-color: var(--success); background: var(--success-light); }
+        .input-wrap.valid .icon { color: var(--success); }
+        .input-wrap.valid::after {
+            content: '\f058'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+            position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
+            color: var(--success); font-size: 13px; pointer-events: none;
+        }
+        .input-wrap.error input, .input-wrap.error textarea { border-color: var(--danger); background: var(--danger-light); box-shadow: 0 0 0 3px rgba(220,38,38,0.07); }
         .input-wrap.error .icon { color: var(--danger); }
-        .field-err { display: none; align-items: center; gap: 6px; font-size: 12px; color: var(--danger); font-weight: 500; margin-top: 4px; }
+
+        .field-err {
+            display: none; align-items: center; gap: 5px;
+            font-size: 11.5px; color: var(--danger); font-weight: 500;
+            animation: errIn .2s ease;
+        }
+        @keyframes errIn { from{opacity:0;transform:translateY(-3px)} to{opacity:1;transform:translateY(0)} }
         .input-wrap.error ~ .field-err { display: flex; }
 
-        /* Icon picker */
-        .icon-picker { display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; margin-top: 4px; }
-        .icon-opt { width: 48px; height: 48px; border-radius: var(--radius); border: 2px solid var(--border-color); background: var(--bg-light); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; color: var(--text-muted); transition: all 0.2s; }
-        .icon-opt:hover { border-color: var(--primary-lighter); color: var(--primary); background: var(--bg-gradient); }
-        .icon-opt.selected { border-color: var(--primary); background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(99,102,241,0.08)); color: var(--primary); box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
+        /* ========== DIVIDER ========== */
+        .section-divider {
+            display: flex; align-items: center; gap: 12px;
+            margin: 4px 0 18px;
+        }
+        .section-divider span {
+            font-size: 11px; font-weight: 700; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap;
+        }
+        .section-divider hr { flex: 1; border: none; border-top: 1px solid var(--border); }
 
-        /* Color picker */
-        .color-picker { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
-        .color-opt { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: all 0.2s; position: relative; }
-        .color-opt:hover { transform: scale(1.15); }
-        .color-opt.selected { border-color: var(--text-dark); box-shadow: 0 0 0 3px rgba(0,0,0,0.15); }
-        .color-opt::after { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; inset: 0; display: none; align-items: center; justify-content: center; color: white; font-size: 14px; }
+        /* ========== ICON PICKER ========== */
+        .icon-picker {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 8px;
+            margin-top: 2px;
+        }
+        .icon-opt {
+            height: 40px;
+            border-radius: var(--radius);
+            border: 1.5px solid var(--border);
+            background: var(--bg-muted);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 15px; color: var(--text-muted);
+            transition: all var(--transition-fast);
+        }
+        .icon-opt:hover { border-color: var(--primary-lighter); color: var(--primary); background: var(--primary-subtle); }
+        .icon-opt.selected {
+            border-color: var(--primary); background: var(--primary-subtle);
+            color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        /* ========== COLOR PICKER ========== */
+        .color-picker { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 2px; }
+        .color-opt {
+            width: 34px; height: 34px; border-radius: 50%;
+            cursor: pointer; border: 3px solid transparent;
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+        .color-opt:hover { transform: scale(1.18); }
+        .color-opt.selected { border-color: var(--text-primary); box-shadow: 0 0 0 2px rgba(0,0,0,0.12); }
+        .color-opt::after {
+            content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+            position: absolute; inset: 0; display: none;
+            align-items: center; justify-content: center;
+            color: white; font-size: 12px;
+        }
         .color-opt.selected::after { display: flex; }
 
-        /* Divider */
-        .form-divider { display: flex; align-items: center; gap: 16px; margin: 8px 0; }
-        .form-divider span { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
-        .form-divider hr { flex: 1; border: none; border-top: 1px solid var(--border-color); }
+        /* ========== FORM ACTIONS ========== */
+        .form-actions {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 20px 30px;
+            background: var(--bg-muted);
+            border-top: 1px solid var(--border);
+        }
 
-        /* Buttons */
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 28px; border-radius: var(--radius-lg); font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; text-decoration: none; }
-        .btn-primary { background: linear-gradient(135deg, var(--success), #059669); color: white; box-shadow: 0 6px 20px rgba(16,185,129,0.35); }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(16,185,129,0.4); }
-        .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
-        .btn-secondary { background: var(--bg-light); border: 1px solid var(--border-color); color: var(--text-secondary); }
-        .btn-secondary:hover { background: var(--bg-gradient); color: var(--primary); border-color: var(--primary-lighter); }
-        .form-actions { display: flex; align-items: center; gap: 16px; margin-top: 12px; padding-top: 28px; border-top: 1px solid var(--border-color); }
-        .btn-submit { flex: 1; padding: 18px; font-size: 16px; }
+        /* ========== BUTTONS ========== */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 10px 20px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 13.5px; font-weight: 600;
+            cursor: pointer; transition: all var(--transition-fast);
+            border: none; text-decoration: none; white-space: nowrap;
+        }
+        .btn-secondary { background: var(--bg-white); border: 1.5px solid var(--border); color: var(--text-secondary); }
+        .btn-secondary:hover { background: var(--bg-muted); color: var(--text-primary); }
+        .btn-primary { background: var(--primary); color: white; padding: 10px 26px; }
+        .btn-primary:hover { background: var(--primary-dark); box-shadow: 0 4px 14px var(--primary-glow); transform: translateY(-1px); }
+        .btn-primary:disabled { opacity: 0.65; cursor: not-allowed; transform: none; box-shadow: none; }
 
-        /* Alert */
-        .alert { padding: 16px 20px; border-radius: var(--radius-lg); font-size: 14px; font-weight: 500; display: none; align-items: center; gap: 14px; margin-top: 20px; animation: slideDown 0.4s cubic-bezier(0.34,1.56,0.64,1); }
-        @keyframes slideDown { from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:translateY(0)} }
-        .alert.success { display: flex; background: var(--success-light); border: 1px solid rgba(16,185,129,0.25); color: var(--success); }
-        .alert.error { display: flex; background: var(--danger-light); border: 1px solid rgba(239,68,68,0.25); color: var(--danger); }
-        .alert i { font-size: 20px; flex-shrink: 0; }
+        /* ========== ALERT ========== */
+        .alert {
+            padding: 13px 16px;
+            border-radius: var(--radius-lg);
+            font-size: 13px; font-weight: 500;
+            display: none; align-items: center; gap: 11px;
+            margin: 0 30px 18px;
+            animation: slideDown .3s ease;
+        }
+        @keyframes slideDown { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+        .alert.error   { display:flex; background:var(--danger-light);  border:1px solid var(--danger-border);  color:var(--danger); }
+        .alert.success { display:flex; background:var(--success-light); border:1px solid var(--success-border); color:var(--success); }
+        .alert i { font-size: 16px; flex-shrink: 0; }
+        .alert-title { font-weight: 700; margin-bottom: 2px; }
+        .alert-body  { font-size: 12px; opacity: 0.9; }
 
-        /* Preview card */
-        .dept-preview { padding: 28px 32px; background: var(--bg-lighter); border-top: 1px solid var(--border-color); }
-        .dept-preview h4 { font-size: 14px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 18px; }
-        .preview-card { padding: 24px; border-radius: var(--radius-lg); border: 2px dashed var(--border-color); background: var(--bg-white); transition: all 0.3s; max-width: 380px; }
-        .preview-card.filled { border-style: solid; border-color: var(--primary-lighter); background: var(--bg-gradient); }
-        .preview-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
-        .preview-icon { width: 46px; height: 46px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 20px; }
-        .preview-card-header h5 { font-size: 15px; font-weight: 700; color: var(--text-dark); }
-        .preview-stats { display: flex; justify-content: space-between; }
-        .preview-stat { text-align: center; }
-        .preview-stat .val { font-size: 20px; font-weight: 800; color: var(--text-dark); }
-        .preview-stat .lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
-        .preview-empty { text-align: center; padding: 12px; color: var(--text-muted); font-size: 13px; }
-        .preview-empty i { font-size: 28px; display: block; margin-bottom: 8px; color: var(--border-color); }
+        /* ========== LIVE PREVIEW ========== */
+        .preview-section { padding: 20px 30px; background: var(--bg-muted); border-top: 1px solid var(--border); }
+        .preview-label {
+            font-size: 11px; font-weight: 700; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.1em;
+            display: flex; align-items: center; gap: 7px;
+            margin-bottom: 14px;
+        }
+        .preview-label i { color: var(--primary); }
+        .preview-card {
+            padding: 18px 20px;
+            border-radius: var(--radius-lg);
+            border: 2px dashed var(--border);
+            background: var(--bg-white);
+            transition: all var(--transition-base);
+        }
+        .preview-card.filled { border-style: solid; border-color: var(--primary-lighter); background: var(--primary-subtle); }
+        .preview-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+        .preview-icon {
+            width: 40px; height: 40px; border-radius: var(--radius);
+            display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0;
+        }
+        .preview-name { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+        .preview-stats { display: flex; gap: 0; border-top: 1px solid var(--border); padding-top: 12px; }
+        .preview-stat { flex: 1; text-align: center; }
+        .preview-stat:not(:last-child) { border-right: 1px solid var(--border); }
+        .preview-stat .val { font-size: 18px; font-weight: 800; color: var(--text-primary); }
+        .preview-stat .lbl { font-size: 10.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 1px; }
+        .preview-empty { text-align: center; padding: 10px 0; color: var(--text-muted); font-size: 12.5px; }
+        .preview-empty i { font-size: 24px; display: block; margin-bottom: 7px; color: var(--border); }
 
-        /* Department list at bottom */
-        .dept-list-wrap { margin-top: 28px; }
-        .dept-list-item { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; border-bottom: 1px solid var(--border-light); transition: background 0.2s; }
+        /* ========== EXISTING DEPARTMENTS CARD ========== */
+        .side-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+        }
+        .side-card-header {
+            display: flex; align-items: center; gap: 12px;
+            padding: 18px 22px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .side-card-icon {
+            width: 36px; height: 36px;
+            border-radius: var(--radius);
+            background: var(--primary-subtle); color: var(--primary);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px; flex-shrink: 0;
+        }
+        .side-card-title h4 { font-size: 13.5px; font-weight: 700; color: var(--text-primary); }
+        .side-card-title p  { font-size: 11.5px; color: var(--text-muted); margin-top: 1px; }
+
+        .dept-list-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 13px 22px;
+            border-bottom: 1px solid var(--border-light);
+            transition: background var(--transition-fast);
+        }
         .dept-list-item:last-child { border-bottom: none; }
-        .dept-list-item:hover { background: var(--bg-lighter); }
-        .dept-list-info { display: flex; align-items: center; gap: 14px; }
-        .dept-list-icon { width: 42px; height: 42px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-        .dept-list-meta h5 { font-size: 15px; font-weight: 600; color: var(--text-dark); margin-bottom: 3px; }
-        .dept-list-meta p { font-size: 12px; color: var(--text-muted); }
-        .dept-list-badge { padding: 6px 14px; border-radius: 30px; font-size: 12px; font-weight: 600; background: var(--success-light); color: var(--success); }
+        .dept-list-item:hover { background: var(--bg-muted); }
 
-        /* Mobile */
-        .mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 99; }
-        .mobile-overlay.active { display: block; }
-        @media (max-width:1024px) { .sidebar{transform:translateX(-100%)} .sidebar.mobile-open{transform:translateX(0)} .main-content{margin-left:0} .menu-toggle{display:flex} }
-        @media (max-width:768px) { .page-body{padding:20px} .page-banner{padding:24px} .page-banner-icon{display:none} .form-grid{grid-template-columns:1fr} .form-group.span2{grid-column:span 1} .card-body{padding:24px 20px} .icon-picker{grid-template-columns:repeat(5,1fr)} }
-        @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)} }
+        .dept-list-info { display: flex; align-items: center; gap: 11px; }
+        .dept-list-icon {
+            width: 34px; height: 34px;
+            border-radius: var(--radius);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; flex-shrink: 0;
+        }
+        .dept-list-meta h5 { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+        .dept-list-meta p  { font-size: 11px; color: var(--text-muted); }
+
+        .dept-badge {
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            font-size: 11px; font-weight: 600;
+            background: var(--success-light); color: var(--success);
+        }
+
+        /* ========== SHAKE ========== */
+        @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-5px)} 40%,80%{transform:translateX(5px)} }
+        .shake { animation: shake .35s ease; }
+
+        /* ========== SUCCESS SCREEN ========== */
+        .success-screen { text-align: center; padding: 52px 36px; animation: fadeUp .4s ease; }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+        .success-circle {
+            width: 84px; height: 84px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--success), #34d399);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px; font-size: 36px; color: white;
+            box-shadow: 0 12px 32px rgba(5,150,105,0.32);
+            animation: pop .5s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        @keyframes pop { from{transform:scale(0) rotate(-180deg)} to{transform:scale(1) rotate(0)} }
+        .success-screen h2 { font-size: 24px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; letter-spacing: -0.02em; }
+        .success-screen p  { font-size: 14px; color: var(--text-muted); max-width: 340px; margin: 0 auto 26px; line-height: 1.7; }
+        .success-actions   { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 900px) {
+            .layout-grid { grid-template-columns: 1fr; }
+            .icon-picker  { grid-template-columns: repeat(6, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .topbar    { padding: 0 16px; }
+            .topbar-info span { display: none; }
+            .page-body { padding: 16px; }
+            .page-banner { padding: 20px 18px; }
+            .banner-icon { display: none; }
+            .section-block { padding: 18px 16px; }
+            .form-actions  { flex-direction: column; gap: 10px; padding: 16px; }
+            .form-actions .btn { width: 100%; justify-content: center; }
+            .alert { margin: 0 16px 14px; }
+            .preview-section { padding: 16px; }
+            .icon-picker { grid-template-columns: repeat(5, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .topbar { height: 60px; }
+            .btn-back-label { display: none; }
+        }
     </style>
 </head>
 <body>
 
-<!-- Sidebar -->
-<aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-        <div class="logo-box"><i class="fas fa-building"></i></div>
-        <div class="logo-info"><h1>EMS Pro</h1><span>Admin Panel</span></div>
-    </div>
-    <div class="admin-profile-card">
-        <div class="admin-profile-inner">
-            <div class="admin-avatar"><i class="fas fa-user-tie"></i><span class="status-indicator"></span></div>
-            <div class="admin-meta"><h4 id="sidebarName">Admin User</h4><p id="sidebarEmail">admin@company.com</p></div>
-        </div>
-        <div class="admin-role-badge"><i class="fas fa-shield-halved"></i> Organization Administrator</div>
-    </div>
-    <nav class="sidebar-nav">
-        <div class="nav-section">
-            <div class="nav-section-label">Main Menu</div>
-            <a href="/admindashboard" class="nav-link"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
-            <a href="#" class="nav-link"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
-        </div>
-        <div class="nav-section">
-            <div class="nav-section-label">Organization</div>
-            <a href="#" class="nav-link"><i class="fas fa-user-tie"></i><span>Managers</span></a>
-            <a href="#" class="nav-link"><i class="fas fa-users"></i><span>All Employees</span></a>
-            <a href="/adddepartments" class="nav-link active"><i class="fas fa-sitemap"></i><span>Departments</span></a>
-            <a href="/addmanager" class="nav-link"><i class="fas fa-user-plus"></i><span>Add Manager</span></a>
-        </div>
-        <div class="nav-section">
-            <div class="nav-section-label">Operations</div>
-            <a href="#" class="nav-link"><i class="fas fa-calendar-check"></i><span>Attendance</span></a>
-            <a href="#" class="nav-link"><i class="fas fa-plane-departure"></i><span>Leave Requests</span><span class="badge warning">8</span></a>
-            <a href="#" class="nav-link"><i class="fas fa-money-bill-wave"></i><span>Payroll</span></a>
-        </div>
-        <div class="nav-section">
-            <div class="nav-section-label">Settings</div>
-            <a href="#" class="nav-link"><i class="fas fa-cog"></i><span>Settings</span></a>
-            <a href="#" class="nav-link"><i class="fas fa-bell"></i><span>Notifications</span><span class="badge info">3</span></a>
-        </div>
-    </nav>
-    <div class="sidebar-footer">
-        <button class="logout-btn" onclick="logout()"><i class="fas fa-power-off"></i> Sign Out</button>
-    </div>
-</aside>
-
-<div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
-
-<!-- Main -->
-<main class="main-content">
-    <header class="header">
-        <div class="header-left">
-            <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-            <div class="page-header">
+    <!-- ========== TOPBAR ========== -->
+    <header class="topbar">
+        <a href="/admindashboard" class="btn-back">
+            <i class="fas fa-arrow-left"></i>
+            <span class="btn-back-label">Back to Dashboard</span>
+        </a>
+        <div class="topbar-left">
+            <div class="topbar-info" style="text-align:right">
                 <h1>Add Department</h1>
-                <div class="breadcrumb">
-                    <a href="/admindashboard">Home</a>
-                    <i class="fas fa-chevron-right"></i>
-                    <a href="#">Departments</a>
-                    <i class="fas fa-chevron-right"></i>
-                    <span>Add New</span>
-                </div>
+                <span>EMS Pro &nbsp;·&nbsp; Admin Panel</span>
             </div>
-        </div>
-        <div class="header-right">
-            <div class="user-dropdown">
-                <div class="user-dropdown-avatar" id="headerAvatar">AD</div>
-                <div class="user-dropdown-info">
-                    <span id="headerName">Admin</span>
-                    <small>Administrator</small>
-                </div>
-                <i class="fas fa-chevron-down" style="font-size:12px;color:var(--text-muted);margin-left:8px"></i>
+            <div class="topbar-icon">
+                <i class="fas fa-sitemap"></i>
             </div>
         </div>
     </header>
 
+    <!-- ========== PAGE BODY ========== -->
     <div class="page-body">
+
         <!-- Banner -->
         <div class="page-banner">
-            <div class="page-banner-inner">
-                <div class="page-banner-text">
-                    <h2><i class="fas fa-sitemap" style="margin-right:10px"></i>Create New Department</h2>
-                    <p>Organise your workforce by adding departments to your organisation.</p>
+            <div class="decor-ring"></div>
+            <div class="banner-inner">
+                <div class="banner-text">
+                    <h2>Create New Department</h2>
+                    <p>Organise your workforce by adding departments, choosing an icon, and picking a theme colour.</p>
                 </div>
-                <div class="page-banner-icon"><i class="fas fa-sitemap"></i></div>
+                <div class="banner-icon">
+                    <i class="fas fa-sitemap"></i>
+                </div>
             </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start">
+        <!-- LAYOUT: form + sidebar -->
+        <div class="layout-grid">
 
-            <!-- Form Card -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <div class="card-title-icon"><i class="fas fa-plus-circle"></i></div>
-                        <div><h3>Department Details</h3><p>Fill in the information below</p></div>
+            <!-- FORM CARD -->
+            <div class="form-card" id="formCard">
+
+                <!-- SECTION 1: Department Details -->
+                <div class="section-block">
+                    <div class="section-heading">
+                        <div class="section-icon indigo"><i class="fas fa-sitemap"></i></div>
+                        <div class="section-title">
+                            <h3>Department Details</h3>
+                            <p>Name and description of the department</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-tag"></i> Department Name <span class="req">*</span></label>
+                        <p class="field-hint">2–100 characters, letters and spaces</p>
+                        <div class="input-wrap" id="wrap-name">
+                            <i class="fas fa-tag icon"></i>
+                            <input type="text" id="f-name" placeholder="e.g. Engineering, Marketing, Sales…" maxlength="100" oninput="updatePreview()">
+                        </div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-name">Department name is required.</span></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-align-left"></i> Description <span class="opt">(Optional)</span></label>
+                        <p class="field-hint">Brief description, max 300 characters</p>
+                        <div class="input-wrap" id="wrap-desc">
+                            <i class="fas fa-align-left icon" style="top:14px;transform:none"></i>
+                            <textarea id="f-desc" placeholder="Briefly describe what this department does…" maxlength="300" oninput="updatePreview()"></textarea>
+                        </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <form id="deptForm">
 
-                        <!-- Department Name -->
-                        <div class="form-group" style="margin-bottom:24px">
-                            <label class="form-label"><i class="fas fa-tag"></i> Department Name <span class="req">*</span></label>
-                            <div class="input-wrap" id="nameWrap">
-                                <i class="fas fa-tag icon"></i>
-                                <input type="text" id="deptName" placeholder="e.g. Engineering, Marketing, Sales…" maxlength="100" oninput="updatePreview()">
-                            </div>
-                            <div class="field-err"><i class="fas fa-circle-exclamation"></i> Please enter a department name.</div>
+                <!-- SECTION 2: Appearance -->
+                <div class="section-block" style="border-bottom:none">
+                    <div class="section-heading">
+                        <div class="section-icon emerald"><i class="fas fa-palette"></i></div>
+                        <div class="section-title">
+                            <h3>Appearance</h3>
+                            <p>Choose an icon and theme colour</p>
                         </div>
+                    </div>
 
-                        <!-- Description -->
-                        <div class="form-group" style="margin-bottom:24px">
-                            <label class="form-label"><i class="fas fa-align-left"></i> Description <span style="color:var(--text-muted);font-weight:400">(Optional)</span></label>
-                            <div class="input-wrap">
-                                <i class="fas fa-align-left icon" style="top:22px;transform:none"></i>
-                                <textarea id="deptDesc" placeholder="Briefly describe what this department does…" oninput="updatePreview()"></textarea>
-                            </div>
+                    <div class="section-divider"><hr><span>Icon</span><hr></div>
+
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-icons"></i> Department Icon</label>
+                        <div class="icon-picker" id="iconPicker">
+                            <div class="icon-opt selected" data-icon="fa-building"        onclick="selectIcon(this)"><i class="fas fa-building"></i></div>
+                            <div class="icon-opt"          data-icon="fa-code"            onclick="selectIcon(this)"><i class="fas fa-code"></i></div>
+                            <div class="icon-opt"          data-icon="fa-bullhorn"        onclick="selectIcon(this)"><i class="fas fa-bullhorn"></i></div>
+                            <div class="icon-opt"          data-icon="fa-chart-bar"       onclick="selectIcon(this)"><i class="fas fa-chart-bar"></i></div>
+                            <div class="icon-opt"          data-icon="fa-users"           onclick="selectIcon(this)"><i class="fas fa-users"></i></div>
+                            <div class="icon-opt"          data-icon="fa-coins"           onclick="selectIcon(this)"><i class="fas fa-coins"></i></div>
+                            <div class="icon-opt"          data-icon="fa-cogs"            onclick="selectIcon(this)"><i class="fas fa-cogs"></i></div>
+                            <div class="icon-opt"          data-icon="fa-server"          onclick="selectIcon(this)"><i class="fas fa-server"></i></div>
+                            <div class="icon-opt"          data-icon="fa-pen-nib"         onclick="selectIcon(this)"><i class="fas fa-pen-nib"></i></div>
+                            <div class="icon-opt"          data-icon="fa-headset"         onclick="selectIcon(this)"><i class="fas fa-headset"></i></div>
+                            <div class="icon-opt"          data-icon="fa-truck"           onclick="selectIcon(this)"><i class="fas fa-truck"></i></div>
+                            <div class="icon-opt"          data-icon="fa-scale-balanced"  onclick="selectIcon(this)"><i class="fas fa-scale-balanced"></i></div>
+                            <div class="icon-opt"          data-icon="fa-flask"           onclick="selectIcon(this)"><i class="fas fa-flask"></i></div>
+                            <div class="icon-opt"          data-icon="fa-stethoscope"     onclick="selectIcon(this)"><i class="fas fa-stethoscope"></i></div>
+                            <div class="icon-opt"          data-icon="fa-graduation-cap" onclick="selectIcon(this)"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="icon-opt"          data-icon="fa-shield-halved"   onclick="selectIcon(this)"><i class="fas fa-shield-halved"></i></div>
                         </div>
+                    </div>
 
-                        <div class="form-divider"><hr><span>Appearance</span><hr></div>
+                    <div class="section-divider" style="margin-top:20px"><hr><span>Colour</span><hr></div>
 
-                        <!-- Icon Picker -->
-                        <div class="form-group" style="margin-bottom:24px">
-                            <label class="form-label"><i class="fas fa-icons"></i> Department Icon</label>
-                            <div class="icon-picker" id="iconPicker">
-                                <div class="icon-opt selected" data-icon="fa-building" onclick="selectIcon(this)"><i class="fas fa-building"></i></div>
-                                <div class="icon-opt" data-icon="fa-code" onclick="selectIcon(this)"><i class="fas fa-code"></i></div>
-                                <div class="icon-opt" data-icon="fa-bullhorn" onclick="selectIcon(this)"><i class="fas fa-bullhorn"></i></div>
-                                <div class="icon-opt" data-icon="fa-chart-bar" onclick="selectIcon(this)"><i class="fas fa-chart-bar"></i></div>
-                                <div class="icon-opt" data-icon="fa-users" onclick="selectIcon(this)"><i class="fas fa-users"></i></div>
-                                <div class="icon-opt" data-icon="fa-coins" onclick="selectIcon(this)"><i class="fas fa-coins"></i></div>
-                                <div class="icon-opt" data-icon="fa-cogs" onclick="selectIcon(this)"><i class="fas fa-cogs"></i></div>
-                                <div class="icon-opt" data-icon="fa-server" onclick="selectIcon(this)"><i class="fas fa-server"></i></div>
-                                <div class="icon-opt" data-icon="fa-pen-nib" onclick="selectIcon(this)"><i class="fas fa-pen-nib"></i></div>
-                                <div class="icon-opt" data-icon="fa-headset" onclick="selectIcon(this)"><i class="fas fa-headset"></i></div>
-                                <div class="icon-opt" data-icon="fa-truck" onclick="selectIcon(this)"><i class="fas fa-truck"></i></div>
-                                <div class="icon-opt" data-icon="fa-scale-balanced" onclick="selectIcon(this)"><i class="fas fa-scale-balanced"></i></div>
-                                <div class="icon-opt" data-icon="fa-flask" onclick="selectIcon(this)"><i class="fas fa-flask"></i></div>
-                                <div class="icon-opt" data-icon="fa-stethoscope" onclick="selectIcon(this)"><i class="fas fa-stethoscope"></i></div>
-                                <div class="icon-opt" data-icon="fa-graduation-cap" onclick="selectIcon(this)"><i class="fas fa-graduation-cap"></i></div>
-                                <div class="icon-opt" data-icon="fa-shield-halved" onclick="selectIcon(this)"><i class="fas fa-shield-halved"></i></div>
-                            </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-palette"></i> Theme Colour</label>
+                        <div class="color-picker" id="colorPicker">
+                            <div class="color-opt selected" data-color="#4f46e5" style="background:#4f46e5" onclick="selectColor(this)"></div>
+                            <div class="color-opt"          data-color="#0ea5e9" style="background:#0ea5e9" onclick="selectColor(this)"></div>
+                            <div class="color-opt"          data-color="#059669" style="background:#059669" onclick="selectColor(this)"></div>
+                            <div class="color-opt"          data-color="#d97706" style="background:#d97706" onclick="selectColor(this)"></div>
+                            <div class="color-opt"          data-color="#dc2626" style="background:#dc2626" onclick="selectColor(this)"></div>
+                            <div class="color-opt"          data-color="#7c3aed" style="background:#7c3aed" onclick="selectColor(this)"></div>
+                            <div class="color-opt"          data-color="#0d9488" style="background:#0d9488" onclick="selectColor(this)"></div>
+                            <div class="color-opt"          data-color="#ea580c" style="background:#ea580c" onclick="selectColor(this)"></div>
                         </div>
-
-                        <!-- Color Picker -->
-                        <div class="form-group" style="margin-bottom:32px">
-                            <label class="form-label"><i class="fas fa-palette"></i> Theme Color</label>
-                            <div class="color-picker" id="colorPicker">
-                                <div class="color-opt selected" data-color="#6366f1" style="background:#6366f1" onclick="selectColor(this)"></div>
-                                <div class="color-opt" data-color="#0ea5e9" style="background:#0ea5e9" onclick="selectColor(this)"></div>
-                                <div class="color-opt" data-color="#10b981" style="background:#10b981" onclick="selectColor(this)"></div>
-                                <div class="color-opt" data-color="#f59e0b" style="background:#f59e0b" onclick="selectColor(this)"></div>
-                                <div class="color-opt" data-color="#f43f5e" style="background:#f43f5e" onclick="selectColor(this)"></div>
-                                <div class="color-opt" data-color="#8b5cf6" style="background:#8b5cf6" onclick="selectColor(this)"></div>
-                                <div class="color-opt" data-color="#14b8a6" style="background:#14b8a6" onclick="selectColor(this)"></div>
-                                <div class="color-opt" data-color="#f97316" style="background:#f97316" onclick="selectColor(this)"></div>
-                            </div>
-                        </div>
-
-                        <div class="form-actions">
-                            <a href="/admindashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
-                            <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">
-                                <i class="fas fa-plus-circle"></i> Create Department
-                            </button>
-                        </div>
-                        <div class="alert" id="formAlert"></div>
-                    </form>
+                    </div>
                 </div>
 
                 <!-- Live Preview -->
-                <div class="dept-preview">
-                    <h4><i class="fas fa-eye" style="margin-right:8px;color:var(--primary)"></i>Live Preview</h4>
+                <div class="preview-section">
+                    <div class="preview-label"><i class="fas fa-eye"></i> Live Preview</div>
                     <div class="preview-card" id="previewCard">
                         <div class="preview-empty">
                             <i class="fas fa-sitemap"></i>
-                            Start typing to see preview
+                            Start typing to see a preview
                         </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <a href="/admindashboard" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Cancel
+                    </a>
+                    <button class="btn btn-primary" id="submitBtn" onclick="submitForm()">
+                        <i class="fas fa-plus-circle"></i> Create Department
+                    </button>
+                </div>
+
+                <div class="alert" id="formAlert"></div>
+
+            </div><!-- /form-card -->
+
+            <!-- SIDEBAR: Existing Departments -->
+            <div class="side-card">
+                <div class="side-card-header">
+                    <div class="side-card-icon"><i class="fas fa-sitemap"></i></div>
+                    <div class="side-card-title">
+                        <h4>Existing Departments</h4>
+                        <p id="deptCount">Loading…</p>
+                    </div>
+                </div>
+                <div id="deptList">
+                    <div style="padding:28px;text-align:center;color:var(--text-muted);font-size:13px">
+                        <i class="fas fa-spinner fa-spin" style="font-size:20px;display:block;margin-bottom:10px;color:var(--primary)"></i>
+                        Loading…
                     </div>
                 </div>
             </div>
 
-            <!-- Existing Departments -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <div class="card-title-icon"><i class="fas fa-sitemap"></i></div>
-                        <div><h3>Existing Departments</h3><p id="deptListCount">Loading…</p></div>
-                    </div>
-                </div>
-                <div class="card-body" style="padding:0">
-                    <div id="deptList">
-                        <div style="padding:32px;text-align:center;color:var(--text-muted)">
-                            <i class="fas fa-spinner fa-spin" style="font-size:24px;margin-bottom:12px;display:block;color:var(--primary)"></i>
-                            Loading departments…
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div><!-- /layout-grid -->
 
-        </div>
-    </div>
-</main>
+    </div><!-- /page-body -->
 
-<script>
-    // ── State ─────────────────────────────────────────────────────────────────
-    let selectedIcon  = 'fa-building';
-    let selectedColor = '#6366f1';
+    <script>
+        'use strict';
 
-    // ── Sidebar ───────────────────────────────────────────────────────────────
-    function toggleSidebar()  { document.getElementById('sidebar').classList.toggle('mobile-open'); document.getElementById('mobileOverlay').classList.toggle('active'); }
-    function closeMobileMenu(){ document.getElementById('sidebar').classList.remove('mobile-open'); document.getElementById('mobileOverlay').classList.remove('active'); }
-    window.addEventListener('resize',()=>{ if(window.innerWidth>1024){ document.getElementById('sidebar').classList.remove('mobile-open'); document.getElementById('mobileOverlay').classList.remove('active'); } });
+        let selectedIcon  = 'fa-building';
+        let selectedColor = '#4f46e5';
 
-    // ── Logout ────────────────────────────────────────────────────────────────
-    function logout() { if(confirm('Sign out?')){ localStorage.removeItem('token'); localStorage.removeItem('user_data'); window.location.href='/login'; } }
-
-    // ── Icon & Color pickers ──────────────────────────────────────────────────
-    function selectIcon(el) {
-        document.querySelectorAll('.icon-opt').forEach(o => o.classList.remove('selected'));
-        el.classList.add('selected');
-        selectedIcon = el.dataset.icon;
-        updatePreview();
-    }
-    function selectColor(el) {
-        document.querySelectorAll('.color-opt').forEach(o => o.classList.remove('selected'));
-        el.classList.add('selected');
-        selectedColor = el.dataset.color;
-        updatePreview();
-    }
-
-    // ── Live Preview ──────────────────────────────────────────────────────────
-    function updatePreview() {
-        const name = document.getElementById('deptName').value.trim();
-        const card = document.getElementById('previewCard');
-        if (!name) {
-            card.classList.remove('filled');
-            card.innerHTML = `<div class="preview-empty"><i class="fas fa-sitemap"></i>Start typing to see preview</div>`;
-            return;
+        /* ── ICON & COLOR ── */
+        function selectIcon(el) {
+            document.querySelectorAll('.icon-opt').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedIcon = el.dataset.icon;
+            updatePreview();
         }
-        const bg = selectedColor + '22';
-        card.classList.add('filled');
-        card.innerHTML = `
-            <div class="preview-card-header">
-                <div class="preview-icon" style="background:${bg};color:${selectedColor}"><i class="fas ${selectedIcon}"></i></div>
-                <h5>${escHtml(name)}</h5>
-            </div>
-            <div class="preview-stats">
-                <div class="preview-stat"><div class="val">0</div><div class="lbl">Employees</div></div>
-                <div class="preview-stat"><div class="val">0</div><div class="lbl">Managers</div></div>
-                <div class="preview-stat"><div class="val">0</div><div class="lbl">Teams</div></div>
-            </div>`;
-    }
 
-    function escHtml(s){ const d=document.createElement('div'); d.appendChild(document.createTextNode(s)); return d.innerHTML; }
+        function selectColor(el) {
+            document.querySelectorAll('.color-opt').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedColor = el.dataset.color;
+            updatePreview();
+        }
 
-    // ── Load existing departments ─────────────────────────────────────────────
-    async function loadExistingDepts() {
-        const token = localStorage.getItem('token');
-        try {
-            const res  = await fetch('/get_departments', { headers: { 'Authorization': `Bearer ${token}` } });
-            const data = await res.json();
-            const list = document.getElementById('deptList');
-            const count= document.getElementById('deptListCount');
-            const deps = data.dep_data || [];
-
-            if (!deps.length) {
-                list.innerHTML = `<div style="padding:32px;text-align:center;color:var(--text-muted);font-size:14px"><i class="fas fa-inbox" style="font-size:28px;display:block;margin-bottom:10px;color:var(--border-color)"></i>No departments yet</div>`;
-                count.textContent = '0 departments';
+        /* ── LIVE PREVIEW ── */
+        function updatePreview() {
+            const name = document.getElementById('f-name').value.trim();
+            const card = document.getElementById('previewCard');
+            if (!name) {
+                card.classList.remove('filled');
+                card.innerHTML = `<div class="preview-empty"><i class="fas fa-sitemap"></i>Start typing to see a preview</div>`;
                 return;
             }
-            count.textContent = `${deps.length} department${deps.length!==1?'s':''}`;
-            const colors = ['#6366f1','#0ea5e9','#10b981','#f59e0b','#f43f5e','#8b5cf6','#14b8a6','#f97316'];
-            list.innerHTML = deps.map((d, i) => {
-                const c    = colors[i % colors.length];
-                const name = d.department_name || d.name || d.dept_name || 'Department';
-                return `
-                <div class="dept-list-item">
-                    <div class="dept-list-info">
-                        <div class="dept-list-icon" style="background:${c}22;color:${c}"><i class="fas fa-building"></i></div>
-                        <div class="dept-list-meta">
-                            <h5>${escHtml(name)}</h5>
-                            <p>Created ${d.created_at ? new Date(d.created_at).toLocaleDateString() : 'recently'}</p>
-                        </div>
-                    </div>
-                    <span class="dept-list-badge">Active</span>
+            const bg = selectedColor + '22';
+            card.classList.add('filled');
+            card.innerHTML = `
+                <div class="preview-card-header">
+                    <div class="preview-icon" style="background:${bg};color:${selectedColor}"><i class="fas ${selectedIcon}"></i></div>
+                    <div class="preview-name">${escHtml(name)}</div>
+                </div>
+                <div class="preview-stats">
+                    <div class="preview-stat"><div class="val">0</div><div class="lbl">Employees</div></div>
+                    <div class="preview-stat"><div class="val">0</div><div class="lbl">Managers</div></div>
+                    <div class="preview-stat"><div class="val">0</div><div class="lbl">Teams</div></div>
                 </div>`;
-            }).join('');
-        } catch(e) {
-            document.getElementById('deptList').innerHTML = `<div style="padding:24px;text-align:center;color:var(--danger);font-size:13px"><i class="fas fa-triangle-exclamation"></i> Failed to load</div>`;
-        }
-    }
-
-    // ── Form Submit → POST /adddepartments ───────────────────────────────────
-    document.getElementById('deptForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const nameWrap = document.getElementById('nameWrap');
-        const nameVal  = document.getElementById('deptName').value.trim();
-        const alertEl  = document.getElementById('formAlert');
-        const submitBtn= document.getElementById('submitBtn');
-
-        // Reset
-        nameWrap.classList.remove('error');
-        alertEl.className = 'alert';
-
-        if (!nameVal) {
-            nameWrap.classList.add('error');
-            submitBtn.style.animation = 'shake 0.4s ease';
-            setTimeout(()=>submitBtn.style.animation='', 400);
-            return;
         }
 
-        // Loading state
-        const orig = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating…';
-        submitBtn.disabled = true;
+        function escHtml(s) {
+            const d = document.createElement('div');
+            d.appendChild(document.createTextNode(s));
+            return d.innerHTML;
+        }
 
-        try {
-            const token = localStorage.getItem('token');
-            const res   = await fetch('/adddepartments', {
-                method : 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                body   : JSON.stringify({ department: nameVal })
-            });
-            const data = await res.json();
+        /* ── ALERT ── */
+        function showAlert(msg, type) {
+            const el = document.getElementById('formAlert');
+            el.className = `alert ${type}`;
+            el.innerHTML = `<i class="fas fa-${type==='error'?'triangle-exclamation':'check-circle'}"></i><div><div class="alert-title">${type==='error'?'Error':'Success'}</div><div class="alert-body">${msg}</div></div>`;
+            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
 
-            if (data.status === 'success' || res.ok) {
-                alertEl.className = 'alert success';
-                alertEl.innerHTML = `<i class="fas fa-circle-check"></i><span>${data.message || 'Department created successfully!'}</span>`;
-                this.reset();
-                document.querySelectorAll('.icon-opt').forEach(o=>o.classList.remove('selected'));
-                document.querySelector('[data-icon="fa-building"]').classList.add('selected');
-                document.querySelectorAll('.color-opt').forEach(o=>o.classList.remove('selected'));
-                document.querySelector('[data-color="#6366f1"]').classList.add('selected');
-                selectedIcon = 'fa-building'; selectedColor = '#6366f1';
-                updatePreview();
-                loadExistingDepts();
-                setTimeout(()=>alertEl.className='alert', 5000);
-            } else {
-                alertEl.className = 'alert error';
-                alertEl.innerHTML = `<i class="fas fa-circle-xmark"></i><span>${data.message || 'Failed to create department.'}</span>`;
+        /* ── SUBMIT ── */
+        async function submitForm() {
+            const nameVal = document.getElementById('f-name').value.trim();
+            const wrap    = document.getElementById('wrap-name');
+            document.getElementById('formAlert').className = 'alert';
+
+            wrap.classList.remove('error', 'valid');
+            if (!nameVal || nameVal.length < 2) {
+                wrap.classList.add('error');
+                wrap.classList.add('shake');
+                setTimeout(() => wrap.classList.remove('shake'), 400);
+                return;
             }
-        } catch(err) {
-            alertEl.className = 'alert error';
-            alertEl.innerHTML = `<i class="fas fa-triangle-exclamation"></i><span>Connection error. Please try again.</span>`;
-        }
-        submitBtn.innerHTML = orig;
-        submitBtn.disabled = false;
-    });
+            wrap.classList.add('valid');
 
-    // ── Init ──────────────────────────────────────────────────────────────────
-    window.addEventListener('load', () => {
-        const userData = localStorage.getItem('user_data');
-        if (userData) {
-            const u = JSON.parse(userData);
-            const name = u.name || 'Admin';
-            document.getElementById('sidebarName').textContent = name;
-            document.getElementById('sidebarEmail').textContent = u.email || '';
-            document.getElementById('headerName').textContent = name.split(' ')[0];
-            document.getElementById('headerAvatar').textContent = name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+            const btn  = document.getElementById('submitBtn');
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating…';
+            btn.disabled  = true;
+
+            try {
+                const token = getAuthToken();
+                const res   = await fetch('/adddepartments', {
+                    method : 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body   : JSON.stringify({ department: nameVal })
+                });
+                const data = await res.json();
+
+                if (data.status === 'success' || res.ok) {
+                    showAlert(data.message || 'Department created successfully!', 'success');
+                    document.getElementById('f-name').value = '';
+                    document.getElementById('f-desc').value = '';
+                    wrap.classList.remove('valid');
+                    // reset pickers
+                    document.querySelectorAll('.icon-opt').forEach(o => o.classList.remove('selected'));
+                    document.querySelector('[data-icon="fa-building"]').classList.add('selected');
+                    document.querySelectorAll('.color-opt').forEach(o => o.classList.remove('selected'));
+                    document.querySelector('[data-color="#4f46e5"]').classList.add('selected');
+                    selectedIcon = 'fa-building'; selectedColor = '#4f46e5';
+                    updatePreview();
+                    loadDepts();
+                    setTimeout(() => { document.getElementById('formAlert').className = 'alert'; }, 5000);
+                } else {
+                    showAlert(data.message || 'Failed to create department.', 'error');
+                }
+            } catch {
+                showAlert('Could not reach the server. Check your connection and try again.', 'error');
+            }
+
+            btn.innerHTML = orig;
+            btn.disabled  = false;
         }
-        loadExistingDepts();
-    });
-</script>
+
+        /* ── LOAD DEPARTMENTS ── */
+        async function loadDepts() {
+            const token = getAuthToken();
+            const list  = document.getElementById('deptList');
+            const count = document.getElementById('deptCount');
+            try {
+                const res  = await fetch('/get_departments', { headers: { 'Authorization': `Bearer ${token}` } });
+                const data = await res.json();
+                const deps = data.dep_data || [];
+
+                if (!deps.length) {
+                    list.innerHTML = `<div style="padding:28px;text-align:center;color:var(--text-muted);font-size:13px"><i class="fas fa-inbox" style="font-size:22px;display:block;margin-bottom:8px;color:var(--border)"></i>No departments yet</div>`;
+                    count.textContent = '0 departments';
+                    return;
+                }
+
+                count.textContent = `${deps.length} department${deps.length !== 1 ? 's' : ''}`;
+                const palette = ['#4f46e5','#0ea5e9','#059669','#d97706','#dc2626','#7c3aed','#0d9488','#ea580c'];
+
+                list.innerHTML = deps.map((d, i) => {
+                    const c    = palette[i % palette.length];
+                    const name = escHtml(d.department_name || d.name || d.dept_name || 'Department');
+                    const date = d.created_at ? new Date(d.created_at).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' }) : 'Recently added';
+                    return `
+                    <div class="dept-list-item">
+                        <div class="dept-list-info">
+                            <div class="dept-list-icon" style="background:${c}22;color:${c}"><i class="fas fa-building"></i></div>
+                            <div class="dept-list-meta">
+                                <h5>${name}</h5>
+                                <p>${date}</p>
+                            </div>
+                        </div>
+                        <span class="dept-badge">Active</span>
+                    </div>`;
+                }).join('');
+            } catch {
+                list.innerHTML = `<div style="padding:24px;text-align:center;color:var(--danger);font-size:13px"><i class="fas fa-triangle-exclamation"></i> Failed to load</div>`;
+                count.textContent = 'Error loading';
+            }
+        }
+
+        /* ── GET AUTH TOKEN ── */
+        function getAuthToken() {
+            const keys = ['token','authToken','access_token','auth_token','user_token','x-access-token'];
+            for (const k of keys) { const t = localStorage.getItem(k); if (t) return t; }
+            for (const k of keys) { const t = sessionStorage.getItem(k); if (t) return t; }
+            for (const cookie of document.cookie.split(';')) {
+                const [n, v] = cookie.trim().split('=');
+                if (keys.includes(n) && v) return v;
+            }
+            return null;
+        }
+
+        /* ── INIT ── */
+        window.addEventListener('load', () => {
+            const token = getAuthToken();
+            if (!token) { window.location.href = '/'; return; }
+            loadDepts();
+        });
+    </script>
 </body>
 </html>

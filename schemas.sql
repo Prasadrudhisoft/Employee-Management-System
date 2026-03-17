@@ -9,7 +9,7 @@ CREATE TABLE users (
     Password VARCHAR(500) NOT NULL,
     Role VARCHAR(50) NOT NULL,
     Profile_img VARCHAR(255),
-    Status ENUM('Active','Inactive') DEFAULT 'Active',
+    Status varchar(50),
     Contact MEDIUMTEXT,
     org_id CHAR(36),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
