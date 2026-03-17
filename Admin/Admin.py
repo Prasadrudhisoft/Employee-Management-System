@@ -167,24 +167,24 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
 @admin_bp.route('/total_managers', methods=['GET'])
 @jwt_required
 def total_managers(org_name=None, id=None, role=None, org_id=None):
+    print("ORG_ID:", org_id)
     try:
-        if not org_id:
-            return jsonify({
-                'status': 'error',
-                'message': 'org_id is missing'
-            })
+        print("ORG_ID:", org_id)
 
         conn = get_connection()
         cursor = conn.cursor()
 
         cursor.execute("SELECT COUNT(*) FROM users WHERE role='Manager' AND org_id=%s", (org_id,))
-        managers = cursor.fetchone()[0]
+        result = cursor.fetchone()
+        managers = result['COUNT(*)'] if result else 0
 
         cursor.execute("SELECT COUNT(*) FROM departments WHERE org_id=%s", (org_id,))
-        dept = cursor.fetchone()[0]
+        result = cursor.fetchone()
+        dept = result['COUNT(*)'] if result else 0
 
         cursor.execute("SELECT COUNT(*) FROM users WHERE role!='Admin' AND org_id=%s", (org_id,))
-        total_emp = cursor.fetchone()[0]
+        result = cursor.fetchone()
+        total_emp = result['COUNT(*)'] if result else 0
 
         return jsonify({
             'status': 'success',
