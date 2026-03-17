@@ -2,6 +2,7 @@ from flask import Flask, jsonify, Response, request, Blueprint
 from connector import get_connection
 from decorators import jwt_required
 import pymysql
+from werkzeug.security import generate_password_hash, check_password_hash
 
 models_bp = Blueprint('models',__name__)
 
@@ -48,3 +49,39 @@ def my_profile(id=None, org_id=None, role=None, org_name=None):
         cursor.close()
         conn.close()
 
+
+@models_bp.route('/forgot_pass',methods=['POST'])
+def forgot_pass():
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        data = request.json
+        email = data.get('email')
+        new_pass = data.get('new_pass')
+        en_pass = generate_password_hash(new_pass)
+
+        cursor.execute("SELECT * FROM USERS WHERE EMAIL = %s",(email,))
+        user = cursor.fetchone()
+        if not user:
+            return jsonify({
+                'status':'fail',
+                'message':'email not found'
+            })
+        else:
+            cursor.execute("update users set password = %s where email = %s",(en_pass,email))
+            conn.commit()
+            return jsonify({
+                'status':'success',
+                'message':'Password Changed Successfully.'
+            })
+
+    except Exception as e:
+        return jsonify({
+            'status':'error',
+            'message':str(e)
+        })
+    
+    finally:
+        cursor.close()
+        conn.close()

@@ -101,5 +101,9 @@ def holiday_calender():
 def leave_history():
     return render_template('leavehistory.html')
 
+@app.route('/forgot_password')
+def forgot_password():
+    return render_template('forgot_password.html')
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
