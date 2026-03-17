@@ -167,9 +167,7 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
 @admin_bp.route('/total_managers', methods=['GET'])
 @jwt_required
 def total_managers(org_name=None, id=None, role=None, org_id=None):
-    print("ORG_ID:", org_id)
     try:
-        print("ORG_ID:", org_id)
 
         conn = get_connection()
         cursor = conn.cursor()
