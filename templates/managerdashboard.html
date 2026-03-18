@@ -147,11 +147,6 @@
             border: 1px solid var(--sb-glass-border); margin-bottom: 8px;
         }
 
-        /* ─── UNIFIED AVATAR COMPONENT ───
-           All three avatar spots (sidebar, header, dropdown) use the same pattern.
-           The <img> starts hidden. JS sets the src; once loaded the .loaded class is
-           added which shows the image and hides the initials span via the sibling rule.
-        ─── */
         .avatar {
             border-radius: var(--radius-full);
             display: flex; align-items: center; justify-content: center;
@@ -509,7 +504,7 @@
             <a href="/holidays" class="nav-link">
                 <i class="fas fa-calendar-days"></i><span>Holiday Calendar</span>
             </a>
-            <a href="/leavehistory" class="nav-link">
+            <a href="/Leave_history" class="nav-link">
                 <i class="fas fa-clock-rotate-left"></i><span>Employee Leave History</span>
             </a>
         </div>
@@ -812,18 +807,7 @@ function greeting() {
     return h >= 17 ? 'Good Evening' : h >= 12 ? 'Good Afternoon' : 'Good Morning';
 }
 
-/* ────────────────────────────────────────────────
-   AVATAR — unified helper for all three spots.
 
-   Each avatar container has:
-     <img id="...Img">          — starts display:none via CSS
-     <span class="av-ini" id="...Ini">  — shows initials as fallback
-
-   When image loads → img.classList.add('loaded')
-     CSS:  .avatar > img.loaded           { display: block }
-           .avatar > img.loaded ~ .av-ini { display: none  }
-   When no URL / load fails → img stays hidden, initials stay visible.
-──────────────────────────────────────────────── */
 function setAvatar(imgElId, iniElId, imgUrl, ini) {
     const imgEl = document.getElementById(imgElId);
     const iniEl = document.getElementById(iniElId);
