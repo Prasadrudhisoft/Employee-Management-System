@@ -884,7 +884,7 @@
 
         document.getElementById('f-designation').addEventListener('keypress', e => { if (!/[a-zA-Z0-9\s.\-&(),/]/.test(e.key)) e.preventDefault(); });
 
-        ['base_salary','agp','da','dp','hra','tra','cla','pt'].forEach(key => {
+        ['base_salary','agp','da','dp','hra','tra','cla'].forEach(key => {
             const el = document.getElementById(`f-${key}`);
             el.addEventListener('keypress', e => { if (!/[0-9]/.test(e.key)) e.preventDefault(); });
             el.addEventListener('input', e => {
