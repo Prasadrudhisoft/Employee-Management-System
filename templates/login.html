@@ -652,7 +652,7 @@
         <!-- LOGIN CARD -->
         <div class="login-card">
 
-            <!-- Card Topbar (matches Add Manager banner style) -->
+            <!-- Card Topbar -->
             <div class="card-topbar">
                 <div class="card-topbar-inner">
                     <div class="card-icon"><i class="fas fa-user"></i></div>
@@ -796,6 +796,16 @@
             });
         });
 
+        // ── ENTER KEY: submit on Enter from either input field ──
+        ['email', 'password'].forEach(id => {
+            $(id).addEventListener('keydown', e => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleLogin(e);
+                }
+            });
+        });
+
         function showMsg(type, icon, title, detail) {
             const el = $('message');
             el.className = `msg-alert ${type}`;
@@ -831,7 +841,7 @@
                 return;
             }
 
-            // Loading
+            // Loading state
             const btn = $('loginBtn');
             $('spinner').style.display = 'block';
             $('btnIcon').style.display = 'none';
@@ -893,11 +903,6 @@
                 setTimeout(() => btn.classList.remove('shake'), 400);
             }
         }
-
-        // Enter key submit
-        document.addEventListener('keydown', e => {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') handleLogin(e);
-        });
 
         window.addEventListener('load', () => { setTimeout(() => $('email').focus(), 350); });
     </script>
