@@ -193,3 +193,14 @@ CREATE TABLE IF NOT EXISTS holidays (
     INDEX idx_hol_org (org_id)
 );
 
+
+CREATE TABLE contacts (
+    id VARCHAR(100) PRIMARY KEY,
+    name VARCHAR(200),
+    email VARCHAR(100),
+    subject VARCHAR(200),
+    message VARCHAR(500),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_read TINYINT(1) DEFAULT 0
+);
+
