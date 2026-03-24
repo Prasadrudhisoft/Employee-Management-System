@@ -112,4 +112,7 @@ def contact_us():
             'status':'error',
             'message':str(e)
         })
+    finally:
+        cursor.close()
+        conn.close()
   
