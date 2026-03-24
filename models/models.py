@@ -3,6 +3,7 @@ from connector import get_connection
 from decorators import jwt_required
 import pymysql
 from werkzeug.security import generate_password_hash, check_password_hash
+import uuid
 
 models_bp = Blueprint('models',__name__)
 
@@ -85,3 +86,30 @@ def forgot_pass():
     finally:
         cursor.close()
         conn.close()
+
+
+@models_bp.route('/contact_us', methods=['POST'])
+def contact_us():
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        data = request.json
+        id = str(uuid.uuid4())
+        name = data.get("name")
+        email = data.get("email")
+        sub = data.get("sub")
+        msg = data.get("msg")
+
+        cursor.execute("insert into contacts(id, name, email, subject, message, created_at) values(%s,%s,%s,%s,%s,NOW())",(id,name,email,sub,msg))
+        conn.commit()
+        return jsonify({
+            'status':'success',
+            'message':'Contact Request Submitted Succssfully'
+        })
+    except Exception as e:
+        return jsonify({
+            'status':'error',
+            'message':str(e)
+        })
+  
