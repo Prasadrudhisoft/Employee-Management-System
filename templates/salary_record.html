@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Salary Management | EMS Pro</title>
+  <title>Salary Management | StaffCore</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
     rel="stylesheet" />
@@ -1607,7 +1607,7 @@
     <div class="topbar-left">
       <div class="topbar-info" style="text-align:right">
         <h1>Salary Management</h1>
-        <span id="orgLabel">EMS Pro &nbsp;·&nbsp; Payroll</span>
+        <span id="orgLabel">StaffCore &nbsp;·&nbsp; Payroll</span>
       </div>
       <div class="topbar-icon"><i class="fas fa-money-bill-wave"></i></div>
     </div>
@@ -2022,7 +2022,7 @@
           document.getElementById('pageSubtitle').textContent =
             `${employees.length} employee${employees.length !== 1 ? 's' : ''} in your organisation`;
           document.getElementById('orgLabel').textContent =
-            `EMS Pro · ${employees.length} staff`;
+            `StaffCore · ${employees.length} staff`;
           document.getElementById('tabBadgeSheet').textContent = employees.length;
           await fetchMonthlyRecords();
         } else { showTableError(data.message || 'Could not load records.'); }
