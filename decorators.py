@@ -25,10 +25,12 @@ def jwt_required(func):
                 algorithms=[ALGORITHM]
             )
 
-        except JWTError:
+        except JWTError as e:
+            print(e)
             return jsonify({"message": "Token expired"}), 401
 
-        except JWTError:
+        except JWTError as e:
+            print(e)
             return jsonify({"message": "Invalid token"}), 401
 
         # Inject values like your FastAPI version
