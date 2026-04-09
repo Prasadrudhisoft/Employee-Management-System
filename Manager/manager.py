@@ -34,83 +34,107 @@ def to_num(val):
         return None
     return val
 
-@manager_bp.route('/add_emp', methods=['GET','POST'])
+@manager_bp.route('/add_emp', methods=['GET', 'POST'])
 @jwt_required
-def add_emp(id = None, org_id = None, role = None, org_name = None):
+def add_emp(id=None, org_id=None, role=None, org_name=None):
+    conn, cursor = None, None  # ← fix your finally bug too
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
 
+        if role != 'Manager':
+            return jsonify({'status': 'fail', 'message': 'Unauthorized Access'})
+
         data = request.form
-        user_id = str(uuid.uuid4())
-        name = data.get('name')
-        email = data.get('email')
+
+        user_id  = str(uuid.uuid4())
+        name     = data.get('name')
+        email    = data.get('email')
         password = data.get('password')
-        roles = "EMP"
-        status = "Active"
-        contact = data.get('contact')
+        roles    = "EMP"
+        status   = "Active"
+        contact  = data.get('contact')
 
-        # ── Save image file, get path ──
-        profile_file    = request.files.get('profile_img')
+        profile_file     = request.files.get('profile_img')
         profile_img_path = save_profile_image(profile_file)
+        p1               = generate_password_hash(password)
 
-        p1 = generate_password_hash(password)
+        # ── BEGIN TRANSACTION ──
+        conn.begin()
 
-        cursor.execute("insert into users(id,name,email,password,role,profile_img,status,contact,org_id,created_at,created_by,org_name) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,NOW(),%s,%s)",(user_id,name,email,p1,roles,profile_img_path,status,contact,org_id,id,org_name))
-        conn.commit()
+        # ── Insert 1: users ──
+        cursor.execute(
+            """INSERT INTO users(id, name, email, password, role, profile_img, status, contact, org_id, created_at, created_by, org_name)
+               VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), %s, %s)""",
+            (user_id, name, email, p1, roles, profile_img_path, status, contact, org_id, id, org_name)
+        )
 
-        emp_det = str(uuid.uuid4())
+        # ── Insert 2: emp_detailes ──
+        emp_det       = str(uuid.uuid4())
         department_id = data.get('department_id')
-        address = data.get('address')
-        designation = data.get('designation')
-        join_date = data.get('join_date')
+        address       = data.get('address')
+        designation   = data.get('designation')
+        join_date     = data.get('join_date')
 
-        cursor.execute("insert into emp_detailes(id,user_id,org_id,department_id,address,designation,join_date) values(%s,%s,%s,%s,%s,%s,%s)",(emp_det,user_id,org_id,department_id,address,designation,join_date))
-        conn.commit()
+        cursor.execute(
+            """INSERT INTO emp_detailes(id, user_id, org_id, department_id, address, designation, join_date)
+               VALUES(%s, %s, %s, %s, %s, %s, %s)""",
+            (emp_det, user_id, org_id, department_id, address, designation, join_date)
+        )
 
-        sal_det = str(uuid.uuid4())
-        base_salary = data.get('base_salary')
-        agp = data.get('agp')
-        da = data.get('da')
-        dp = data.get('dp')
-        hra = data.get('hra')
-        tra = data.get('tra')
-        cla = data.get('cla')
-        bank_acc_no = data.get('bank_acc_no')
-        ifsc_code = data.get('ifsc_code')
-        bank_name = data.get('bank_name')
+        # ── Insert 3: salary_detailes ──
+        sal_det      = str(uuid.uuid4())
+        base_salary  = data.get('base_salary')
+        agp          = data.get('agp')
+        da           = data.get('da')
+        dp           = data.get('dp')
+        hra          = data.get('hra')
+        tra          = data.get('tra')
+        cla          = data.get('cla')
+        bank_acc_no  = data.get('bank_acc_no')
+        ifsc_code    = data.get('ifsc_code')
+        bank_name    = data.get('bank_name')
         bank_address = data.get('bank_address')
-        #pt = data.get('pt')
 
-        cursor.execute("insert into salary_detailes(id,user_id,org_id,base_salary,agp,da,dp,hra,tra,cla,bank_acc_no,ifsc_code,bank_name,bank_address,created_by,created_at) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NOW())",(sal_det,user_id,org_id,base_salary,agp,da,dp,hra,tra,cla,bank_acc_no,ifsc_code,bank_name,bank_address,id))
+        cursor.execute(
+            """INSERT INTO salary_detailes(id, user_id, org_id, base_salary, agp, da, dp, hra, tra, cla,
+               bank_acc_no, ifsc_code, bank_name, bank_address, created_by, created_at)
+               VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW())""",
+            (sal_det, user_id, org_id, base_salary, agp, da, dp, hra, tra, cla,
+             bank_acc_no, ifsc_code, bank_name, bank_address, id)
+        )
+
+        # ── All 3 inserts succeeded — commit everything at once ──
         conn.commit()
 
-        # ↓↓↓ ADD THIS — auto-creates leave balance for all existing leave types
+        # ── Auto-create leave balance (runs after commit, non-critical) ──
         _auto_create_balance_for_employee(user_id, org_id, cursor, conn)
 
-        return jsonify({
-            'status':'success',
-            'message':'New Employee Added Successfully.'
-        })
+        return jsonify({'status': 'success', 'message': 'New Employee Added Successfully.'})
 
     except Exception as e:
-        return jsonify({
-            'status':'error',
-            'message':str(e)
-        })
-    
-    finally:
-        if cursor:
-            cursor.close()
         if conn:
-            conn.close()
+            conn.rollback()  # ← Undoes ALL inserts if any one failed
+        return jsonify({'status': 'error', 'message': str(e)})
+
+    finally:
+        if cursor: cursor.close()
+        if conn: conn.close()
     
 @manager_bp.route('/get_emp', methods=['GET'])
 @jwt_required
 def get_emp(role = None, id = None, org_id = None, org_name = None):
+    conn = None
+    cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+        if role != 'Manager':
+            return{
+                'status':'fail',
+                'message':'unauthozized Access'
+            }
 
         cursor.execute("SELECT * FROM USERS WHERE org_id = %s and Status = 'Active' and role = 'EMP'",(org_id,))
         active_users = cursor.fetchall()
@@ -149,6 +173,8 @@ def get_emp(role = None, id = None, org_id = None, org_name = None):
 @manager_bp.route('/toggle_emp_status', methods=['POST'])
 @jwt_required
 def toggle_emp_status(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     """
     Toggle employee status between 'Active' and 'Deactive'.
     Expects JSON body: { "user_id": "<employee_uuid>" }
@@ -157,6 +183,12 @@ def toggle_emp_status(id=None, org_id=None, role=None, org_name=None):
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+        if role != 'Manager':
+            return{
+                'status':'fail',
+                'message':'unauthozized Access'
+            }
 
         data = request.get_json()
         user_id = data.get('user_id')
@@ -203,10 +235,18 @@ def toggle_emp_status(id=None, org_id=None, role=None, org_name=None):
 @manager_bp.route('/total_emp',methods=['GET'])
 @jwt_required
 def total_emp(role=None, id=None, org_id = None, org_name = None):
+    conn = None
+    cursor = None
     try:
 
         conn = get_connection()
         cursor = conn.cursor()
+
+        if role != 'Manager':
+            return{
+                'status':'fail',
+                'message':'unauthozized Access'
+            }
 
         cursor.execute("select count(*) as total_emp, SUM(status='Active') as active_emp, SUM(status='Deactive')as deactive_emp from users where org_id = %s AND role!='Admin'",(org_id,))
         total_emp = cursor.fetchone()

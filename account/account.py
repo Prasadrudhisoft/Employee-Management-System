@@ -130,9 +130,18 @@ def _tbl_style_base():
 @account_bp.route('/get_salary_details', methods=['GET'])
 @jwt_required
 def get_salary_detailes(id=None, role=None, org_id=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn   = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+        if role != 'Manager':
+            return{
+                'status':'fail',
+                'message':'unauthozized Access'
+            }
+        
         cursor.execute(
             "SELECT u.Name, s.user_id, s.base_salary, s.agp, s.da, s.dp, "
             "s.hra, s.tra, s.cla "
@@ -159,9 +168,18 @@ def get_salary_detailes(id=None, role=None, org_id=None, org_name=None):
 @account_bp.route('/get_monthly_salary_records', methods=['GET'])
 @jwt_required
 def get_monthly_salary_records(id=None, role=None, org_id=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn   = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+        if role != 'Manager':
+            return{
+                'status':'fail',
+                'message':'unauthozized Access'
+            }
+        
         salary_month = request.args.get('salary_month')
         if not salary_month:
             return jsonify({'status': 'error', 'message': 'salary_month is required'}), 400
@@ -186,9 +204,18 @@ def get_monthly_salary_records(id=None, role=None, org_id=None, org_name=None):
 @account_bp.route('/emp_salary', methods=['GET', 'POST'])
 @jwt_required
 def emp_salary(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn   = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+        if role != 'Manager':
+            return{
+                'status':'fail',
+                'message':'unauthozized Access'
+            }
+        
         data                  = request.json
         salary_month          = data.get('salary_month')
         salary_date           = data.get('salary_date')
@@ -239,9 +266,18 @@ def emp_salary(id=None, org_id=None, role=None, org_name=None):
 @account_bp.route('/update_emp_salary', methods=['PUT'])
 @jwt_required
 def update_emp_salary(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn   = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+        if role != 'Manager':
+            return{
+                'status':'fail',
+                'message':'unauthozized Access'
+            }
+        
         data         = request.json
         user_id      = data.get('user_id')
         salary_month = data.get('salary_month')
@@ -297,9 +333,17 @@ def update_emp_salary(id=None, org_id=None, role=None, org_name=None):
 @account_bp.route('/salary_summary', methods=['GET'])
 @jwt_required
 def salary_summary(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn   = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+        if role != 'Manager':
+            return{
+                'status':'fail',
+                'message':'unauthozized Access'
+            }
         salary_month = request.args.get('salary_month')
         if not salary_month:
             return jsonify({'status': 'fail',
@@ -334,9 +378,18 @@ def salary_summary(id=None, org_id=None, role=None, org_name=None):
 @account_bp.route('/salary_disbursement', methods=['GET'])
 @jwt_required
 def salary_disbursement(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn   = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+        if role != 'Manager':
+            return{
+                'status':'fail',
+                'message':'unauthozized Access'
+            }
+        
         salary_month = request.args.get('salary_month')
         if not salary_month:
             return jsonify({'status': 'fail',
@@ -370,6 +423,13 @@ def salary_disbursement(id=None, org_id=None, role=None, org_name=None):
 @account_bp.route('/salary_summary_pdf', methods=['GET'])
 @jwt_required
 def salary_summary_pdf(id=None, org_id=None, role=None, org_name=None):
+
+    if role != 'Manager':
+            return{
+                'status':'fail',
+                'message':'unauthozized Access'
+            }
+    
     salary_month = request.args.get('salary_month')
     if not salary_month:
         return jsonify({'status': 'error', 'message': 'salary_month is required'}), 400
@@ -490,6 +550,13 @@ def salary_summary_pdf(id=None, org_id=None, role=None, org_name=None):
 @account_bp.route('/salary_disbursement_pdf', methods=['GET'])
 @jwt_required
 def salary_disbursement_pdf(id=None, org_id=None, role=None, org_name=None):
+
+    if role != 'Manager':
+            return{
+                'status':'fail',
+                'message':'unauthozized Access'
+            }
+    
     salary_month = request.args.get('salary_month')
     if not salary_month:
         return jsonify({'status': 'error', 'message': 'salary_month is required'}), 400
@@ -756,6 +823,13 @@ def salary_disbursement_pdf(id=None, org_id=None, role=None, org_name=None):
 @account_bp.route('/salary_slip_pdf', methods=['GET'])
 @jwt_required
 def salary_slip_pdf(id=None, org_id=None, role=None, org_name=None):
+
+    if role != 'Manager':
+            return{
+                'status':'fail',
+                'message':'unauthozized Access'
+            }
+    
     salary_month = request.args.get('salary_month')
     user_id      = request.args.get('user_id')
 

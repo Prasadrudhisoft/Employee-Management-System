@@ -34,9 +34,17 @@ def save_profile_image(file):
 @admin_bp.route('/adddepartments', methods = ['POST'])
 @jwt_required
 def adddepartments(id = None, org_id = None, role = None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+        if role != 'Admin':
+            return{
+                'status':'fail',
+                'message':'unauthozized Access'
+            }
 
         data = request.json
         department = data.get("department")
@@ -65,9 +73,17 @@ def adddepartments(id = None, org_id = None, role = None, org_name=None):
 @admin_bp.route('/get_departments', methods=['GET'])
 @jwt_required
 def get_departments(id = None, org_id = None, role = None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+        if role != 'Admin':
+            return{
+                'status':'fail',
+                'message':'unauthozized Access'
+            }
 
         cursor.execute("SELECT * from departments where org_id = %s", (org_id,))
         dep = cursor.fetchall()
@@ -92,11 +108,14 @@ def get_departments(id = None, org_id = None, role = None, org_name=None):
 @admin_bp.route('/add_manager', methods=['POST'])
 @jwt_required
 def add_manager(id=None, org_id=None, role=None, org_name=None):
+    conn, cursor = None, None  # ← fix your finally bug too
     try:
         conn = get_connection()
         cursor = conn.cursor()
 
-        # ── Since we use multipart/form-data, use request.form not request.json ──
+        if role != 'Admin':
+            return jsonify({'status': 'fail', 'message': 'Unauthorized Access'})
+
         data = request.form
 
         name         = data.get("name")
@@ -106,22 +125,22 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
         roles        = "Manager"
         status       = "Active"
 
-        # ── Get image file from request.files ──
         profile_file     = request.files.get("profile_img")
         profile_img_path = save_profile_image(profile_file)
+        hashed_password  = generate_password_hash(password)
 
-        hashed_password = generate_password_hash(password)
+        # ── BEGIN TRANSACTION ──
+        conn.begin()
 
-        # ── Insert into users ──
+        # ── Insert 1: users ──
         user_id = str(uuid.uuid4())
         cursor.execute(
             """INSERT INTO users(id, Name, Email, Password, role, Profile_img, Status, Contact, org_id, created_at, Created_by, org_name)
                VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), %s, %s)""",
             (user_id, name, email, hashed_password, roles, profile_img_path, status, contact, org_id, id, org_name)
         )
-        conn.commit()
 
-        # ── Employment Details ──
+        # ── Insert 2: emp_detailes ──
         emp_id        = str(uuid.uuid4())
         department_id = data.get("department_id")
         address       = data.get("address")
@@ -133,9 +152,8 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
                VALUES(%s, %s, %s, %s, %s, %s, %s)""",
             (emp_id, user_id, org_id, department_id, address, designation, join_date)
         )
-        conn.commit()
 
-        # ── Salary Details ──
+        # ── Insert 3: salary_detailes ──
         sal_id       = str(uuid.uuid4())
         base_salary  = data.get('base_salary')
         agp          = data.get('agp')
@@ -156,27 +174,38 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
             (sal_id, user_id, org_id, base_salary, agp, da, dp, hra, tra, cla,
              bank_acc_no, ifsc_code, bank_name, bank_address, id)
         )
+
+        # ── All 3 inserts succeeded — commit everything at once ──
         conn.commit()
 
         return jsonify({'status': 'success', 'message': 'Manager Added Successfully.'})
 
     except Exception as e:
+        if conn:
+            conn.rollback()  # ← Undoes ALL inserts if any one failed
         print(e)
         return jsonify({'status': 'error', 'message': str(e)})
+
     finally:
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 
 @admin_bp.route('/total_managers', methods=['GET'])
 @jwt_required
 def total_managers(org_name=None, id=None, role=None, org_id=None):
+    conn = None
+    cursor = None
     try:
 
         conn = get_connection()
         cursor = conn.cursor()
+
+        if role != 'Admin':
+            return{
+                'status':'fail',
+                'message':'unauthozized Access'
+            }
 
         cursor.execute("SELECT COUNT(*) FROM users WHERE role='Manager' AND org_id=%s", (org_id,))
         result = cursor.fetchone()
