@@ -127,8 +127,10 @@ def add_leave_type(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @leave_bp.route('/get_leave_types', methods=['GET'])
@@ -153,8 +155,10 @@ def get_leave_types(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @leave_bp.route('/delete_leave_type', methods=['POST'])
@@ -178,8 +182,10 @@ def delete_leave_type(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 # ══════════════════════════════════════════════════════════════
@@ -218,8 +224,10 @@ def get_leave_balance(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 # ══════════════════════════════════════════════════════════════
@@ -295,8 +303,10 @@ def apply_leave(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @leave_bp.route('/get_my_leaves', methods=['GET'])
@@ -341,8 +351,10 @@ def get_my_leaves(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 # ══════════════════════════════════════════════════════════════
@@ -393,8 +405,10 @@ def get_leave_requests(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @leave_bp.route('/approve_leave', methods=['POST'])
@@ -451,8 +465,10 @@ def approve_leave(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @leave_bp.route('/reject_leave', methods=['POST'])
@@ -487,8 +503,10 @@ def reject_leave(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 # ══════════════════════════════════════════════════════════════
@@ -523,8 +541,10 @@ def add_holiday(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @leave_bp.route('/get_holidays', methods=['GET'])
@@ -558,8 +578,10 @@ def get_holidays(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @leave_bp.route('/delete_holiday', methods=['POST'])
@@ -583,8 +605,10 @@ def delete_holiday(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 # ══════════════════════════════════════════════════════════════
@@ -680,8 +704,10 @@ def get_employee_leave_summary(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @leave_bp.route('/get_org_employees', methods=['GET'])
@@ -711,8 +737,10 @@ def get_org_employees(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()        
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()        
 
 
 

@@ -63,6 +63,8 @@ def login():
             'message': str(e)
         })
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 

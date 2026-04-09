@@ -100,8 +100,10 @@ def add_emp(id = None, org_id = None, role = None, org_name = None):
         })
     
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
     
 @manager_bp.route('/get_emp', methods=['GET'])
 @jwt_required
@@ -137,6 +139,11 @@ def get_emp(role = None, id = None, org_id = None, org_name = None):
             'message':str(e)
         })
     
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 # ── Add this route to your manager_bp in manager.py ──
 
 @manager_bp.route('/toggle_emp_status', methods=['POST'])
@@ -187,8 +194,10 @@ def toggle_emp_status(id=None, org_id=None, role=None, org_name=None):
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @manager_bp.route('/total_emp',methods=['GET'])
@@ -215,5 +224,7 @@ def total_emp(role=None, id=None, org_id = None, org_name = None):
         })
     
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()

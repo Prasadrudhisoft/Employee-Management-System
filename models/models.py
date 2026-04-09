@@ -47,8 +47,10 @@ def my_profile(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @models_bp.route('/forgot_pass',methods=['POST'])
@@ -84,8 +86,10 @@ def forgot_pass():
         })
     
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @models_bp.route('/contact_us', methods=['POST'])
@@ -113,6 +117,9 @@ def contact_us():
             'message':str(e)
         })
     finally:
-        cursor.close()
-        conn.close()
-  
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+

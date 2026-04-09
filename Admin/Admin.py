@@ -56,8 +56,10 @@ def adddepartments(id = None, org_id = None, role = None, org_name=None):
             'message':str(e)
         })
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
         
 
 @admin_bp.route('/get_departments', methods=['GET'])
@@ -81,8 +83,10 @@ def get_departments(id = None, org_id = None, role = None, org_name=None):
             'message':str(e)
         })
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
     
 @admin_bp.route('/add_manager', methods=['POST'])
@@ -160,8 +164,10 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
         print(e)
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @admin_bp.route('/total_managers', methods=['GET'])
@@ -199,5 +205,7 @@ def total_managers(org_name=None, id=None, role=None, org_id=None):
         })
 
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()

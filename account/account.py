@@ -150,8 +150,10 @@ def get_salary_detailes(id=None, role=None, org_id=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @account_bp.route('/get_monthly_salary_records', methods=['GET'])
@@ -175,8 +177,10 @@ def get_monthly_salary_records(id=None, role=None, org_id=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @account_bp.route('/emp_salary', methods=['GET', 'POST'])
@@ -226,8 +230,10 @@ def emp_salary(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @account_bp.route('/update_emp_salary', methods=['PUT'])
@@ -282,8 +288,10 @@ def update_emp_salary(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @account_bp.route('/salary_summary', methods=['GET'])
@@ -317,8 +325,10 @@ def salary_summary(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @account_bp.route('/salary_disbursement', methods=['GET'])
@@ -348,8 +358,10 @@ def salary_disbursement(id=None, org_id=None, role=None, org_name=None):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 # ════════════════════════════════════════════════════════════════════════════
