@@ -92,7 +92,7 @@ def get_departments(id = None, org_id = None, role = None, org_name=None):
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
 
-        if role != 'Admin':
+        if role != 'Admin' or role !='Manager':
             return{
                 'status':'fail',
                 'message':'unauthozized Access'
