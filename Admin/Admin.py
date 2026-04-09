@@ -119,9 +119,11 @@ def verify_add_manager(id=None, org_id=None, role=None, org_name=None):
         return jsonify({'status': 'fail', 'message': 'Email and OTP are required'}), 400
 
     stored = otp_store.get(email)
+    print(otp_store)  # Debugging line to check OTP store contents
     if not stored or time.time() > stored['expires_at']:
         return jsonify({'status': 'fail', 'message': 'OTP expired or not requested'}), 400
     if stored['otp'] != otp:
+        print(otp)
         return jsonify({'status': 'fail', 'message': 'Invalid OTP'}), 400
 
     pending = pending_data.pop(email, None)
@@ -214,8 +216,7 @@ def get_departments(id=None, org_id=None, role=None, org_name=None):
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        if role != 'Admin':
-            return jsonify({'status': 'fail', 'message': 'Unauthorized Access'})
+        
         cursor.execute("SELECT * from departments where org_id = %s", (org_id,))
         dep = cursor.fetchall()
         return jsonify({'status': 'success', 'message': 'Departments Fetched Successfully', 'dep_data': dep})
