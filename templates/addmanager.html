@@ -513,6 +513,99 @@
         @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-5px)} 40%,80%{transform:translateX(5px)} }
         .shake { animation: shake .35s ease; }
 
+        /* ========== MODAL OVERLAY ========== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.2s ease;
+        }
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .otp-modal {
+            background: white;
+            border-radius: var(--radius-2xl);
+            max-width: 420px;
+            width: 90%;
+            padding: 28px 24px;
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+            transform: scale(0.95);
+            transition: transform 0.2s ease;
+        }
+        .modal-overlay.active .otp-modal {
+            transform: scale(1);
+        }
+        .otp-modal h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+        .otp-modal p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .otp-input-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .otp-digit {
+            width: 55px;
+            height: 65px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: 600;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            background: var(--bg-muted);
+            transition: all 0.2s;
+        }
+        .otp-digit:focus {
+            border-color: var(--primary);
+            background: white;
+            outline: none;
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .modal-actions button {
+            flex: 1;
+        }
+        .resend-link {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            text-decoration: underline;
+        }
+        .resend-link:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         /* ========== RESPONSIVE ========== */
         @media (max-width: 900px) { .form-grid.cols4 { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 768px) {
@@ -759,14 +852,6 @@
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
-                    <div class="form-group">
-                        <!-- <label class="form-label"><i class="fas fa-receipt"></i> PT</label> -->
-                        <!-- <div class="input-wrap" id="wrap-pt">
-                            <i class="fas fa-receipt icon"></i>
-                            <input type="number" id="f-pt" placeholder="200" min="0" max="2500" step="1" inputmode="numeric">
-                        </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–2,500.</div>
-                    </div> -->
                 </div>
             </div>
 
@@ -850,6 +935,27 @@
 
     </div><!-- /page-body -->
 
+    <!-- OTP MODAL -->
+    <div class="modal-overlay" id="otpModal">
+        <div class="otp-modal">
+            <h3><i class="fas fa-envelope"></i> Verify Email</h3>
+            <p>We've sent a 6‑digit OTP to <strong id="otpEmailDisplay"></strong>. Please enter it below to complete adding the manager.</p>
+            <div class="otp-input-group">
+                <input type="text" maxlength="1" class="otp-digit" data-idx="0" autocomplete="off">
+                <input type="text" maxlength="1" class="otp-digit" data-idx="1" autocomplete="off">
+                <input type="text" maxlength="1" class="otp-digit" data-idx="2" autocomplete="off">
+                <input type="text" maxlength="1" class="otp-digit" data-idx="3" autocomplete="off">
+                <input type="text" maxlength="1" class="otp-digit" data-idx="4" autocomplete="off">
+                <input type="text" maxlength="1" class="otp-digit" data-idx="5" autocomplete="off">
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelOtpBtn">Cancel</button>
+                <button class="btn btn-primary" id="verifyOtpBtn">Verify OTP</button>
+            </div>
+            <button class="resend-link" id="resendOtpBtn">Resend OTP</button>
+        </div>
+    </div>
+
     <script>
         'use strict';
 
@@ -890,8 +996,7 @@
             el.addEventListener('input', e => {
                 let v = parseInt(e.target.value, 10);
                 if (isNaN(v) || v < 0) { e.target.value = ''; return; }
-                const max = key === 'pt' ? 2500 : 9999999;
-                if (v > max) e.target.value = max;
+                if (v > 9999999) e.target.value = 9999999;
             });
         });
 
@@ -987,10 +1092,8 @@
             el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        /* ── SUBMIT ── */
-        async function submitForm() {
-            if (!validateAll()) { showAlert('Please fix the highlighted errors before submitting.', 'error'); return; }
-
+        /* ── BUILD FORMDATA (helper) ── */
+        function buildFormData() {
             const fd = new FormData();
             [['name','f-name'],['email','f-email'],['password','f-password'],['contact','f-contact'],
              ['department_id','f-dept'],['designation','f-designation'],['join_date','f-joindate'],
@@ -998,36 +1101,151 @@
              ['dp','f-dp'],['hra','f-hra'],['tra','f-tra'],['cla','f-cla'],['bank_acc_no','f-bank_acc_no'],
              ['ifsc_code','f-ifsc_code'],['bank_name','f-bank_name'],['bank_address','f-bank_address']
             ].forEach(([k,id]) => fd.append(k, document.getElementById(id).value.trim()));
-
             const profileFile = document.getElementById('profileInput').files[0];
             if (profileFile) fd.append('profile_img', profileFile);
+            return fd;
+        }
 
+        /* ── OTP MODAL LOGIC ── */
+        let pendingEmail = null;
+        const modalEl = document.getElementById('otpModal');
+        const otpEmailDisplay = document.getElementById('otpEmailDisplay');
+        const digitInputs = document.querySelectorAll('.otp-digit');
+        const verifyBtn = document.getElementById('verifyOtpBtn');
+        const cancelBtn = document.getElementById('cancelOtpBtn');
+        const resendBtn = document.getElementById('resendOtpBtn');
+
+        function openOtpModal(email) {
+            pendingEmail = email;
+            otpEmailDisplay.textContent = email;
+            digitInputs.forEach(inp => inp.value = '');
+            digitInputs[0].focus();
+            modalEl.classList.add('active');
+        }
+
+        function closeOtpModal() {
+            modalEl.classList.remove('active');
+            pendingEmail = null;
+        }
+
+        function getOtpFromInputs() {
+            let otp = '';
+            digitInputs.forEach(inp => otp += inp.value);
+            return otp;
+        }
+
+        digitInputs.forEach((input, idx) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1 && idx < 5) {
+                    digitInputs[idx+1].focus();
+                }
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && idx > 0 && e.target.value === '') {
+                    digitInputs[idx-1].focus();
+                }
+            });
+        });
+
+        async function resendOtp() {
+            if (!pendingEmail) return;
+            resendBtn.disabled = true;
+            resendBtn.textContent = 'Sending...';
+            try {
+                const token = getAuthToken();
+                const res = await fetch('/add_manager', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` },
+                    body: buildFormData()
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    showAlert('A new OTP has been sent to the manager email.', 'success');
+                    digitInputs.forEach(inp => inp.value = '');
+                    digitInputs[0].focus();
+                } else {
+                    showAlert(data.message || 'Failed to resend OTP. Please try again.', 'error');
+                }
+            } catch (err) {
+                showAlert('Network error. Could not resend OTP.', 'error');
+            } finally {
+                resendBtn.disabled = false;
+                resendBtn.textContent = 'Resend OTP';
+            }
+        }
+
+        async function verifyOtp() {
+            const otp = getOtpFromInputs();
+            if (otp.length !== 6) {
+                showAlert('Please enter the full 6‑digit OTP.', 'error');
+                return;
+            }
+            verifyBtn.disabled = true;
+            verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+            try {
+                const token = getAuthToken();
+                const res = await fetch('/verify_add_manager', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ email: pendingEmail, otp: otp })
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    closeOtpModal();
+                    document.getElementById('formCard').style.display = 'none';
+                    document.getElementById('successCard').style.display = 'block';
+                    const name = document.getElementById('f-name').value;
+                    document.getElementById('successMsg').textContent = `${name} has been created as a Manager and can now log in.`;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    showAlert(data.message || 'Invalid OTP. Please try again.', 'error');
+                }
+            } catch (err) {
+                showAlert('Server error. Could not verify OTP.', 'error');
+            } finally {
+                verifyBtn.disabled = false;
+                verifyBtn.innerHTML = 'Verify OTP';
+            }
+        }
+
+        /* ── MODIFIED SUBMIT (Two‑step) ── */
+        async function submitForm() {
+            document.getElementById('formAlert').className = 'alert';
+            if (!validateAll()) {
+                showAlert('Please fix the highlighted errors before submitting.', 'error');
+                return;
+            }
+
+            const fd = buildFormData();
             const btn = document.getElementById('submitBtn');
             const orig = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating…';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending OTP...';
             btn.disabled = true;
 
             try {
-                const res  = await fetch('/add_manager', { method: 'POST', headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }, body: fd });
+                const token = getAuthToken();
+                const res = await fetch('/add_manager', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` },
+                    body: fd
+                });
                 const data = await res.json();
                 if (data.status === 'success') {
-                    document.getElementById('formCard').style.display   = 'none';
-                    document.getElementById('successCard').style.display = 'block';
-                    document.getElementById('successMsg').textContent    = `${fd.get('name')} has been created as a Manager and can now log in.`;
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    openOtpModal(data.pending_id);
                 } else {
-                    showAlert(data.message || 'An unexpected error occurred.', 'error');
+                    showAlert(data.message || 'Failed to initiate manager creation.', 'error');
                 }
-            } catch {
+            } catch (err) {
                 showAlert('Could not reach the server. Check your connection and try again.', 'error');
+            } finally {
+                btn.innerHTML = orig;
+                btn.disabled = false;
             }
-
-            btn.innerHTML = orig;
-            btn.disabled  = false;
         }
 
-        /* ── RESET ── */
+        /* ── RESET FORM ── */
         function resetForm() {
+            closeOtpModal();
             document.querySelectorAll('input, select, textarea').forEach(el => el.value = '');
             document.querySelectorAll('.input-wrap').forEach(w => w.classList.remove('error','valid'));
             document.getElementById('avatarPreview').innerHTML = '<i class="fas fa-user"></i>';
@@ -1035,21 +1253,15 @@
             document.getElementById('formAlert').className = 'alert';
             document.getElementById('cc-address').textContent = '0/200';
             document.getElementById('successCard').style.display = 'none';
-            document.getElementById('formCard').style.display    = 'block';
+            document.getElementById('formCard').style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        /* -- GET AUTH TOKEN -- */
+        /* ── AUTH TOKEN & DEPARTMENTS ── */
         function getAuthToken() {
             const keys = ['token', 'authToken', 'access_token', 'auth_token', 'user_token', 'x-access-token'];
-            for (const key of keys) {
-                const t = localStorage.getItem(key);
-                if (t) return t;
-            }
-            for (const key of keys) {
-                const t = sessionStorage.getItem(key);
-                if (t) return t;
-            }
+            for (const key of keys) { const t = localStorage.getItem(key); if (t) return t; }
+            for (const key of keys) { const t = sessionStorage.getItem(key); if (t) return t; }
             for (const cookie of document.cookie.split(';')) {
                 const [name, value] = cookie.trim().split('=');
                 if (keys.includes(name) && value) return value;
@@ -1057,29 +1269,17 @@
             return null;
         }
 
-        /* -- LOAD DEPARTMENTS -- */
         async function loadDepts() {
             const token = getAuthToken();
             if (!token) return;
-
             try {
                 const res = await fetch('/get_departments', {
                     method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                     'Authorization': `Bearer ${token}`
-                    }
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
                 });
-
                 const text = await res.text();
                 let data;
-                try {
-                    data = JSON.parse(text);
-                } catch {
-                    console.error('Departments API returned non-JSON:', text.substring(0, 200));
-                    return;
-                }
-
+                try { data = JSON.parse(text); } catch { console.error('Departments API returned non-JSON:', text.substring(0, 200)); return; }
                 if (data.status === 'success') {
                     const sel = document.getElementById('f-dept');
                     (data.dep_data || []).forEach(d => {
@@ -1088,19 +1288,19 @@
                         opt.textContent = d.department_name || d.name || d.dept_name;
                         sel.appendChild(opt);
                     });
-                } else {
-                    console.warn('Departments fetch failed:', data.message);
-                }
-            } catch(e) {
-                console.error('Could not load departments:', e);
-            }
+                } else { console.warn('Departments fetch failed:', data.message); }
+            } catch(e) { console.error('Could not load departments:', e); }
         }
 
-        /* -- INIT -- */
+        /* ── INIT ── */
         window.addEventListener('load', () => {
             const token = getAuthToken();
             if (!token) { window.location.href = '/'; return; }
             loadDepts();
+            verifyBtn.addEventListener('click', verifyOtp);
+            cancelBtn.addEventListener('click', closeOtpModal);
+            resendBtn.addEventListener('click', resendOtp);
+            modalEl.addEventListener('click', (e) => { if (e.target === modalEl) closeOtpModal(); });
         });
     </script>
 </body>
