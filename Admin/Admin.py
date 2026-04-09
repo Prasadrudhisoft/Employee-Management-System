@@ -9,26 +9,39 @@ import os
 admin_bp = Blueprint('admin',__name__)
 
 
-UPLOAD_FOLDER = 'static/profile_imgs'
+BASE_DIR      = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, '..', 'static', 'profile_imgs')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
+MAX_FILE_SIZE = 2 * 1024 * 1024  # 2MB in bytes
+
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def save_profile_image(file):
-    """Save uploaded file object to disk, return web-safe path."""
-    if not file or file.filename == '':
-        return ''
-    if not allowed_file(file.filename):
-        return ''
+    """Save uploaded file object to disk, return (web-safe path, error message)."""
     
-    ext = file.filename.rsplit('.', 1)[1].lower()
+    if not file or file.filename == '':
+        return None, 'No file provided'
+    
+    if not allowed_file(file.filename):
+        return None, 'Invalid file type. Only png, jpg, jpeg, webp are allowed'
+    
+    # ── Check file size ──
+    file.seek(0, 2)              # Seek to end of file
+    file_size = file.tell()      # Get size in bytes
+    file.seek(0)                 # Reset back to start before saving
+
+    if file_size > MAX_FILE_SIZE:
+        return None, f'File too large. Maximum allowed size is 2MB'
+    
+    ext      = file.filename.rsplit('.', 1)[1].lower()
     filename = f"{uuid.uuid4()}.{ext}"
     filepath = os.path.join(UPLOAD_FOLDER, filename)
     file.save(filepath)
     
-    return filepath.replace('\\', '/')  # web-safe path
+    return filepath.replace('\\', '/'), None  # (path, no error)
 
 
 @admin_bp.route('/adddepartments', methods = ['POST'])
@@ -111,7 +124,7 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
     conn, cursor = None, None  # ← fix your finally bug too
     try:
         conn = get_connection()
-        cursor = conn.cursor()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
 
         if role != 'Admin':
             return jsonify({'status': 'fail', 'message': 'Unauthorized Access'})
@@ -126,7 +139,9 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
         status       = "Active"
 
         profile_file     = request.files.get("profile_img")
-        profile_img_path = save_profile_image(profile_file)
+        profile_img_path, img_error = save_profile_image(profile_file)
+        if img_error:
+            return jsonify({'status': 'error', 'message': img_error}), 400
         hashed_password  = generate_password_hash(password)
 
         # ── BEGIN TRANSACTION ──
@@ -199,7 +214,7 @@ def total_managers(org_name=None, id=None, role=None, org_id=None):
     try:
 
         conn = get_connection()
-        cursor = conn.cursor()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
 
         if role != 'Admin':
             return{

@@ -99,6 +99,8 @@ def _auto_create_balance_for_leave_type(leave_type_id, total_days, org_id, curso
 @leave_bp.route('/add_leave_type', methods=['POST'])
 @jwt_required
 def add_leave_type(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -136,6 +138,8 @@ def add_leave_type(id=None, org_id=None, role=None, org_name=None):
 @leave_bp.route('/get_leave_types', methods=['GET'])
 @jwt_required
 def get_leave_types(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -164,6 +168,8 @@ def get_leave_types(id=None, org_id=None, role=None, org_name=None):
 @leave_bp.route('/delete_leave_type', methods=['POST'])
 @jwt_required
 def delete_leave_type(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -195,6 +201,8 @@ def delete_leave_type(id=None, org_id=None, role=None, org_name=None):
 @leave_bp.route('/get_leave_balance', methods=['GET'])
 @jwt_required
 def get_leave_balance(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     """Employee sees own balance. Manager can pass ?user_id= to view any employee."""
     try:
         conn = get_connection()
@@ -237,6 +245,8 @@ def get_leave_balance(id=None, org_id=None, role=None, org_name=None):
 @leave_bp.route('/apply_leave', methods=['POST'])
 @jwt_required
 def apply_leave(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -312,6 +322,8 @@ def apply_leave(id=None, org_id=None, role=None, org_name=None):
 @leave_bp.route('/get_my_leaves', methods=['GET'])
 @jwt_required
 def get_my_leaves(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     """Employee views their own leave history."""
     try:
         conn = get_connection()
@@ -364,6 +376,8 @@ def get_my_leaves(id=None, org_id=None, role=None, org_name=None):
 @leave_bp.route('/get_leave_requests', methods=['GET'])
 @jwt_required
 def get_leave_requests(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     """Manager views all leave requests in their org. Pass ?status=Pending to filter."""
     try:
         conn = get_connection()
@@ -414,6 +428,8 @@ def get_leave_requests(id=None, org_id=None, role=None, org_name=None):
 @leave_bp.route('/approve_leave', methods=['POST'])
 @jwt_required
 def approve_leave(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -474,6 +490,8 @@ def approve_leave(id=None, org_id=None, role=None, org_name=None):
 @leave_bp.route('/reject_leave', methods=['POST'])
 @jwt_required
 def reject_leave(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -516,6 +534,8 @@ def reject_leave(id=None, org_id=None, role=None, org_name=None):
 @leave_bp.route('/add_holiday', methods=['POST'])
 @jwt_required
 def add_holiday(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -550,6 +570,8 @@ def add_holiday(id=None, org_id=None, role=None, org_name=None):
 @leave_bp.route('/get_holidays', methods=['GET'])
 @jwt_required
 def get_holidays(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -587,6 +609,8 @@ def get_holidays(id=None, org_id=None, role=None, org_name=None):
 @leave_bp.route('/delete_holiday', methods=['POST'])
 @jwt_required
 def delete_holiday(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -618,6 +642,8 @@ def delete_holiday(id=None, org_id=None, role=None, org_name=None):
 @leave_bp.route('/get_employee_leave_summary', methods=['GET'])
 @jwt_required
 def get_employee_leave_summary(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     """
     Manager selects an employee and sees:
     - Leave balance (all types)
@@ -713,6 +739,8 @@ def get_employee_leave_summary(id=None, org_id=None, role=None, org_name=None):
 @leave_bp.route('/get_org_employees', methods=['GET'])
 @jwt_required
 def get_org_employees(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     """
     Returns all active employees in the org for the manager's dropdown.
     """
@@ -741,21 +769,4 @@ def get_org_employees(id=None, org_id=None, role=None, org_name=None):
             cursor.close()
         if conn:
             conn.close()        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

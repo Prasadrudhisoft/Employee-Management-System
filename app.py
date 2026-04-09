@@ -1,10 +1,21 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from flask import send_from_directory
 import os
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = 'static/profile_imgs'
+
+# ── ADD THESE TWO THINGS ──
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # ← line 1: add this
+
+@app.errorhandler(413)                               # ← line 2: add this whole block
+def file_too_large(e):
+    return jsonify({'status': 'error', 'message': 'File too large. Max 2MB allowed.'}), 413
+# ── END OF ADDITION ──
+
+BASE_DIR      = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'profile_imgs')
+
 
 
 from auth.auth import auth_bp
@@ -106,4 +117,4 @@ def forgot_password():
     return render_template('forgot_password.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=False, port=5000)

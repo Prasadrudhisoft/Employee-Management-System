@@ -10,24 +10,42 @@ from leave import _auto_create_balance_for_employee   # ← ADD THIS IMPORT AT T
 
 manager_bp = Blueprint('manager',__name__)
 
-# ── Same upload config as admin.py ──
-UPLOAD_FOLDER = 'static/profile_imgs'
+
+BASE_DIR      = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, '..', 'static', 'profile_imgs')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
+MAX_FILE_SIZE = 2 * 1024 * 1024  # 2MB in bytes
+
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def save_profile_image(file):
+    """Save uploaded file object to disk, return (web-safe path, error message)."""
+    
     if not file or file.filename == '':
-        return ''
+        return None, 'No file provided'
+    
     if not allowed_file(file.filename):
-        return ''
-    ext = file.filename.rsplit('.', 1)[1].lower()
+        return None, 'Invalid file type. Only png, jpg, jpeg, webp are allowed'
+    
+    # ── Check file size ──
+    file.seek(0, 2)              # Seek to end of file
+    file_size = file.tell()      # Get size in bytes
+    file.seek(0)                 # Reset back to start before saving
+
+    if file_size > MAX_FILE_SIZE:
+        return None, f'File too large. Maximum allowed size is 2MB'
+    
+    ext      = file.filename.rsplit('.', 1)[1].lower()
     filename = f"{uuid.uuid4()}.{ext}"
     filepath = os.path.join(UPLOAD_FOLDER, filename)
     file.save(filepath)
-    return filepath.replace('\\', '/')
+    
+    return filepath.replace('\\', '/'), None  # (path, no error)
+
+
 
 def to_num(val):
     if val is None or str(val).strip() == '':
@@ -56,7 +74,10 @@ def add_emp(id=None, org_id=None, role=None, org_name=None):
         contact  = data.get('contact')
 
         profile_file     = request.files.get('profile_img')
-        profile_img_path = save_profile_image(profile_file)
+        profile_img_path, img_error = save_profile_image(profile_file)
+        
+        if img_error:
+            return jsonify({'status': 'error', 'message': img_error}), 400
         p1               = generate_password_hash(password)
 
         # ── BEGIN TRANSACTION ──
@@ -240,7 +261,7 @@ def total_emp(role=None, id=None, org_id = None, org_name = None):
     try:
 
         conn = get_connection()
-        cursor = conn.cursor()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
 
         if role != 'Manager':
             return{
