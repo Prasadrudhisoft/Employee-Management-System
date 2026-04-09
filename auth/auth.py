@@ -21,7 +21,7 @@ def login():
 
         # ── Fetch user by email only first, then check status/role in Python
         # This avoids column-name casing issues in the WHERE clause
-        cursor.execute("SELECT * FROM USERS WHERE email = %s", (email,))
+        cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
         user = cursor.fetchone()
 
         if not user:
