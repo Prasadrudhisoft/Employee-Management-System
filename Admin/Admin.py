@@ -39,6 +39,8 @@ def save_profile_image(file):
 @admin_bp.route('/add_manager', methods=['POST'])
 @jwt_required
 def add_manager(id=None, org_id=None, role=None, org_name=None):
+    cursor = None
+    conn = None
     if role != 'Admin':
         return jsonify({'status': 'fail', 'message': 'Unauthorized Access'}), 403
 
@@ -50,6 +52,7 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
     # Check if email already exists
     conn = get_connection()
     cursor = conn.cursor()
+
     cursor.execute("SELECT id FROM users WHERE email = %s", (email,))
     if cursor.fetchone():
         cursor.close()

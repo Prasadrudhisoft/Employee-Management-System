@@ -87,10 +87,12 @@ def send_otp_email(email, otp):
     except Exception as e:
         return False, str(e)
 
-# ===================== REGISTRATION OTP (Civil Project Pattern) =====================
 
 @models_bp.route('/register_request', methods=['POST'])
 def register_request():
+
+    conn = None
+    cursor = None
     """
     Step 1: Collect user data, send OTP, store pending data.
     Expected JSON: { "name": "", "email": "", "password": "", "role": "", ... }
@@ -198,6 +200,9 @@ def register_verify():
 
 @models_bp.route('/send_otp', methods=['POST'])
 def send_otp():
+    conn = None
+    cursor = None
+
     data = request.json
     email = data.get('email')
     if not email:
@@ -207,8 +212,10 @@ def send_otp():
     cursor = conn.cursor()
     cursor.execute("SELECT id FROM users WHERE email = %s", (email,))
     user = cursor.fetchone()
-    cursor.close()
-    conn.close()
+    if cursor:
+        cursor.close()
+    if conn:
+        conn.close()
 
     if not user:
         return jsonify({'status': 'fail', 'message': 'Email not registered'}), 404
@@ -252,6 +259,8 @@ def verify_otp():
 
 @models_bp.route('/reset_password', methods=['POST'])
 def reset_password():
+    conn = None
+    cursor = None
     data = request.json
     email = data.get('email')
     new_pass = data.get('new_pass')
@@ -271,8 +280,10 @@ def reset_password():
     cursor = conn.cursor()
     cursor.execute("UPDATE users SET password = %s WHERE email = %s", (en_pass, email))
     conn.commit()
-    cursor.close()
-    conn.close()
+    if cursor:
+        cursor.close()
+    if conn:
+        conn.close()
 
     # Clean up token
     reset_token_store.pop(email, None)
@@ -284,6 +295,8 @@ def reset_password():
 @models_bp.route('/my_profile', methods=['GET'])
 @jwt_required
 def my_profile(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -312,6 +325,8 @@ def my_profile(id=None, org_id=None, role=None, org_name=None):
 
 @models_bp.route('/forgot_pass', methods=['POST'])
 def forgot_pass():
+    conn = None
+    cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor()
@@ -336,6 +351,8 @@ def forgot_pass():
 
 @models_bp.route('/contact_us', methods=['POST'])
 def contact_us():
+    conn = None
+    cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor()

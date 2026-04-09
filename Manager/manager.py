@@ -40,6 +40,8 @@ def save_profile_image(file):
 @manager_bp.route('/add_emp', methods=['POST'])
 @jwt_required
 def add_emp(id=None, org_id=None, role=None, org_name=None):
+    conn = None
+    cursor = None
     if role != 'Manager':
         return jsonify({'status': 'fail', 'message': 'Unauthorized Access'}), 403
 
@@ -53,11 +55,15 @@ def add_emp(id=None, org_id=None, role=None, org_name=None):
     cursor = conn.cursor()
     cursor.execute("SELECT id FROM users WHERE email = %s", (email,))
     if cursor.fetchone():
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
         return jsonify({'status': 'fail', 'message': 'Email already registered'}), 409
-    cursor.close()
-    conn.close()
+    if cursor:
+        cursor.close()
+    if conn:
+        conn.close()
 
     pending = {
         'name': data.get('name'),
