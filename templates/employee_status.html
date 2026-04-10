@@ -888,7 +888,7 @@
 
   <!-- Toast Container -->
   <div class="toast-container" id="toast-container"></div>
- <script src="/static/js/config.js"></script>
+ 
   <script>
     'use strict';
 
@@ -902,7 +902,7 @@
     /* ── Load employees ── */
     async function loadEmployees() {
       try {
-        const res = await fetch(`${API_BASE}/get_emp`, { headers });
+        const res = await fetch(`/get_emp`, { headers });
         const data = await res.json();
         if (data.status !== 'success') { showToast(data.message, 'error'); return; }
 
@@ -1011,7 +1011,7 @@
       const btn = document.getElementById(`btn-${userId}`);
       btn.disabled = true; btn.classList.add('loading');
       try {
-        const res = await fetch(`${API_BASE}/toggle_emp_status`, {
+        const res = await fetch(`/toggle_emp_status`, {
           method: 'POST', headers,
           body: JSON.stringify({ user_id: userId })
         });

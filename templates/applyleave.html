@@ -1382,7 +1382,7 @@
         </div>
 
     </div><!-- /page-body -->
- <script src="/static/js/config.js"></script>
+ 
     <script>
         'use strict';
 
@@ -1683,7 +1683,7 @@
             btn.disabled = true;
 
             try {
-                const res = await fetch(`${API_BASE}/apply_leave`, {
+                const res = await fetch(`/apply_leave`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1749,7 +1749,7 @@
         /* ─── LOAD DATA ─── */
         async function loadLeaveTypes(token) {
             try {
-                const res = await fetch(`${API_BASE}/get_leave_types`, {
+                const res = await fetch(`/get_leave_types`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -1761,7 +1761,7 @@
 
         async function loadLeaveBalance(token) {
             try {
-                const res = await fetch(`${API_BASE}/get_leave_balance`, {
+                const res = await fetch(`/get_leave_balance`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

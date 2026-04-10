@@ -1129,7 +1129,7 @@
 
   <!-- Toast Container -->
   <div class="toast-wrap" id="toastWrap"></div>
- <script src="/static/js/config.js"></script>
+ 
   <script>
     'use strict';
 
@@ -1255,7 +1255,7 @@
     async function confirmApprove() {
       const comment = document.getElementById('approveComment').value.trim();
       try {
-        const res = await fetch(`${API_BASE}/approve_leave`, {
+        const res = await fetch(`/approve_leave`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -1275,7 +1275,7 @@
     async function confirmReject() {
       const comment = document.getElementById('rejectComment').value.trim();
       try {
-        const res = await fetch(`${API_BASE}/reject_leave`, {
+        const res = await fetch(`/reject_leave`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -1295,7 +1295,7 @@
     /* ── Load ── */
     async function loadLeaves() {
       try {
-        const res = await fetch(`${API_BASE}/get_leave_requests`, {
+        const res = await fetch(`/get_leave_requests`, {
           headers: {
             'Authorization': `Bearer ${TOKEN()}`
           }

@@ -1405,7 +1405,7 @@
 
         </div><!-- /dashboard -->
     </main>
- <script src="/static/js/config.js"></script>
+ 
     <script>
         'use strict';
 
@@ -1530,7 +1530,7 @@
         /* LOAD PROFILE */
         async function loadMyProfile() {
             try {
-                const res = await fetch(`${API_BASE}/my_profile`, {
+                const res = await fetch(`/my_profile`, {
                     headers: {
                         'Authorization': `Bearer ${getToken()}`
                     }
@@ -1550,7 +1550,7 @@
         /* LOAD STATS */
         async function loadAdminStats() {
             try {
-                const res = await fetch(`${API_BASE}/total_managers`, {
+                const res = await fetch(`/total_managers`, {
                     headers: {
                         'Authorization': `Bearer ${getToken()}`
                     }

@@ -471,7 +471,7 @@
     </div><!-- /results card -->
 
 </div><!-- /page-body -->
- <script src="/static/js/config.js"></script>
+ 
 <script>
 'use strict';
 
@@ -502,7 +502,7 @@ function fmt(d) {
 async function loadEmployees() {
     const sel = document.getElementById('f-employee');
     try {
-       const res = await fetch(`${API_BASE}/get_org_employees`, {
+       const res = await fetch(`/get_org_employees`, {
     headers: {
         'Authorization': `Bearer ${getToken()}`
     }
@@ -551,7 +551,7 @@ async function loadHistory() {
         </div>`;
 
     try {
-  const res = await fetch(`${API_BASE}/get_employee_leave_summary?user_id=${empId}&year=${year}`, {
+  const res = await fetch(`/get_employee_leave_summary?user_id=${empId}&year=${year}`, {
     headers: {
         'Authorization': `Bearer ${getToken()}`
     }

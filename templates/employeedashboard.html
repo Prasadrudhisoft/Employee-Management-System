@@ -1860,7 +1860,7 @@
 
         </div><!-- /dashboard -->
     </main>
- <script src="/static/js/config.js"></script>
+ 
     <script>
         'use strict';
 
@@ -1979,7 +1979,7 @@
         /* ── LOAD PROFILE ── */
         async function loadMyProfile() {
             try {
-                const res = await fetch(`${API_BASE}/my_profile`, {
+                const res = await fetch(`/my_profile`, {
                     headers: {
                         'Authorization': `Bearer ${getToken()}`
                     }
@@ -1999,7 +1999,7 @@
         /* ── LOAD LEAVE BALANCE ── */
         async function loadLeaveBalance() {
             try {
-                const res = await fetch(`${API_BASE}/get_leave_balance`, {
+                const res = await fetch(`/get_leave_balance`, {
                     headers: {
                         'Authorization': `Bearer ${getToken()}`
                     }
@@ -2017,7 +2017,7 @@
         async function loadRecentLeaves() {
             const listEl = document.getElementById('recentLeavesList');
             try {
-                const res = await fetch(`${API_BASE}/get_my_leaves`, {
+                const res = await fetch(`/get_my_leaves`, {
                     headers: {
                         'Authorization': `Bearer ${getToken()}`
                     }
@@ -2079,7 +2079,7 @@
             const listEl = document.getElementById('upcomingHolidaysList');
             try {
                 const year = new Date().getFullYear();
-                const res = await fetch(`${API_BASE}/get_holidays?year=${year}`, {
+                const res = await fetch(`/get_holidays?year=${year}`, {
                     headers: {
                         'Authorization': `Bearer ${getToken()}`
                     }

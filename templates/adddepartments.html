@@ -1246,7 +1246,7 @@
         </div><!-- /layout-grid -->
 
     </div><!-- /page-body -->
-    <script src="/static/js/config.js"></script>
+    
     <script>
         'use strict';
 
@@ -1327,7 +1327,7 @@
 
             try {
                 const token = getAuthToken();
-                const res = await fetch(`${API_BASE}/adddepartments`, {
+                const res = await fetch(`/adddepartments`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1368,7 +1368,7 @@
             const list = document.getElementById('deptList');
             const count = document.getElementById('deptCount');
             try {
-                const res = await fetch(`${API_BASE}/get_departments`, {
+                const res = await fetch(`/get_departments`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

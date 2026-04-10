@@ -580,7 +580,7 @@
         </div>
 
     </div><!-- /page-body -->
- <script src="/static/js/config.js"></script>
+ 
     <script>
         'use strict';
 
@@ -800,7 +800,7 @@
         async function loadBalance() {
             const token = getToken();
             try {
-               const res = await fetch(`${API_BASE}/get_leave_balance`, {
+               const res = await fetch(`/get_leave_balance`, {
     headers: {
         'Authorization': `Bearer ${token}`
     }

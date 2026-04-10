@@ -1464,7 +1464,7 @@
 
         </div><!-- /card -->
     </div><!-- /page-body -->
- <script src="/static/js/config.js"></script>
+ 
     <script>
         'use strict';
 
@@ -1716,7 +1716,7 @@
             btn.disabled = true;
 
             try {
-                const res = await fetch(`${API_BASE}/cancel_leave`, {
+                const res = await fetch(`/cancel_leave`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1748,7 +1748,7 @@
         async function loadLeaves() {
             const token = getToken();
             try {
-                const res = await fetch(`${API_BASE}/get_my_leaves`, {
+                const res = await fetch(`/get_my_leaves`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

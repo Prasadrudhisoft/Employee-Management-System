@@ -2088,7 +2088,7 @@
 
         </div><!-- /dashboard -->
     </main>
- <script src="/static/js/config.js"></script>
+ 
     <script>
         'use strict';
 
@@ -2239,7 +2239,7 @@
         /* ── LOAD PROFILE ── */
         async function loadMyProfile() {
             try {
-                const res = await fetch(`${API_BASE}/my_profile`, {
+                const res = await fetch(`/my_profile`, {
                     headers: {
                         'Authorization': `Bearer ${getToken()}`
                     }
@@ -2265,7 +2265,7 @@
         /* ── LOAD STATS ── */
         async function loadTotalEmp() {
             try {
-                const res = await fetch(`${API_BASE}/total_emp`, {
+                const res = await fetch(`/total_emp`, {
                     headers: {
                         'Authorization': `Bearer ${getToken()}`
                     }
@@ -2290,7 +2290,7 @@
             const listEl = document.getElementById('pendingLeavesList');
             const badgeEl = document.getElementById('leaveReqBadge');
             try {
-                const res = await fetch(`${API_BASE}/get_leave_requests`, {
+                const res = await fetch(`/get_leave_requests`, {
                     headers: {
                         'Authorization': `Bearer ${getToken()}`
                     }
@@ -2340,7 +2340,7 @@
             ];
             const listEl = document.getElementById('teamMembersList');
             try {
-                const res = await fetch(`${API_BASE}/get_org_employees`, {
+                const res = await fetch(`/get_org_employees`, {
                     headers: {
                         'Authorization': `Bearer ${getToken()}`
                     }

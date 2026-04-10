@@ -434,7 +434,7 @@ body {
 
 <!-- Toast Container -->
 <div class="toast-wrap" id="toastWrap"></div>
- <script src="/static/js/config.js"></script>
+ 
 <script>
 'use strict';
 
@@ -494,7 +494,7 @@ async function addLeaveType() {
   btn.disabled  = true;
 
   try {
-  const res = await fetch(`${API_BASE}/add_leave_type`, {
+  const res = await fetch(`/add_leave_type`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -524,7 +524,7 @@ async function addLeaveType() {
 async function deleteLeaveType(id, name) {
   if (!confirm(`Delete "${name}"? Employee balances for this type will be deactivated.`)) return;
   try {
-const res = await fetch(`${API_BASE}/delete_leave_type`, {
+const res = await fetch(`/delete_leave_type`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -544,7 +544,7 @@ const res = await fetch(`${API_BASE}/delete_leave_type`, {
 async function loadLeaveTypes() {
   document.getElementById('typesGrid').innerHTML = '<div class="loading"><i class="fas fa-spinner"></i><p>Loading leave types…</p></div>';
   try {
-const res = await fetch(`${API_BASE}/get_leave_types`, {
+const res = await fetch(`/get_leave_types`, {
     headers: {
         'Authorization': `Bearer ${TOKEN()}`
     }

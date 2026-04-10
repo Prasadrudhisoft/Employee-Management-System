@@ -2111,7 +2111,7 @@
     </div>
   </footer>
 
- <script src="/static/js/config.js"></script>
+ 
   <script>
     'use strict';
     const $ = id => document.getElementById(id);
@@ -2210,7 +2210,7 @@
       $('btnSpin').style.display = 'block'; $('btnIco').style.display = 'none';
       $('btnTxt').textContent = 'Signing in…'; btn.disabled = true;
       try {
-        const res = await fetch(`${API_BASE}/login`, {
+        const res = await fetch(`/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -2296,7 +2296,7 @@
 
 
       try {
-        const res = await fetch(`${API_BASE}/contact_us`, {
+        const res = await fetch(`/contact_us`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

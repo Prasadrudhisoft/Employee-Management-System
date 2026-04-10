@@ -1967,7 +1967,7 @@
   <!-- Toast -->
   <div id="toast"></div>
 
- <script src="/static/js/config.js"></script>
+ 
   <script>
     'use strict';
 
@@ -2014,7 +2014,7 @@
 
     async function fetchSalaries() {
       try {
-        const res = await fetch(`${API_BASE}/get_salary_details`, { headers: authHeaders() });
+        const res = await fetch(`/get_salary_details`, { headers: authHeaders() });
         const data = await res.json();
         if (data.status === 'success') {
           employees = data.emp || [];
@@ -2033,7 +2033,7 @@
       if (!month || !employees.length) return;
       savedRecords = {};
       try {
-        const res = await fetch(`${API_BASE}/get_monthly_salary_records?salary_month=${month}`, { headers: authHeaders() });
+        const res = await fetch(`/get_monthly_salary_records?salary_month=${month}`, { headers: authHeaders() });
         const data = await res.json();
         if (data.status === 'success')
           (data.records || []).forEach(r => { savedRecords[r.user_id] = r; });
@@ -2303,7 +2303,7 @@
           absent_days_deduction: getDeductVal(`ad_${idx}`)
         };
         try {
-          const res = await fetch(`${API_BASE}/emp_salary`, { method: 'POST', headers: authHeaders(), body: JSON.stringify(payload) });
+          const res = await fetch(`/emp_salary`, { method: 'POST', headers: authHeaders(), body: JSON.stringify(payload) });
           const data = await res.json();
           if (data.status === 'success') saved++;
         } catch (_) { }
@@ -2329,7 +2329,7 @@
         absent_days_deduction: getDeductVal(`ad_${idx}`)
       };
       try {
-        const res = await fetch(`${API_BASE}/update_emp_salary`, { method: 'PUT', headers: authHeaders(), body: JSON.stringify(payload) });
+        const res = await fetch(`/update_emp_salary`, { method: 'PUT', headers: authHeaders(), body: JSON.stringify(payload) });
         const data = await res.json();
         if (data.status === 'success') {
           toast(`${emp.Name} — updated ✓`, 'ok');
@@ -2360,7 +2360,7 @@
       </div>
     </div>`;
       try {
-        const res = await fetch(`${API_BASE}/salary_summary?salary_month=${month}`, { headers: authHeaders() });
+        const res = await fetch(`/salary_summary?salary_month=${month}`, { headers: authHeaders() });
         const data = await res.json();
         if (data.status !== 'success' || !data.summary) {
           document.getElementById('summaryPlaceholder').innerHTML = `
@@ -2412,7 +2412,7 @@
       const orig = btn.innerHTML; btn.disabled = true;
       btn.innerHTML = '<span class="spinner dark"></span> Generating…';
       try {
-        const res = await fetch(`${API_BASE}/salary_summary_pdf?salary_month=${month}`, { headers: authHeaders() });
+        const res = await fetch(`/salary_summary_pdf?salary_month=${month}`, { headers: authHeaders() });
         if (!res.ok) { const e = await res.json().catch(() => ({ message: 'Unknown error' })); toast(e.message || 'PDF failed.', 'fail'); return; }
         const blob = await res.blob();
         const a = document.createElement('a');
@@ -2438,7 +2438,7 @@
       </div>
     </div>`;
       try {
-        const res = await fetch(`${API_BASE}/salary_disbursement?salary_month=${month}`, { headers: authHeaders() });
+        const res = await fetch(`/salary_disbursement?salary_month=${month}`, { headers: authHeaders() });
         const data = await res.json();
         if (data.status !== 'success' || !data.users?.length) {
           document.getElementById('disbPlaceholder').innerHTML = `
@@ -2511,7 +2511,7 @@
       btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
       try {
         const res = await fetch(
-          `${API_BASE}/salary_slip_pdf?salary_month=${month}&user_id=${encodeURIComponent(userId)}`,
+          `/salary_slip_pdf?salary_month=${month}&user_id=${encodeURIComponent(userId)}`,
           { headers: authHeaders() }
         );
         if (!res.ok) { const e = await res.json().catch(() => ({ message: 'Unknown error' })); toast(e.message || 'Slip failed.', 'fail'); return; }
@@ -2532,7 +2532,7 @@
       const orig = btn.innerHTML;
       btn.disabled = true; btn.innerHTML = '<span class="spinner dark"></span> Generating…';
       try {
-        const res = await fetch(`${API_BASE}/salary_disbursement_pdf?salary_month=${month}`, {
+        const res = await fetch(`/salary_disbursement_pdf?salary_month=${month}`, {
           headers: authHeaders()
         });
         if (!res.ok) { const e = await res.json().catch(() => ({ message: 'Unknown error' })); toast(e.message || 'PDF failed.', 'fail'); return; }

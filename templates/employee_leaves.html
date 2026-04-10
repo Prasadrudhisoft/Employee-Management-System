@@ -1801,7 +1801,7 @@
     </div>
 
   </div><!-- /page-body -->
- <script src="/static/js/config.js"></script>
+ 
   <script>
     'use strict';
     const TOKEN = () => localStorage.getItem('token');
@@ -1971,7 +1971,7 @@
       const btn = document.getElementById('applyBtn'), orig = btn.innerHTML;
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting…'; btn.disabled = true;
       try {
-        const res = await fetch(`${API_BASE}/apply_leave`, {
+        const res = await fetch(`/apply_leave`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -2080,7 +2080,7 @@
     /* ── API ── */
     async function loadLeaveTypes() {
       try {
-        const res = await fetch(`${API_BASE}/get_leave_types`, {
+        const res = await fetch(`/get_leave_types`, {
           headers: {
             'Authorization': `Bearer ${TOKEN()}`
           }
@@ -2094,7 +2094,7 @@
     }
     async function loadBalances() {
       try {
-        const res = await fetch(`${API_BASE}/get_leave_balance`, {
+        const res = await fetch(`/get_leave_balance`, {
           headers: {
             'Authorization': `Bearer ${TOKEN()}`
           }
@@ -2121,7 +2121,7 @@
     }
     async function loadLeaveHistory() {
       try {
-        const res = await fetch(`${API_BASE}/get_my_leaves`, {
+        const res = await fetch(`/get_my_leaves`, {
           headers: {
             'Authorization': `Bearer ${TOKEN()}`
           }
@@ -2143,7 +2143,7 @@
     async function loadHolidays() {
       try {
         const year = new Date().getFullYear();
-        const res = await fetch(`${API_BASE}/get_holidays?year=${year}`, {
+        const res = await fetch(`/get_holidays?year=${year}`, {
           headers: {
             'Authorization': `Bearer ${TOKEN()}`
           }

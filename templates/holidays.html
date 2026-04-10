@@ -1049,7 +1049,7 @@
 
   <!-- Toast Container -->
   <div class="toast-wrap" id="toastWrap"></div>
- <script src="/static/js/config.js"></script>
+ 
   <script>
     'use strict';
 
@@ -1110,7 +1110,7 @@
       btn.disabled = true;
 
       try {
-        const res = await fetch(`${API_BASE}/add_holiday`, {
+        const res = await fetch(`/add_holiday`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -1145,7 +1145,7 @@
     async function deleteHoliday(id, name) {
       if (!confirm(`Delete "${name}"?`)) return;
       try {
-        const res = await fetch(`${API_BASE}/delete_holiday`, {
+        const res = await fetch(`/delete_holiday`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -1165,7 +1165,7 @@
     async function loadHolidays() {
       document.getElementById('holidayList').innerHTML = '<div class="loading"><i class="fas fa-spinner"></i><p>Loading…</p></div>';
       try {
-        const res = await fetch(`${API_BASE}/get_holidays?year=${currentYear}`, {
+        const res = await fetch(`/get_holidays?year=${currentYear}`, {
           headers: {
             'Authorization': `Bearer ${TOKEN()}`
           }

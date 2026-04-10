@@ -1496,7 +1496,7 @@
         </div>
 
     </div><!-- /page-body -->
- <script src="/static/js/config.js"></script>
+ 
     <script>
         'use strict';
 
@@ -1816,7 +1816,7 @@
 
             const token = getToken();
             try {
-                const res = await fetch(`${API_BASE}/get_holidays?year=${currentYear}`, {
+                const res = await fetch(`/get_holidays?year=${currentYear}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

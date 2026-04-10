@@ -1383,7 +1383,7 @@
             <button class="resend-link" id="resendOtpBtn">Resend OTP</button>
         </div>
     </div>
- <script src="/static/js/config.js"></script>
+ 
     <script>
         'use strict';
 
@@ -1581,7 +1581,7 @@
             resendBtn.textContent = 'Sending...';
             try {
                 const token = getAuthToken();
-                const res = await fetch(`${API_BASE}/add_manager`, {
+                const res = await fetch(`/add_manager`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -1614,7 +1614,7 @@
             verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
             try {
                 const token = getAuthToken();
-                const res = await fetch(`${API_BASE}/verify_add_manager`, {
+                const res = await fetch(`/verify_add_manager`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1660,7 +1660,7 @@
 
             try {
                 const token = getAuthToken();
-                const res = await fetch(`${API_BASE}/add_manager`, {
+                const res = await fetch(`/add_manager`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -1711,7 +1711,7 @@
             const token = getAuthToken();
             if (!token) return;
             try {
-                const res = await fetch(`${API_BASE}/get_departments`, {
+                const res = await fetch(`/get_departments`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`

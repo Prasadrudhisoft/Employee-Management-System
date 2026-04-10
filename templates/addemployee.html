@@ -56,6 +56,12 @@
             --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
         html {
             font-size: 16px;
             scroll-behavior: smooth;
@@ -846,17 +852,24 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            right: 0;
+            bottom: 0;
+            /* Do NOT use width/height — use inset so it anchors to viewport edges
+               regardless of any horizontal scroll on the page */
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            z-index: 9999;
             visibility: hidden;
             opacity: 0;
-            transition: all 0.2s ease;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            padding: 20px;
+            box-sizing: border-box;
+            /* Prevent the overlay itself from scrolling horizontally */
+            overflow: hidden;
         }
 
         .modal-overlay.active {
@@ -864,16 +877,23 @@
             opacity: 1;
         }
 
+        /* ========== OTP MODAL — FULLY RESPONSIVE ========== */
         .otp-modal {
             background: white;
             border-radius: var(--radius-2xl);
-            max-width: 420px;
-            width: 90%;
-            padding: 28px 24px;
+            /* Flex child: don't grow wider than the overlay allows */
+            width: 100%;
+            max-width: 440px;
+            flex-shrink: 1;
             text-align: center;
             box-shadow: var(--shadow-xl);
             transform: scale(0.95);
             transition: transform 0.2s ease;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+            box-sizing: border-box;
+            --modal-px: 28px;
+            padding: 28px var(--modal-px);
         }
 
         .modal-overlay.active .otp-modal {
@@ -881,35 +901,53 @@
         }
 
         .otp-modal h3 {
-            font-size: 22px;
+            font-size: clamp(17px, 5vw, 22px);
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 10px;
         }
 
         .otp-modal p {
-            font-size: 14px;
+            font-size: clamp(12px, 3.5vw, 14px);
             color: var(--text-muted);
             margin-bottom: 20px;
+            line-height: 1.6;
+            word-break: break-word;
         }
 
+        /* OTP digit group — CSS Grid guarantees all 6 always fit */
         .otp-input-group {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
             margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .otp-digit {
-            width: 55px;
-            height: 65px;
+            width: 100%;
+            aspect-ratio: 1 / 1.15;
             text-align: center;
-            font-size: 28px;
-            font-weight: 600;
+            font-size: clamp(16px, 4.5vw, 24px);
+            font-weight: 700;
             border: 2px solid var(--border);
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius-md);
             background: var(--bg-muted);
             transition: all 0.2s;
+            padding: 0;
+            box-sizing: border-box;
+            -moz-appearance: textfield;
+            appearance: textfield;
+            /* Prevent iOS tap highlight */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .otp-digit::-webkit-outer-spin-button,
+        .otp-digit::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            appearance: none;
+            margin: 0;
         }
 
         .otp-digit:focus {
@@ -919,15 +957,17 @@
             box-shadow: 0 0 0 3px var(--primary-glow);
         }
 
+        /* Modal action buttons */
         .modal-actions {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             justify-content: center;
             margin-top: 10px;
         }
 
         .modal-actions button {
             flex: 1;
+            min-width: 0;
         }
 
         .resend-link {
@@ -937,8 +977,9 @@
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 14px;
             text-decoration: underline;
+            display: inline-block;
         }
 
         .resend-link:disabled {
@@ -999,6 +1040,39 @@
             }
         }
 
+        /* Small phones (≤400px) — reduce modal padding */
+        @media (max-width: 400px) {
+            .otp-modal {
+                --modal-px: 16px;
+                padding: 22px 16px;
+                border-radius: var(--radius-xl);
+            }
+
+            .otp-input-group {
+                gap: 6px;
+            }
+        }
+
+        /* Very small phones (≤320px) */
+        @media (max-width: 320px) {
+            .otp-modal {
+                --modal-px: 12px;
+                padding: 18px 12px;
+            }
+
+            .otp-input-group {
+                gap: 4px;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .modal-actions button {
+                width: 100%;
+            }
+        }
+
         @media (max-width: 480px) {
             .topbar {
                 height: 60px;
@@ -1006,6 +1080,25 @@
 
             .btn-back-label {
                 display: none;
+            }
+        }
+
+        /* Landscape phones with limited height */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .otp-modal {
+                padding: 16px 20px;
+            }
+
+            .otp-modal h3 {
+                margin-bottom: 6px;
+            }
+
+            .otp-modal p {
+                margin-bottom: 12px;
+            }
+
+            .otp-input-group {
+                margin-bottom: 12px;
             }
         }
     </style>
@@ -1369,12 +1462,12 @@
             <p>We've sent a 6‑digit OTP to <strong id="otpEmailDisplay"></strong>. Please enter it below to complete
                 adding the employee.</p>
             <div class="otp-input-group">
-                <input type="text" maxlength="1" class="otp-digit" data-idx="0" autocomplete="off">
-                <input type="text" maxlength="1" class="otp-digit" data-idx="1" autocomplete="off">
-                <input type="text" maxlength="1" class="otp-digit" data-idx="2" autocomplete="off">
-                <input type="text" maxlength="1" class="otp-digit" data-idx="3" autocomplete="off">
-                <input type="text" maxlength="1" class="otp-digit" data-idx="4" autocomplete="off">
-                <input type="text" maxlength="1" class="otp-digit" data-idx="5" autocomplete="off">
+                <input type="text" maxlength="1" class="otp-digit" data-idx="0" inputmode="numeric" autocomplete="off">
+                <input type="text" maxlength="1" class="otp-digit" data-idx="1" inputmode="numeric" autocomplete="off">
+                <input type="text" maxlength="1" class="otp-digit" data-idx="2" inputmode="numeric" autocomplete="off">
+                <input type="text" maxlength="1" class="otp-digit" data-idx="3" inputmode="numeric" autocomplete="off">
+                <input type="text" maxlength="1" class="otp-digit" data-idx="4" inputmode="numeric" autocomplete="off">
+                <input type="text" maxlength="1" class="otp-digit" data-idx="5" inputmode="numeric" autocomplete="off">
             </div>
             <div class="modal-actions">
                 <button class="btn btn-secondary" id="cancelOtpBtn">Cancel</button>
@@ -1384,6 +1477,8 @@
         </div>
     </div>
 
+
+     
     <script>
         'use strict';
 
@@ -1581,7 +1676,7 @@
             resendBtn.textContent = 'Sending...';
             try {
                 const token = getAuthToken();
-                const res = await fetch(`${API_BASE}/add_emp`, {
+                const res = await fetch(`/add_emp`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -1614,7 +1709,7 @@
             verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
             try {
                 const token = getAuthToken();
-                const res = await fetch(`${API_BASE}/verify_add_emp`, {
+                const res = await fetch(`/verify_add_emp`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1660,7 +1755,7 @@
 
             try {
                 const token = getAuthToken();
-                const res = await fetch(`${API_BASE}/add_emp`, {
+                const res = await fetch(`/add_emp`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -1711,7 +1806,7 @@
             const token = getAuthToken();
             if (!token) return;
             try {
-                const res = await fetch(`${API_BASE}/get_departments`, {
+                const res = await fetch(`/get_departments`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`
