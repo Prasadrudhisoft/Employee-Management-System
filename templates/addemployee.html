@@ -56,16 +56,7 @@
             --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        html,
-        body {
-            overflow-x: hidden;
-            max-width: 100%;
-        }
-
-        html {
-            font-size: 16px;
-            scroll-behavior: smooth;
-        }
+        html { font-size: 16px; scroll-behavior: smooth; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -75,22 +66,10 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(148, 163, 184, 0.4);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(148, 163, 184, 0.6);
-        }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.4); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.6); }
 
         /* ========== TOPBAR ========== */
         .topbar {
@@ -108,11 +87,7 @@
             z-index: 50;
         }
 
-        .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 13px;
-        }
+        .topbar-left { display: flex; align-items: center; gap: 13px; }
 
         .topbar-icon {
             width: 40px;
@@ -136,11 +111,7 @@
             line-height: 1.2;
         }
 
-        .topbar-info span {
-            font-size: 12px;
-            color: var(--text-muted);
-            font-weight: 400;
-        }
+        .topbar-info span { font-size: 12px; color: var(--text-muted); font-weight: 400; }
 
         .btn-back {
             display: inline-flex;
@@ -160,10 +131,7 @@
             white-space: nowrap;
         }
 
-        .btn-back i {
-            font-size: 11px;
-            transition: transform var(--transition-fast);
-        }
+        .btn-back i { font-size: 11px; transition: transform var(--transition-fast); }
 
         .btn-back:hover {
             background: var(--primary-subtle);
@@ -171,16 +139,10 @@
             color: var(--primary);
         }
 
-        .btn-back:hover i {
-            transform: translateX(-3px);
-        }
+        .btn-back:hover i { transform: translateX(-3px); }
 
         /* ========== PAGE BODY ========== */
-        .page-body {
-            padding: 28px 32px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+        .page-body { padding: 28px 32px; max-width: 1000px; margin: 0 auto; }
 
         /* ========== BANNER ========== */
         .page-banner {
@@ -224,19 +186,8 @@
             gap: 20px;
         }
 
-        .banner-text h2 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 7px;
-            letter-spacing: -0.02em;
-        }
-
-        .banner-text p {
-            font-size: 13.5px;
-            opacity: 0.78;
-            max-width: 460px;
-            line-height: 1.7;
-        }
+        .banner-text h2 { font-size: 22px; font-weight: 700; margin-bottom: 7px; letter-spacing: -0.02em; }
+        .banner-text p { font-size: 13.5px; opacity: 0.78; max-width: 460px; line-height: 1.7; }
 
         .banner-icon {
             width: 68px;
@@ -260,18 +211,9 @@
             margin-bottom: 20px;
         }
 
-        /* ========== SECTION BLOCK ========== */
-        .section-block {
-            padding: 26px 30px;
-            border-bottom: 1px solid var(--border-light);
-        }
+        .section-block { padding: 26px 30px; border-bottom: 1px solid var(--border-light); }
 
-        .section-heading {
-            display: flex;
-            align-items: center;
-            gap: 13px;
-            margin-bottom: 22px;
-        }
+        .section-heading { display: flex; align-items: center; gap: 13px; margin-bottom: 22px; }
 
         .section-icon {
             width: 42px;
@@ -284,59 +226,20 @@
             flex-shrink: 0;
         }
 
-        .section-icon.indigo {
-            background: var(--primary-subtle);
-            color: var(--primary);
-        }
+        .section-icon.indigo { background: var(--primary-subtle); color: var(--primary); }
+        .section-icon.cyan { background: var(--info-light); color: var(--info); }
+        .section-icon.emerald { background: var(--success-light); color: var(--success); }
+        .section-icon.amber { background: var(--warning-light); color: var(--warning); }
 
-        .section-icon.cyan {
-            background: var(--info-light);
-            color: var(--info);
-        }
-
-        .section-icon.emerald {
-            background: var(--success-light);
-            color: var(--success);
-        }
-
-        .section-icon.amber {
-            background: var(--warning-light);
-            color: var(--warning);
-        }
-
-        .section-title h3 {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-primary);
-            letter-spacing: -0.01em;
-        }
-
-        .section-title p {
-            font-size: 12.5px;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
+        .section-title h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; }
+        .section-title p { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
 
         /* ========== FORM GRID ========== */
-        .form-grid {
-            display: grid;
-            gap: 18px;
-        }
+        .form-grid { display: grid; gap: 18px; }
+        .form-grid.cols2 { grid-template-columns: 1fr 1fr; }
+        .form-grid.cols4 { grid-template-columns: repeat(4, 1fr); }
 
-        .form-grid.cols2 {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .form-grid.cols4 {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        /* ========== FORM GROUP ========== */
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
 
         .form-label {
             font-size: 12.5px;
@@ -347,31 +250,12 @@
             gap: 6px;
         }
 
-        .form-label i {
-            font-size: 11px;
-            color: var(--primary);
-        }
+        .form-label i { font-size: 11px; color: var(--primary); }
+        .form-label .req { color: var(--danger); margin-left: 1px; }
+        .form-label .opt { color: var(--text-muted); font-weight: 400; font-size: 11.5px; }
+        .field-hint { font-size: 11px; color: var(--text-muted); }
 
-        .form-label .req {
-            color: var(--danger);
-            margin-left: 1px;
-        }
-
-        .form-label .opt {
-            color: var(--text-muted);
-            font-weight: 400;
-            font-size: 11.5px;
-        }
-
-        .field-hint {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        /* ========== INPUT WRAP ========== */
-        .input-wrap {
-            position: relative;
-        }
+        .input-wrap { position: relative; }
 
         .input-wrap .icon {
             position: absolute;
@@ -400,16 +284,8 @@
             transition: all var(--transition-base);
         }
 
-        .input-wrap textarea {
-            padding-top: 10px;
-            resize: vertical;
-            min-height: 74px;
-        }
-
-        .input-wrap select {
-            appearance: none;
-            cursor: pointer;
-        }
+        .input-wrap textarea { padding-top: 10px; resize: vertical; min-height: 74px; }
+        .input-wrap select { appearance: none; cursor: pointer; }
 
         .input-wrap .chevron {
             position: absolute;
@@ -422,9 +298,7 @@
         }
 
         .input-wrap input::placeholder,
-        .input-wrap textarea::placeholder {
-            color: var(--text-placeholder);
-        }
+        .input-wrap textarea::placeholder { color: var(--text-placeholder); }
 
         .input-wrap input:focus,
         .input-wrap select:focus,
@@ -434,55 +308,19 @@
             box-shadow: 0 0 0 3px var(--primary-glow);
         }
 
-        .input-wrap:focus-within .icon {
-            color: var(--primary);
-        }
+        .input-wrap:focus-within .icon { color: var(--primary); }
 
-        /* char counter */
-        .char-count {
-            position: absolute;
-            right: 10px;
-            bottom: 8px;
-            font-size: 10px;
-            color: var(--text-muted);
-            pointer-events: none;
-        }
+        .char-count { position: absolute; right: 10px; bottom: 8px; font-size: 10px; color: var(--text-muted); pointer-events: none; }
+        .char-count.warn { color: var(--warning); }
+        .char-count.over { color: var(--danger); }
 
-        .char-count.warn {
-            color: var(--warning);
-        }
+        .pw-strength { height: 3px; border-radius: 4px; background: var(--bg-muted); margin-top: 5px; overflow: hidden; }
+        .pw-strength-bar { height: 100%; border-radius: 4px; width: 0; transition: width .3s, background .3s; }
 
-        .char-count.over {
-            color: var(--danger);
-        }
-
-        /* pw strength */
-        .pw-strength {
-            height: 3px;
-            border-radius: 4px;
-            background: var(--bg-muted);
-            margin-top: 5px;
-            overflow: hidden;
-        }
-
-        .pw-strength-bar {
-            height: 100%;
-            border-radius: 4px;
-            width: 0;
-            transition: width .3s, background .3s;
-        }
-
-        /* valid */
         .input-wrap.valid input,
         .input-wrap.valid select,
-        .input-wrap.valid textarea {
-            border-color: var(--success);
-            background: var(--success-light);
-        }
-
-        .input-wrap.valid .icon {
-            color: var(--success);
-        }
+        .input-wrap.valid textarea { border-color: var(--success); background: var(--success-light); }
+        .input-wrap.valid .icon { color: var(--success); }
 
         .input-wrap.valid::after {
             content: '\f058';
@@ -498,11 +336,8 @@
         }
 
         .input-wrap.valid.has-toggle::after,
-        .input-wrap.valid.has-chevron::after {
-            display: none;
-        }
+        .input-wrap.valid.has-chevron::after { display: none; }
 
-        /* error */
         .input-wrap.error input,
         .input-wrap.error select,
         .input-wrap.error textarea {
@@ -511,9 +346,7 @@
             box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.07);
         }
 
-        .input-wrap.error .icon {
-            color: var(--danger);
-        }
+        .input-wrap.error .icon { color: var(--danger); }
 
         .field-err {
             display: none;
@@ -526,22 +359,12 @@
         }
 
         @keyframes errIn {
-            from {
-                opacity: 0;
-                transform: translateY(-3px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-3px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .input-wrap.error~.field-err {
-            display: flex;
-        }
+        .input-wrap.error~.field-err { display: flex; }
 
-        /* pw toggle */
         .pw-toggle {
             position: absolute;
             right: 11px;
@@ -557,11 +380,8 @@
             transition: color var(--transition-fast);
         }
 
-        .pw-toggle:hover {
-            color: var(--text-secondary);
-        }
+        .pw-toggle:hover { color: var(--text-secondary); }
 
-        /* avatar */
         .avatar-upload {
             display: flex;
             align-items: center;
@@ -575,10 +395,7 @@
             margin-bottom: 22px;
         }
 
-        .avatar-upload:hover {
-            background: var(--primary-subtle);
-            border-color: var(--primary);
-        }
+        .avatar-upload:hover { background: var(--primary-subtle); border-color: var(--primary); }
 
         .avatar-preview {
             width: 60px;
@@ -593,39 +410,13 @@
             flex-shrink: 0;
         }
 
-        .avatar-preview i {
-            font-size: 22px;
-            color: var(--primary);
-        }
+        .avatar-preview i { font-size: 22px; color: var(--primary); }
+        .avatar-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .avatar-text h5 { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+        .avatar-text p { font-size: 11.5px; color: var(--text-muted); }
+        .avatar-text p span { color: var(--primary); font-weight: 600; }
+        #profileInput { display: none; }
 
-        .avatar-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .avatar-text h5 {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 3px;
-        }
-
-        .avatar-text p {
-            font-size: 11.5px;
-            color: var(--text-muted);
-        }
-
-        .avatar-text p span {
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        #profileInput {
-            display: none;
-        }
-
-        /* salary note */
         .salary-note {
             display: flex;
             align-items: flex-start;
@@ -639,11 +430,7 @@
             color: var(--info);
         }
 
-        .salary-note i {
-            font-size: 15px;
-            flex-shrink: 0;
-            margin-top: 1px;
-        }
+        .salary-note i { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
 
         /* ========== FORM ACTIONS ========== */
         .form-actions {
@@ -655,7 +442,6 @@
             border-top: 1px solid var(--border);
         }
 
-        /* ========== BUTTONS ========== */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -673,37 +459,13 @@
             white-space: nowrap;
         }
 
-        .btn-secondary {
-            background: var(--bg-white);
-            border: 1.5px solid var(--border);
-            color: var(--text-secondary);
-        }
+        .btn-secondary { background: var(--bg-white); border: 1.5px solid var(--border); color: var(--text-secondary); }
+        .btn-secondary:hover { background: var(--bg-muted); color: var(--text-primary); }
 
-        .btn-secondary:hover {
-            background: var(--bg-muted);
-            color: var(--text-primary);
-        }
+        .btn-primary { background: var(--primary); color: white; padding: 10px 26px; }
+        .btn-primary:hover { background: var(--primary-dark); box-shadow: 0 4px 14px var(--primary-glow); transform: translateY(-1px); }
+        .btn-primary:disabled { opacity: 0.65; cursor: not-allowed; transform: none; box-shadow: none; }
 
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            padding: 10px 26px;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            box-shadow: 0 4px 14px var(--primary-glow);
-            transform: translateY(-1px);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.65;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        /* ========== ALERT ========== */
         .alert {
             padding: 13px 16px;
             border-radius: var(--radius-lg);
@@ -717,63 +479,21 @@
         }
 
         @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-6px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .alert.error {
-            display: flex;
-            background: var(--danger-light);
-            border: 1px solid var(--danger-border);
-            color: var(--danger);
-        }
+        .alert.error { display: flex; background: var(--danger-light); border: 1px solid var(--danger-border); color: var(--danger); }
+        .alert.success { display: flex; background: var(--success-light); border: 1px solid var(--success-border); color: var(--success); }
+        .alert i { font-size: 16px; flex-shrink: 0; }
+        .alert-title { font-weight: 700; margin-bottom: 2px; }
+        .alert-body { font-size: 12px; opacity: 0.9; }
 
-        .alert.success {
-            display: flex;
-            background: var(--success-light);
-            border: 1px solid var(--success-border);
-            color: var(--success);
-        }
-
-        .alert i {
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-
-        .alert-title {
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-
-        .alert-body {
-            font-size: 12px;
-            opacity: 0.9;
-        }
-
-        /* ========== SUCCESS SCREEN ========== */
-        .success-screen {
-            text-align: center;
-            padding: 52px 36px;
-            animation: fadeUp .4s ease;
-        }
+        .success-screen { text-align: center; padding: 52px 36px; animation: fadeUp .4s ease; }
 
         @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .success-circle {
@@ -792,84 +512,42 @@
         }
 
         @keyframes pop {
-            from {
-                transform: scale(0) rotate(-180deg);
-            }
-
-            to {
-                transform: scale(1) rotate(0);
-            }
+            from { transform: scale(0) rotate(-180deg); }
+            to { transform: scale(1) rotate(0); }
         }
 
-        .success-screen h2 {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-            letter-spacing: -0.02em;
-        }
+        .success-screen h2 { font-size: 24px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; letter-spacing: -0.02em; }
+        .success-screen p { font-size: 14px; color: var(--text-muted); max-width: 360px; margin: 0 auto 26px; line-height: 1.7; }
+        .success-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-        .success-screen p {
-            font-size: 14px;
-            color: var(--text-muted);
-            max-width: 360px;
-            margin: 0 auto 26px;
-            line-height: 1.7;
-        }
-
-        .success-actions {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* shake */
         @keyframes shake {
-
-            0%,
-            100% {
-                transform: translateX(0)
-            }
-
-            20%,
-            60% {
-                transform: translateX(-5px)
-            }
-
-            40%,
-            80% {
-                transform: translateX(5px)
-            }
+            0%, 100% { transform: translateX(0) }
+            20%, 60% { transform: translateX(-5px) }
+            40%, 80% { transform: translateX(5px) }
         }
 
-        .shake {
-            animation: shake .35s ease;
-        }
+        .shake { animation: shake .35s ease; }
 
-        /* ========== MODAL OVERLAY ========== */
+        /* ========== OTP MODAL — FULLY RESPONSIVE ========== */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            /* Do NOT use width/height — use inset so it anchors to viewport edges
-               regardless of any horizontal scroll on the page */
+            width: 100%;
+            height: 100%;
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
+            z-index: 1000;
             visibility: hidden;
             opacity: 0;
-            transition: opacity 0.2s ease, visibility 0.2s ease;
-            padding: 20px;
+            transition: all 0.2s ease;
+            /* Padding ensures modal never touches screen edges on any device */
+            padding: 16px;
             box-sizing: border-box;
-            /* Prevent the overlay itself from scrolling horizontally */
-            overflow: hidden;
         }
 
         .modal-overlay.active {
@@ -877,23 +555,19 @@
             opacity: 1;
         }
 
-        /* ========== OTP MODAL — FULLY RESPONSIVE ========== */
         .otp-modal {
             background: white;
             border-radius: var(--radius-2xl);
-            /* Flex child: don't grow wider than the overlay allows */
+            /* Fill available space inside padded overlay, cap at 420px on large screens */
             width: 100%;
-            max-width: 440px;
-            flex-shrink: 1;
+            max-width: 420px;
+            /* Fluid padding: shrinks on small screens, grows on large */
+            padding: clamp(20px, 5vw, 32px) clamp(16px, 5vw, 28px);
             text-align: center;
             box-shadow: var(--shadow-xl);
             transform: scale(0.95);
             transition: transform 0.2s ease;
-            max-height: calc(100vh - 40px);
-            overflow-y: auto;
             box-sizing: border-box;
-            --modal-px: 28px;
-            padding: 28px var(--modal-px);
         }
 
         .modal-overlay.active .otp-modal {
@@ -901,53 +575,50 @@
         }
 
         .otp-modal h3 {
-            font-size: clamp(17px, 5vw, 22px);
+            /* Scales between 17px (small screens) and 22px (large screens) */
+            font-size: clamp(17px, 4vw, 22px);
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 10px;
         }
 
         .otp-modal p {
-            font-size: clamp(12px, 3.5vw, 14px);
+            font-size: clamp(12px, 3vw, 14px);
             color: var(--text-muted);
             margin-bottom: 20px;
-            line-height: 1.6;
+            /* Prevents long email addresses from overflowing */
             word-break: break-word;
+            line-height: 1.6;
         }
 
-        /* OTP digit group — CSS Grid guarantees all 6 always fit */
+        .otp-modal p strong {
+            color: var(--primary);
+        }
+
         .otp-input-group {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 8px;
+            display: flex;
+            /* Gap shrinks on small screens so all 6 boxes always fit in one row */
+            gap: clamp(6px, 2vw, 12px);
+            justify-content: center;
             margin-bottom: 20px;
-            width: 100%;
-            box-sizing: border-box;
         }
 
         .otp-digit {
-            width: 100%;
-            aspect-ratio: 1 / 1.15;
+            /* Width & height scale fluidly — 6 boxes always fit on any screen */
+            width: clamp(38px, 12vw, 55px);
+            height: clamp(46px, 14vw, 65px);
             text-align: center;
-            font-size: clamp(16px, 4.5vw, 24px);
-            font-weight: 700;
+            font-size: clamp(20px, 6vw, 28px);
+            font-weight: 600;
             border: 2px solid var(--border);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             background: var(--bg-muted);
             transition: all 0.2s;
-            padding: 0;
             box-sizing: border-box;
-            -moz-appearance: textfield;
-            appearance: textfield;
-            /* Prevent iOS tap highlight */
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .otp-digit::-webkit-outer-spin-button,
-        .otp-digit::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            appearance: none;
-            margin: 0;
+            /* Prevents flex children from overflowing the row */
+            min-width: 0;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
         }
 
         .otp-digit:focus {
@@ -957,16 +628,16 @@
             box-shadow: 0 0 0 3px var(--primary-glow);
         }
 
-        /* Modal action buttons */
         .modal-actions {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             justify-content: center;
             margin-top: 10px;
         }
 
         .modal-actions button {
             flex: 1;
+            /* Prevents buttons from overflowing on tiny screens */
             min-width: 0;
         }
 
@@ -977,129 +648,38 @@
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 14px;
+            margin-top: 15px;
             text-decoration: underline;
-            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            display: block;
+            width: 100%;
         }
 
-        .resend-link:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+        .resend-link:disabled { opacity: 0.5; cursor: not-allowed; }
+        /* ========== END OTP MODAL ========== */
 
         /* ========== RESPONSIVE ========== */
         @media (max-width: 900px) {
-            .form-grid.cols4 {
-                grid-template-columns: 1fr 1fr;
-            }
+            .form-grid.cols4 { grid-template-columns: 1fr 1fr; }
         }
 
         @media (max-width: 768px) {
-            .topbar {
-                padding: 0 16px;
-            }
-
-            .topbar-info span {
-                display: none;
-            }
-
-            .page-body {
-                padding: 16px;
-            }
-
-            .page-banner {
-                padding: 20px 18px;
-            }
-
-            .banner-icon {
-                display: none;
-            }
-
+            .topbar { padding: 0 16px; }
+            .topbar-info span { display: none; }
+            .page-body { padding: 16px; }
+            .page-banner { padding: 20px 18px; }
+            .banner-icon { display: none; }
             .form-grid.cols2,
-            .form-grid.cols4 {
-                grid-template-columns: 1fr;
-            }
-
-            .section-block {
-                padding: 18px 16px;
-            }
-
-            .form-actions {
-                flex-direction: column;
-                gap: 10px;
-                padding: 16px;
-            }
-
-            .form-actions .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .alert {
-                margin: 0 16px 14px;
-            }
-        }
-
-        /* Small phones (≤400px) — reduce modal padding */
-        @media (max-width: 400px) {
-            .otp-modal {
-                --modal-px: 16px;
-                padding: 22px 16px;
-                border-radius: var(--radius-xl);
-            }
-
-            .otp-input-group {
-                gap: 6px;
-            }
-        }
-
-        /* Very small phones (≤320px) */
-        @media (max-width: 320px) {
-            .otp-modal {
-                --modal-px: 12px;
-                padding: 18px 12px;
-            }
-
-            .otp-input-group {
-                gap: 4px;
-            }
-
-            .modal-actions {
-                flex-direction: column;
-            }
-
-            .modal-actions button {
-                width: 100%;
-            }
+            .form-grid.cols4 { grid-template-columns: 1fr; }
+            .section-block { padding: 18px 16px; }
+            .form-actions { flex-direction: column; gap: 10px; padding: 16px; }
+            .form-actions .btn { width: 100%; justify-content: center; }
+            .alert { margin: 0 16px 14px; }
         }
 
         @media (max-width: 480px) {
-            .topbar {
-                height: 60px;
-            }
-
-            .btn-back-label {
-                display: none;
-            }
-        }
-
-        /* Landscape phones with limited height */
-        @media (max-height: 500px) and (orientation: landscape) {
-            .otp-modal {
-                padding: 16px 20px;
-            }
-
-            .otp-modal h3 {
-                margin-bottom: 6px;
-            }
-
-            .otp-modal p {
-                margin-bottom: 12px;
-            }
-
-            .otp-input-group {
-                margin-bottom: 12px;
-            }
+            .topbar { height: 60px; }
+            .btn-back-label { display: none; }
         }
     </style>
 </head>
@@ -1166,60 +746,47 @@
 
                 <div class="form-grid cols2">
                     <div class="form-group">
-                        <label class="form-label" for="f-name"><i class="fas fa-user"></i> Full Name <span
-                                class="req">*</span></label>
+                        <label class="form-label" for="f-name"><i class="fas fa-user"></i> Full Name <span class="req">*</span></label>
                         <p class="field-hint">Letters and spaces only, 3–60 characters</p>
                         <div class="input-wrap" id="wrap-name">
                             <i class="fas fa-user icon"></i>
-                            <input type="text" id="f-name" placeholder="e.g. Rahul Sharma" maxlength="60"
-                                autocomplete="name">
+                            <input type="text" id="f-name" placeholder="e.g. Rahul Sharma" maxlength="60" autocomplete="name">
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-name">Full name
-                                is required.</span></div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-name">Full name is required.</span></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="f-email"><i class="fas fa-envelope"></i> Email Address <span
-                                class="req">*</span></label>
+                        <label class="form-label" for="f-email"><i class="fas fa-envelope"></i> Email Address <span class="req">*</span></label>
                         <p class="field-hint">Must be a valid email, max 100 characters</p>
                         <div class="input-wrap" id="wrap-email">
                             <i class="fas fa-envelope icon"></i>
-                            <input type="email" id="f-email" placeholder="employee@company.com" maxlength="100"
-                                autocomplete="email">
+                            <input type="email" id="f-email" placeholder="employee@company.com" maxlength="100" autocomplete="email">
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-email">Valid
-                                email is required.</span></div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-email">Valid email is required.</span></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="f-password"><i class="fas fa-lock"></i> Password <span
-                                class="req">*</span></label>
+                        <label class="form-label" for="f-password"><i class="fas fa-lock"></i> Password <span class="req">*</span></label>
                         <p class="field-hint">8–32 chars · uppercase · number · special char</p>
                         <div class="input-wrap has-toggle" id="wrap-password">
                             <i class="fas fa-lock icon"></i>
-                            <input type="password" id="f-password" placeholder="e.g. Emp@2024" maxlength="32"
-                                autocomplete="new-password">
-                            <button type="button" class="pw-toggle" onclick="togglePw('f-password',this)"><i
-                                    class="far fa-eye"></i></button>
+                            <input type="password" id="f-password" placeholder="e.g. Emp@2024" maxlength="32" autocomplete="new-password">
+                            <button type="button" class="pw-toggle" onclick="togglePw('f-password',this)"><i class="far fa-eye"></i></button>
                         </div>
                         <div class="pw-strength">
                             <div class="pw-strength-bar" id="pwBar"></div>
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-password">Min 8
-                                chars with uppercase, number & special char.</span></div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-password">Min 8 chars with uppercase, number & special char.</span></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="f-contact"><i class="fas fa-phone"></i> Contact Number <span
-                                class="req">*</span></label>
+                        <label class="form-label" for="f-contact"><i class="fas fa-phone"></i> Contact Number <span class="req">*</span></label>
                         <p class="field-hint">10-digit mobile number</p>
                         <div class="input-wrap" id="wrap-contact">
                             <i class="fas fa-phone icon"></i>
-                            <input type="tel" id="f-contact" placeholder="e.g. 9876543210" maxlength="10"
-                                inputmode="numeric">
+                            <input type="tel" id="f-contact" placeholder="e.g. 9876543210" maxlength="10" inputmode="numeric">
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-contact">Enter a
-                                valid 10-digit mobile number.</span></div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-contact">Enter a valid 10-digit mobile number.</span></div>
                     </div>
                 </div>
             </div>
@@ -1235,8 +802,7 @@
                 </div>
                 <div class="form-grid cols2">
                     <div class="form-group">
-                        <label class="form-label" for="f-dept"><i class="fas fa-sitemap"></i> Department <span
-                                class="req">*</span></label>
+                        <label class="form-label" for="f-dept"><i class="fas fa-sitemap"></i> Department <span class="req">*</span></label>
                         <div class="input-wrap has-chevron" id="wrap-dept">
                             <i class="fas fa-sitemap icon"></i>
                             <select id="f-dept">
@@ -1244,13 +810,11 @@
                             </select>
                             <i class="fas fa-chevron-down chevron"></i>
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> Please select a department.
-                        </div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> Please select a department.</div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="f-designation"><i class="fas fa-id-badge"></i> Designation <span
-                                class="req">*</span></label>
+                        <label class="form-label" for="f-designation"><i class="fas fa-id-badge"></i> Designation <span class="req">*</span></label>
                         <p class="field-hint">Job title, 3–80 characters</p>
                         <div class="input-wrap" id="wrap-designation">
                             <i class="fas fa-id-badge icon"></i>
@@ -1260,20 +824,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="f-joindate"><i class="fas fa-calendar"></i> Joining Date <span
-                                class="req">*</span></label>
+                        <label class="form-label" for="f-joindate"><i class="fas fa-calendar"></i> Joining Date <span class="req">*</span></label>
                         <p class="field-hint">Cannot be a future date</p>
                         <div class="input-wrap" id="wrap-joindate">
                             <i class="fas fa-calendar icon"></i>
                             <input type="date" id="f-joindate">
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-joindate">Joining
-                                date is required.</span></div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-joindate">Joining date is required.</span></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="f-address"><i class="fas fa-location-dot"></i> Address <span
-                                class="opt">(Optional)</span></label>
+                        <label class="form-label" for="f-address"><i class="fas fa-location-dot"></i> Address <span class="opt">(Optional)</span></label>
                         <p class="field-hint">Max 200 characters</p>
                         <div class="input-wrap" id="wrap-address">
                             <i class="fas fa-location-dot icon"></i>
@@ -1295,16 +856,14 @@
                 </div>
                 <div class="salary-note">
                     <i class="fas fa-circle-info"></i>
-                    <span>All salary fields are <strong>optional</strong>. Leave blank to update later. Values must be
-                        <strong>positive numbers</strong> only.</span>
+                    <span>All salary fields are <strong>optional</strong>. Leave blank to update later. Values must be <strong>positive numbers</strong> only.</span>
                 </div>
                 <div class="form-grid cols4">
                     <div class="form-group">
                         <label class="form-label"><i class="fas fa-indian-rupee-sign"></i> Base Salary</label>
                         <div class="input-wrap" id="wrap-base_salary">
                             <i class="fas fa-indian-rupee-sign icon"></i>
-                            <input type="number" id="f-base_salary" placeholder="30000" min="0" max="9999999" step="1"
-                                inputmode="numeric">
+                            <input type="number" id="f-base_salary" placeholder="30000" min="0" max="9999999" step="1" inputmode="numeric">
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
@@ -1312,8 +871,7 @@
                         <label class="form-label"><i class="fas fa-percent"></i> AGP</label>
                         <div class="input-wrap" id="wrap-agp">
                             <i class="fas fa-percent icon"></i>
-                            <input type="number" id="f-agp" placeholder="5000" min="0" max="9999999" step="1"
-                                inputmode="numeric">
+                            <input type="number" id="f-agp" placeholder="5000" min="0" max="9999999" step="1" inputmode="numeric">
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
@@ -1321,8 +879,7 @@
                         <label class="form-label"><i class="fas fa-coins"></i> DA</label>
                         <div class="input-wrap" id="wrap-da">
                             <i class="fas fa-coins icon"></i>
-                            <input type="number" id="f-da" placeholder="3000" min="0" max="9999999" step="1"
-                                inputmode="numeric">
+                            <input type="number" id="f-da" placeholder="3000" min="0" max="9999999" step="1" inputmode="numeric">
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
@@ -1330,8 +887,7 @@
                         <label class="form-label"><i class="fas fa-coins"></i> DP</label>
                         <div class="input-wrap" id="wrap-dp">
                             <i class="fas fa-coins icon"></i>
-                            <input type="number" id="f-dp" placeholder="1500" min="0" max="9999999" step="1"
-                                inputmode="numeric">
+                            <input type="number" id="f-dp" placeholder="1500" min="0" max="9999999" step="1" inputmode="numeric">
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
@@ -1339,8 +895,7 @@
                         <label class="form-label"><i class="fas fa-house"></i> HRA</label>
                         <div class="input-wrap" id="wrap-hra">
                             <i class="fas fa-house icon"></i>
-                            <input type="number" id="f-hra" placeholder="8000" min="0" max="9999999" step="1"
-                                inputmode="numeric">
+                            <input type="number" id="f-hra" placeholder="8000" min="0" max="9999999" step="1" inputmode="numeric">
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
@@ -1348,8 +903,7 @@
                         <label class="form-label"><i class="fas fa-bus"></i> TRA</label>
                         <div class="input-wrap" id="wrap-tra">
                             <i class="fas fa-bus icon"></i>
-                            <input type="number" id="f-tra" placeholder="1600" min="0" max="9999999" step="1"
-                                inputmode="numeric">
+                            <input type="number" id="f-tra" placeholder="1600" min="0" max="9999999" step="1" inputmode="numeric">
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
@@ -1357,8 +911,7 @@
                         <label class="form-label"><i class="fas fa-stethoscope"></i> CLA</label>
                         <div class="input-wrap" id="wrap-cla">
                             <i class="fas fa-stethoscope icon"></i>
-                            <input type="number" id="f-cla" placeholder="1000" min="0" max="9999999" step="1"
-                                inputmode="numeric">
+                            <input type="number" id="f-cla" placeholder="1000" min="0" max="9999999" step="1" inputmode="numeric">
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
@@ -1376,34 +929,27 @@
                 </div>
                 <div class="form-grid cols2">
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-hashtag"></i> Account Number <span
-                                class="opt">(Optional)</span></label>
+                        <label class="form-label"><i class="fas fa-hashtag"></i> Account Number <span class="opt">(Optional)</span></label>
                         <p class="field-hint">9–18 digits only</p>
                         <div class="input-wrap" id="wrap-bank_acc_no">
                             <i class="fas fa-hashtag icon"></i>
-                            <input type="text" id="f-bank_acc_no" placeholder="e.g. 1234567890" maxlength="18"
-                                inputmode="numeric">
+                            <input type="text" id="f-bank_acc_no" placeholder="e.g. 1234567890" maxlength="18" inputmode="numeric">
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> Account number must be 9–18
-                            digits.</div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> Account number must be 9–18 digits.</div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-code-branch"></i> IFSC Code <span
-                                class="opt">(Optional)</span></label>
+                        <label class="form-label"><i class="fas fa-code-branch"></i> IFSC Code <span class="opt">(Optional)</span></label>
                         <p class="field-hint">Format: ABCD0123456 (11 characters)</p>
                         <div class="input-wrap" id="wrap-ifsc_code">
                             <i class="fas fa-code-branch icon"></i>
-                            <input type="text" id="f-ifsc_code" placeholder="e.g. SBIN0001234" maxlength="11"
-                                style="text-transform:uppercase">
+                            <input type="text" id="f-ifsc_code" placeholder="e.g. SBIN0001234" maxlength="11" style="text-transform:uppercase">
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> Invalid IFSC (e.g.
-                            SBIN0001234).</div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> Invalid IFSC (e.g. SBIN0001234).</div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-building-columns"></i> Bank Name <span
-                                class="opt">(Optional)</span></label>
+                        <label class="form-label"><i class="fas fa-building-columns"></i> Bank Name <span class="opt">(Optional)</span></label>
                         <p class="field-hint">Max 80 characters</p>
                         <div class="input-wrap" id="wrap-bank_name">
                             <i class="fas fa-building-columns icon"></i>
@@ -1413,8 +959,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-location-dot"></i> Branch Address <span
-                                class="opt">(Optional)</span></label>
+                        <label class="form-label"><i class="fas fa-location-dot"></i> Branch Address <span class="opt">(Optional)</span></label>
                         <p class="field-hint">Max 200 characters</p>
                         <div class="input-wrap" id="wrap-bank_address">
                             <i class="fas fa-location-dot icon"></i>
@@ -1445,10 +990,8 @@
                 <h2>Employee Added Successfully!</h2>
                 <p id="successMsg">The new employee has been created and can now log in.</p>
                 <div class="success-actions">
-                    <button class="btn btn-secondary" onclick="resetForm()"><i class="fas fa-plus"></i> Add
-                        Another</button>
-                    <a href="/managerdashboard" class="btn btn-primary"><i class="fas fa-th-large"></i> Go to
-                        Dashboard</a>
+                    <button class="btn btn-secondary" onclick="resetForm()"><i class="fas fa-plus"></i> Add Another</button>
+                    <a href="/managerdashboard" class="btn btn-primary"><i class="fas fa-th-large"></i> Go to Dashboard</a>
                 </div>
             </div>
         </div>
@@ -1459,15 +1002,14 @@
     <div class="modal-overlay" id="otpModal">
         <div class="otp-modal">
             <h3><i class="fas fa-envelope"></i> Verify Email</h3>
-            <p>We've sent a 6‑digit OTP to <strong id="otpEmailDisplay"></strong>. Please enter it below to complete
-                adding the employee.</p>
+            <p>We've sent a 6&#8209;digit OTP to <strong id="otpEmailDisplay"></strong>. Please enter it below to complete adding the employee.</p>
             <div class="otp-input-group">
-                <input type="text" maxlength="1" class="otp-digit" data-idx="0" inputmode="numeric" autocomplete="off">
-                <input type="text" maxlength="1" class="otp-digit" data-idx="1" inputmode="numeric" autocomplete="off">
-                <input type="text" maxlength="1" class="otp-digit" data-idx="2" inputmode="numeric" autocomplete="off">
-                <input type="text" maxlength="1" class="otp-digit" data-idx="3" inputmode="numeric" autocomplete="off">
-                <input type="text" maxlength="1" class="otp-digit" data-idx="4" inputmode="numeric" autocomplete="off">
-                <input type="text" maxlength="1" class="otp-digit" data-idx="5" inputmode="numeric" autocomplete="off">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" data-idx="0" autocomplete="off">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" data-idx="1" autocomplete="off">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" data-idx="2" autocomplete="off">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" data-idx="3" autocomplete="off">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" data-idx="4" autocomplete="off">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" data-idx="5" autocomplete="off">
             </div>
             <div class="modal-actions">
                 <button class="btn btn-secondary" id="cancelOtpBtn">Cancel</button>
@@ -1477,8 +1019,7 @@
         </div>
     </div>
 
-
-     
+    <script src="/static/js/config.js"></script>
     <script>
         'use strict';
 
@@ -1615,7 +1156,7 @@
             el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        /* ── BUILD FORMDATA (helper) ── */
+        /* ── BUILD FORMDATA ── */
         function buildFormData() {
             const fd = new FormData();
             [['name', 'f-name'], ['email', 'f-email'], ['password', 'f-password'], ['contact', 'f-contact'],
@@ -1659,6 +1200,8 @@
 
         digitInputs.forEach((input, idx) => {
             input.addEventListener('input', (e) => {
+                // Allow only digits
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
                 if (e.target.value.length === 1 && idx < 5) {
                     digitInputs[idx + 1].focus();
                 }
@@ -1668,6 +1211,18 @@
                     digitInputs[idx - 1].focus();
                 }
             });
+            // Handle paste — spread digits across boxes automatically
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pasted = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+                if (!pasted) return;
+                pasted.split('').forEach((char, i) => {
+                    if (digitInputs[idx + i]) digitInputs[idx + i].value = char;
+                });
+                const nextEmpty = idx + pasted.length;
+                if (digitInputs[nextEmpty]) digitInputs[nextEmpty].focus();
+                else digitInputs[5].focus();
+            });
         });
 
         async function resendOtp() {
@@ -1676,11 +1231,9 @@
             resendBtn.textContent = 'Sending...';
             try {
                 const token = getAuthToken();
-                const res = await fetch(`/add_emp`, {
+                const res = await fetch(`${API_BASE}/add_emp`, {
                     method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    },
+                    headers: { 'Authorization': `Bearer ${token}` },
                     body: buildFormData()
                 });
                 const data = await res.json();
@@ -1702,23 +1255,20 @@
         async function verifyOtp() {
             const otp = getOtpFromInputs();
             if (otp.length !== 6) {
-                showAlert('Please enter the full 6‑digit OTP.', 'error');
+                showAlert('Please enter the full 6&#8209;digit OTP.', 'error');
                 return;
             }
             verifyBtn.disabled = true;
             verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
             try {
                 const token = getAuthToken();
-                const res = await fetch(`/verify_add_emp`, {
+                const res = await fetch(`${API_BASE}/verify_add_emp`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     },
-                    body: JSON.stringify({
-                        email: pendingEmail,
-                        otp: otp
-                    })
+                    body: JSON.stringify({ email: pendingEmail, otp: otp })
                 });
                 const data = await res.json();
                 if (data.status === 'success') {
@@ -1739,7 +1289,7 @@
             }
         }
 
-        /* ── MODIFIED SUBMIT (Two‑step) ── */
+        /* ── SUBMIT (Two-step) ── */
         async function submitForm() {
             document.getElementById('formAlert').className = 'alert';
             if (!validateAll()) {
@@ -1755,11 +1305,9 @@
 
             try {
                 const token = getAuthToken();
-                const res = await fetch(`/add_emp`, {
+                const res = await fetch(`${API_BASE}/add_emp`, {
                     method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    },
+                    headers: { 'Authorization': `Bearer ${token}` },
                     body: fd
                 });
                 const data = await res.json();
@@ -1790,7 +1338,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        /* ── AUTH TOKEN & DEPARTMENTS ── */
+        /* ── AUTH TOKEN ── */
         function getAuthToken() {
             const keys = ['token', 'authToken', 'access_token', 'auth_token', 'user_token', 'x-access-token'];
             for (const key of keys) { const t = localStorage.getItem(key); if (t) return t; }
@@ -1806,11 +1354,9 @@
             const token = getAuthToken();
             if (!token) return;
             try {
-                const res = await fetch(`/get_departments`, {
+                const res = await fetch(`${API_BASE}/get_departments`, {
                     method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                    headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const text = await res.text();
                 let data;
