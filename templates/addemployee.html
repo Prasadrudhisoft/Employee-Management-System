@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Add Employee | StaffCores</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         :root {
             --primary: #4f46e5;
@@ -36,7 +44,7 @@
             --text-tertiary: #64748b;
             --text-muted: #94a3b8;
             --text-placeholder: #cbd5e1;
-            --shadow-xl: 0 25px 50px -12px rgba(0,0,0,0.15);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
             --radius-sm: 6px;
             --radius: 8px;
             --radius-md: 10px;
@@ -48,7 +56,10 @@
             --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        html { font-size: 16px; scroll-behavior: smooth; }
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -58,17 +69,29 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.4); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.6); }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.4);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.6);
+        }
 
         /* ========== TOPBAR ========== */
         .topbar {
             position: sticky;
             top: 0;
             height: 68px;
-            background: rgba(255,255,255,0.92);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
@@ -131,7 +154,10 @@
             white-space: nowrap;
         }
 
-        .btn-back i { font-size: 11px; transition: transform var(--transition-fast); }
+        .btn-back i {
+            font-size: 11px;
+            transition: transform var(--transition-fast);
+        }
 
         .btn-back:hover {
             background: var(--primary-subtle);
@@ -139,7 +165,9 @@
             color: var(--primary);
         }
 
-        .btn-back:hover i { transform: translateX(-3px); }
+        .btn-back:hover i {
+            transform: translateX(-3px);
+        }
 
         /* ========== PAGE BODY ========== */
         .page-body {
@@ -166,7 +194,7 @@
             right: -8%;
             width: 400px;
             height: 400px;
-            background: radial-gradient(circle, rgba(255,255,255,0.09) 0%, transparent 60%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.09) 0%, transparent 60%);
             pointer-events: none;
         }
 
@@ -176,7 +204,7 @@
             right: 160px;
             width: 100px;
             height: 100px;
-            border: 2px solid rgba(255,255,255,0.08);
+            border: 2px solid rgba(255, 255, 255, 0.08);
             border-radius: 50%;
             pointer-events: none;
         }
@@ -208,8 +236,8 @@
             width: 68px;
             height: 68px;
             border-radius: var(--radius-xl);
-            background: rgba(255,255,255,0.14);
-            border: 1px solid rgba(255,255,255,0.22);
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.22);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -250,21 +278,59 @@
             flex-shrink: 0;
         }
 
-        .section-icon.indigo  { background: var(--primary-subtle); color: var(--primary); }
-        .section-icon.cyan    { background: var(--info-light);      color: var(--info); }
-        .section-icon.emerald { background: var(--success-light);   color: var(--success); }
-        .section-icon.amber   { background: var(--warning-light);   color: var(--warning); }
+        .section-icon.indigo {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
 
-        .section-title h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; }
-        .section-title p  { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+        .section-icon.cyan {
+            background: var(--info-light);
+            color: var(--info);
+        }
+
+        .section-icon.emerald {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .section-icon.amber {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .section-title h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .section-title p {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
 
         /* ========== FORM GRID ========== */
-        .form-grid { display: grid; gap: 18px; }
-        .form-grid.cols2 { grid-template-columns: 1fr 1fr; }
-        .form-grid.cols4 { grid-template-columns: repeat(4, 1fr); }
+        .form-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .form-grid.cols2 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .form-grid.cols4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
 
         /* ========== FORM GROUP ========== */
-        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
 
         .form-label {
             font-size: 12.5px;
@@ -275,14 +341,31 @@
             gap: 6px;
         }
 
-        .form-label i   { font-size: 11px; color: var(--primary); }
-        .form-label .req { color: var(--danger); margin-left: 1px; }
-        .form-label .opt { color: var(--text-muted); font-weight: 400; font-size: 11.5px; }
+        .form-label i {
+            font-size: 11px;
+            color: var(--primary);
+        }
 
-        .field-hint { font-size: 11px; color: var(--text-muted); }
+        .form-label .req {
+            color: var(--danger);
+            margin-left: 1px;
+        }
+
+        .form-label .opt {
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 11.5px;
+        }
+
+        .field-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
 
         /* ========== INPUT WRAP ========== */
-        .input-wrap { position: relative; }
+        .input-wrap {
+            position: relative;
+        }
 
         .input-wrap .icon {
             position: absolute;
@@ -311,8 +394,16 @@
             transition: all var(--transition-base);
         }
 
-        .input-wrap textarea { padding-top: 10px; resize: vertical; min-height: 74px; }
-        .input-wrap select   { appearance: none; cursor: pointer; }
+        .input-wrap textarea {
+            padding-top: 10px;
+            resize: vertical;
+            min-height: 74px;
+        }
+
+        .input-wrap select {
+            appearance: none;
+            cursor: pointer;
+        }
 
         .input-wrap .chevron {
             position: absolute;
@@ -325,7 +416,9 @@
         }
 
         .input-wrap input::placeholder,
-        .input-wrap textarea::placeholder { color: var(--text-placeholder); }
+        .input-wrap textarea::placeholder {
+            color: var(--text-placeholder);
+        }
 
         .input-wrap input:focus,
         .input-wrap select:focus,
@@ -335,7 +428,9 @@
             box-shadow: 0 0 0 3px var(--primary-glow);
         }
 
-        .input-wrap:focus-within .icon { color: var(--primary); }
+        .input-wrap:focus-within .icon {
+            color: var(--primary);
+        }
 
         /* char counter */
         .char-count {
@@ -346,32 +441,73 @@
             color: var(--text-muted);
             pointer-events: none;
         }
-        .char-count.warn { color: var(--warning); }
-        .char-count.over { color: var(--danger); }
+
+        .char-count.warn {
+            color: var(--warning);
+        }
+
+        .char-count.over {
+            color: var(--danger);
+        }
 
         /* pw strength */
-        .pw-strength { height: 3px; border-radius: 4px; background: var(--bg-muted); margin-top: 5px; overflow: hidden; }
-        .pw-strength-bar { height: 100%; border-radius: 4px; width: 0; transition: width .3s, background .3s; }
+        .pw-strength {
+            height: 3px;
+            border-radius: 4px;
+            background: var(--bg-muted);
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .pw-strength-bar {
+            height: 100%;
+            border-radius: 4px;
+            width: 0;
+            transition: width .3s, background .3s;
+        }
 
         /* valid */
         .input-wrap.valid input,
         .input-wrap.valid select,
-        .input-wrap.valid textarea { border-color: var(--success); background: var(--success-light); }
-        .input-wrap.valid .icon    { color: var(--success); }
+        .input-wrap.valid textarea {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+
+        .input-wrap.valid .icon {
+            color: var(--success);
+        }
+
         .input-wrap.valid::after {
             content: '\f058';
-            font-family: 'Font Awesome 6 Free'; font-weight: 900;
-            position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
-            color: var(--success); font-size: 13px; pointer-events: none;
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--success);
+            font-size: 13px;
+            pointer-events: none;
         }
+
         .input-wrap.valid.has-toggle::after,
-        .input-wrap.valid.has-chevron::after { display: none; }
+        .input-wrap.valid.has-chevron::after {
+            display: none;
+        }
 
         /* error */
         .input-wrap.error input,
         .input-wrap.error select,
-        .input-wrap.error textarea { border-color: var(--danger); background: var(--danger-light); box-shadow: 0 0 0 3px rgba(220,38,38,0.07); }
-        .input-wrap.error .icon    { color: var(--danger); }
+        .input-wrap.error textarea {
+            border-color: var(--danger);
+            background: var(--danger-light);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.07);
+        }
+
+        .input-wrap.error .icon {
+            color: var(--danger);
+        }
 
         .field-err {
             display: none;
@@ -382,21 +518,48 @@
             font-weight: 500;
             animation: errIn .2s ease;
         }
-        @keyframes errIn { from { opacity:0; transform:translateY(-3px); } to { opacity:1; transform:translateY(0); } }
-        .input-wrap.error ~ .field-err { display: flex; }
+
+        @keyframes errIn {
+            from {
+                opacity: 0;
+                transform: translateY(-3px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .input-wrap.error~.field-err {
+            display: flex;
+        }
 
         /* pw toggle */
         .pw-toggle {
-            position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
-            background: none; border: none; cursor: pointer;
-            color: var(--text-muted); font-size: 13px; padding: 4px; z-index: 2;
+            position: absolute;
+            right: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 13px;
+            padding: 4px;
+            z-index: 2;
             transition: color var(--transition-fast);
         }
-        .pw-toggle:hover { color: var(--text-secondary); }
+
+        .pw-toggle:hover {
+            color: var(--text-secondary);
+        }
 
         /* avatar */
         .avatar-upload {
-            display: flex; align-items: center; gap: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
             padding: 16px 20px;
             background: var(--bg-muted);
             border: 2px dashed var(--border);
@@ -405,40 +568,82 @@
             transition: all var(--transition-base);
             margin-bottom: 22px;
         }
-        .avatar-upload:hover { background: var(--primary-subtle); border-color: var(--primary); }
+
+        .avatar-upload:hover {
+            background: var(--primary-subtle);
+            border-color: var(--primary);
+        }
 
         .avatar-preview {
-            width: 60px; height: 60px;
+            width: 60px;
+            height: 60px;
             border-radius: var(--radius-lg);
             background: var(--primary-subtle);
             border: 2px solid var(--primary-lighter);
-            display: flex; align-items: center; justify-content: center;
-            overflow: hidden; flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
         }
-        .avatar-preview i   { font-size: 22px; color: var(--primary); }
-        .avatar-preview img { width: 100%; height: 100%; object-fit: cover; }
 
-        .avatar-text h5 { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
-        .avatar-text p  { font-size: 11.5px; color: var(--text-muted); }
-        .avatar-text p span { color: var(--primary); font-weight: 600; }
+        .avatar-preview i {
+            font-size: 22px;
+            color: var(--primary);
+        }
 
-        #profileInput { display: none; }
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-text h5 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 3px;
+        }
+
+        .avatar-text p {
+            font-size: 11.5px;
+            color: var(--text-muted);
+        }
+
+        .avatar-text p span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        #profileInput {
+            display: none;
+        }
 
         /* salary note */
         .salary-note {
-            display: flex; align-items: flex-start; gap: 11px;
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
             padding: 13px 16px;
             background: var(--info-light);
-            border: 1px solid rgba(2,132,199,0.18);
+            border: 1px solid rgba(2, 132, 199, 0.18);
             border-radius: var(--radius-lg);
             margin-bottom: 18px;
-            font-size: 12.5px; color: var(--info);
+            font-size: 12.5px;
+            color: var(--info);
         }
-        .salary-note i { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+
+        .salary-note i {
+            font-size: 15px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
 
         /* ========== FORM ACTIONS ========== */
         .form-actions {
-            display: flex; align-items: center; justify-content: space-between;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             padding: 20px 30px;
             background: var(--bg-muted);
             border-top: 1px solid var(--border);
@@ -446,13 +651,20 @@
 
         /* ========== BUTTONS ========== */
         .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             padding: 10px 20px;
             border-radius: var(--radius);
             font-family: 'Inter', sans-serif;
-            font-size: 13.5px; font-weight: 600;
-            cursor: pointer; transition: all var(--transition-fast);
-            border: none; text-decoration: none; white-space: nowrap;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: none;
+            text-decoration: none;
+            white-space: nowrap;
         }
 
         .btn-secondary {
@@ -460,58 +672,174 @@
             border: 1.5px solid var(--border);
             color: var(--text-secondary);
         }
-        .btn-secondary:hover { background: var(--bg-muted); color: var(--text-primary); }
+
+        .btn-secondary:hover {
+            background: var(--bg-muted);
+            color: var(--text-primary);
+        }
 
         .btn-primary {
             background: var(--primary);
             color: white;
             padding: 10px 26px;
         }
+
         .btn-primary:hover {
             background: var(--primary-dark);
             box-shadow: 0 4px 14px var(--primary-glow);
             transform: translateY(-1px);
         }
-        .btn-primary:disabled { opacity: 0.65; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .btn-primary:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
 
         /* ========== ALERT ========== */
         .alert {
             padding: 13px 16px;
             border-radius: var(--radius-lg);
-            font-size: 13px; font-weight: 500;
-            display: none; align-items: center; gap: 11px;
+            font-size: 13px;
+            font-weight: 500;
+            display: none;
+            align-items: center;
+            gap: 11px;
             margin: 0 30px 18px;
             animation: slideDown .3s ease;
         }
-        @keyframes slideDown { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
-        .alert.error   { display:flex; background:var(--danger-light);  border:1px solid var(--danger-border);  color:var(--danger); }
-        .alert.success { display:flex; background:var(--success-light); border:1px solid var(--success-border); color:var(--success); }
-        .alert i { font-size: 16px; flex-shrink: 0; }
-        .alert-title { font-weight: 700; margin-bottom: 2px; }
-        .alert-body   { font-size: 12px; opacity: 0.9; }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert.error {
+            display: flex;
+            background: var(--danger-light);
+            border: 1px solid var(--danger-border);
+            color: var(--danger);
+        }
+
+        .alert.success {
+            display: flex;
+            background: var(--success-light);
+            border: 1px solid var(--success-border);
+            color: var(--success);
+        }
+
+        .alert i {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .alert-title {
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .alert-body {
+            font-size: 12px;
+            opacity: 0.9;
+        }
 
         /* ========== SUCCESS SCREEN ========== */
-        .success-screen { text-align: center; padding: 52px 36px; animation: fadeUp .4s ease; }
-        @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+        .success-screen {
+            text-align: center;
+            padding: 52px 36px;
+            animation: fadeUp .4s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         .success-circle {
-            width: 84px; height: 84px; border-radius: 50%;
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
             background: linear-gradient(135deg, var(--success), #34d399);
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin: 0 auto 20px;
-            font-size: 36px; color: white;
-            box-shadow: 0 12px 32px rgba(5,150,105,0.32);
-            animation: pop .5s cubic-bezier(0.34,1.56,0.64,1);
+            font-size: 36px;
+            color: white;
+            box-shadow: 0 12px 32px rgba(5, 150, 105, 0.32);
+            animation: pop .5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        @keyframes pop { from { transform:scale(0) rotate(-180deg); } to { transform:scale(1) rotate(0); } }
 
-        .success-screen h2 { font-size: 24px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; letter-spacing: -0.02em; }
-        .success-screen p  { font-size: 14px; color: var(--text-muted); max-width: 360px; margin: 0 auto 26px; line-height: 1.7; }
-        .success-actions   { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        @keyframes pop {
+            from {
+                transform: scale(0) rotate(-180deg);
+            }
+
+            to {
+                transform: scale(1) rotate(0);
+            }
+        }
+
+        .success-screen h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .success-screen p {
+            font-size: 14px;
+            color: var(--text-muted);
+            max-width: 360px;
+            margin: 0 auto 26px;
+            line-height: 1.7;
+        }
+
+        .success-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
         /* shake */
-        @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-5px)} 40%,80%{transform:translateX(5px)} }
-        .shake { animation: shake .35s ease; }
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0)
+            }
+
+            20%,
+            60% {
+                transform: translateX(-5px)
+            }
+
+            40%,
+            80% {
+                transform: translateX(5px)
+            }
+        }
+
+        .shake {
+            animation: shake .35s ease;
+        }
 
         /* ========== MODAL OVERLAY ========== */
         .modal-overlay {
@@ -520,7 +848,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(6px);
             display: flex;
             align-items: center;
@@ -530,10 +858,12 @@
             opacity: 0;
             transition: all 0.2s ease;
         }
+
         .modal-overlay.active {
             visibility: visible;
             opacity: 1;
         }
+
         .otp-modal {
             background: white;
             border-radius: var(--radius-2xl);
@@ -545,26 +875,31 @@
             transform: scale(0.95);
             transition: transform 0.2s ease;
         }
+
         .modal-overlay.active .otp-modal {
             transform: scale(1);
         }
+
         .otp-modal h3 {
             font-size: 22px;
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 10px;
         }
+
         .otp-modal p {
             font-size: 14px;
             color: var(--text-muted);
             margin-bottom: 20px;
         }
+
         .otp-input-group {
             display: flex;
             gap: 12px;
             justify-content: center;
             margin-bottom: 20px;
         }
+
         .otp-digit {
             width: 55px;
             height: 65px;
@@ -576,21 +911,25 @@
             background: var(--bg-muted);
             transition: all 0.2s;
         }
+
         .otp-digit:focus {
             border-color: var(--primary);
             background: white;
             outline: none;
             box-shadow: 0 0 0 3px var(--primary-glow);
         }
+
         .modal-actions {
             display: flex;
             gap: 12px;
             justify-content: center;
             margin-top: 10px;
         }
+
         .modal-actions button {
             flex: 1;
         }
+
         .resend-link {
             background: none;
             border: none;
@@ -601,32 +940,77 @@
             margin-top: 15px;
             text-decoration: underline;
         }
+
         .resend-link:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
 
         /* ========== RESPONSIVE ========== */
-        @media (max-width: 900px) { .form-grid.cols4 { grid-template-columns: 1fr 1fr; } }
-        @media (max-width: 768px) {
-            .topbar { padding: 0 16px; }
-            .topbar-info span { display: none; }
-            .page-body { padding: 16px; }
-            .page-banner { padding: 20px 18px; }
-            .banner-icon { display: none; }
-            .form-grid.cols2,
-            .form-grid.cols4 { grid-template-columns: 1fr; }
-            .section-block  { padding: 18px 16px; }
-            .form-actions   { flex-direction: column; gap: 10px; padding: 16px; }
-            .form-actions .btn { width: 100%; justify-content: center; }
-            .alert { margin: 0 16px 14px; }
+        @media (max-width: 900px) {
+            .form-grid.cols4 {
+                grid-template-columns: 1fr 1fr;
+            }
         }
+
+        @media (max-width: 768px) {
+            .topbar {
+                padding: 0 16px;
+            }
+
+            .topbar-info span {
+                display: none;
+            }
+
+            .page-body {
+                padding: 16px;
+            }
+
+            .page-banner {
+                padding: 20px 18px;
+            }
+
+            .banner-icon {
+                display: none;
+            }
+
+            .form-grid.cols2,
+            .form-grid.cols4 {
+                grid-template-columns: 1fr;
+            }
+
+            .section-block {
+                padding: 18px 16px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+                gap: 10px;
+                padding: 16px;
+            }
+
+            .form-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .alert {
+                margin: 0 16px 14px;
+            }
+        }
+
         @media (max-width: 480px) {
-            .topbar { height: 60px; }
-            .btn-back-label { display: none; }
+            .topbar {
+                height: 60px;
+            }
+
+            .btn-back-label {
+                display: none;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- ========== TOPBAR ========== -->
@@ -655,7 +1039,8 @@
             <div class="banner-inner">
                 <div class="banner-text">
                     <h2>Create Employee Profile</h2>
-                    <p>Fill in the details below to set up a complete employee account — personal info, employment, salary, and bank details.</p>
+                    <p>Fill in the details below to set up a complete employee account — personal info, employment,
+                        salary, and bank details.</p>
                 </div>
                 <div class="banner-icon">
                     <i class="fas fa-users"></i>
@@ -683,49 +1068,65 @@
                         <p>PNG, JPG, WEBP &nbsp;·&nbsp; Max <span>2 MB</span></p>
                     </div>
                 </div>
-                <input type="file" id="profileInput" accept="image/png,image/jpeg,image/webp" onchange="handleAvatar(this)">
+                <input type="file" id="profileInput" accept="image/png,image/jpeg,image/webp"
+                    onchange="handleAvatar(this)">
 
                 <div class="form-grid cols2">
                     <div class="form-group">
-                        <label class="form-label" for="f-name"><i class="fas fa-user"></i> Full Name <span class="req">*</span></label>
+                        <label class="form-label" for="f-name"><i class="fas fa-user"></i> Full Name <span
+                                class="req">*</span></label>
                         <p class="field-hint">Letters and spaces only, 3–60 characters</p>
                         <div class="input-wrap" id="wrap-name">
                             <i class="fas fa-user icon"></i>
-                            <input type="text" id="f-name" placeholder="e.g. Rahul Sharma" maxlength="60" autocomplete="name">
+                            <input type="text" id="f-name" placeholder="e.g. Rahul Sharma" maxlength="60"
+                                autocomplete="name">
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-name">Full name is required.</span></div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-name">Full name
+                                is required.</span></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="f-email"><i class="fas fa-envelope"></i> Email Address <span class="req">*</span></label>
+                        <label class="form-label" for="f-email"><i class="fas fa-envelope"></i> Email Address <span
+                                class="req">*</span></label>
                         <p class="field-hint">Must be a valid email, max 100 characters</p>
                         <div class="input-wrap" id="wrap-email">
                             <i class="fas fa-envelope icon"></i>
-                            <input type="email" id="f-email" placeholder="employee@company.com" maxlength="100" autocomplete="email">
+                            <input type="email" id="f-email" placeholder="employee@company.com" maxlength="100"
+                                autocomplete="email">
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-email">Valid email is required.</span></div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-email">Valid
+                                email is required.</span></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="f-password"><i class="fas fa-lock"></i> Password <span class="req">*</span></label>
+                        <label class="form-label" for="f-password"><i class="fas fa-lock"></i> Password <span
+                                class="req">*</span></label>
                         <p class="field-hint">8–32 chars · uppercase · number · special char</p>
                         <div class="input-wrap has-toggle" id="wrap-password">
                             <i class="fas fa-lock icon"></i>
-                            <input type="password" id="f-password" placeholder="e.g. Emp@2024" maxlength="32" autocomplete="new-password">
-                            <button type="button" class="pw-toggle" onclick="togglePw('f-password',this)"><i class="far fa-eye"></i></button>
+                            <input type="password" id="f-password" placeholder="e.g. Emp@2024" maxlength="32"
+                                autocomplete="new-password">
+                            <button type="button" class="pw-toggle" onclick="togglePw('f-password',this)"><i
+                                    class="far fa-eye"></i></button>
                         </div>
-                        <div class="pw-strength"><div class="pw-strength-bar" id="pwBar"></div></div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-password">Min 8 chars with uppercase, number & special char.</span></div>
+                        <div class="pw-strength">
+                            <div class="pw-strength-bar" id="pwBar"></div>
+                        </div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-password">Min 8
+                                chars with uppercase, number & special char.</span></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="f-contact"><i class="fas fa-phone"></i> Contact Number <span class="req">*</span></label>
+                        <label class="form-label" for="f-contact"><i class="fas fa-phone"></i> Contact Number <span
+                                class="req">*</span></label>
                         <p class="field-hint">10-digit mobile number</p>
                         <div class="input-wrap" id="wrap-contact">
                             <i class="fas fa-phone icon"></i>
-                            <input type="tel" id="f-contact" placeholder="e.g. 9876543210" maxlength="10" inputmode="numeric">
+                            <input type="tel" id="f-contact" placeholder="e.g. 9876543210" maxlength="10"
+                                inputmode="numeric">
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-contact">Enter a valid 10-digit mobile number.</span></div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-contact">Enter a
+                                valid 10-digit mobile number.</span></div>
                     </div>
                 </div>
             </div>
@@ -741,17 +1142,22 @@
                 </div>
                 <div class="form-grid cols2">
                     <div class="form-group">
-                        <label class="form-label" for="f-dept"><i class="fas fa-sitemap"></i> Department <span class="req">*</span></label>
+                        <label class="form-label" for="f-dept"><i class="fas fa-sitemap"></i> Department <span
+                                class="req">*</span></label>
                         <div class="input-wrap has-chevron" id="wrap-dept">
                             <i class="fas fa-sitemap icon"></i>
-                            <select id="f-dept"><option value="">Select Department</option></select>
+                            <select id="f-dept">
+                                <option value="">Select Department</option>
+                            </select>
                             <i class="fas fa-chevron-down chevron"></i>
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> Please select a department.</div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> Please select a department.
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="f-designation"><i class="fas fa-id-badge"></i> Designation <span class="req">*</span></label>
+                        <label class="form-label" for="f-designation"><i class="fas fa-id-badge"></i> Designation <span
+                                class="req">*</span></label>
                         <p class="field-hint">Job title, 3–80 characters</p>
                         <div class="input-wrap" id="wrap-designation">
                             <i class="fas fa-id-badge icon"></i>
@@ -761,17 +1167,20 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="f-joindate"><i class="fas fa-calendar"></i> Joining Date <span class="req">*</span></label>
+                        <label class="form-label" for="f-joindate"><i class="fas fa-calendar"></i> Joining Date <span
+                                class="req">*</span></label>
                         <p class="field-hint">Cannot be a future date</p>
                         <div class="input-wrap" id="wrap-joindate">
                             <i class="fas fa-calendar icon"></i>
                             <input type="date" id="f-joindate">
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-joindate">Joining date is required.</span></div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-joindate">Joining
+                                date is required.</span></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="f-address"><i class="fas fa-location-dot"></i> Address <span class="opt">(Optional)</span></label>
+                        <label class="form-label" for="f-address"><i class="fas fa-location-dot"></i> Address <span
+                                class="opt">(Optional)</span></label>
                         <p class="field-hint">Max 200 characters</p>
                         <div class="input-wrap" id="wrap-address">
                             <i class="fas fa-location-dot icon"></i>
@@ -793,14 +1202,16 @@
                 </div>
                 <div class="salary-note">
                     <i class="fas fa-circle-info"></i>
-                    <span>All salary fields are <strong>optional</strong>. Leave blank to update later. Values must be <strong>positive numbers</strong> only.</span>
+                    <span>All salary fields are <strong>optional</strong>. Leave blank to update later. Values must be
+                        <strong>positive numbers</strong> only.</span>
                 </div>
                 <div class="form-grid cols4">
                     <div class="form-group">
                         <label class="form-label"><i class="fas fa-indian-rupee-sign"></i> Base Salary</label>
                         <div class="input-wrap" id="wrap-base_salary">
                             <i class="fas fa-indian-rupee-sign icon"></i>
-                            <input type="number" id="f-base_salary" placeholder="30000" min="0" max="9999999" step="1" inputmode="numeric">
+                            <input type="number" id="f-base_salary" placeholder="30000" min="0" max="9999999" step="1"
+                                inputmode="numeric">
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
@@ -808,7 +1219,8 @@
                         <label class="form-label"><i class="fas fa-percent"></i> AGP</label>
                         <div class="input-wrap" id="wrap-agp">
                             <i class="fas fa-percent icon"></i>
-                            <input type="number" id="f-agp" placeholder="5000" min="0" max="9999999" step="1" inputmode="numeric">
+                            <input type="number" id="f-agp" placeholder="5000" min="0" max="9999999" step="1"
+                                inputmode="numeric">
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
@@ -816,7 +1228,8 @@
                         <label class="form-label"><i class="fas fa-coins"></i> DA</label>
                         <div class="input-wrap" id="wrap-da">
                             <i class="fas fa-coins icon"></i>
-                            <input type="number" id="f-da" placeholder="3000" min="0" max="9999999" step="1" inputmode="numeric">
+                            <input type="number" id="f-da" placeholder="3000" min="0" max="9999999" step="1"
+                                inputmode="numeric">
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
@@ -824,7 +1237,8 @@
                         <label class="form-label"><i class="fas fa-coins"></i> DP</label>
                         <div class="input-wrap" id="wrap-dp">
                             <i class="fas fa-coins icon"></i>
-                            <input type="number" id="f-dp" placeholder="1500" min="0" max="9999999" step="1" inputmode="numeric">
+                            <input type="number" id="f-dp" placeholder="1500" min="0" max="9999999" step="1"
+                                inputmode="numeric">
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
@@ -832,7 +1246,8 @@
                         <label class="form-label"><i class="fas fa-house"></i> HRA</label>
                         <div class="input-wrap" id="wrap-hra">
                             <i class="fas fa-house icon"></i>
-                            <input type="number" id="f-hra" placeholder="8000" min="0" max="9999999" step="1" inputmode="numeric">
+                            <input type="number" id="f-hra" placeholder="8000" min="0" max="9999999" step="1"
+                                inputmode="numeric">
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
@@ -840,7 +1255,8 @@
                         <label class="form-label"><i class="fas fa-bus"></i> TRA</label>
                         <div class="input-wrap" id="wrap-tra">
                             <i class="fas fa-bus icon"></i>
-                            <input type="number" id="f-tra" placeholder="1600" min="0" max="9999999" step="1" inputmode="numeric">
+                            <input type="number" id="f-tra" placeholder="1600" min="0" max="9999999" step="1"
+                                inputmode="numeric">
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
@@ -848,7 +1264,8 @@
                         <label class="form-label"><i class="fas fa-stethoscope"></i> CLA</label>
                         <div class="input-wrap" id="wrap-cla">
                             <i class="fas fa-stethoscope icon"></i>
-                            <input type="number" id="f-cla" placeholder="1000" min="0" max="9999999" step="1" inputmode="numeric">
+                            <input type="number" id="f-cla" placeholder="1000" min="0" max="9999999" step="1"
+                                inputmode="numeric">
                         </div>
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Must be 0–99,99,999.</div>
                     </div>
@@ -866,27 +1283,34 @@
                 </div>
                 <div class="form-grid cols2">
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-hashtag"></i> Account Number <span class="opt">(Optional)</span></label>
+                        <label class="form-label"><i class="fas fa-hashtag"></i> Account Number <span
+                                class="opt">(Optional)</span></label>
                         <p class="field-hint">9–18 digits only</p>
                         <div class="input-wrap" id="wrap-bank_acc_no">
                             <i class="fas fa-hashtag icon"></i>
-                            <input type="text" id="f-bank_acc_no" placeholder="e.g. 1234567890" maxlength="18" inputmode="numeric">
+                            <input type="text" id="f-bank_acc_no" placeholder="e.g. 1234567890" maxlength="18"
+                                inputmode="numeric">
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> Account number must be 9–18 digits.</div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> Account number must be 9–18
+                            digits.</div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-code-branch"></i> IFSC Code <span class="opt">(Optional)</span></label>
+                        <label class="form-label"><i class="fas fa-code-branch"></i> IFSC Code <span
+                                class="opt">(Optional)</span></label>
                         <p class="field-hint">Format: ABCD0123456 (11 characters)</p>
                         <div class="input-wrap" id="wrap-ifsc_code">
                             <i class="fas fa-code-branch icon"></i>
-                            <input type="text" id="f-ifsc_code" placeholder="e.g. SBIN0001234" maxlength="11" style="text-transform:uppercase">
+                            <input type="text" id="f-ifsc_code" placeholder="e.g. SBIN0001234" maxlength="11"
+                                style="text-transform:uppercase">
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> Invalid IFSC (e.g. SBIN0001234).</div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> Invalid IFSC (e.g.
+                            SBIN0001234).</div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-building-columns"></i> Bank Name <span class="opt">(Optional)</span></label>
+                        <label class="form-label"><i class="fas fa-building-columns"></i> Bank Name <span
+                                class="opt">(Optional)</span></label>
                         <p class="field-hint">Max 80 characters</p>
                         <div class="input-wrap" id="wrap-bank_name">
                             <i class="fas fa-building-columns icon"></i>
@@ -896,7 +1320,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-location-dot"></i> Branch Address <span class="opt">(Optional)</span></label>
+                        <label class="form-label"><i class="fas fa-location-dot"></i> Branch Address <span
+                                class="opt">(Optional)</span></label>
                         <p class="field-hint">Max 200 characters</p>
                         <div class="input-wrap" id="wrap-bank_address">
                             <i class="fas fa-location-dot icon"></i>
@@ -927,8 +1352,10 @@
                 <h2>Employee Added Successfully!</h2>
                 <p id="successMsg">The new employee has been created and can now log in.</p>
                 <div class="success-actions">
-                    <button class="btn btn-secondary" onclick="resetForm()"><i class="fas fa-plus"></i> Add Another</button>
-                    <a href="/managerdashboard" class="btn btn-primary"><i class="fas fa-th-large"></i> Go to Dashboard</a>
+                    <button class="btn btn-secondary" onclick="resetForm()"><i class="fas fa-plus"></i> Add
+                        Another</button>
+                    <a href="/managerdashboard" class="btn btn-primary"><i class="fas fa-th-large"></i> Go to
+                        Dashboard</a>
                 </div>
             </div>
         </div>
@@ -939,7 +1366,8 @@
     <div class="modal-overlay" id="otpModal">
         <div class="otp-modal">
             <h3><i class="fas fa-envelope"></i> Verify Email</h3>
-            <p>We've sent a 6‑digit OTP to <strong id="otpEmailDisplay"></strong>. Please enter it below to complete adding the employee.</p>
+            <p>We've sent a 6‑digit OTP to <strong id="otpEmailDisplay"></strong>. Please enter it below to complete
+                adding the employee.</p>
             <div class="otp-input-group">
                 <input type="text" maxlength="1" class="otp-digit" data-idx="0" autocomplete="off">
                 <input type="text" maxlength="1" class="otp-digit" data-idx="1" autocomplete="off">
@@ -990,7 +1418,7 @@
 
         document.getElementById('f-designation').addEventListener('keypress', e => { if (!/[a-zA-Z0-9\s.\-&(),/]/.test(e.key)) e.preventDefault(); });
 
-        ['base_salary','agp','da','dp','hra','tra','cla'].forEach(key => {
+        ['base_salary', 'agp', 'da', 'dp', 'hra', 'tra', 'cla'].forEach(key => {
             const el = document.getElementById(`f-${key}`);
             el.addEventListener('keypress', e => { if (!/[0-9]/.test(e.key)) e.preventDefault(); });
             el.addEventListener('input', e => {
@@ -1000,7 +1428,7 @@
             });
         });
 
-        (function() {
+        (function () {
             const d = document.getElementById('f-joindate');
             d.max = new Date().toISOString().split('T')[0];
             d.min = '1990-01-01';
@@ -1018,7 +1446,7 @@
         attachCharCounter('f-address', 'cc-address', 200);
 
         /* ── PASSWORD STRENGTH ── */
-        document.getElementById('f-password').addEventListener('input', function() {
+        document.getElementById('f-password').addEventListener('input', function () {
             const v = this.value;
             let score = 0;
             if (v.length >= 8) score++;
@@ -1026,23 +1454,23 @@
             if (/[0-9]/.test(v)) score++;
             if (/[^A-Za-z0-9]/.test(v)) score++;
             const bar = document.getElementById('pwBar');
-            const colors = ['','#dc2626','#d97706','#3b82f6','#059669'];
+            const colors = ['', '#dc2626', '#d97706', '#3b82f6', '#059669'];
             bar.style.width = (score * 25) + '%';
             bar.style.background = colors[score] || '';
         });
 
         /* ── VALIDATORS ── */
         const VALIDATORS = {
-            name:        { fn: v => v.trim().length >= 3 && /^[a-zA-Z\s.\-']+$/.test(v.trim()), msgs: { empty: 'Full name is required.', invalid: 'Only letters, spaces, dots and hyphens (min 3 chars).' } },
-            email:       { fn: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()), msgs: { empty: 'Email is required.', invalid: 'Enter a valid email address.' } },
-            password:    { fn: v => v.length >= 8 && v.length <= 32 && /[A-Z]/.test(v) && /[0-9]/.test(v) && /[^A-Za-z0-9]/.test(v), msgs: { empty: 'Password is required.', invalid: 'Min 8 chars, include uppercase, number & special character.' } },
-            contact:     { fn: v => /^[6-9][0-9]{9}$/.test(v), msgs: { empty: 'Contact number is required.', invalid: 'Enter a valid 10-digit number starting with 6–9.' } },
-            dept:        { fn: v => v !== '', msgs: { empty: 'Please select a department.', invalid: 'Please select a department.' } },
+            name: { fn: v => v.trim().length >= 3 && /^[a-zA-Z\s.\-']+$/.test(v.trim()), msgs: { empty: 'Full name is required.', invalid: 'Only letters, spaces, dots and hyphens (min 3 chars).' } },
+            email: { fn: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()), msgs: { empty: 'Email is required.', invalid: 'Enter a valid email address.' } },
+            password: { fn: v => v.length >= 8 && v.length <= 32 && /[A-Z]/.test(v) && /[0-9]/.test(v) && /[^A-Za-z0-9]/.test(v), msgs: { empty: 'Password is required.', invalid: 'Min 8 chars, include uppercase, number & special character.' } },
+            contact: { fn: v => /^[6-9][0-9]{9}$/.test(v), msgs: { empty: 'Contact number is required.', invalid: 'Enter a valid 10-digit number starting with 6–9.' } },
+            dept: { fn: v => v !== '', msgs: { empty: 'Please select a department.', invalid: 'Please select a department.' } },
             designation: { fn: v => v.trim().length >= 3, msgs: { empty: 'Designation is required.', invalid: 'Must be at least 3 characters.' } },
-            joindate:    { fn: v => { if (!v) return false; return new Date(v) <= new Date(); }, msgs: { empty: 'Joining date is required.', invalid: 'Joining date cannot be in the future.' } },
+            joindate: { fn: v => { if (!v) return false; return new Date(v) <= new Date(); }, msgs: { empty: 'Joining date is required.', invalid: 'Joining date cannot be in the future.' } },
             bank_acc_no: { optional: true, fn: v => !v || /^[0-9]{9,18}$/.test(v), msgs: { invalid: 'Account number must be 9–18 digits.' } },
-            ifsc_code:   { optional: true, fn: v => !v || /^[A-Z]{4}0[A-Z0-9]{6}$/.test(v), msgs: { invalid: 'IFSC format must be like SBIN0001234.' } },
-            bank_name:   { optional: true, fn: v => !v || v.trim().length >= 3, msgs: { invalid: 'Bank name should be at least 3 characters.' } }
+            ifsc_code: { optional: true, fn: v => !v || /^[A-Z]{4}0[A-Z0-9]{6}$/.test(v), msgs: { invalid: 'IFSC format must be like SBIN0001234.' } },
+            bank_name: { optional: true, fn: v => !v || v.trim().length >= 3, msgs: { invalid: 'Bank name should be at least 3 characters.' } }
         };
 
         function setFieldState(key, state, msg) {
@@ -1066,7 +1494,7 @@
         Object.keys(VALIDATORS).forEach(key => {
             const inp = document.getElementById(`f-${key}`); if (!inp) return;
             inp.addEventListener('blur', () => validateField(key));
-            inp.addEventListener('focus', () => { const w = document.getElementById(`wrap-${key}`); if (w) w.classList.remove('error','valid'); });
+            inp.addEventListener('focus', () => { const w = document.getElementById(`wrap-${key}`); if (w) w.classList.remove('error', 'valid'); });
         });
 
         function validateAll() {
@@ -1088,19 +1516,19 @@
         function showAlert(msg, type) {
             const el = document.getElementById('formAlert');
             el.className = `alert ${type}`;
-            el.innerHTML = `<i class="fas fa-${type==='error'?'triangle-exclamation':'check-circle'}"></i><div><div class="alert-title">${type==='error'?'Error':'Success'}</div><div class="alert-body">${msg}</div></div>`;
+            el.innerHTML = `<i class="fas fa-${type === 'error' ? 'triangle-exclamation' : 'check-circle'}"></i><div><div class="alert-title">${type === 'error' ? 'Error' : 'Success'}</div><div class="alert-body">${msg}</div></div>`;
             el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
         /* ── BUILD FORMDATA (helper) ── */
         function buildFormData() {
             const fd = new FormData();
-            [['name','f-name'],['email','f-email'],['password','f-password'],['contact','f-contact'],
-             ['department_id','f-dept'],['designation','f-designation'],['join_date','f-joindate'],
-             ['address','f-address'],['base_salary','f-base_salary'],['agp','f-agp'],['da','f-da'],
-             ['dp','f-dp'],['hra','f-hra'],['tra','f-tra'],['cla','f-cla'],['bank_acc_no','f-bank_acc_no'],
-             ['ifsc_code','f-ifsc_code'],['bank_name','f-bank_name'],['bank_address','f-bank_address']
-            ].forEach(([k,id]) => fd.append(k, document.getElementById(id).value.trim()));
+            [['name', 'f-name'], ['email', 'f-email'], ['password', 'f-password'], ['contact', 'f-contact'],
+            ['department_id', 'f-dept'], ['designation', 'f-designation'], ['join_date', 'f-joindate'],
+            ['address', 'f-address'], ['base_salary', 'f-base_salary'], ['agp', 'f-agp'], ['da', 'f-da'],
+            ['dp', 'f-dp'], ['hra', 'f-hra'], ['tra', 'f-tra'], ['cla', 'f-cla'], ['bank_acc_no', 'f-bank_acc_no'],
+            ['ifsc_code', 'f-ifsc_code'], ['bank_name', 'f-bank_name'], ['bank_address', 'f-bank_address']
+            ].forEach(([k, id]) => fd.append(k, document.getElementById(id).value.trim()));
             const profileFile = document.getElementById('profileInput').files[0];
             if (profileFile) fd.append('profile_img', profileFile);
             return fd;
@@ -1137,12 +1565,12 @@
         digitInputs.forEach((input, idx) => {
             input.addEventListener('input', (e) => {
                 if (e.target.value.length === 1 && idx < 5) {
-                    digitInputs[idx+1].focus();
+                    digitInputs[idx + 1].focus();
                 }
             });
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Backspace' && idx > 0 && e.target.value === '') {
-                    digitInputs[idx-1].focus();
+                    digitInputs[idx - 1].focus();
                 }
             });
         });
@@ -1153,9 +1581,11 @@
             resendBtn.textContent = 'Sending...';
             try {
                 const token = getAuthToken();
-                const res = await fetch('/add_emp', {
+                const res = await fetch(`${API_BASE}/add_emp`, {
                     method: 'POST',
-                    headers: { 'Authorization': `Bearer ${token}` },
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
                     body: buildFormData()
                 });
                 const data = await res.json();
@@ -1184,10 +1614,16 @@
             verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
             try {
                 const token = getAuthToken();
-                const res = await fetch('/verify_add_emp', {
+                const res = await fetch(`${API_BASE}/verify_add_emp`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                    body: JSON.stringify({ email: pendingEmail, otp: otp })
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        email: pendingEmail,
+                        otp: otp
+                    })
                 });
                 const data = await res.json();
                 if (data.status === 'success') {
@@ -1224,9 +1660,11 @@
 
             try {
                 const token = getAuthToken();
-                const res = await fetch('/add_emp', {
+                const res = await fetch(`${API_BASE}/add_emp`, {
                     method: 'POST',
-                    headers: { 'Authorization': `Bearer ${token}` },
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
                     body: fd
                 });
                 const data = await res.json();
@@ -1247,7 +1685,7 @@
         function resetForm() {
             closeOtpModal();
             document.querySelectorAll('input, select, textarea').forEach(el => el.value = '');
-            document.querySelectorAll('.input-wrap').forEach(w => w.classList.remove('error','valid'));
+            document.querySelectorAll('.input-wrap').forEach(w => w.classList.remove('error', 'valid'));
             document.getElementById('avatarPreview').innerHTML = '<i class="fas fa-user"></i>';
             document.getElementById('pwBar').style.width = '0';
             document.getElementById('formAlert').className = 'alert';
@@ -1273,9 +1711,11 @@
             const token = getAuthToken();
             if (!token) return;
             try {
-                const res = await fetch('/get_departments', {
+                const res = await fetch(`${API_BASE}/get_departments`, {
                     method: 'GET',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, 'x-access-token': token }
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
                 });
                 const text = await res.text();
                 let data;
@@ -1289,7 +1729,7 @@
                         sel.appendChild(opt);
                     });
                 } else { console.warn('Departments fetch failed:', data.message); }
-            } catch(e) { console.error('Could not load departments:', e); }
+            } catch (e) { console.error('Could not load departments:', e); }
         }
 
         /* ── INIT ── */
@@ -1304,4 +1744,5 @@
         });
     </script>
 </body>
+
 </html>
