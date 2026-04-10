@@ -1,626 +1,1210 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Holiday Calendar | StaffCores</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Holiday Calendar | StaffCores</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-:root {
-  --primary: #4f46e5;
-  --primary-dark: #4338ca;
-  --primary-light: #6366f1;
-  --primary-lighter: #e0e7ff;
-  --primary-subtle: #eef2ff;
-  --primary-glow: rgba(79, 70, 229, 0.15);
-  --success: #059669;
-  --success-light: #ecfdf5;
-  --success-border: #a7f3d0;
-  --warning: #d97706;
-  --warning-light: #fffbeb;
-  --danger: #dc2626;
-  --danger-light: #fef2f2;
-  --danger-border: #fecaca;
-  --info: #0284c7;
-  --info-light: #f0f9ff;
-  --bg-body: #f5f6fa;
-  --bg-white: #ffffff;
-  --bg-muted: #f1f5f9;
-  --border: #e2e8f0;
-  --border-light: #f1f5f9;
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #94a3b8;
-  --text-placeholder: #cbd5e1;
-  --radius-sm: 6px;
-  --radius: 8px;
-  --radius-md: 10px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 20px;
-  --radius-full: 9999px;
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-}
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #4338ca;
+      --primary-light: #6366f1;
+      --primary-lighter: #e0e7ff;
+      --primary-subtle: #eef2ff;
+      --primary-glow: rgba(79, 70, 229, 0.15);
+      --success: #059669;
+      --success-light: #ecfdf5;
+      --success-border: #a7f3d0;
+      --warning: #d97706;
+      --warning-light: #fffbeb;
+      --danger: #dc2626;
+      --danger-light: #fef2f2;
+      --danger-border: #fecaca;
+      --info: #0284c7;
+      --info-light: #f0f9ff;
+      --bg-body: #f5f6fa;
+      --bg-white: #ffffff;
+      --bg-muted: #f1f5f9;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #94a3b8;
+      --text-placeholder: #cbd5e1;
+      --radius-sm: 6px;
+      --radius: 8px;
+      --radius-md: 10px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-2xl: 20px;
+      --radius-full: 9999px;
+      --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-html { font-size: 16px; scroll-behavior: smooth; }
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg-body); color: var(--text-secondary);
-  min-height: 100vh; -webkit-font-smoothing: antialiased;
-}
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.4); border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.6); }
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
 
-/* ========== TOPBAR ========== */
-.topbar {
-  position: sticky; top: 0; height: 68px;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 32px; z-index: 50;
-}
-.topbar-left { display: flex; align-items: center; gap: 13px; }
-.topbar-icon {
-  width: 40px; height: 40px; border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, var(--primary), var(--primary-light));
-  display: flex; align-items: center; justify-content: center;
-  color: white; font-size: 16px;
-  box-shadow: 0 4px 12px var(--primary-glow); flex-shrink: 0;
-}
-.topbar-info h1 { font-size: 17px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.2; }
-.topbar-info span { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-body);
+      color: var(--text-secondary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
 
-.btn-back {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 9px 20px; background: var(--bg-white);
-  border: 1.5px solid var(--border); border-radius: var(--radius-full);
-  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
-  color: var(--text-secondary); text-decoration: none; cursor: pointer;
-  transition: all var(--transition-fast); white-space: nowrap;
-}
-.btn-back i { font-size: 11px; transition: transform var(--transition-fast); }
-.btn-back:hover { background: var(--primary-subtle); border-color: var(--primary-lighter); color: var(--primary); }
-.btn-back:hover i { transform: translateX(-3px); }
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
 
-/* ========== PAGE BODY ========== */
-.page-body { padding: 28px 32px; max-width: 1060px; margin: 0 auto; }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
 
-/* ========== BANNER ========== */
-.page-banner {
-  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 45%, #818cf8 100%);
-  border-radius: var(--radius-2xl); padding: 30px 38px; margin-bottom: 24px;
-  color: white; position: relative; overflow: hidden;
-}
-.page-banner::before {
-  content: ''; position: absolute; top: -60%; right: -8%;
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(255,255,255,0.09) 0%, transparent 60%);
-  pointer-events: none;
-}
-.page-banner .decor-ring {
-  position: absolute; bottom: -25px; right: 160px;
-  width: 100px; height: 100px;
-  border: 2px solid rgba(255,255,255,0.08); border-radius: 50%; pointer-events: none;
-}
-.banner-inner { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.banner-text h2 { font-size: 22px; font-weight: 700; margin-bottom: 7px; letter-spacing: -0.02em; }
-.banner-text p { font-size: 13.5px; opacity: 0.78; max-width: 440px; line-height: 1.7; }
-.banner-icon {
-  width: 68px; height: 68px; border-radius: var(--radius-xl);
-  background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.22);
-  display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0;
-}
-.banner-stats { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
-.banner-stat {
-  padding: 8px 18px; background: rgba(255,255,255,0.14);
-  border: 1px solid rgba(255,255,255,0.22); border-radius: var(--radius-full);
-  text-align: center; min-width: 100px;
-}
-.banner-stat .val { font-size: 20px; font-weight: 800; display: block; line-height: 1.1; }
-.banner-stat .lbl { font-size: 11px; opacity: 0.82; margin-top: 2px; font-weight: 500; }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.4);
+      border-radius: 10px;
+    }
 
-/* ========== LAYOUT ========== */
-.two-col {
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 20px;
-  align-items: start;
-}
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(148, 163, 184, 0.6);
+    }
 
-/* ========== FORM CARD ========== */
-.form-card {
-  background: var(--bg-white); border: 1px solid var(--border);
-  border-radius: var(--radius-2xl); overflow: hidden;
-  position: sticky; top: 88px;
-}
+    /* ========== TOPBAR ========== */
+    .topbar {
+      position: sticky;
+      top: 0;
+      height: 68px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      z-index: 50;
+    }
 
-/* ========== SECTION BLOCK ========== */
-.section-block { padding: 22px 26px; border-bottom: 1px solid var(--border-light); }
-.section-block:last-child { border-bottom: none; }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
 
-.section-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-.section-icon {
-  width: 40px; height: 40px; border-radius: var(--radius-lg);
-  display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
-}
-.section-icon.indigo  { background: var(--primary-subtle); color: var(--primary); }
-.section-icon.emerald { background: var(--success-light);  color: var(--success); }
-.section-icon.amber   { background: var(--warning-light);  color: var(--warning); }
-.section-title h3 { font-size: 14.5px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; }
-.section-title p  { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+    .topbar-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+      box-shadow: 0 4px 12px var(--primary-glow);
+      flex-shrink: 0;
+    }
 
-/* ========== FORM ELEMENTS ========== */
-.form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 16px; }
-.form-group:last-of-type { margin-bottom: 0; }
+    .topbar-info h1 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
 
-.form-label {
-  font-size: 12.5px; font-weight: 600; color: var(--text-primary);
-  display: flex; align-items: center; gap: 6px;
-}
-.form-label i   { font-size: 11px; color: var(--primary); }
-.form-label .req { color: var(--danger); margin-left: 1px; }
-.form-label .opt { color: var(--text-muted); font-weight: 400; font-size: 11.5px; }
-.field-hint { font-size: 11px; color: var(--text-muted); }
+    .topbar-info span {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
 
-.input-wrap { position: relative; }
-.input-wrap .icon {
-  position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
-  font-size: 13px; color: var(--text-muted);
-  transition: color var(--transition-fast); pointer-events: none; z-index: 1;
-}
-.input-wrap input,
-.input-wrap textarea {
-  width: 100%; padding: 10px 14px 10px 38px;
-  background: var(--bg-muted); border: 1.5px solid transparent;
-  border-radius: var(--radius-lg);
-  font-family: 'Inter', sans-serif; font-size: 13.5px; color: var(--text-primary);
-  outline: none; transition: all var(--transition-base);
-}
-.input-wrap textarea { padding-top: 10px; resize: vertical; min-height: 74px; }
-.input-wrap input::placeholder, .input-wrap textarea::placeholder { color: var(--text-placeholder); }
-.input-wrap input:focus, .input-wrap textarea:focus {
-  background: var(--bg-white); border-color: var(--primary);
-  box-shadow: 0 0 0 3px var(--primary-glow);
-}
-.input-wrap:focus-within .icon { color: var(--primary); }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 20px;
+      background: var(--bg-white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-full);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
 
-/* valid / error */
-.input-wrap.valid input, .input-wrap.valid textarea  { border-color: var(--success); background: var(--success-light); }
-.input-wrap.valid .icon { color: var(--success); }
-.input-wrap.error input, .input-wrap.error textarea  { border-color: var(--danger); background: var(--danger-light); box-shadow: 0 0 0 3px rgba(220,38,38,0.07); }
-.input-wrap.error .icon { color: var(--danger); }
+    .btn-back i {
+      font-size: 11px;
+      transition: transform var(--transition-fast);
+    }
 
-/* Alert */
-.alert {
-  padding: 11px 14px; border-radius: var(--radius-lg);
-  font-size: 12.5px; font-weight: 500;
-  display: none; align-items: center; gap: 9px; margin-bottom: 14px;
-  animation: slideDown .3s ease;
-}
-@keyframes slideDown { from{opacity:0;transform:translateY(-5px)} to{opacity:1;transform:translateY(0)} }
-.alert.error { display: flex; background: var(--danger-light); border: 1px solid var(--danger-border); color: var(--danger); }
-.alert i { font-size: 14px; flex-shrink: 0; }
+    .btn-back:hover {
+      background: var(--primary-subtle);
+      border-color: var(--primary-lighter);
+      color: var(--primary);
+    }
 
-/* ========== BUTTONS ========== */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 10px 20px; border-radius: var(--radius-lg);
-  font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 600;
-  cursor: pointer; transition: all var(--transition-fast);
-  border: none; text-decoration: none; white-space: nowrap;
-}
-.btn-primary {
-  background: var(--primary); color: white; width: 100%;
-  justify-content: center; padding: 11px 24px;
-}
-.btn-primary:hover { background: var(--primary-dark); box-shadow: 0 4px 14px var(--primary-glow); transform: translateY(-1px); }
-.btn-primary:disabled { opacity: 0.65; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-back:hover i {
+      transform: translateX(-3px);
+    }
 
-.btn-secondary { background: var(--bg-white); border: 1.5px solid var(--border); color: var(--text-secondary); }
-.btn-secondary:hover { background: var(--bg-muted); color: var(--text-primary); }
+    /* ========== PAGE BODY ========== */
+    .page-body {
+      padding: 28px 32px;
+      max-width: 1060px;
+      margin: 0 auto;
+    }
 
-.btn-danger-sm {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 6px 12px; border-radius: var(--radius);
-  font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 600;
-  cursor: pointer; transition: all var(--transition-fast); border: 1.5px solid var(--danger-border);
-  background: var(--danger-light); color: var(--danger); flex-shrink: 0;
-}
-.btn-danger-sm:hover { background: var(--danger); color: white; border-color: var(--danger); }
+    /* ========== BANNER ========== */
+    .page-banner {
+      background: linear-gradient(135deg, #4f46e5 0%, #6366f1 45%, #818cf8 100%);
+      border-radius: var(--radius-2xl);
+      padding: 30px 38px;
+      margin-bottom: 24px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
 
-/* ========== LIST CARD (right column) ========== */
-.list-card {
-  background: var(--bg-white); border: 1px solid var(--border);
-  border-radius: var(--radius-2xl); overflow: hidden;
-}
+    .page-banner::before {
+      content: '';
+      position: absolute;
+      top: -60%;
+      right: -8%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.09) 0%, transparent 60%);
+      pointer-events: none;
+    }
 
-.list-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 24px; border-bottom: 1px solid var(--border-light);
-  background: var(--bg-muted); flex-wrap: wrap; gap: 12px;
-}
-.list-header-left { display: flex; align-items: center; gap: 11px; }
-.list-header-icon {
-  width: 38px; height: 38px; border-radius: var(--radius-lg);
-  background: var(--primary-subtle); color: var(--primary);
-  display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0;
-}
-.list-header-title h3 { font-size: 14px; font-weight: 700; color: var(--text-primary); }
-.list-header-title p  { font-size: 11.5px; color: var(--text-muted); margin-top: 1px; }
+    .page-banner .decor-ring {
+      position: absolute;
+      bottom: -25px;
+      right: 160px;
+      width: 100px;
+      height: 100px;
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      pointer-events: none;
+    }
 
-/* Year selector */
-.year-selector { display: flex; align-items: center; gap: 8px; }
-.year-btn {
-  width: 30px; height: 30px; border-radius: var(--radius);
-  background: var(--bg-white); border: 1.5px solid var(--border);
-  color: var(--text-secondary); display: flex; align-items: center; justify-content: center;
-  cursor: pointer; font-size: 12px; transition: all var(--transition-fast);
-}
-.year-btn:hover { background: var(--primary-subtle); border-color: var(--primary-lighter); color: var(--primary); }
-.year-display { font-size: 14px; font-weight: 700; color: var(--text-primary); min-width: 44px; text-align: center; }
+    .banner-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
 
-/* Month group */
-.month-group { border-bottom: 1px solid var(--border-light); }
-.month-group:last-child { border-bottom: none; }
-.month-label {
-  padding: 10px 22px; background: var(--bg-muted);
-  font-size: 11px; font-weight: 700; color: var(--text-muted);
-  text-transform: uppercase; letter-spacing: 0.08em;
-  display: flex; align-items: center; gap: 7px;
-  border-bottom: 1px solid var(--border-light);
-}
+    .banner-text h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 7px;
+      letter-spacing: -0.02em;
+    }
 
-/* Holiday item */
-.holiday-item {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 15px 22px; border-bottom: 1px solid var(--border-light);
-  transition: background var(--transition-fast); gap: 12px;
-}
-.holiday-item:last-child { border-bottom: none; }
-.holiday-item:hover { background: var(--bg-muted); }
+    .banner-text p {
+      font-size: 13.5px;
+      opacity: 0.78;
+      max-width: 440px;
+      line-height: 1.7;
+    }
 
-.holiday-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
-.holiday-date-badge {
-  min-width: 52px; text-align: center; padding: 8px 10px;
-  background: var(--primary-subtle); border-radius: var(--radius-lg);
-  border: 1px solid var(--primary-lighter); flex-shrink: 0;
-}
-.holiday-date-badge .day { font-size: 20px; font-weight: 800; color: var(--primary); line-height: 1; }
-.holiday-date-badge .dow { font-size: 9.5px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+    .banner-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: var(--radius-xl);
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
 
-.holiday-info h4 { font-size: 13.5px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
-.holiday-info p  { font-size: 11.5px; color: var(--text-muted); }
-.past-tag {
-  margin-left: 7px; font-size: 10.5px; background: var(--bg-muted);
-  color: var(--text-muted); padding: 2px 8px; border-radius: var(--radius-full); font-weight: 600;
-}
+    .banner-stats {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
 
-/* ========== EMPTY STATE ========== */
-.empty-state { text-align: center; padding: 52px 20px; }
-.empty-icon {
-  width: 60px; height: 60px; border-radius: 50%;
-  background: var(--primary-subtle); display: flex; align-items: center; justify-content: center;
-  font-size: 22px; color: var(--primary); margin: 0 auto 14px;
-}
-.empty-state h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 5px; }
-.empty-state p  { font-size: 13px; color: var(--text-muted); }
+    .banner-stat {
+      padding: 8px 18px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: var(--radius-full);
+      text-align: center;
+      min-width: 100px;
+    }
 
-/* ========== LOADING ========== */
-.loading { text-align: center; padding: 48px; color: var(--text-muted); }
-.loading i { font-size: 26px; animation: spin 1s linear infinite; color: var(--primary); display: block; margin-bottom: 10px; }
-.loading p { font-size: 13px; }
-@keyframes spin { to { transform: rotate(360deg); } }
+    .banner-stat .val {
+      font-size: 20px;
+      font-weight: 800;
+      display: block;
+      line-height: 1.1;
+    }
 
-/* ========== TOAST ========== */
-.toast-wrap { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
-.toast {
-  display: flex; align-items: center; gap: 10px;
-  padding: 13px 18px; border-radius: var(--radius-xl);
-  background: var(--text-primary); color: white;
-  font-size: 13px; font-weight: 600;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.22);
-  animation: slideUp .3s cubic-bezier(0.34,1.56,0.64,1);
-  min-width: 230px; max-width: 340px;
-}
-.toast.success i { color: #34d399; }
-.toast.error   i { color: #f87171; }
-@keyframes slideUp { from{transform:translateY(14px);opacity:0} to{transform:translateY(0);opacity:1} }
+    .banner-stat .lbl {
+      font-size: 11px;
+      opacity: 0.82;
+      margin-top: 2px;
+      font-weight: 500;
+    }
 
-/* ========== FORM ACTIONS ========== */
-.form-actions {
-  padding: 18px 26px;
-  background: var(--bg-muted);
-  border-top: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-}
+    /* ========== LAYOUT ========== */
+    .two-col {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
 
-/* ========== RESPONSIVE ========== */
-@media (max-width: 900px) {
-  .two-col { grid-template-columns: 1fr; }
-  .form-card { position: static; }
-}
-@media (max-width: 768px) {
-  .topbar    { padding: 0 16px; }
-  .topbar-info span { display: none; }
-  .page-body { padding: 16px; }
-  .page-banner { padding: 20px 18px; }
-  .banner-icon { display: none; }
-  .banner-stats { flex-wrap: wrap; }
-  .holiday-item { flex-wrap: wrap; }
-}
-@media (max-width: 480px) {
-  .topbar { height: 60px; }
-  .btn-back-label { display: none; }
-}
-</style>
+    /* ========== FORM CARD ========== */
+    .form-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      position: sticky;
+      top: 88px;
+    }
+
+    /* ========== SECTION BLOCK ========== */
+    .section-block {
+      padding: 22px 26px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .section-block:last-child {
+      border-bottom: none;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .section-icon.indigo {
+      background: var(--primary-subtle);
+      color: var(--primary);
+    }
+
+    .section-icon.emerald {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .section-icon.amber {
+      background: var(--warning-light);
+      color: var(--warning);
+    }
+
+    .section-title h3 {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .section-title p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    /* ========== FORM ELEMENTS ========== */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 16px;
+    }
+
+    .form-group:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .form-label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .form-label i {
+      font-size: 11px;
+      color: var(--primary);
+    }
+
+    .form-label .req {
+      color: var(--danger);
+      margin-left: 1px;
+    }
+
+    .form-label .opt {
+      color: var(--text-muted);
+      font-weight: 400;
+      font-size: 11.5px;
+    }
+
+    .field-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-wrap .icon {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      color: var(--text-muted);
+      transition: color var(--transition-fast);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .input-wrap input,
+    .input-wrap textarea {
+      width: 100%;
+      padding: 10px 14px 10px 38px;
+      background: var(--bg-muted);
+      border: 1.5px solid transparent;
+      border-radius: var(--radius-lg);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      color: var(--text-primary);
+      outline: none;
+      transition: all var(--transition-base);
+    }
+
+    .input-wrap textarea {
+      padding-top: 10px;
+      resize: vertical;
+      min-height: 74px;
+    }
+
+    .input-wrap input::placeholder,
+    .input-wrap textarea::placeholder {
+      color: var(--text-placeholder);
+    }
+
+    .input-wrap input:focus,
+    .input-wrap textarea:focus {
+      background: var(--bg-white);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .input-wrap:focus-within .icon {
+      color: var(--primary);
+    }
+
+    /* valid / error */
+    .input-wrap.valid input,
+    .input-wrap.valid textarea {
+      border-color: var(--success);
+      background: var(--success-light);
+    }
+
+    .input-wrap.valid .icon {
+      color: var(--success);
+    }
+
+    .input-wrap.error input,
+    .input-wrap.error textarea {
+      border-color: var(--danger);
+      background: var(--danger-light);
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.07);
+    }
+
+    .input-wrap.error .icon {
+      color: var(--danger);
+    }
+
+    /* Alert */
+    .alert {
+      padding: 11px 14px;
+      border-radius: var(--radius-lg);
+      font-size: 12.5px;
+      font-weight: 500;
+      display: none;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 14px;
+      animation: slideDown .3s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-5px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .alert.error {
+      display: flex;
+      background: var(--danger-light);
+      border: 1px solid var(--danger-border);
+      color: var(--danger);
+    }
+
+    .alert i {
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ========== BUTTONS ========== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius-lg);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: none;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      width: 100%;
+      justify-content: center;
+      padding: 11px 24px;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 4px 14px var(--primary-glow);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .btn-secondary {
+      background: var(--bg-white);
+      border: 1.5px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-muted);
+      color: var(--text-primary);
+    }
+
+    .btn-danger-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: var(--radius);
+      font-family: 'Inter', sans-serif;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: 1.5px solid var(--danger-border);
+      background: var(--danger-light);
+      color: var(--danger);
+      flex-shrink: 0;
+    }
+
+    .btn-danger-sm:hover {
+      background: var(--danger);
+      color: white;
+      border-color: var(--danger);
+    }
+
+    /* ========== LIST CARD (right column) ========== */
+    .list-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+    }
+
+    .list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-light);
+      background: var(--bg-muted);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .list-header-left {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .list-header-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-lg);
+      background: var(--primary-subtle);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .list-header-title h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .list-header-title p {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    /* Year selector */
+    .year-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .year-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: var(--radius);
+      background: var(--bg-white);
+      border: 1.5px solid var(--border);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all var(--transition-fast);
+    }
+
+    .year-btn:hover {
+      background: var(--primary-subtle);
+      border-color: var(--primary-lighter);
+      color: var(--primary);
+    }
+
+    .year-display {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      min-width: 44px;
+      text-align: center;
+    }
+
+    /* Month group */
+    .month-group {
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .month-group:last-child {
+      border-bottom: none;
+    }
+
+    .month-label {
+      padding: 10px 22px;
+      background: var(--bg-muted);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    /* Holiday item */
+    .holiday-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 22px;
+      border-bottom: 1px solid var(--border-light);
+      transition: background var(--transition-fast);
+      gap: 12px;
+    }
+
+    .holiday-item:last-child {
+      border-bottom: none;
+    }
+
+    .holiday-item:hover {
+      background: var(--bg-muted);
+    }
+
+    .holiday-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .holiday-date-badge {
+      min-width: 52px;
+      text-align: center;
+      padding: 8px 10px;
+      background: var(--primary-subtle);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--primary-lighter);
+      flex-shrink: 0;
+    }
+
+    .holiday-date-badge .day {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .holiday-date-badge .dow {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 2px;
+    }
+
+    .holiday-info h4 {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+
+    .holiday-info p {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .past-tag {
+      margin-left: 7px;
+      font-size: 10.5px;
+      background: var(--bg-muted);
+      color: var(--text-muted);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+    }
+
+    /* ========== EMPTY STATE ========== */
+    .empty-state {
+      text-align: center;
+      padding: 52px 20px;
+    }
+
+    .empty-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--primary-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: var(--primary);
+      margin: 0 auto 14px;
+    }
+
+    .empty-state h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+
+    .empty-state p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ========== LOADING ========== */
+    .loading {
+      text-align: center;
+      padding: 48px;
+      color: var(--text-muted);
+    }
+
+    .loading i {
+      font-size: 26px;
+      animation: spin 1s linear infinite;
+      color: var(--primary);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .loading p {
+      font-size: 13px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ========== TOAST ========== */
+    .toast-wrap {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 18px;
+      border-radius: var(--radius-xl);
+      background: var(--text-primary);
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+      animation: slideUp .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      min-width: 230px;
+      max-width: 340px;
+    }
+
+    .toast.success i {
+      color: #34d399;
+    }
+
+    .toast.error i {
+      color: #f87171;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(14px);
+        opacity: 0
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1
+      }
+    }
+
+    /* ========== FORM ACTIONS ========== */
+    .form-actions {
+      padding: 18px 26px;
+      background: var(--bg-muted);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 900px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .form-card {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .topbar {
+        padding: 0 16px;
+      }
+
+      .topbar-info span {
+        display: none;
+      }
+
+      .page-body {
+        padding: 16px;
+      }
+
+      .page-banner {
+        padding: 20px 18px;
+      }
+
+      .banner-icon {
+        display: none;
+      }
+
+      .banner-stats {
+        flex-wrap: wrap;
+      }
+
+      .holiday-item {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .topbar {
+        height: 60px;
+      }
+
+      .btn-back-label {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ========== TOPBAR ========== -->
-<header class="topbar">
-  <a href="/managerdashboard" class="btn-back">
-    <i class="fas fa-arrow-left"></i>
-    <span class="btn-back-label">Back to Dashboard</span>
-  </a>
-  <div class="topbar-left">
-    <div class="topbar-info" style="text-align:right">
-      <h1>Holiday Calendar</h1>
-      <span>StaffCores &nbsp;·&nbsp; Manager Panel</span>
+  <!-- ========== TOPBAR ========== -->
+  <header class="topbar">
+    <a href="/managerdashboard" class="btn-back">
+      <i class="fas fa-arrow-left"></i>
+      <span class="btn-back-label">Back to Dashboard</span>
+    </a>
+    <div class="topbar-left">
+      <div class="topbar-info" style="text-align:right">
+        <h1>Holiday Calendar</h1>
+        <span>StaffCores &nbsp;·&nbsp; Manager Panel</span>
+      </div>
+      <div class="topbar-icon"><i class="fas fa-calendar-days"></i></div>
     </div>
-    <div class="topbar-icon"><i class="fas fa-calendar-days"></i></div>
-  </div>
-</header>
+  </header>
 
-<!-- ========== PAGE BODY ========== -->
-<div class="page-body">
+  <!-- ========== PAGE BODY ========== -->
+  <div class="page-body">
 
-  <!-- Banner -->
-  <div class="page-banner">
-    <div class="decor-ring"></div>
-    <div class="banner-inner">
-      <div class="banner-text">
-        <h2>Holiday Calendar</h2>
-        <p>Manage organisation-wide holidays. These dates are automatically excluded from leave calculations.</p>
-        <div class="banner-stats">
-          <div class="banner-stat"><span class="val" id="statTotal">0</span><div class="lbl">This Year</div></div>
-          <div class="banner-stat"><span class="val" id="statUpcoming">0</span><div class="lbl">Upcoming</div></div>
+    <!-- Banner -->
+    <div class="page-banner">
+      <div class="decor-ring"></div>
+      <div class="banner-inner">
+        <div class="banner-text">
+          <h2>Holiday Calendar</h2>
+          <p>Manage organisation-wide holidays. These dates are automatically excluded from leave calculations.</p>
+          <div class="banner-stats">
+            <div class="banner-stat"><span class="val" id="statTotal">0</span>
+              <div class="lbl">This Year</div>
+            </div>
+            <div class="banner-stat"><span class="val" id="statUpcoming">0</span>
+              <div class="lbl">Upcoming</div>
+            </div>
+          </div>
         </div>
+        <div class="banner-icon"><i class="fas fa-umbrella-beach"></i></div>
       </div>
-      <div class="banner-icon"><i class="fas fa-umbrella-beach"></i></div>
     </div>
-  </div>
 
-  <!-- Two-col layout -->
-  <div class="two-col">
+    <!-- Two-col layout -->
+    <div class="two-col">
 
-    <!-- ADD HOLIDAY FORM CARD -->
-    <div class="form-card">
+      <!-- ADD HOLIDAY FORM CARD -->
+      <div class="form-card">
 
-      <div class="section-block">
-        <div class="section-heading">
-          <div class="section-icon indigo"><i class="fas fa-plus-circle"></i></div>
-          <div class="section-title">
-            <h3>Add Holiday</h3>
-            <p>Add a new holiday to the calendar</p>
+        <div class="section-block">
+          <div class="section-heading">
+            <div class="section-icon indigo"><i class="fas fa-plus-circle"></i></div>
+            <div class="section-title">
+              <h3>Add Holiday</h3>
+              <p>Add a new holiday to the calendar</p>
+            </div>
+          </div>
+
+          <div id="formAlert" class="alert"></div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-flag"></i> Holiday Name <span class="req">*</span></label>
+            <p class="field-hint">Letters and spaces, max 120 characters</p>
+            <div class="input-wrap" id="wrap-name">
+              <i class="fas fa-flag icon"></i>
+              <input type="text" id="f-name" placeholder="e.g. Republic Day" maxlength="120">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-calendar"></i> Holiday Date <span class="req">*</span></label>
+            <div class="input-wrap" id="wrap-date">
+              <i class="fas fa-calendar icon"></i>
+              <input type="date" id="f-date">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-align-left"></i> Description <span
+                class="opt">(Optional)</span></label>
+            <div class="input-wrap">
+              <i class="fas fa-align-left icon" style="top:13px;transform:none"></i>
+              <textarea id="f-desc" placeholder="Brief description…"></textarea>
+            </div>
           </div>
         </div>
 
-        <div id="formAlert" class="alert"></div>
+        <div class="form-actions">
+          <a href="/managerdashboard" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Cancel
+          </a>
+          <button class="btn btn-primary" id="submitBtn" onclick="addHoliday()" style="width:auto">
+            <i class="fas fa-plus"></i> Add Holiday
+          </button>
+        </div>
 
-        <div class="form-group">
-          <label class="form-label"><i class="fas fa-flag"></i> Holiday Name <span class="req">*</span></label>
-          <p class="field-hint">Letters and spaces, max 120 characters</p>
-          <div class="input-wrap" id="wrap-name">
-            <i class="fas fa-flag icon"></i>
-            <input type="text" id="f-name" placeholder="e.g. Republic Day" maxlength="120">
+      </div><!-- /form-card -->
+
+      <!-- HOLIDAY LIST CARD -->
+      <div class="list-card">
+
+        <div class="list-header">
+          <div class="list-header-left">
+            <div class="list-header-icon"><i class="fas fa-calendar-days"></i></div>
+            <div class="list-header-title">
+              <h3>Holidays</h3>
+              <p id="holidayCountLabel">Loading…</p>
+            </div>
+          </div>
+          <div class="year-selector">
+            <button class="year-btn" onclick="changeYear(-1)"><i class="fas fa-chevron-left"></i></button>
+            <span class="year-display" id="yearDisplay">2025</span>
+            <button class="year-btn" onclick="changeYear(1)"><i class="fas fa-chevron-right"></i></button>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label"><i class="fas fa-calendar"></i> Holiday Date <span class="req">*</span></label>
-          <div class="input-wrap" id="wrap-date">
-            <i class="fas fa-calendar icon"></i>
-            <input type="date" id="f-date">
+        <div id="holidayList">
+          <div class="loading"><i class="fas fa-spinner"></i>
+            <p>Loading holidays…</p>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label"><i class="fas fa-align-left"></i> Description <span class="opt">(Optional)</span></label>
-          <div class="input-wrap">
-            <i class="fas fa-align-left icon" style="top:13px;transform:none"></i>
-            <textarea id="f-desc" placeholder="Brief description…"></textarea>
-          </div>
-        </div>
-      </div>
+      </div><!-- /list-card -->
 
-      <div class="form-actions">
-        <a href="/managerdashboard" class="btn btn-secondary">
-          <i class="fas fa-arrow-left"></i> Cancel
-        </a>
-        <button class="btn btn-primary" id="submitBtn" onclick="addHoliday()" style="width:auto">
-          <i class="fas fa-plus"></i> Add Holiday
-        </button>
-      </div>
+    </div><!-- /two-col -->
 
-    </div><!-- /form-card -->
+  </div><!-- /page-body -->
 
-    <!-- HOLIDAY LIST CARD -->
-    <div class="list-card">
+  <!-- Toast Container -->
+  <div class="toast-wrap" id="toastWrap"></div>
+ <script src="/static/js/config.js"></script>
+  <script>
+    'use strict';
 
-      <div class="list-header">
-        <div class="list-header-left">
-          <div class="list-header-icon"><i class="fas fa-calendar-days"></i></div>
-          <div class="list-header-title">
-            <h3>Holidays</h3>
-            <p id="holidayCountLabel">Loading…</p>
-          </div>
-        </div>
-        <div class="year-selector">
-          <button class="year-btn" onclick="changeYear(-1)"><i class="fas fa-chevron-left"></i></button>
-          <span class="year-display" id="yearDisplay">2025</span>
-          <button class="year-btn" onclick="changeYear(1)"><i class="fas fa-chevron-right"></i></button>
-        </div>
-      </div>
+    const TOKEN = () => localStorage.getItem('token');
+    let currentYear = new Date().getFullYear();
+    const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-      <div id="holidayList">
-        <div class="loading"><i class="fas fa-spinner"></i><p>Loading holidays…</p></div>
-      </div>
-
-    </div><!-- /list-card -->
-
-  </div><!-- /two-col -->
-
-</div><!-- /page-body -->
-
-<!-- Toast Container -->
-<div class="toast-wrap" id="toastWrap"></div>
-
-<script>
-'use strict';
-
-const TOKEN = () => localStorage.getItem('token');
-let currentYear = new Date().getFullYear();
-const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-const DAYS   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-
-/* ── Year nav ── */
-function changeYear(d) {
-  currentYear += d;
-  document.getElementById('yearDisplay').textContent = currentYear;
-  loadHolidays();
-}
-
-/* ── Toast ── */
-function showToast(msg, type = 'success') {
-  const wrap  = document.getElementById('toastWrap');
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'triangle-exclamation'}"></i>${msg}`;
-  wrap.appendChild(toast);
-  setTimeout(() => toast.remove(), 3500);
-}
-
-/* ── Alert ── */
-function showAlert(msg) {
-  const el = document.getElementById('formAlert');
-  el.className = 'alert error';
-  el.innerHTML = `<i class="fas fa-triangle-exclamation"></i>${msg}`;
-}
-
-/* ── Add Holiday ── */
-async function addHoliday() {
-  const name = document.getElementById('f-name').value.trim();
-  const date = document.getElementById('f-date').value;
-  const desc = document.getElementById('f-desc').value.trim();
-  document.getElementById('formAlert').className = 'alert';
-
-  // Validate
-  const wrapName = document.getElementById('wrap-name');
-  const wrapDate = document.getElementById('wrap-date');
-  wrapName.classList.remove('error','valid');
-  wrapDate.classList.remove('error','valid');
-
-  let ok = true;
-  if (!name) { wrapName.classList.add('error'); ok = false; }
-  else wrapName.classList.add('valid');
-
-  if (!date) { wrapDate.classList.add('error'); ok = false; }
-  else wrapDate.classList.add('valid');
-
-  if (!ok) { showAlert('Please fill in all required fields.'); return; }
-
-  const btn  = document.getElementById('submitBtn');
-  const orig = btn.innerHTML;
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding…';
-  btn.disabled  = true;
-
-  try {
-    const res  = await fetch('/add_holiday', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN()}` },
-      body: JSON.stringify({ name, holiday_date: date, description: desc })
-    });
-    const data = await res.json();
-    if (data.status === 'success') {
-      showToast('Holiday added successfully!');
-      document.getElementById('f-name').value = '';
-      document.getElementById('f-date').value = '';
-      document.getElementById('f-desc').value = '';
-      wrapName.classList.remove('valid');
-      wrapDate.classList.remove('valid');
-      document.getElementById('formAlert').className = 'alert';
+    /* ── Year nav ── */
+    function changeYear(d) {
+      currentYear += d;
+      document.getElementById('yearDisplay').textContent = currentYear;
       loadHolidays();
-    } else {
-      showAlert(data.message || 'Failed to add holiday.');
     }
-  } catch(e) { showAlert('Server error. Please try again.'); }
 
-  btn.innerHTML = orig;
-  btn.disabled  = false;
-}
+    /* ── Toast ── */
+    function showToast(msg, type = 'success') {
+      const wrap = document.getElementById('toastWrap');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'triangle-exclamation'}"></i>${msg}`;
+      wrap.appendChild(toast);
+      setTimeout(() => toast.remove(), 3500);
+    }
 
-/* ── Delete Holiday ── */
-async function deleteHoliday(id, name) {
-  if (!confirm(`Delete "${name}"?`)) return;
-  try {
-    const res  = await fetch('/delete_holiday', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN()}` },
-      body: JSON.stringify({ holiday_id: id })
-    });
-    const data = await res.json();
-    if (data.status === 'success') { showToast('Holiday deleted.'); loadHolidays(); }
-    else showToast(data.message || 'Failed to delete.', 'error');
-  } catch(e) { showToast('Server error', 'error'); }
-}
+    /* ── Alert ── */
+    function showAlert(msg) {
+      const el = document.getElementById('formAlert');
+      el.className = 'alert error';
+      el.innerHTML = `<i class="fas fa-triangle-exclamation"></i>${msg}`;
+    }
 
-/* ── Load Holidays ── */
-async function loadHolidays() {
-  document.getElementById('holidayList').innerHTML = '<div class="loading"><i class="fas fa-spinner"></i><p>Loading…</p></div>';
-  try {
-    const res      = await fetch(`/get_holidays?year=${currentYear}`, { headers: { 'Authorization': `Bearer ${TOKEN()}` } });
-    const data     = await res.json();
-    const holidays = data.holidays || [];
-    const today    = new Date(); today.setHours(0,0,0,0);
-    const upcoming = holidays.filter(h => new Date(h.holiday_date) >= today).length;
+    /* ── Add Holiday ── */
+    async function addHoliday() {
+      const name = document.getElementById('f-name').value.trim();
+      const date = document.getElementById('f-date').value;
+      const desc = document.getElementById('f-desc').value.trim();
+      document.getElementById('formAlert').className = 'alert';
 
-    document.getElementById('statTotal').textContent    = holidays.length;
-    document.getElementById('statUpcoming').textContent = upcoming;
-    document.getElementById('holidayCountLabel').textContent = `${holidays.length} holiday${holidays.length !== 1 ? 's' : ''} in ${currentYear}`;
+      // Validate
+      const wrapName = document.getElementById('wrap-name');
+      const wrapDate = document.getElementById('wrap-date');
+      wrapName.classList.remove('error', 'valid');
+      wrapDate.classList.remove('error', 'valid');
 
-    if (!holidays.length) {
-      document.getElementById('holidayList').innerHTML = `
+      let ok = true;
+      if (!name) { wrapName.classList.add('error'); ok = false; }
+      else wrapName.classList.add('valid');
+
+      if (!date) { wrapDate.classList.add('error'); ok = false; }
+      else wrapDate.classList.add('valid');
+
+      if (!ok) { showAlert('Please fill in all required fields.'); return; }
+
+      const btn = document.getElementById('submitBtn');
+      const orig = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding…';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(`${API_BASE}/add_holiday`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${TOKEN()}`
+          },
+          body: JSON.stringify({
+            name,
+            holiday_date: date,
+            description: desc
+          })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+          showToast('Holiday added successfully!');
+          document.getElementById('f-name').value = '';
+          document.getElementById('f-date').value = '';
+          document.getElementById('f-desc').value = '';
+          wrapName.classList.remove('valid');
+          wrapDate.classList.remove('valid');
+          document.getElementById('formAlert').className = 'alert';
+          loadHolidays();
+        } else {
+          showAlert(data.message || 'Failed to add holiday.');
+        }
+      } catch (e) { showAlert('Server error. Please try again.'); }
+
+      btn.innerHTML = orig;
+      btn.disabled = false;
+    }
+
+    /* ── Delete Holiday ── */
+    async function deleteHoliday(id, name) {
+      if (!confirm(`Delete "${name}"?`)) return;
+      try {
+        const res = await fetch(`${API_BASE}/delete_holiday`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${TOKEN()}`
+          },
+          body: JSON.stringify({
+            holiday_id: id
+          })
+        });
+        const data = await res.json();
+        if (data.status === 'success') { showToast('Holiday deleted.'); loadHolidays(); }
+        else showToast(data.message || 'Failed to delete.', 'error');
+      } catch (e) { showToast('Server error', 'error'); }
+    }
+
+    /* ── Load Holidays ── */
+    async function loadHolidays() {
+      document.getElementById('holidayList').innerHTML = '<div class="loading"><i class="fas fa-spinner"></i><p>Loading…</p></div>';
+      try {
+        const res = await fetch(`${API_BASE}/get_holidays?year=${currentYear}`, {
+          headers: {
+            'Authorization': `Bearer ${TOKEN()}`
+          }
+        });
+        const data = await res.json();
+        const holidays = data.holidays || [];
+        const today = new Date(); today.setHours(0, 0, 0, 0);
+        const upcoming = holidays.filter(h => new Date(h.holiday_date) >= today).length;
+
+        document.getElementById('statTotal').textContent = holidays.length;
+        document.getElementById('statUpcoming').textContent = upcoming;
+        document.getElementById('holidayCountLabel').textContent = `${holidays.length} holiday${holidays.length !== 1 ? 's' : ''} in ${currentYear}`;
+
+        if (!holidays.length) {
+          document.getElementById('holidayList').innerHTML = `
         <div class="empty-state">
           <div class="empty-icon"><i class="fas fa-calendar-days"></i></div>
           <h3>No Holidays for ${currentYear}</h3>
           <p>Add holidays using the form on the left.</p>
         </div>`;
-      return;
-    }
+          return;
+        }
 
-    // Group by month
-    const grouped = {};
-    holidays.forEach(h => {
-      const d = new Date(h.holiday_date);
-      const m = d.getMonth();
-      if (!grouped[m]) grouped[m] = [];
-      grouped[m].push({ ...h, dateObj: d });
-    });
+        // Group by month
+        const grouped = {};
+        holidays.forEach(h => {
+          const d = new Date(h.holiday_date);
+          const m = d.getMonth();
+          if (!grouped[m]) grouped[m] = [];
+          grouped[m].push({ ...h, dateObj: d });
+        });
 
-    let html = '';
-    Object.keys(grouped).sort((a,b) => a-b).forEach(m => {
-      html += `<div class="month-group"><div class="month-label"><i class="fas fa-calendar-alt"></i>${MONTHS[m]}</div>`;
-      grouped[m].forEach(h => {
-        const isPast = h.dateObj < today;
-        const safeName = h.name.replace(/'/g, "\\'");
-        html += `
+        let html = '';
+        Object.keys(grouped).sort((a, b) => a - b).forEach(m => {
+          html += `<div class="month-group"><div class="month-label"><i class="fas fa-calendar-alt"></i>${MONTHS[m]}</div>`;
+          grouped[m].forEach(h => {
+            const isPast = h.dateObj < today;
+            const safeName = h.name.replace(/'/g, "\\'");
+            html += `
         <div class="holiday-item" style="${isPast ? 'opacity:.65' : ''}">
           <div class="holiday-left">
             <div class="holiday-date-badge">
@@ -636,26 +1220,27 @@ async function loadHolidays() {
             <i class="fas fa-trash"></i> Remove
           </button>
         </div>`;
-      });
-      html += '</div>';
-    });
-    document.getElementById('holidayList').innerHTML = html;
+          });
+          html += '</div>';
+        });
+        document.getElementById('holidayList').innerHTML = html;
 
-  } catch(e) {
-    document.getElementById('holidayList').innerHTML = `
+      } catch (e) {
+        document.getElementById('holidayList').innerHTML = `
       <div class="empty-state">
         <div class="empty-icon"><i class="fas fa-exclamation-triangle"></i></div>
         <h3>Failed to load</h3><p>Could not connect to server.</p>
       </div>`;
-  }
-}
+      }
+    }
 
-/* ── Init ── */
-window.addEventListener('load', () => {
-  if (!localStorage.getItem('token')) { window.location.href = '/'; return; }
-  document.getElementById('yearDisplay').textContent = currentYear;
-  loadHolidays();
-});
-</script>
+    /* ── Init ── */
+    window.addEventListener('load', () => {
+      if (!localStorage.getItem('token')) { window.location.href = '/'; return; }
+      document.getElementById('yearDisplay').textContent = currentYear;
+      loadHolidays();
+    });
+  </script>
 </body>
+
 </html>

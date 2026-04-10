@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>My Leaves | StaffCores</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         :root {
             --primary: #4f46e5;
@@ -40,10 +48,10 @@
             --text-tertiary: #64748b;
             --text-muted: #94a3b8;
             --text-placeholder: #cbd5e1;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-            --shadow-xl: 0 25px 50px -12px rgba(0,0,0,0.15);
-            --shadow-card-hover: 0 10px 25px -5px rgba(0,0,0,0.08);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            --shadow-card-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
             --radius-sm: 6px;
             --radius: 8px;
             --radius-lg: 12px;
@@ -55,7 +63,10 @@
             --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        html { font-size: 16px; scroll-behavior: smooth; }
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -65,17 +76,29 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.4); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.6); }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.4);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.6);
+        }
 
         /* ========== TOPBAR ========== */
         .topbar {
             position: sticky;
             top: 0;
             height: 68px;
-            background: rgba(255,255,255,0.92);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
@@ -86,56 +109,124 @@
             z-index: 50;
         }
 
-        .topbar-left { display: flex; align-items: center; gap: 13px; }
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
 
         .topbar-icon {
-            width: 40px; height: 40px;
+            width: 40px;
+            height: 40px;
             border-radius: var(--radius-lg);
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
             box-shadow: 0 4px 12px var(--primary-glow);
             flex-shrink: 0;
         }
 
-        .topbar-info h1 { font-size: 17px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.2; }
-        .topbar-info span { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+        .topbar-info h1 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
 
-        .topbar-right { display: flex; align-items: center; gap: 10px; }
+        .topbar-info span {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
         .btn-back {
-            display: inline-flex; align-items: center; gap: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             padding: 9px 20px;
             background: var(--bg-white);
             border: 1.5px solid var(--border);
             border-radius: var(--radius-full);
             font-family: 'Inter', sans-serif;
-            font-size: 13px; font-weight: 600;
+            font-size: 13px;
+            font-weight: 600;
             color: var(--text-secondary);
-            text-decoration: none; cursor: pointer;
+            text-decoration: none;
+            cursor: pointer;
             transition: all var(--transition-fast);
             white-space: nowrap;
         }
-        .btn-back i { font-size: 11px; transition: transform var(--transition-fast); }
-        .btn-back:hover { background: var(--primary-subtle); border-color: var(--primary-lighter); color: var(--primary); }
-        .btn-back:hover i { transform: translateX(-3px); }
+
+        .btn-back i {
+            font-size: 11px;
+            transition: transform var(--transition-fast);
+        }
+
+        .btn-back:hover {
+            background: var(--primary-subtle);
+            border-color: var(--primary-lighter);
+            color: var(--primary);
+        }
+
+        .btn-back:hover i {
+            transform: translateX(-3px);
+        }
 
         .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             padding: 9px 18px;
             border-radius: var(--radius);
             font-family: 'Inter', sans-serif;
-            font-size: 13px; font-weight: 600;
-            cursor: pointer; transition: all var(--transition-fast);
-            border: none; text-decoration: none; white-space: nowrap;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: none;
+            text-decoration: none;
+            white-space: nowrap;
         }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); box-shadow: 0 4px 14px var(--primary-glow); transform: translateY(-1px); }
-        .btn-secondary { background: var(--bg-white); border: 1.5px solid var(--border); color: var(--text-secondary); }
-        .btn-secondary:hover { background: var(--bg-muted); color: var(--text-primary); }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 4px 14px var(--primary-glow);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-white);
+            border: 1.5px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-muted);
+            color: var(--text-primary);
+        }
 
         /* ========== PAGE BODY ========== */
-        .page-body { padding: 28px 32px; max-width: 1100px; margin: 0 auto; }
+        .page-body {
+            padding: 28px 32px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
         /* ========== BANNER ========== */
         .page-banner {
@@ -147,29 +238,63 @@
             position: relative;
             overflow: hidden;
         }
+
         .page-banner::before {
             content: '';
-            position: absolute; top: -60%; right: -8%;
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(255,255,255,0.09) 0%, transparent 60%);
+            position: absolute;
+            top: -60%;
+            right: -8%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.09) 0%, transparent 60%);
             pointer-events: none;
         }
+
         .page-banner .decor-ring {
-            position: absolute; bottom: -25px; right: 160px;
-            width: 100px; height: 100px;
-            border: 2px solid rgba(255,255,255,0.08);
-            border-radius: 50%; pointer-events: none;
+            position: absolute;
+            bottom: -25px;
+            right: 160px;
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            pointer-events: none;
         }
-        .banner-inner { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-        .banner-text h2 { font-size: 22px; font-weight: 700; margin-bottom: 7px; letter-spacing: -0.02em; }
-        .banner-text p  { font-size: 13.5px; opacity: 0.78; max-width: 460px; line-height: 1.7; }
+
+        .banner-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .banner-text h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 7px;
+            letter-spacing: -0.02em;
+        }
+
+        .banner-text p {
+            font-size: 13.5px;
+            opacity: 0.78;
+            max-width: 460px;
+            line-height: 1.7;
+        }
+
         .banner-icon {
-            width: 68px; height: 68px;
+            width: 68px;
+            height: 68px;
             border-radius: var(--radius-xl);
-            background: rgba(255,255,255,0.14);
-            border: 1px solid rgba(255,255,255,0.22);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 28px; flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
         }
 
         /* ========== STATS ROW ========== */
@@ -191,21 +316,58 @@
             transition: all var(--transition-base);
             cursor: default;
         }
-        .stat-chip:hover { box-shadow: var(--shadow-card-hover); transform: translateY(-2px); border-color: transparent; }
+
+        .stat-chip:hover {
+            box-shadow: var(--shadow-card-hover);
+            transform: translateY(-2px);
+            border-color: transparent;
+        }
 
         .stat-chip-icon {
-            width: 44px; height: 44px;
+            width: 44px;
+            height: 44px;
             border-radius: var(--radius-lg);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 18px; flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
         }
-        .stat-chip-icon.all     { background: var(--primary-subtle); color: var(--primary); }
-        .stat-chip-icon.pending { background: var(--warning-light);  color: var(--warning); }
-        .stat-chip-icon.approved{ background: var(--success-light);  color: var(--success); }
-        .stat-chip-icon.rejected{ background: var(--danger-light);   color: var(--danger); }
 
-        .stat-chip-info small { font-size: 11.5px; color: var(--text-muted); font-weight: 500; display: block; }
-        .stat-chip-info strong { font-size: 24px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.03em; line-height: 1.1; }
+        .stat-chip-icon.all {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+
+        .stat-chip-icon.pending {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .stat-chip-icon.approved {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .stat-chip-icon.rejected {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .stat-chip-info small {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            font-weight: 500;
+            display: block;
+        }
+
+        .stat-chip-info strong {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
 
         /* ========== CARD ========== */
         .card {
@@ -227,29 +389,59 @@
             flex-wrap: wrap;
         }
 
-        .toolbar-left { display: flex; align-items: center; gap: 12px; }
-
-        .section-icon {
-            width: 40px; height: 40px;
-            border-radius: var(--radius-lg);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 16px; flex-shrink: 0;
-            background: var(--primary-subtle); color: var(--primary);
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .section-title h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); }
-        .section-title p  { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
 
-        .toolbar-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .section-title h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .section-title p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
+
+        .toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
 
         /* Filter Pills */
-        .filter-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+        .filter-pills {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
 
         .pill {
-            display: inline-flex; align-items: center; gap: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             padding: 6px 14px;
             border-radius: var(--radius-full);
-            font-size: 12.5px; font-weight: 600;
+            font-size: 12.5px;
+            font-weight: 600;
             cursor: pointer;
             border: 1.5px solid transparent;
             transition: all var(--transition-fast);
@@ -257,39 +449,82 @@
             color: var(--text-tertiary);
             font-family: 'Inter', sans-serif;
         }
+
         .pill .count {
-            min-width: 18px; height: 18px;
-            background: rgba(0,0,0,0.06);
+            min-width: 18px;
+            height: 18px;
+            background: rgba(0, 0, 0, 0.06);
             border-radius: var(--radius-full);
-            font-size: 10px; font-weight: 700;
-            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             padding: 0 5px;
         }
-        .pill:hover { background: var(--primary-subtle); border-color: var(--primary-lighter); color: var(--primary); }
-        .pill.active-all      { background: var(--primary-subtle); border-color: var(--primary); color: var(--primary); }
-        .pill.active-pending  { background: var(--warning-light);  border-color: var(--warning-border); color: var(--warning); }
-        .pill.active-approved { background: var(--success-light);  border-color: var(--success-border); color: var(--success); }
-        .pill.active-rejected { background: var(--danger-light);   border-color: var(--danger-border);  color: var(--danger); }
+
+        .pill:hover {
+            background: var(--primary-subtle);
+            border-color: var(--primary-lighter);
+            color: var(--primary);
+        }
+
+        .pill.active-all {
+            background: var(--primary-subtle);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .pill.active-pending {
+            background: var(--warning-light);
+            border-color: var(--warning-border);
+            color: var(--warning);
+        }
+
+        .pill.active-approved {
+            background: var(--success-light);
+            border-color: var(--success-border);
+            color: var(--success);
+        }
+
+        .pill.active-rejected {
+            background: var(--danger-light);
+            border-color: var(--danger-border);
+            color: var(--danger);
+        }
 
         /* Search */
         .search-wrap {
             position: relative;
         }
+
         .search-wrap i {
-            position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
-            font-size: 12px; color: var(--text-muted); pointer-events: none;
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: var(--text-muted);
+            pointer-events: none;
         }
+
         .search-wrap input {
             padding: 8px 14px 8px 34px;
             background: var(--bg-muted);
             border: 1.5px solid transparent;
             border-radius: var(--radius-full);
             font-family: 'Inter', sans-serif;
-            font-size: 13px; color: var(--text-primary);
-            outline: none; width: 200px;
+            font-size: 13px;
+            color: var(--text-primary);
+            outline: none;
+            width: 200px;
             transition: all var(--transition-base);
         }
-        .search-wrap input::placeholder { color: var(--text-muted); }
+
+        .search-wrap input::placeholder {
+            color: var(--text-muted);
+        }
+
         .search-wrap input:focus {
             background: var(--bg-white);
             border-color: var(--primary);
@@ -304,19 +539,28 @@
             border: 1.5px solid transparent;
             border-radius: var(--radius);
             font-family: 'Inter', sans-serif;
-            font-size: 13px; font-weight: 500;
+            font-size: 13px;
+            font-weight: 500;
             color: var(--text-secondary);
-            outline: none; cursor: pointer;
+            outline: none;
+            cursor: pointer;
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394a3b8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 10px center;
             transition: all var(--transition-fast);
         }
-        .year-select:focus { background-color: var(--bg-white); border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
+
+        .year-select:focus {
+            background-color: var(--bg-white);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
 
         /* ========== LEAVE LIST ========== */
-        .leave-list { min-height: 100px; }
+        .leave-list {
+            min-height: 100px;
+        }
 
         .leave-item {
             display: flex;
@@ -328,118 +572,231 @@
             animation: fadeItem .3s ease forwards;
             position: relative;
         }
-        @keyframes fadeItem { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
-        .leave-item:last-child { border-bottom: none; }
-        .leave-item:hover { background: var(--bg-hover); }
+
+        @keyframes fadeItem {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .leave-item:last-child {
+            border-bottom: none;
+        }
+
+        .leave-item:hover {
+            background: var(--bg-hover);
+        }
 
         /* left accent bar */
         .leave-item::before {
             content: '';
             position: absolute;
-            left: 0; top: 12px; bottom: 12px;
+            left: 0;
+            top: 12px;
+            bottom: 12px;
             width: 3px;
             border-radius: 0 3px 3px 0;
             opacity: 0;
             transition: opacity var(--transition-fast);
         }
-        .leave-item:hover::before { opacity: 1; }
-        .leave-item.status-Pending::before   { background: var(--warning); }
-        .leave-item.status-Approved::before  { background: var(--success); }
-        .leave-item.status-Rejected::before  { background: var(--danger); }
+
+        .leave-item:hover::before {
+            opacity: 1;
+        }
+
+        .leave-item.status-Pending::before {
+            background: var(--warning);
+        }
+
+        .leave-item.status-Approved::before {
+            background: var(--success);
+        }
+
+        .leave-item.status-Rejected::before {
+            background: var(--danger);
+        }
 
         .leave-type-icon {
-            width: 46px; height: 46px;
+            width: 46px;
+            height: 46px;
             border-radius: var(--radius-lg);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 18px; flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
         }
-        .leave-type-icon.sick     { background: var(--danger-light);   color: var(--danger); }
-        .leave-type-icon.vacation { background: var(--info-light);     color: var(--info); }
-        .leave-type-icon.casual   { background: var(--primary-subtle); color: var(--primary); }
-        .leave-type-icon.personal { background: var(--warning-light);  color: var(--warning); }
-        .leave-type-icon.maternity{ background: var(--violet-light);   color: var(--violet); }
-        .leave-type-icon.other    { background: var(--success-light);  color: var(--success); }
 
-        .leave-main { flex: 1; min-width: 0; }
+        .leave-type-icon.sick {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .leave-type-icon.vacation {
+            background: var(--info-light);
+            color: var(--info);
+        }
+
+        .leave-type-icon.casual {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+
+        .leave-type-icon.personal {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .leave-type-icon.maternity {
+            background: var(--violet-light);
+            color: var(--violet);
+        }
+
+        .leave-type-icon.other {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .leave-main {
+            flex: 1;
+            min-width: 0;
+        }
 
         .leave-main-top {
-            display: flex; align-items: center; gap: 10px;
-            margin-bottom: 4px; flex-wrap: wrap;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+            flex-wrap: wrap;
         }
 
         .leave-type-name {
-            font-size: 14px; font-weight: 600;
+            font-size: 14px;
+            font-weight: 600;
             color: var(--text-primary);
         }
 
         .leave-days-badge {
             padding: 2px 9px;
             border-radius: var(--radius-full);
-            font-size: 11px; font-weight: 700;
+            font-size: 11px;
+            font-weight: 700;
             background: var(--bg-muted);
             color: var(--text-tertiary);
         }
 
         .leave-reason {
-            font-size: 12.5px; color: var(--text-muted);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            font-size: 12.5px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             max-width: 420px;
         }
 
         .leave-dates-row {
-            display: flex; align-items: center; gap: 14px;
-            margin-top: 5px; flex-wrap: wrap;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 5px;
+            flex-wrap: wrap;
         }
 
         .leave-date-chip {
-            display: flex; align-items: center; gap: 5px;
-            font-size: 12px; color: var(--text-tertiary);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--text-tertiary);
         }
-        .leave-date-chip i { color: var(--text-muted); font-size: 11px; }
+
+        .leave-date-chip i {
+            color: var(--text-muted);
+            font-size: 11px;
+        }
 
         .leave-date-arrow {
-            font-size: 10px; color: var(--text-placeholder);
+            font-size: 10px;
+            color: var(--text-placeholder);
         }
 
         .leave-manager-comment {
-            display: flex; align-items: flex-start; gap: 7px;
+            display: flex;
+            align-items: flex-start;
+            gap: 7px;
             margin-top: 7px;
             padding: 7px 10px;
             background: var(--warning-light);
             border: 1px solid var(--warning-border);
             border-radius: var(--radius-sm);
-            font-size: 12px; color: var(--warning);
+            font-size: 12px;
+            color: var(--warning);
             max-width: 420px;
         }
-        .leave-manager-comment i { font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+
+        .leave-manager-comment i {
+            font-size: 12px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
 
         .leave-meta {
-            display: flex; flex-direction: column;
-            align-items: flex-end; gap: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
             flex-shrink: 0;
         }
 
         .status-badge {
-            display: inline-flex; align-items: center; gap: 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
             padding: 5px 12px;
             border-radius: var(--radius-sm);
-            font-size: 12px; font-weight: 600;
+            font-size: 12px;
+            font-weight: 600;
         }
-        .status-badge i { font-size: 10px; }
-        .status-badge.Pending  { background: var(--warning-light); color: var(--warning); }
-        .status-badge.Approved { background: var(--success-light); color: var(--success); }
-        .status-badge.Rejected { background: var(--danger-light);  color: var(--danger); }
+
+        .status-badge i {
+            font-size: 10px;
+        }
+
+        .status-badge.Pending {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .status-badge.Approved {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .status-badge.Rejected {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
 
         .leave-applied-on {
-            font-size: 11px; color: var(--text-muted);
+            font-size: 11px;
+            color: var(--text-muted);
         }
 
         /* cancel button (for pending) */
         .btn-cancel-leave {
-            display: inline-flex; align-items: center; gap: 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
             padding: 5px 11px;
             border-radius: var(--radius-sm);
-            font-size: 11.5px; font-weight: 600;
+            font-size: 11.5px;
+            font-weight: 600;
             cursor: pointer;
             background: var(--danger-light);
             border: 1px solid var(--danger-border);
@@ -447,37 +804,71 @@
             font-family: 'Inter', sans-serif;
             transition: all var(--transition-fast);
         }
-        .btn-cancel-leave:hover { background: #fee2e2; }
+
+        .btn-cancel-leave:hover {
+            background: #fee2e2;
+        }
 
         /* ========== EMPTY STATE ========== */
         .empty-state {
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            padding: 60px 24px; text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+            text-align: center;
             animation: fadeItem .3s ease;
         }
+
         .empty-icon {
-            width: 72px; height: 72px;
+            width: 72px;
+            height: 72px;
             border-radius: var(--radius-xl);
             background: var(--bg-muted);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 30px; color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: var(--text-muted);
             margin-bottom: 18px;
         }
-        .empty-state h3 { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
-        .empty-state p  { font-size: 13px; color: var(--text-muted); max-width: 280px; line-height: 1.6; margin-bottom: 20px; }
+
+        .empty-state h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .empty-state p {
+            font-size: 13px;
+            color: var(--text-muted);
+            max-width: 280px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
 
         /* ========== SKELETON LOADER ========== */
         .skeleton-item {
-            display: flex; align-items: center; gap: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
             padding: 18px 24px;
             border-bottom: 1px solid var(--border-light);
         }
-        .skeleton-item:last-child { border-bottom: none; }
+
+        .skeleton-item:last-child {
+            border-bottom: none;
+        }
 
         @keyframes shimmer {
-            0%   { background-position: -400px 0; }
-            100% { background-position: 400px 0; }
+            0% {
+                background-position: -400px 0;
+            }
+
+            100% {
+                background-position: 400px 0;
+            }
         }
 
         .skel {
@@ -486,82 +877,194 @@
             animation: shimmer 1.4s infinite linear;
             border-radius: var(--radius);
         }
-        .skel-icon  { width: 46px; height: 46px; border-radius: var(--radius-lg); flex-shrink: 0; }
-        .skel-lines { flex: 1; }
-        .skel-line  { height: 10px; margin-bottom: 8px; }
-        .skel-line:first-child { width: 40%; height: 13px; }
-        .skel-line:nth-child(2){ width: 65%; }
-        .skel-line:last-child  { width: 50%; margin-bottom: 0; }
-        .skel-badge { width: 70px; height: 28px; border-radius: var(--radius-sm); flex-shrink: 0; }
+
+        .skel-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: var(--radius-lg);
+            flex-shrink: 0;
+        }
+
+        .skel-lines {
+            flex: 1;
+        }
+
+        .skel-line {
+            height: 10px;
+            margin-bottom: 8px;
+        }
+
+        .skel-line:first-child {
+            width: 40%;
+            height: 13px;
+        }
+
+        .skel-line:nth-child(2) {
+            width: 65%;
+        }
+
+        .skel-line:last-child {
+            width: 50%;
+            margin-bottom: 0;
+        }
+
+        .skel-badge {
+            width: 70px;
+            height: 28px;
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+        }
 
         /* ========== PAGINATION ========== */
         .pagination {
-            display: flex; align-items: center; justify-content: space-between;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             padding: 14px 24px;
             border-top: 1px solid var(--border-light);
-            flex-wrap: wrap; gap: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-        .pagination-info { font-size: 12.5px; color: var(--text-muted); }
-        .pagination-info strong { color: var(--text-secondary); font-weight: 600; }
-        .page-btns { display: flex; gap: 4px; }
+
+        .pagination-info {
+            font-size: 12.5px;
+            color: var(--text-muted);
+        }
+
+        .pagination-info strong {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .page-btns {
+            display: flex;
+            gap: 4px;
+        }
+
         .page-btn {
-            width: 32px; height: 32px;
+            width: 32px;
+            height: 32px;
             border-radius: var(--radius);
             border: 1.5px solid var(--border);
             background: var(--bg-white);
             font-family: 'Inter', sans-serif;
-            font-size: 12.5px; font-weight: 600;
+            font-size: 12.5px;
+            font-weight: 600;
             color: var(--text-secondary);
-            cursor: pointer; transition: all var(--transition-fast);
-            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .page-btn:hover:not(:disabled) { background: var(--primary-subtle); border-color: var(--primary-lighter); color: var(--primary); }
-        .page-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
-        .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .page-btn:hover:not(:disabled) {
+            background: var(--primary-subtle);
+            border-color: var(--primary-lighter);
+            color: var(--primary);
+        }
+
+        .page-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
 
         /* ========== CANCEL CONFIRM MODAL ========== */
         .modal-overlay {
-            display: none; position: fixed; inset: 0;
-            background: rgba(15,23,42,0.55);
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.55);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
-            z-index: 300; align-items: center; justify-content: center;
+            z-index: 300;
+            align-items: center;
+            justify-content: center;
         }
-        .modal-overlay.active { display: flex; }
+
+        .modal-overlay.active {
+            display: flex;
+        }
 
         .modal {
             background: var(--bg-white);
             border-radius: var(--radius-xl);
-            width: 420px; max-width: 90vw;
+            width: 420px;
+            max-width: 90vw;
             box-shadow: var(--shadow-xl);
             animation: modalIn .25s ease;
             overflow: hidden;
         }
-        @keyframes modalIn { from { opacity:0; transform:translateY(-14px) scale(0.97); } to { opacity:1; transform:translateY(0) scale(1); } }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: translateY(-14px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
 
         .modal-header {
-            display: flex; align-items: center; justify-content: space-between;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             padding: 18px 22px;
             border-bottom: 1px solid var(--border);
         }
+
         .modal-header h3 {
-            display: flex; align-items: center; gap: 10px;
-            font-size: 16px; font-weight: 700; color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
         }
-        .modal-header h3 i { color: var(--danger); }
+
+        .modal-header h3 i {
+            color: var(--danger);
+        }
 
         .modal-close {
-            width: 34px; height: 34px;
+            width: 34px;
+            height: 34px;
             border-radius: var(--radius);
-            border: none; background: var(--bg-muted);
-            color: var(--text-tertiary); cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 15px; transition: all var(--transition-fast);
+            border: none;
+            background: var(--bg-muted);
+            color: var(--text-tertiary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            transition: all var(--transition-fast);
         }
-        .modal-close:hover { background: var(--danger-light); color: var(--danger); }
 
-        .modal-body { padding: 22px; }
-        .modal-body p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; }
+        .modal-close:hover {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .modal-body {
+            padding: 22px;
+        }
+
+        .modal-body p {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
         .modal-body .leave-summary-box {
             background: var(--bg-muted);
             border: 1px solid var(--border);
@@ -569,83 +1072,240 @@
             padding: 14px 16px;
             margin-top: 14px;
         }
+
         .modal-body .lsb-row {
-            display: flex; align-items: center; gap: 8px;
-            font-size: 13px; color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
             margin-bottom: 6px;
         }
-        .modal-body .lsb-row:last-child { margin-bottom: 0; }
-        .modal-body .lsb-row i { width: 14px; color: var(--primary); font-size: 11px; }
+
+        .modal-body .lsb-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .modal-body .lsb-row i {
+            width: 14px;
+            color: var(--primary);
+            font-size: 11px;
+        }
 
         .modal-footer {
-            display: flex; justify-content: flex-end; gap: 10px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
             padding: 14px 22px;
             border-top: 1px solid var(--border);
         }
-        .btn-danger { background: var(--danger); color: white; }
-        .btn-danger:hover { background: #b91c1c; box-shadow: 0 4px 12px rgba(220,38,38,0.25); transform: translateY(-1px); }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+            transform: translateY(-1px);
+        }
 
         /* ========== TOAST ========== */
-        .toast-container { position: fixed; top: 80px; right: 20px; z-index: 400; display: flex; flex-direction: column; gap: 8px; }
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 400;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
 
         .toast {
-            display: flex; align-items: center; gap: 11px;
+            display: flex;
+            align-items: center;
+            gap: 11px;
             padding: 13px 16px;
             background: var(--bg-white);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-xl);
-            font-size: 13px; font-weight: 500;
+            font-size: 13px;
+            font-weight: 500;
             color: var(--text-secondary);
-            min-width: 260px; max-width: 340px;
+            min-width: 260px;
+            max-width: 340px;
             animation: toastIn .3s ease;
         }
-        @keyframes toastIn { from { opacity:0; transform:translateX(20px); } to { opacity:1; transform:translateX(0); } }
-        .toast.removing { animation: toastOut .3s ease forwards; }
-        @keyframes toastOut { to { opacity:0; transform:translateX(20px); } }
-        .toast i { font-size: 16px; flex-shrink: 0; }
-        .toast.success i { color: var(--success); }
-        .toast.error   i { color: var(--danger); }
-        .toast.warning i { color: var(--warning); }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .toast.removing {
+            animation: toastOut .3s ease forwards;
+        }
+
+        @keyframes toastOut {
+            to {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+        }
+
+        .toast i {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .toast.success i {
+            color: var(--success);
+        }
+
+        .toast.error i {
+            color: var(--danger);
+        }
+
+        .toast.warning i {
+            color: var(--warning);
+        }
+
         .toast-bar {
-            position: absolute; bottom: 0; left: 0;
-            height: 3px; border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
             animation: toastBar 3s linear forwards;
         }
-        @keyframes toastBar { from { width:100%; } to { width:0; } }
-        .toast.success .toast-bar { background: var(--success); }
-        .toast.error   .toast-bar { background: var(--danger); }
-        .toast.warning .toast-bar { background: var(--warning); }
-        .toast { position: relative; overflow: hidden; }
+
+        @keyframes toastBar {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0;
+            }
+        }
+
+        .toast.success .toast-bar {
+            background: var(--success);
+        }
+
+        .toast.error .toast-bar {
+            background: var(--danger);
+        }
+
+        .toast.warning .toast-bar {
+            background: var(--warning);
+        }
+
+        .toast {
+            position: relative;
+            overflow: hidden;
+        }
 
         /* ========== RESPONSIVE ========== */
         @media (max-width: 900px) {
-            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
+
         @media (max-width: 768px) {
-            .topbar { padding: 0 16px; }
-            .topbar-info span { display: none; }
-            .page-body { padding: 16px; }
-            .page-banner { padding: 20px 18px; }
-            .banner-icon { display: none; }
-            .card-toolbar { flex-direction: column; align-items: flex-start; }
-            .toolbar-right { width: 100%; }
-            .search-wrap input { width: 100%; }
-            .search-wrap input:focus { width: 100%; }
-            .leave-item { flex-wrap: wrap; }
-            .leave-meta { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; }
-            .leave-reason { max-width: 100%; }
-            .leave-manager-comment { max-width: 100%; }
+            .topbar {
+                padding: 0 16px;
+            }
+
+            .topbar-info span {
+                display: none;
+            }
+
+            .page-body {
+                padding: 16px;
+            }
+
+            .page-banner {
+                padding: 20px 18px;
+            }
+
+            .banner-icon {
+                display: none;
+            }
+
+            .card-toolbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .toolbar-right {
+                width: 100%;
+            }
+
+            .search-wrap input {
+                width: 100%;
+            }
+
+            .search-wrap input:focus {
+                width: 100%;
+            }
+
+            .leave-item {
+                flex-wrap: wrap;
+            }
+
+            .leave-meta {
+                flex-direction: row;
+                align-items: center;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .leave-reason {
+                max-width: 100%;
+            }
+
+            .leave-manager-comment {
+                max-width: 100%;
+            }
         }
+
         @media (max-width: 480px) {
-            .topbar { height: 60px; }
-            .btn-back-label { display: none; }
-            .stats-row { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .filter-pills { gap: 4px; }
-            .pill { padding: 5px 10px; font-size: 12px; }
+            .topbar {
+                height: 60px;
+            }
+
+            .btn-back-label {
+                display: none;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .filter-pills {
+                gap: 4px;
+            }
+
+            .pill {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- Toast Container -->
@@ -697,7 +1357,8 @@
             <div class="banner-inner">
                 <div class="banner-text">
                     <h2>My Leave Requests</h2>
-                    <p>View and manage all your leave applications. Track approval status, filter by type, and cancel pending requests anytime.</p>
+                    <p>View and manage all your leave applications. Track approval status, filter by type, and cancel
+                        pending requests anytime.</p>
                 </div>
                 <div class="banner-icon"><i class="fas fa-calendar-check"></i></div>
             </div>
@@ -761,10 +1422,14 @@
 
                     <!-- Filter Pills -->
                     <div class="filter-pills">
-                        <button class="pill active-all" data-filter="all"      onclick="setFilter('all',this)">All <span class="count" id="cAll">0</span></button>
-                        <button class="pill"            data-filter="Pending"  onclick="setFilter('Pending',this)">Pending <span class="count" id="cPending">0</span></button>
-                        <button class="pill"            data-filter="Approved" onclick="setFilter('Approved',this)">Approved <span class="count" id="cApproved">0</span></button>
-                        <button class="pill"            data-filter="Rejected" onclick="setFilter('Rejected',this)">Rejected <span class="count" id="cRejected">0</span></button>
+                        <button class="pill active-all" data-filter="all" onclick="setFilter('all',this)">All <span
+                                class="count" id="cAll">0</span></button>
+                        <button class="pill" data-filter="Pending" onclick="setFilter('Pending',this)">Pending <span
+                                class="count" id="cPending">0</span></button>
+                        <button class="pill" data-filter="Approved" onclick="setFilter('Approved',this)">Approved <span
+                                class="count" id="cApproved">0</span></button>
+                        <button class="pill" data-filter="Rejected" onclick="setFilter('Rejected',this)">Rejected <span
+                                class="count" id="cRejected">0</span></button>
                     </div>
 
                     <!-- Apply Leave Button -->
@@ -799,22 +1464,22 @@
 
         </div><!-- /card -->
     </div><!-- /page-body -->
-
+ <script src="/static/js/config.js"></script>
     <script>
         'use strict';
 
         /* ── STATE ── */
-        let allLeaves      = [];
+        let allLeaves = [];
         let filteredLeaves = [];
-        let currentFilter  = 'all';
-        let currentPage    = 1;
-        const PER_PAGE     = 8;
+        let currentFilter = 'all';
+        let currentPage = 1;
+        const PER_PAGE = 8;
         let cancelTargetId = null;
         let cancelTargetLeave = null;
 
         /* ── AUTH ── */
         function getToken() {
-            const keys = ['token','authToken','access_token','auth_token','user_token','x-access-token'];
+            const keys = ['token', 'authToken', 'access_token', 'auth_token', 'user_token', 'x-access-token'];
             for (const k of keys) { const t = localStorage.getItem(k); if (t) return t; }
             for (const k of keys) { const t = sessionStorage.getItem(k); if (t) return t; }
             return null;
@@ -822,10 +1487,10 @@
 
         /* ── TOAST ── */
         function showToast(msg, type = 'success') {
-            const icons = { success:'circle-check', error:'circle-xmark', warning:'triangle-exclamation' };
+            const icons = { success: 'circle-check', error: 'circle-xmark', warning: 'triangle-exclamation' };
             const el = document.createElement('div');
             el.className = `toast ${type}`;
-            el.innerHTML = `<i class="fas fa-${icons[type]||'circle-info'}"></i><span>${msg}</span><div class="toast-bar"></div>`;
+            el.innerHTML = `<i class="fas fa-${icons[type] || 'circle-info'}"></i><span>${msg}</span><div class="toast-bar"></div>`;
             document.getElementById('toastContainer').appendChild(el);
             setTimeout(() => { el.classList.add('removing'); setTimeout(() => el.remove(), 300); }, 3000);
         }
@@ -834,28 +1499,28 @@
         function formatDate(str) {
             if (!str) return '—';
             const d = new Date(str + 'T00:00:00');
-            return d.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+            return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
         }
 
         function getLeaveIconClass(name) {
             const n = (name || '').toLowerCase();
             if (n.includes('sick') || n.includes('medical')) return 'sick';
-            if (n.includes('vac') || n.includes('annual'))   return 'vacation';
-            if (n.includes('cas'))                            return 'casual';
-            if (n.includes('mat') || n.includes('pat'))       return 'maternity';
-            if (n.includes('per') || n.includes('priv'))      return 'personal';
+            if (n.includes('vac') || n.includes('annual')) return 'vacation';
+            if (n.includes('cas')) return 'casual';
+            if (n.includes('mat') || n.includes('pat')) return 'maternity';
+            if (n.includes('per') || n.includes('priv')) return 'personal';
             return 'other';
         }
 
         const TYPE_ICONS = {
-            sick:'fa-briefcase-medical', vacation:'fa-umbrella-beach',
-            casual:'fa-sun', maternity:'fa-baby', personal:'fa-user', other:'fa-calendar'
+            sick: 'fa-briefcase-medical', vacation: 'fa-umbrella-beach',
+            casual: 'fa-sun', maternity: 'fa-baby', personal: 'fa-user', other: 'fa-calendar'
         };
 
         function calcDays(from, to) {
             if (!from || !to) return 1;
             const s = new Date(from + 'T00:00:00');
-            const e = new Date(to   + 'T00:00:00');
+            const e = new Date(to + 'T00:00:00');
             let d = 0; const c = new Date(s);
             while (c <= e) { const day = c.getDay(); if (day !== 0 && day !== 6) d++; c.setDate(c.getDate() + 1); }
             return d || 1;
@@ -863,13 +1528,13 @@
 
         /* ── STATS ── */
         function updateStats(leaves) {
-            document.getElementById('statTotal').textContent    = leaves.length;
-            document.getElementById('statPending').textContent  = leaves.filter(l => l.status === 'Pending').length;
+            document.getElementById('statTotal').textContent = leaves.length;
+            document.getElementById('statPending').textContent = leaves.filter(l => l.status === 'Pending').length;
             document.getElementById('statApproved').textContent = leaves.filter(l => l.status === 'Approved').length;
             document.getElementById('statRejected').textContent = leaves.filter(l => l.status === 'Rejected').length;
 
-            document.getElementById('cAll').textContent      = leaves.length;
-            document.getElementById('cPending').textContent  = leaves.filter(l => l.status === 'Pending').length;
+            document.getElementById('cAll').textContent = leaves.length;
+            document.getElementById('cPending').textContent = leaves.filter(l => l.status === 'Pending').length;
             document.getElementById('cApproved').textContent = leaves.filter(l => l.status === 'Approved').length;
             document.getElementById('cRejected').textContent = leaves.filter(l => l.status === 'Rejected').length;
         }
@@ -886,20 +1551,20 @@
         /* ── FILTER ── */
         function setFilter(status, btn) {
             currentFilter = status;
-            currentPage   = 1;
+            currentPage = 1;
             document.querySelectorAll('.pill').forEach(p => p.className = 'pill');
-            const map = { all:'active-all', Pending:'active-pending', Approved:'active-approved', Rejected:'active-rejected' };
+            const map = { all: 'active-all', Pending: 'active-pending', Approved: 'active-approved', Rejected: 'active-rejected' };
             btn.className = `pill ${map[status] || ''}`;
             applyFilters();
         }
 
         function applyFilters() {
             const search = document.getElementById('searchInput').value.toLowerCase().trim();
-            const year   = document.getElementById('yearFilter').value;
+            const year = document.getElementById('yearFilter').value;
 
             filteredLeaves = allLeaves.filter(l => {
                 const statusOk = currentFilter === 'all' || l.status === currentFilter;
-                const yearOk   = year === 'all' || (l.from_date || '').startsWith(year);
+                const yearOk = year === 'all' || (l.from_date || '').startsWith(year);
                 const searchOk = !search ||
                     (l.leave_type_name || '').toLowerCase().includes(search) ||
                     (l.reason || '').toLowerCase().includes(search) ||
@@ -917,7 +1582,7 @@
             const total = filteredLeaves.length;
             const totalPages = Math.ceil(total / PER_PAGE);
             const start = (currentPage - 1) * PER_PAGE;
-            const page  = filteredLeaves.slice(start, start + PER_PAGE);
+            const page = filteredLeaves.slice(start, start + PER_PAGE);
 
             // subtitle
             document.getElementById('toolbarSubtitle').textContent =
@@ -929,8 +1594,8 @@
                         <div class="empty-icon"><i class="fas fa-inbox"></i></div>
                         <h3>No Leave Requests Found</h3>
                         <p>${currentFilter !== 'all' || document.getElementById('searchInput').value
-                            ? 'Try changing your filter or search term.'
-                            : 'You haven\'t applied for any leave yet.'}</p>
+                        ? 'Try changing your filter or search term.'
+                        : 'You haven\'t applied for any leave yet.'}</p>
                         <a href="/apply_leave" class="btn btn-primary"><i class="fas fa-plus"></i> Apply for Leave</a>
                     </div>`;
                 document.getElementById('paginationBar').style.display = 'none';
@@ -939,9 +1604,9 @@
 
             list.innerHTML = page.map((l, idx) => {
                 const typeClass = getLeaveIconClass(l.leave_type_name);
-                const icon      = TYPE_ICONS[typeClass];
-                const days      = l.leave_days || calcDays(l.from_date, l.to_date);
-                const halfDay   = (l.day_type || '').toLowerCase().includes('half');
+                const icon = TYPE_ICONS[typeClass];
+                const days = l.leave_days || calcDays(l.from_date, l.to_date);
+                const halfDay = (l.day_type || '').toLowerCase().includes('half');
                 const daysLabel = halfDay ? '0.5 day' : `${days} day${days !== 1 ? 's' : ''}`;
                 const appliedOn = l.applied_on || l.created_at || '';
 
@@ -949,7 +1614,7 @@
                     ? `<div class="leave-manager-comment"><i class="fas fa-comment-dots"></i><span>${l.manager_comment}</span></div>` : '';
 
                 const cancelBtn = l.status === 'Pending'
-                    ? `<button class="btn-cancel-leave" onclick="openCancelModal(${JSON.stringify(l).replace(/"/g,'&quot;')})"><i class="fas fa-xmark"></i> Cancel</button>` : '';
+                    ? `<button class="btn-cancel-leave" onclick="openCancelModal(${JSON.stringify(l).replace(/"/g, '&quot;')})"><i class="fas fa-xmark"></i> Cancel</button>` : '';
 
                 const appliedHtml = appliedOn
                     ? `<span class="leave-applied-on">Applied ${formatDate(appliedOn)}</span>` : '';
@@ -995,20 +1660,20 @@
             bar.style.display = 'flex';
 
             const start = (currentPage - 1) * PER_PAGE + 1;
-            const end   = Math.min(currentPage * PER_PAGE, total);
+            const end = Math.min(currentPage * PER_PAGE, total);
             info.innerHTML = `Showing <strong>${start}–${end}</strong> of <strong>${total}</strong> requests`;
 
-            let pagesHtml = `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}><i class="fas fa-chevron-left" style="font-size:10px"></i></button>`;
+            let pagesHtml = `<button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}><i class="fas fa-chevron-left" style="font-size:10px"></i></button>`;
 
             for (let p = 1; p <= totalPages; p++) {
                 if (totalPages > 7 && p > 2 && p < totalPages - 1 && Math.abs(p - currentPage) > 1) {
                     if (p === 3 || p === totalPages - 2) pagesHtml += `<button class="page-btn" disabled style="border:none;background:none">…</button>`;
                     continue;
                 }
-                pagesHtml += `<button class="page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
+                pagesHtml += `<button class="page-btn ${p === currentPage ? 'active' : ''}" onclick="goPage(${p})">${p}</button>`;
             }
 
-            pagesHtml += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}><i class="fas fa-chevron-right" style="font-size:10px"></i></button>`;
+            pagesHtml += `<button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}><i class="fas fa-chevron-right" style="font-size:10px"></i></button>`;
             btns.innerHTML = pagesHtml;
         }
 
@@ -1017,13 +1682,13 @@
             if (p < 1 || p > totalPages) return;
             currentPage = p;
             renderList();
-            document.querySelector('.card').scrollIntoView({ behavior:'smooth', block:'start' });
+            document.querySelector('.card').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         /* ── CANCEL MODAL ── */
         function openCancelModal(leave) {
             cancelTargetLeave = leave;
-            cancelTargetId    = leave.id || leave.leave_id;
+            cancelTargetId = leave.id || leave.leave_id;
 
             document.getElementById('cancelLeaveDetail').innerHTML = `
                 <div class="lsb-row"><i class="fas fa-layer-group"></i> <span style="color:var(--text-muted)">Type:</span> <strong style="margin-left:4px">${leave.leave_type_name}</strong></div>
@@ -1035,23 +1700,23 @@
 
         function closeCancelModal() {
             document.getElementById('cancelModal').classList.remove('active');
-            cancelTargetId    = null;
+            cancelTargetId = null;
             cancelTargetLeave = null;
         }
 
-        document.getElementById('cancelModal').addEventListener('click', function(e) {
+        document.getElementById('cancelModal').addEventListener('click', function (e) {
             if (e.target === this) closeCancelModal();
         });
 
         async function confirmCancelLeave() {
             if (!cancelTargetId) return;
-            const btn  = document.getElementById('confirmCancelBtn');
+            const btn = document.getElementById('confirmCancelBtn');
             const orig = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Cancelling…';
-            btn.disabled  = true;
+            btn.disabled = true;
 
             try {
-                const res  = await fetch('/cancel_leave', {
+                const res = await fetch(`${API_BASE}/cancel_leave`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1076,15 +1741,18 @@
             }
 
             btn.innerHTML = orig;
-            btn.disabled  = false;
+            btn.disabled = false;
         }
 
         /* ── LOAD DATA ── */
         async function loadLeaves() {
             const token = getToken();
             try {
-                const res  = await fetch('/get_my_leaves', { headers: { 'Authorization': `Bearer ${token}` } });
-                const data = await res.json();
+                const res = await fetch(`${API_BASE}/get_my_leaves`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                }); const data = await res.json();
                 allLeaves = (data.leaves || []).sort((a, b) => {
                     const da = a.applied_on || a.created_at || a.from_date || '';
                     const db = b.applied_on || b.created_at || b.from_date || '';
@@ -1123,4 +1791,5 @@
         });
     </script>
 </body>
+
 </html>

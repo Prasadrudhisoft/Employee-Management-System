@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Apply Leave | StaffCores</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         :root {
             --primary: #4f46e5;
@@ -37,7 +45,7 @@
             --text-tertiary: #64748b;
             --text-muted: #94a3b8;
             --text-placeholder: #cbd5e1;
-            --shadow-xl: 0 25px 50px -12px rgba(0,0,0,0.15);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
             --radius-sm: 6px;
             --radius: 8px;
             --radius-md: 10px;
@@ -49,7 +57,10 @@
             --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        html { font-size: 16px; scroll-behavior: smooth; }
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -59,17 +70,29 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.4); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.6); }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.4);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.6);
+        }
 
         /* ========== TOPBAR ========== */
         .topbar {
             position: sticky;
             top: 0;
             height: 68px;
-            background: rgba(255,255,255,0.92);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
@@ -132,7 +155,10 @@
             white-space: nowrap;
         }
 
-        .btn-back i { font-size: 11px; transition: transform var(--transition-fast); }
+        .btn-back i {
+            font-size: 11px;
+            transition: transform var(--transition-fast);
+        }
 
         .btn-back:hover {
             background: var(--primary-subtle);
@@ -140,7 +166,9 @@
             color: var(--primary);
         }
 
-        .btn-back:hover i { transform: translateX(-3px); }
+        .btn-back:hover i {
+            transform: translateX(-3px);
+        }
 
         /* ========== PAGE BODY ========== */
         .page-body {
@@ -167,7 +195,7 @@
             right: -8%;
             width: 400px;
             height: 400px;
-            background: radial-gradient(circle, rgba(255,255,255,0.09) 0%, transparent 60%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.09) 0%, transparent 60%);
             pointer-events: none;
         }
 
@@ -177,7 +205,7 @@
             right: 160px;
             width: 100px;
             height: 100px;
-            border: 2px solid rgba(255,255,255,0.08);
+            border: 2px solid rgba(255, 255, 255, 0.08);
             border-radius: 50%;
             pointer-events: none;
         }
@@ -209,8 +237,8 @@
             width: 68px;
             height: 68px;
             border-radius: var(--radius-xl);
-            background: rgba(255,255,255,0.14);
-            border: 1px solid rgba(255,255,255,0.22);
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.22);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -241,7 +269,7 @@
 
         .balance-chip:hover {
             border-color: var(--primary-lighter);
-            box-shadow: 0 4px 12px rgba(79,70,229,0.08);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.08);
         }
 
         .balance-chip-icon {
@@ -255,11 +283,30 @@
             flex-shrink: 0;
         }
 
-        .balance-chip-icon.indigo  { background: var(--primary-subtle); color: var(--primary); }
-        .balance-chip-icon.danger  { background: var(--danger-light);   color: var(--danger); }
-        .balance-chip-icon.success { background: var(--success-light);  color: var(--success); }
-        .balance-chip-icon.amber   { background: var(--warning-light);  color: var(--warning); }
-        .balance-chip-icon.info    { background: var(--info-light);     color: var(--info); }
+        .balance-chip-icon.indigo {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+
+        .balance-chip-icon.danger {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .balance-chip-icon.success {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .balance-chip-icon.amber {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .balance-chip-icon.info {
+            background: var(--info-light);
+            color: var(--info);
+        }
 
         .balance-chip-info small {
             display: block;
@@ -308,21 +355,59 @@
             flex-shrink: 0;
         }
 
-        .section-icon.indigo  { background: var(--primary-subtle); color: var(--primary); }
-        .section-icon.cyan    { background: var(--info-light);      color: var(--info); }
-        .section-icon.emerald { background: var(--success-light);   color: var(--success); }
-        .section-icon.amber   { background: var(--warning-light);   color: var(--warning); }
+        .section-icon.indigo {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
 
-        .section-title h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; }
-        .section-title p  { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+        .section-icon.cyan {
+            background: var(--info-light);
+            color: var(--info);
+        }
+
+        .section-icon.emerald {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .section-icon.amber {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .section-title h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .section-title p {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
 
         /* ========== FORM GRID ========== */
-        .form-grid { display: grid; gap: 18px; }
-        .form-grid.cols2 { grid-template-columns: 1fr 1fr; }
-        .form-grid.cols3 { grid-template-columns: 1fr 1fr 1fr; }
+        .form-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .form-grid.cols2 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .form-grid.cols3 {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
 
         /* ========== FORM GROUP ========== */
-        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
 
         .form-label {
             font-size: 12.5px;
@@ -333,14 +418,31 @@
             gap: 6px;
         }
 
-        .form-label i   { font-size: 11px; color: var(--primary); }
-        .form-label .req { color: var(--danger); margin-left: 1px; }
-        .form-label .opt { color: var(--text-muted); font-weight: 400; font-size: 11.5px; }
+        .form-label i {
+            font-size: 11px;
+            color: var(--primary);
+        }
 
-        .field-hint { font-size: 11px; color: var(--text-muted); }
+        .form-label .req {
+            color: var(--danger);
+            margin-left: 1px;
+        }
+
+        .form-label .opt {
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 11.5px;
+        }
+
+        .field-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
 
         /* ========== INPUT WRAP ========== */
-        .input-wrap { position: relative; }
+        .input-wrap {
+            position: relative;
+        }
 
         .input-wrap .icon {
             position: absolute;
@@ -380,7 +482,10 @@
             min-height: 90px;
         }
 
-        .input-wrap select { appearance: none; cursor: pointer; }
+        .input-wrap select {
+            appearance: none;
+            cursor: pointer;
+        }
 
         .input-wrap .chevron {
             position: absolute;
@@ -393,7 +498,9 @@
         }
 
         .input-wrap input::placeholder,
-        .input-wrap textarea::placeholder { color: var(--text-placeholder); }
+        .input-wrap textarea::placeholder {
+            color: var(--text-placeholder);
+        }
 
         .input-wrap input:focus,
         .input-wrap select:focus,
@@ -403,7 +510,9 @@
             box-shadow: 0 0 0 3px var(--primary-glow);
         }
 
-        .input-wrap:focus-within .icon { color: var(--primary); }
+        .input-wrap:focus-within .icon {
+            color: var(--primary);
+        }
 
         /* char counter */
         .char-count {
@@ -414,28 +523,61 @@
             color: var(--text-muted);
             pointer-events: none;
         }
-        .char-count.warn { color: var(--warning); }
-        .char-count.over { color: var(--danger); }
+
+        .char-count.warn {
+            color: var(--warning);
+        }
+
+        .char-count.over {
+            color: var(--danger);
+        }
 
         /* valid */
         .input-wrap.valid input,
         .input-wrap.valid select,
-        .input-wrap.valid textarea { border-color: var(--success); background: var(--success-light); }
-        .input-wrap.valid .icon    { color: var(--success); }
+        .input-wrap.valid textarea {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+
+        .input-wrap.valid .icon {
+            color: var(--success);
+        }
+
         .input-wrap.valid::after {
             content: '\f058';
-            font-family: 'Font Awesome 6 Free'; font-weight: 900;
-            position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
-            color: var(--success); font-size: 13px; pointer-events: none;
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--success);
+            font-size: 13px;
+            pointer-events: none;
         }
-        .input-wrap.valid.has-chevron::after { display: none; }
-        .input-wrap.valid.textarea-wrap::after { top: 12px; transform: none; }
+
+        .input-wrap.valid.has-chevron::after {
+            display: none;
+        }
+
+        .input-wrap.valid.textarea-wrap::after {
+            top: 12px;
+            transform: none;
+        }
 
         /* error */
         .input-wrap.error input,
         .input-wrap.error select,
-        .input-wrap.error textarea { border-color: var(--danger); background: var(--danger-light); box-shadow: 0 0 0 3px rgba(220,38,38,0.07); }
-        .input-wrap.error .icon    { color: var(--danger); }
+        .input-wrap.error textarea {
+            border-color: var(--danger);
+            background: var(--danger-light);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.07);
+        }
+
+        .input-wrap.error .icon {
+            color: var(--danger);
+        }
 
         .field-err {
             display: none;
@@ -446,8 +588,22 @@
             font-weight: 500;
             animation: errIn .2s ease;
         }
-        @keyframes errIn { from { opacity:0; transform:translateY(-3px); } to { opacity:1; transform:translateY(0); } }
-        .input-wrap.error ~ .field-err { display: flex; }
+
+        @keyframes errIn {
+            from {
+                opacity: 0;
+                transform: translateY(-3px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .input-wrap.error~.field-err {
+            display: flex;
+        }
 
         /* ========== DURATION TOGGLE ========== */
         .duration-toggle {
@@ -484,9 +640,11 @@
             user-select: none;
         }
 
-        .duration-option label i { font-size: 13px; }
+        .duration-option label i {
+            font-size: 13px;
+        }
 
-        .duration-option input[type="radio"]:checked + label {
+        .duration-option input[type="radio"]:checked+label {
             background: var(--primary-subtle);
             border-color: var(--primary);
             color: var(--primary);
@@ -513,9 +671,18 @@
             font-weight: 500;
         }
 
-        .duration-summary.visible { display: flex; }
-        .duration-summary i { font-size: 15px; flex-shrink: 0; }
-        .duration-summary strong { font-weight: 700; }
+        .duration-summary.visible {
+            display: flex;
+        }
+
+        .duration-summary i {
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        .duration-summary strong {
+            font-weight: 700;
+        }
 
         /* ========== INFO NOTE ========== */
         .info-note {
@@ -524,14 +691,18 @@
             gap: 11px;
             padding: 13px 16px;
             background: var(--info-light);
-            border: 1px solid rgba(2,132,199,0.18);
+            border: 1px solid rgba(2, 132, 199, 0.18);
             border-radius: var(--radius-lg);
             margin-bottom: 18px;
             font-size: 12.5px;
             color: var(--info);
         }
 
-        .info-note i { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+        .info-note i {
+            font-size: 15px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
 
         /* ========== LEAVE TYPE CARDS ========== */
         .leave-type-grid {
@@ -591,12 +762,14 @@
             font-weight: 500;
         }
 
-        .leave-type-card input[type="radio"]:checked + label {
+        .leave-type-card input[type="radio"]:checked+label {
             background: var(--primary-subtle);
             border-color: var(--primary);
         }
 
-        .leave-type-card input[type="radio"]:checked + label .lt-name { color: var(--primary); }
+        .leave-type-card input[type="radio"]:checked+label .lt-name {
+            color: var(--primary);
+        }
 
         .leave-type-card label:hover {
             background: var(--primary-subtle);
@@ -604,23 +777,68 @@
         }
 
         /* dynamic icon colors per card */
-        .leave-type-card:nth-child(1) label .lt-icon { background: var(--danger-light);   color: var(--danger); }
-        .leave-type-card:nth-child(2) label .lt-icon { background: var(--info-light);     color: var(--info); }
-        .leave-type-card:nth-child(3) label .lt-icon { background: var(--primary-subtle); color: var(--primary); }
-        .leave-type-card:nth-child(4) label .lt-icon { background: var(--warning-light);  color: var(--warning); }
-        .leave-type-card:nth-child(5) label .lt-icon { background: var(--success-light);  color: var(--success); }
-        .leave-type-card:nth-child(6) label .lt-icon { background: #f5f3ff;               color: #7c3aed; }
+        .leave-type-card:nth-child(1) label .lt-icon {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
 
-        .leave-type-card:nth-child(1) input[type="radio"]:checked + label .lt-icon { background: #fee2e2; }
-        .leave-type-card:nth-child(2) input[type="radio"]:checked + label .lt-icon { background: #e0f2fe; }
-        .leave-type-card:nth-child(3) input[type="radio"]:checked + label .lt-icon { background: var(--primary-lighter); }
-        .leave-type-card:nth-child(4) input[type="radio"]:checked + label .lt-icon { background: #fef9c3; }
-        .leave-type-card:nth-child(5) input[type="radio"]:checked + label .lt-icon { background: #d1fae5; }
-        .leave-type-card:nth-child(6) input[type="radio"]:checked + label .lt-icon { background: #ede9fe; }
+        .leave-type-card:nth-child(2) label .lt-icon {
+            background: var(--info-light);
+            color: var(--info);
+        }
+
+        .leave-type-card:nth-child(3) label .lt-icon {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+
+        .leave-type-card:nth-child(4) label .lt-icon {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .leave-type-card:nth-child(5) label .lt-icon {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .leave-type-card:nth-child(6) label .lt-icon {
+            background: #f5f3ff;
+            color: #7c3aed;
+        }
+
+        .leave-type-card:nth-child(1) input[type="radio"]:checked+label .lt-icon {
+            background: #fee2e2;
+        }
+
+        .leave-type-card:nth-child(2) input[type="radio"]:checked+label .lt-icon {
+            background: #e0f2fe;
+        }
+
+        .leave-type-card:nth-child(3) input[type="radio"]:checked+label .lt-icon {
+            background: var(--primary-lighter);
+        }
+
+        .leave-type-card:nth-child(4) input[type="radio"]:checked+label .lt-icon {
+            background: #fef9c3;
+        }
+
+        .leave-type-card:nth-child(5) input[type="radio"]:checked+label .lt-icon {
+            background: #d1fae5;
+        }
+
+        .leave-type-card:nth-child(6) input[type="radio"]:checked+label .lt-icon {
+            background: #ede9fe;
+        }
 
         /* fallback select for leave type (shown when balance is empty/loading) */
-        #leaveTypeSelect { display: none; }
-        #leaveTypeSelect.show { display: block; }
+        #leaveTypeSelect {
+            display: none;
+        }
+
+        #leaveTypeSelect.show {
+            display: block;
+        }
 
         /* error state for leave type selection */
         .leave-type-error {
@@ -633,7 +851,10 @@
             margin-top: 4px;
         }
 
-        .leave-type-error.visible { display: flex; animation: errIn .2s ease; }
+        .leave-type-error.visible {
+            display: flex;
+            animation: errIn .2s ease;
+        }
 
         /* ========== FORM ACTIONS ========== */
         .form-actions {
@@ -668,19 +889,30 @@
             border: 1.5px solid var(--border);
             color: var(--text-secondary);
         }
-        .btn-secondary:hover { background: var(--bg-muted); color: var(--text-primary); }
+
+        .btn-secondary:hover {
+            background: var(--bg-muted);
+            color: var(--text-primary);
+        }
 
         .btn-primary {
             background: var(--primary);
             color: white;
             padding: 10px 26px;
         }
+
         .btn-primary:hover {
             background: var(--primary-dark);
             box-shadow: 0 4px 14px var(--primary-glow);
             transform: translateY(-1px);
         }
-        .btn-primary:disabled { opacity: 0.65; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .btn-primary:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
 
         /* ========== ALERT ========== */
         .alert {
@@ -694,31 +926,115 @@
             margin: 0 30px 18px;
             animation: slideDown .3s ease;
         }
-        @keyframes slideDown { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
-        .alert.error   { display:flex; background:var(--danger-light);  border:1px solid var(--danger-border);   color:var(--danger); }
-        .alert.success { display:flex; background:var(--success-light); border:1px solid var(--success-border);  color:var(--success); }
-        .alert.warning { display:flex; background:var(--warning-light); border:1px solid var(--warning-border);  color:var(--warning); }
-        .alert i { font-size: 16px; flex-shrink: 0; }
-        .alert-title { font-weight: 700; margin-bottom: 2px; }
-        .alert-body   { font-size: 12px; opacity: 0.9; }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert.error {
+            display: flex;
+            background: var(--danger-light);
+            border: 1px solid var(--danger-border);
+            color: var(--danger);
+        }
+
+        .alert.success {
+            display: flex;
+            background: var(--success-light);
+            border: 1px solid var(--success-border);
+            color: var(--success);
+        }
+
+        .alert.warning {
+            display: flex;
+            background: var(--warning-light);
+            border: 1px solid var(--warning-border);
+            color: var(--warning);
+        }
+
+        .alert i {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .alert-title {
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .alert-body {
+            font-size: 12px;
+            opacity: 0.9;
+        }
 
         /* ========== SUCCESS SCREEN ========== */
-        .success-screen { text-align: center; padding: 52px 36px; animation: fadeUp .4s ease; }
-        @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+        .success-screen {
+            text-align: center;
+            padding: 52px 36px;
+            animation: fadeUp .4s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         .success-circle {
-            width: 84px; height: 84px; border-radius: 50%;
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
             background: linear-gradient(135deg, var(--success), #34d399);
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin: 0 auto 20px;
-            font-size: 36px; color: white;
-            box-shadow: 0 12px 32px rgba(5,150,105,0.32);
-            animation: pop .5s cubic-bezier(0.34,1.56,0.64,1);
+            font-size: 36px;
+            color: white;
+            box-shadow: 0 12px 32px rgba(5, 150, 105, 0.32);
+            animation: pop .5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        @keyframes pop { from { transform:scale(0) rotate(-180deg); } to { transform:scale(1) rotate(0); } }
 
-        .success-screen h2 { font-size: 24px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; letter-spacing: -0.02em; }
-        .success-screen p  { font-size: 14px; color: var(--text-muted); max-width: 380px; margin: 0 auto 26px; line-height: 1.7; }
+        @keyframes pop {
+            from {
+                transform: scale(0) rotate(-180deg);
+            }
+
+            to {
+                transform: scale(1) rotate(0);
+            }
+        }
+
+        .success-screen h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .success-screen p {
+            font-size: 14px;
+            color: var(--text-muted);
+            max-width: 380px;
+            margin: 0 auto 26px;
+            line-height: 1.7;
+        }
+
         .success-detail {
             display: inline-flex;
             flex-direction: column;
@@ -732,45 +1048,131 @@
             text-align: left;
             min-width: 240px;
         }
+
         .success-detail-row {
             display: flex;
             align-items: center;
             gap: 10px;
             font-size: 13px;
         }
-        .success-detail-row i { width: 16px; color: var(--primary); font-size: 12px; }
-        .success-detail-row span { color: var(--text-muted); }
-        .success-detail-row strong { color: var(--text-primary); font-weight: 600; margin-left: 4px; }
-        .success-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+        .success-detail-row i {
+            width: 16px;
+            color: var(--primary);
+            font-size: 12px;
+        }
+
+        .success-detail-row span {
+            color: var(--text-muted);
+        }
+
+        .success-detail-row strong {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-left: 4px;
+        }
+
+        .success-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
         /* shake */
-        @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-5px)} 40%,80%{transform:translateX(5px)} }
-        .shake { animation: shake .35s ease; }
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0)
+            }
+
+            20%,
+            60% {
+                transform: translateX(-5px)
+            }
+
+            40%,
+            80% {
+                transform: translateX(5px)
+            }
+        }
+
+        .shake {
+            animation: shake .35s ease;
+        }
 
         /* ========== RESPONSIVE ========== */
         @media (max-width: 768px) {
-            .topbar { padding: 0 16px; }
-            .topbar-info span { display: none; }
-            .page-body { padding: 16px; }
-            .page-banner { padding: 20px 18px; }
-            .banner-icon { display: none; }
+            .topbar {
+                padding: 0 16px;
+            }
+
+            .topbar-info span {
+                display: none;
+            }
+
+            .page-body {
+                padding: 16px;
+            }
+
+            .page-banner {
+                padding: 20px 18px;
+            }
+
+            .banner-icon {
+                display: none;
+            }
+
             .form-grid.cols2,
-            .form-grid.cols3 { grid-template-columns: 1fr; }
-            .section-block  { padding: 18px 16px; }
-            .form-actions   { flex-direction: column; gap: 10px; padding: 16px; }
-            .form-actions .btn { width: 100%; justify-content: center; }
-            .alert { margin: 0 16px 14px; }
-            .balance-chip { min-width: 120px; }
+            .form-grid.cols3 {
+                grid-template-columns: 1fr;
+            }
+
+            .section-block {
+                padding: 18px 16px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+                gap: 10px;
+                padding: 16px;
+            }
+
+            .form-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .alert {
+                margin: 0 16px 14px;
+            }
+
+            .balance-chip {
+                min-width: 120px;
+            }
         }
 
         @media (max-width: 480px) {
-            .topbar { height: 60px; }
-            .btn-back-label { display: none; }
-            .leave-type-grid { grid-template-columns: 1fr 1fr; }
-            .duration-toggle { flex-direction: column; }
+            .topbar {
+                height: 60px;
+            }
+
+            .btn-back-label {
+                display: none;
+            }
+
+            .leave-type-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .duration-toggle {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- ========== TOPBAR ========== -->
@@ -799,7 +1201,8 @@
             <div class="banner-inner">
                 <div class="banner-text">
                     <h2>Submit a Leave Request</h2>
-                    <p>Fill in the details below to apply for leave. Your manager will be notified and you'll receive an update on approval status.</p>
+                    <p>Fill in the details below to apply for leave. Your manager will be notified and you'll receive an
+                        update on approval status.</p>
                 </div>
                 <div class="banner-icon">
                     <i class="fas fa-calendar-check"></i>
@@ -834,13 +1237,15 @@
                 <!-- Dynamic leave type cards (populated via JS) -->
                 <div class="leave-type-grid" id="leaveTypeGrid">
                     <div style="grid-column:1/-1;padding:20px;text-align:center;color:var(--text-muted);font-size:13px">
-                        <i class="fas fa-spinner fa-spin" style="margin-right:8px;color:var(--primary)"></i>Loading leave types…
+                        <i class="fas fa-spinner fa-spin" style="margin-right:8px;color:var(--primary)"></i>Loading
+                        leave types…
                     </div>
                 </div>
 
                 <!-- Fallback select (shown if grid is empty) -->
                 <div class="form-group" id="leaveTypeSelectWrap" style="display:none">
-                    <label class="form-label"><i class="fas fa-layer-group"></i> Leave Type <span class="req">*</span></label>
+                    <label class="form-label"><i class="fas fa-layer-group"></i> Leave Type <span
+                            class="req">*</span></label>
                     <div class="input-wrap has-chevron" id="wrap-leaveType">
                         <i class="fas fa-layer-group icon"></i>
                         <select id="leaveTypeSelect">
@@ -868,29 +1273,34 @@
 
                 <div class="form-grid cols2" style="margin-bottom:18px">
                     <div class="form-group">
-                        <label class="form-label" for="f-fromDate"><i class="fas fa-calendar-plus"></i> From Date <span class="req">*</span></label>
+                        <label class="form-label" for="f-fromDate"><i class="fas fa-calendar-plus"></i> From Date <span
+                                class="req">*</span></label>
                         <p class="field-hint">Start date of your leave</p>
                         <div class="input-wrap" id="wrap-fromDate">
                             <i class="fas fa-calendar-plus icon"></i>
                             <input type="date" id="f-fromDate">
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-fromDate">From date is required.</span></div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-fromDate">From
+                                date is required.</span></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="f-toDate"><i class="fas fa-calendar-minus"></i> To Date <span class="req">*</span></label>
+                        <label class="form-label" for="f-toDate"><i class="fas fa-calendar-minus"></i> To Date <span
+                                class="req">*</span></label>
                         <p class="field-hint">End date of your leave</p>
                         <div class="input-wrap" id="wrap-toDate">
                             <i class="fas fa-calendar-minus icon"></i>
                             <input type="date" id="f-toDate">
                         </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-toDate">To date is required and must be ≥ from date.</span></div>
+                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-toDate">To date
+                                is required and must be ≥ from date.</span></div>
                     </div>
                 </div>
 
                 <!-- Day Type -->
                 <div class="form-group">
-                    <label class="form-label" style="margin-bottom:8px"><i class="fas fa-clock"></i> Day Type <span class="req">*</span></label>
+                    <label class="form-label" style="margin-bottom:8px"><i class="fas fa-clock"></i> Day Type <span
+                            class="req">*</span></label>
                     <div class="duration-toggle">
                         <div class="duration-option">
                             <input type="radio" name="dayType" id="dt-full" value="Full Day" checked>
@@ -922,18 +1332,22 @@
 
                 <div class="info-note">
                     <i class="fas fa-circle-info"></i>
-                    <span>A clear reason helps your manager approve the request faster. Keep it concise and professional.</span>
+                    <span>A clear reason helps your manager approve the request faster. Keep it concise and
+                        professional.</span>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="f-reason"><i class="fas fa-align-left"></i> Reason <span class="req">*</span></label>
+                    <label class="form-label" for="f-reason"><i class="fas fa-align-left"></i> Reason <span
+                            class="req">*</span></label>
                     <p class="field-hint">Min 10 characters · Max 500 characters</p>
                     <div class="input-wrap textarea-wrap" id="wrap-reason">
                         <i class="fas fa-align-left icon"></i>
-                        <textarea id="f-reason" placeholder="e.g. I am feeling unwell and need rest for recovery..." maxlength="500"></textarea>
+                        <textarea id="f-reason" placeholder="e.g. I am feeling unwell and need rest for recovery..."
+                            maxlength="500"></textarea>
                         <span class="char-count" id="cc-reason">0/500</span>
                     </div>
-                    <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-reason">Please provide a reason (min 10 characters).</span></div>
+                    <div class="field-err"><i class="fas fa-circle-exclamation"></i> <span id="err-reason">Please
+                            provide a reason (min 10 characters).</span></div>
                 </div>
             </div>
 
@@ -956,28 +1370,30 @@
             <div class="success-screen">
                 <div class="success-circle"><i class="fas fa-check"></i></div>
                 <h2>Leave Request Submitted!</h2>
-                <p>Your leave request has been sent to your manager for approval. You'll be notified once it's reviewed.</p>
+                <p>Your leave request has been sent to your manager for approval. You'll be notified once it's reviewed.
+                </p>
                 <div class="success-detail" id="successDetail"></div>
                 <div class="success-actions">
-                    <button class="btn btn-secondary" onclick="applyAnother()"><i class="fas fa-plus"></i> Apply Another</button>
+                    <button class="btn btn-secondary" onclick="applyAnother()"><i class="fas fa-plus"></i> Apply
+                        Another</button>
                     <a href="/empdashboard" class="btn btn-primary"><i class="fas fa-th-large"></i> Go to Dashboard</a>
                 </div>
             </div>
         </div>
 
     </div><!-- /page-body -->
-
+ <script src="/static/js/config.js"></script>
     <script>
         'use strict';
 
         /* ─── STATE ─── */
-        let leaveTypes    = [];   // [{id, name, total_days}]
+        let leaveTypes = [];   // [{id, name, total_days}]
         let leaveBalances = [];   // [{leave_type_id, leave_type_name, remaining_days, total_days}]
         let selectedLeaveTypeId = '';
 
         /* ─── AUTH ─── */
         function getToken() {
-            const keys = ['token','authToken','access_token','auth_token','user_token','x-access-token'];
+            const keys = ['token', 'authToken', 'access_token', 'auth_token', 'user_token', 'x-access-token'];
             for (const k of keys) { const t = localStorage.getItem(k); if (t) return t; }
             for (const k of keys) { const t = sessionStorage.getItem(k); if (t) return t; }
             for (const c of document.cookie.split(';')) {
@@ -993,7 +1409,7 @@
         function calcWorkingDays(from, to) {
             if (!from || !to) return 0;
             const start = new Date(from + 'T00:00:00');
-            const end   = new Date(to   + 'T00:00:00');
+            const end = new Date(to + 'T00:00:00');
             if (end < start) return 0;
             let days = 0;
             const cur = new Date(start);
@@ -1013,11 +1429,11 @@
 
         /* ─── DURATION SUMMARY ─── */
         function updateDurationSummary() {
-            const from     = document.getElementById('f-fromDate').value;
-            const to       = document.getElementById('f-toDate').value;
-            const halfDay  = document.querySelector('input[name="dayType"]:checked').value === 'Half Day';
-            const summary  = document.getElementById('durationSummary');
-            const text     = document.getElementById('durationText');
+            const from = document.getElementById('f-fromDate').value;
+            const to = document.getElementById('f-toDate').value;
+            const halfDay = document.querySelector('input[name="dayType"]:checked').value === 'Half Day';
+            const summary = document.getElementById('durationSummary');
+            const text = document.getElementById('durationText');
 
             if (!from || !to) { summary.classList.remove('visible'); return; }
 
@@ -1043,7 +1459,7 @@
         document.getElementById('f-fromDate').addEventListener('change', () => {
             // auto-set toDate if empty or before fromDate
             const from = document.getElementById('f-fromDate').value;
-            const to   = document.getElementById('f-toDate').value;
+            const to = document.getElementById('f-toDate').value;
             if (!to || to < from) document.getElementById('f-toDate').value = from;
             updateDurationSummary();
             validateField('fromDate');
@@ -1060,7 +1476,7 @@
         });
 
         /* ─── CHAR COUNTER ─── */
-        document.getElementById('f-reason').addEventListener('input', function() {
+        document.getElementById('f-reason').addEventListener('input', function () {
             const len = this.value.length;
             const ctr = document.getElementById('cc-reason');
             ctr.textContent = `${len}/500`;
@@ -1109,7 +1525,7 @@
 
             // bind change events
             grid.querySelectorAll('input[type="radio"]').forEach(r => {
-                r.addEventListener('change', function() {
+                r.addEventListener('change', function () {
                     selectedLeaveTypeId = this.value;
                     document.getElementById('leaveTypeError').classList.remove('visible');
                     updateDurationSummary();
@@ -1118,8 +1534,8 @@
         }
 
         /* ─── BALANCE BAR ─── */
-        const CHIP_ICONS  = ['fa-calendar-days','fa-briefcase-medical','fa-umbrella-beach','fa-clock','fa-user'];
-        const CHIP_COLORS = ['indigo','danger','success','amber','info'];
+        const CHIP_ICONS = ['fa-calendar-days', 'fa-briefcase-medical', 'fa-umbrella-beach', 'fa-clock', 'fa-user'];
+        const CHIP_COLORS = ['indigo', 'danger', 'success', 'amber', 'info'];
 
         function renderBalanceBar(balances) {
             const bar = document.getElementById('balanceBar');
@@ -1159,7 +1575,7 @@
         function setFieldState(key, state, msg) {
             const wrap = document.getElementById(`wrap-${key}`);
             if (!wrap) return;
-            wrap.classList.remove('error','valid');
+            wrap.classList.remove('error', 'valid');
             if (state === 'error') {
                 wrap.classList.add('error');
                 const s = document.getElementById(`err-${key}`);
@@ -1183,7 +1599,7 @@
             inp.addEventListener('blur', () => validateField(key));
             inp.addEventListener('focus', () => {
                 const w = document.getElementById(`wrap-${key}`);
-                if (w) w.classList.remove('error','valid');
+                if (w) w.classList.remove('error', 'valid');
             });
         });
 
@@ -1196,7 +1612,7 @@
                 const checked = document.querySelector('input[name="leaveTypeRadio"]:checked');
                 if (!checked) {
                     document.getElementById('leaveTypeError').classList.add('visible');
-                    document.getElementById('leaveTypeGrid').scrollIntoView({ behavior:'smooth', block:'center' });
+                    document.getElementById('leaveTypeGrid').scrollIntoView({ behavior: 'smooth', block: 'center' });
                     ok = false;
                 }
             } else {
@@ -1222,7 +1638,7 @@
 
             if (firstBad) {
                 firstBad.focus();
-                firstBad.closest('.form-group')?.scrollIntoView({ behavior:'smooth', block:'center' });
+                firstBad.closest('.form-group')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 const wrap = firstBad.closest('.input-wrap');
                 if (wrap) {
                     wrap.classList.add('shake');
@@ -1236,11 +1652,11 @@
         /* ─── ALERT ─── */
         function showAlert(msg, type) {
             const el = document.getElementById('formAlert');
-            const icons = { error:'triangle-exclamation', success:'check-circle', warning:'triangle-exclamation' };
-            const titles = { error:'Error', success:'Success', warning:'Warning' };
+            const icons = { error: 'triangle-exclamation', success: 'check-circle', warning: 'triangle-exclamation' };
+            const titles = { error: 'Error', success: 'Success', warning: 'Warning' };
             el.className = `alert ${type}`;
-            el.innerHTML = `<i class="fas fa-${icons[type]||'info-circle'}"></i><div><div class="alert-title">${titles[type]||'Notice'}</div><div class="alert-body">${msg}</div></div>`;
-            el.scrollIntoView({ behavior:'smooth', block:'nearest' });
+            el.innerHTML = `<i class="fas fa-${icons[type] || 'info-circle'}"></i><div><div class="alert-title">${titles[type] || 'Notice'}</div><div class="alert-body">${msg}</div></div>`;
+            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
         /* ─── SUBMIT ─── */
@@ -1256,23 +1672,24 @@
                 ? document.querySelector('input[name="leaveTypeRadio"]:checked').value
                 : document.getElementById('leaveTypeSelect').value;
 
-            const from     = document.getElementById('f-fromDate').value;
-            const to       = document.getElementById('f-toDate').value;
-            const dayType  = document.querySelector('input[name="dayType"]:checked').value;
-            const reason   = document.getElementById('f-reason').value.trim();
+            const from = document.getElementById('f-fromDate').value;
+            const to = document.getElementById('f-toDate').value;
+            const dayType = document.querySelector('input[name="dayType"]:checked').value;
+            const reason = document.getElementById('f-reason').value.trim();
 
-            const btn  = document.getElementById('submitBtn');
+            const btn = document.getElementById('submitBtn');
             const orig = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting…';
-            btn.disabled  = true;
+            btn.disabled = true;
 
             try {
-                const res  = await fetch('/apply_leave', {
+                const res = await fetch(`${API_BASE}/apply_leave`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${getToken()}`
                     },
+
                     body: JSON.stringify({
                         leave_type_id: leaveTypeId,
                         from_date: from,
@@ -1286,9 +1703,9 @@
 
                 if (data.status === 'success') {
                     // build success detail
-                    const lt      = leaveTypes.find(l => String(l.id) === String(leaveTypeId));
-                    const ltName  = lt ? lt.name : 'Leave';
-                    const days    = dayType === 'Half Day' ? 0.5 : calcWorkingDays(from, to);
+                    const lt = leaveTypes.find(l => String(l.id) === String(leaveTypeId));
+                    const ltName = lt ? lt.name : 'Leave';
+                    const days = dayType === 'Half Day' ? 0.5 : calcWorkingDays(from, to);
 
                     document.getElementById('successDetail').innerHTML = `
                         <div class="success-detail-row"><i class="fas fa-layer-group"></i><span>Type:</span><strong>${ltName}</strong></div>
@@ -1297,7 +1714,7 @@
                         <div class="success-detail-row"><i class="fas fa-clock"></i><span>Days:</span><strong>${days} ${dayType === 'Half Day' ? '(Half Day)' : 'working day(s)'}</strong></div>
                         <div class="success-detail-row"><i class="fas fa-hourglass-half"></i><span>Status:</span><strong style="color:var(--warning)">Pending Approval</strong></div>`;
 
-                    document.getElementById('formCard').style.display    = 'none';
+                    document.getElementById('formCard').style.display = 'none';
                     document.getElementById('successCard').style.display = 'block';
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
@@ -1308,7 +1725,7 @@
             }
 
             btn.innerHTML = orig;
-            btn.disabled  = false;
+            btn.disabled = false;
         }
 
         /* ─── APPLY ANOTHER ─── */
@@ -1319,20 +1736,24 @@
             document.getElementById('cc-reason').textContent = '0/500';
             document.querySelectorAll('input[name="leaveTypeRadio"]').forEach(r => r.checked = false);
             document.querySelector('#dt-full').checked = true;
-            document.querySelectorAll('.input-wrap').forEach(w => w.classList.remove('error','valid'));
+            document.querySelectorAll('.input-wrap').forEach(w => w.classList.remove('error', 'valid'));
             document.getElementById('durationSummary').classList.remove('visible');
             document.getElementById('formAlert').className = 'alert';
             selectedLeaveTypeId = '';
 
             document.getElementById('successCard').style.display = 'none';
-            document.getElementById('formCard').style.display    = 'block';
+            document.getElementById('formCard').style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         /* ─── LOAD DATA ─── */
         async function loadLeaveTypes(token) {
             try {
-                const res  = await fetch('/get_leave_types', { headers: { 'Authorization': `Bearer ${token}` } });
+                const res = await fetch(`${API_BASE}/get_leave_types`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
                 const data = await res.json();
                 leaveTypes = data.leave_types || [];
             } catch { leaveTypes = []; }
@@ -1340,7 +1761,11 @@
 
         async function loadLeaveBalance(token) {
             try {
-                const res  = await fetch('/get_leave_balance', { headers: { 'Authorization': `Bearer ${token}` } });
+                const res = await fetch(`${API_BASE}/get_leave_balance`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
                 const data = await res.json();
                 leaveBalances = data.balances || [];
             } catch { leaveBalances = []; }
@@ -1353,7 +1778,7 @@
 
             // set min date (today)
             document.getElementById('f-fromDate').min = today();
-            document.getElementById('f-toDate').min   = today();
+            document.getElementById('f-toDate').min = today();
 
             // load in parallel
             await Promise.allSettled([loadLeaveTypes(token), loadLeaveBalance(token)]);
@@ -1363,4 +1788,5 @@
         });
     </script>
 </body>
+
 </html>
