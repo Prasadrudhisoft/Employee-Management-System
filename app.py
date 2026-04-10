@@ -116,5 +116,9 @@ def leave_history():
 def forgot_password():
     return render_template('forgot_password.html')
 
+@app.route('/staffManage')
+def staffManage():
+    return render_template('staffmanagement.html')
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5001)

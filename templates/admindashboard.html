@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" href="/static/images/StaffCores .png">
 
 <!-- Android / PWA -->
-<link rel="manifest" href="/static/images/StaffCores .png">
+<link rel="" href="/static/images/StaffCores .png">
     <style>
         *,
         *::before,
@@ -946,13 +946,12 @@
         }
 
         /* QUICK ACTIONS */
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 480px));
-            gap: 14px;
-            margin-bottom: 28px;
-        }
-
+  .quick-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 480px));
+    gap: 14px;
+    margin-bottom: 28px;
+}
         .action-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -990,7 +989,14 @@
             border-color: transparent;
             box-shadow: var(--shadow-card-hover);
             transform: translateY(-4px);
-        }
+        }.action-card.violet::before {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.04), rgba(139, 92, 246, 0.08));
+}
+
+.action-card.violet .action-card-icon {
+    background: var(--violet-light);
+    color: var(--violet);
+}
 
         .action-card:hover::before {
             opacity: 1;
@@ -1178,11 +1184,10 @@
                 font-size: 22px;
             }
 
-            .quick-actions {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-
+         .quick-actions {
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
             .action-card {
                 flex-direction: row;
                 text-align: left;
@@ -1265,6 +1270,7 @@
                 <a href="/adddepartments" class="nav-link"><i class="fas fa-sitemap"></i><span>Add
                         Departments</span></a>
                 <a href="/addmanager" class="nav-link"><i class="fas fa-user-plus"></i><span>Add Manager</span></a>
+                   <a href="/staffManage" class="nav-link"><i class="fas fa-user-plus"></i><span>Manage Staffs</span></a>
             </div>
         </nav>
         <div class="sidebar-footer">
@@ -1397,22 +1403,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="quick-actions">
-                    <a href="/adddepartments" class="action-card emerald">
-                        <div class="action-card-icon"><i class="fas fa-sitemap"></i></div>
-                        <div>
-                            <h3>Add Department</h3>
-                            <p>Create a new department</p>
-                        </div>
-                    </a>
-                    <a href="/addmanager" class="action-card indigo">
-                        <div class="action-card-icon"><i class="fas fa-user-plus"></i></div>
-                        <div>
-                            <h3>Add Manager</h3>
-                            <p>Create a new team manager</p>
-                        </div>
-                    </a>
-                </div>
+               <div class="quick-actions">
+    <a href="/adddepartments" class="action-card emerald">
+        <div class="action-card-icon"><i class="fas fa-sitemap"></i></div>
+        <div>
+            <h3>Add Department</h3>
+            <p>Create a new department</p>
+        </div>
+    </a>
+    <a href="/addmanager" class="action-card indigo">
+        <div class="action-card-icon"><i class="fas fa-user-plus"></i></div>
+        <div>
+            <h3>Add Manager</h3>
+            <p>Create a new team manager</p>
+        </div>
+    </a>
+    <a href="/staffManage" class="action-card violet">
+        <div class="action-card-icon"><i class="fas fa-users-gear"></i></div>
+        <div>
+            <h3>Manage Staff</h3>
+            <p>View and manage all staff members</p>
+        </div>
+    </a>
+</div>
             </section>
 
         </div><!-- /dashboard -->
