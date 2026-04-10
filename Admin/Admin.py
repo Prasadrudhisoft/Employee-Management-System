@@ -6,7 +6,7 @@ import pymysql
 from werkzeug.security import generate_password_hash
 import os
 import time
-from models.models import otp_store, pending_data, generate_otp, send_otp_email
+import models.models as store
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -41,14 +41,15 @@ def save_profile_image(file):
 def add_manager(id=None, org_id=None, role=None, org_name=None):
     cursor = None
     conn = None
+ 
     if role != 'Admin':
         return jsonify({'status': 'fail', 'message': 'Unauthorized Access'}), 403
-
+ 
     data = request.form
-    email = data.get('email')
+    email = data.get('email', '').strip().lower()
     if not email:
         return jsonify({'status': 'fail', 'message': 'Email is required'}), 400
-
+ 
     # Check if email already exists
     conn = get_connection()
     cursor = conn.cursor()
@@ -59,7 +60,7 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
         return jsonify({'status': 'fail', 'message': 'Email already registered'}), 409
     cursor.close()
     conn.close()
-
+ 
     # Read file bytes immediately while the request stream is still open
     profile_file = request.files.get('profile_img')
     profile_img_bytes = None
@@ -67,7 +68,7 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
     if profile_file and profile_file.filename:
         profile_img_bytes = profile_file.read()
         profile_img_filename = profile_file.filename
-
+ 
     pending = {
         'name': data.get('name'),
         'email': email,
@@ -95,55 +96,62 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
         'org_name': org_name,
         'role': 'Manager'
     }
-
-    otp = generate_otp()
-    otp_store[email] = {'otp': otp, 'expires_at': time.time() + 300}
-    pending_data[email] = pending
-
-    success, error = send_otp_email(email, otp)
+ 
+    otp = store.generate_otp()
+ 
+    # Namespaced store: 'add_manager' flow — replaces any previous OTP for this email
+    store.otp_store['add_manager'][email] = {'otp': otp, 'expires_at': time.time() + 300}
+    store.pending_data[email] = pending
+ 
+ 
+    success, error = store.send_otp_email(email, otp)
     if not success:
-        otp_store.pop(email, None)
-        pending_data.pop(email, None)
+        store.otp_store['add_manager'].pop(email, None)
+        store.pending_data.pop(email, None)
         return jsonify({'status': 'error', 'message': f'Failed to send OTP: {error}'}), 500
-
+ 
     return jsonify({
         'status': 'success',
-        'message': 'OTP sent to the manager\'s email. Please verify to complete creation.',
+        'message': "OTP sent to the manager's email. Please verify to complete creation.",
         'pending_id': email
     })
-
+ 
+ 
 # ------------------ STEP 2: Verify OTP and Create Manager ------------------
 @admin_bp.route('/verify_add_manager', methods=['POST'])
 @jwt_required
 def verify_add_manager(id=None, org_id=None, role=None, org_name=None):
     if role != 'Admin':
         return jsonify({'status': 'fail', 'message': 'Unauthorized Access'}), 403
-
+ 
     data = request.get_json()
-    email = data.get('email')
-    otp = data.get('otp')
-
+    email = data.get('email', '').strip().lower()
+    otp = str(data.get('otp', '')).strip()
+ 
     if not email or not otp:
         return jsonify({'status': 'fail', 'message': 'Email and OTP are required'}), 400
-
-    stored = otp_store.get(email)
+ 
+    
+    stored = store.otp_store['add_manager'].get(email)
     if not stored or time.time() > stored['expires_at']:
         return jsonify({'status': 'fail', 'message': 'OTP expired or not requested'}), 400
     if stored['otp'] != otp:
         return jsonify({'status': 'fail', 'message': 'Invalid OTP'}), 400
-
-    pending = pending_data.pop(email, None)
-    otp_store.pop(email, None)
+ 
+    # OTP is valid — clear it immediately to prevent reuse
+    store.otp_store['add_manager'].pop(email, None)
+    pending = store.pending_data.pop(email, None)
+ 
     if not pending:
         return jsonify({'status': 'fail', 'message': 'No pending registration for this email'}), 400
-
+ 
     conn = None
     cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         conn.begin()
-
+ 
         # Save profile image from stored bytes
         profile_img_path = None
         img_bytes = pending.get('profile_img_bytes')
@@ -159,23 +167,23 @@ def verify_add_manager(id=None, org_id=None, role=None, org_name=None):
             with open(filepath, 'wb') as f:
                 f.write(img_bytes)
             profile_img_path = f"static/profile_imgs/{filename}"
-
+ 
         user_id = str(uuid.uuid4())
         hashed_pw = generate_password_hash(pending['password'])
-
+ 
         cursor.execute("""
             INSERT INTO users(id, name, email, password, role, profile_img, status, contact, org_id, created_at, created_by, org_name)
             VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), %s, %s)
         """, (user_id, pending['name'], email, hashed_pw, 'Manager', profile_img_path, 'Active',
               pending['contact'], pending['org_id'], pending['submitted_by'], pending['org_name']))
-
+ 
         emp_det_id = str(uuid.uuid4())
         cursor.execute("""
             INSERT INTO emp_detailes(id, user_id, org_id, department_id, address, designation, join_date)
             VALUES(%s, %s, %s, %s, %s, %s, %s)
         """, (emp_det_id, user_id, pending['org_id'], pending['department_id'], pending['address'],
               pending['designation'], pending['join_date']))
-
+ 
         sal_det_id = str(uuid.uuid4())
         cursor.execute("""
             INSERT INTO salary_detailes(id, user_id, org_id, base_salary, agp, da, dp, hra, tra, cla,
@@ -185,10 +193,10 @@ def verify_add_manager(id=None, org_id=None, role=None, org_name=None):
               pending['da'], pending['dp'], pending['hra'], pending['tra'], pending['cla'],
               pending['bank_acc_no'], pending['ifsc_code'], pending['bank_name'], pending['bank_address'],
               pending['submitted_by']))
-
+ 
         conn.commit()
         return jsonify({'status': 'success', 'message': 'Manager added successfully after OTP verification'})
-
+ 
     except Exception as e:
         if conn:
             conn.rollback()
@@ -198,6 +206,9 @@ def verify_add_manager(id=None, org_id=None, role=None, org_name=None):
             cursor.close()
         if conn:
             conn.close()
+ 
+ 
+# ------------------ Existing Endpoints (unchanged) ------------------
 
 # ------------------ Existing Endpoints (unchanged) ------------------
 @admin_bp.route('/adddepartments', methods=['POST'])
