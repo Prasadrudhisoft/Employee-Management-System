@@ -1,1 +1,1 @@
-const API_BASE = 'https://staffcores.com';
+const API_BASE = '';
