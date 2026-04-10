@@ -845,14 +845,16 @@ def salary_slip_pdf(id=None, org_id=None, role=None, org_name=None):
 
         cursor.execute("""
             SELECT u.Name, u.Contact, u.org_name,
-                   ss.adj_base, ss.adj_agp, ss.adj_da, ss.adj_dp,
-                   ss.adj_hra, ss.adj_tra, ss.adj_cla,
-                   ss.pt, ss.pf, ss.other_deduction,
-                   ss.absent_days_deduction,
-                   ss.gross_salary, ss.net_salary,
-                   ss.salary_month, ss.salary_date
+                ss.adj_base, ss.adj_agp, ss.adj_da, ss.adj_dp,
+                ss.adj_hra, ss.adj_tra, ss.adj_cla,
+                ss.pt, ss.pf, ss.other_deduction,
+                ss.absent_days_deduction,
+                ss.gross_salary, ss.net_salary,
+                ss.salary_month, ss.salary_date,
+                ed.designation
             FROM staff_salary_record ss
             JOIN users u ON ss.user_id = u.id
+            LEFT JOIN emp_detailes ed ON ss.user_id = ed.user_id AND ss.org_id = ed.org_id
             WHERE ss.user_id = %s AND ss.org_id = %s AND ss.salary_month = %s
         """, (user_id, org_id, salary_month))
         rec = cursor.fetchone()

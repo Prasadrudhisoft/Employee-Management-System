@@ -266,3 +266,47 @@ def total_managers(id=None, org_id=None, role=None, org_name=None):
     finally:
         if cursor: cursor.close()
         if conn: conn.close()
+
+@admin_bp.route('/admin_get_emp', methods = ['GET'])
+@jwt_required
+def admin_get_emp(id =None,org_id=None,role=None,org_name=None):
+    conn = None
+    cursor = None
+    try:
+        if role != 'Admin':
+            return jsonify({
+                'status':'fail',
+                'message':'Unauthorized Access'
+            })
+        conn = get_connection()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+        cursor.execute("select u.name, u.role, e.designation from users u left join emp_detailes e on u.id = e.user_id where u.org_id = %s",(org_id,))
+        emp = cursor.fetchall()
+
+        manager = []
+        employee = []
+        if emp:
+            for i in emp:
+                if i['role'] =='Manager':
+                    manager.append(i)
+                if i['role'] =='EMP':
+                    employee.append(i)
+
+        return{
+            'status':'success',
+            'message':f'Employees Under {org_name} Fetched successfully',
+            'manager':manager,
+            'employee':employee
+        }
+
+    except Exception as e:
+        return jsonify({
+            'status':'error',
+            'message':str(e)
+        })
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
