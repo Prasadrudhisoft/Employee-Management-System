@@ -52,7 +52,6 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
     # Check if email already exists
     conn = get_connection()
     cursor = conn.cursor()
-
     cursor.execute("SELECT id FROM users WHERE email = %s", (email,))
     if cursor.fetchone():
         cursor.close()
@@ -60,6 +59,14 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
         return jsonify({'status': 'fail', 'message': 'Email already registered'}), 409
     cursor.close()
     conn.close()
+
+    # Read file bytes immediately while the request stream is still open
+    profile_file = request.files.get('profile_img')
+    profile_img_bytes = None
+    profile_img_filename = None
+    if profile_file and profile_file.filename:
+        profile_img_bytes = profile_file.read()
+        profile_img_filename = profile_file.filename
 
     pending = {
         'name': data.get('name'),
@@ -81,7 +88,8 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
         'ifsc_code': data.get('ifsc_code'),
         'bank_name': data.get('bank_name'),
         'bank_address': data.get('bank_address'),
-        'profile_img': request.files.get('profile_img'),
+        'profile_img_bytes': profile_img_bytes,
+        'profile_img_filename': profile_img_filename,
         'submitted_by': id,
         'org_id': org_id,
         'org_name': org_name,
@@ -100,7 +108,7 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
 
     return jsonify({
         'status': 'success',
-        'message': 'OTP sent to the manager’s email. Please verify to complete creation.',
+        'message': 'OTP sent to the manager\'s email. Please verify to complete creation.',
         'pending_id': email
     })
 
@@ -119,11 +127,9 @@ def verify_add_manager(id=None, org_id=None, role=None, org_name=None):
         return jsonify({'status': 'fail', 'message': 'Email and OTP are required'}), 400
 
     stored = otp_store.get(email)
-    print(otp_store)  # Debugging line to check OTP store contents
     if not stored or time.time() > stored['expires_at']:
         return jsonify({'status': 'fail', 'message': 'OTP expired or not requested'}), 400
     if stored['otp'] != otp:
-        print(otp)
         return jsonify({'status': 'fail', 'message': 'Invalid OTP'}), 400
 
     pending = pending_data.pop(email, None)
@@ -138,12 +144,21 @@ def verify_add_manager(id=None, org_id=None, role=None, org_name=None):
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         conn.begin()
 
+        # Save profile image from stored bytes
         profile_img_path = None
-        profile_file = pending.get('profile_img')
-        if profile_file and profile_file.filename:
-            profile_img_path, img_error = save_profile_image(profile_file)
-            if img_error:
-                raise Exception(img_error)
+        img_bytes = pending.get('profile_img_bytes')
+        img_filename = pending.get('profile_img_filename')
+        if img_bytes and img_filename:
+            if not allowed_file(img_filename):
+                raise Exception('Invalid file type. Only png, jpg, jpeg, webp are allowed')
+            if len(img_bytes) > MAX_FILE_SIZE:
+                raise Exception('File too large. Maximum allowed size is 2MB')
+            ext = img_filename.rsplit('.', 1)[1].lower()
+            filename = f"{uuid.uuid4()}.{ext}"
+            filepath = os.path.join(UPLOAD_FOLDER, filename)
+            with open(filepath, 'wb') as f:
+                f.write(img_bytes)
+            profile_img_path = f"static/profile_imgs/{filename}"
 
         user_id = str(uuid.uuid4())
         hashed_pw = generate_password_hash(pending['password'])
