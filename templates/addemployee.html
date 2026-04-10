@@ -1019,7 +1019,6 @@
         </div>
     </div>
 
-    <script src="/static/js/config.js"></script>
     <script>
         'use strict';
 
@@ -1231,7 +1230,7 @@
             resendBtn.textContent = 'Sending...';
             try {
                 const token = getAuthToken();
-                const res = await fetch(`${API_BASE}/add_emp`, {
+                const res = await fetch(`/add_emp`, {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${token}` },
                     body: buildFormData()
@@ -1262,7 +1261,7 @@
             verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
             try {
                 const token = getAuthToken();
-                const res = await fetch(`${API_BASE}/verify_add_emp`, {
+                const res = await fetch(`/verify_add_emp`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1305,7 +1304,7 @@
 
             try {
                 const token = getAuthToken();
-                const res = await fetch(`${API_BASE}/add_emp`, {
+                const res = await fetch(`/add_emp`, {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${token}` },
                     body: fd
@@ -1354,7 +1353,7 @@
             const token = getAuthToken();
             if (!token) return;
             try {
-                const res = await fetch(`${API_BASE}/get_departments`, {
+                const res = await fetch(`/get_departments`, {
                     method: 'GET',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
