@@ -37,7 +37,6 @@ def generate_otp():
 def send_otp_email(email, otp):
     """Send OTP email using ZeptoMail. Returns (success, error_msg)"""
     if not ZEPTOMAIL_API_TOKEN:
-        print("ZeptoMail API token not set in environment variables.")
         return False, "ZEPTO_TOKEN environment variable not set"
 
     headers = {
@@ -86,8 +85,6 @@ def send_otp_email(email, otp):
 
     try:
         response = requests.post(ZEPTOMAIL_API_URL, headers=headers, json=payload, timeout=10)
-        print(f"ZeptoMail Status: {response.status_code}")
-        print(f"ZeptoMail Response: {response.text}")
 
         if response.status_code in (200, 201, 202):
             return True, None

@@ -6,7 +6,7 @@ import pymysql
 from werkzeug.security import generate_password_hash
 import os
 import time
-import models.models as store
+from models.models import otp_store, pending_data, generate_otp, send_otp_email
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -97,17 +97,16 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
         'role': 'Manager'
     }
  
-    otp = store.generate_otp()
- 
-    # Namespaced store: 'add_manager' flow — replaces any previous OTP for this email
-    store.otp_store['add_manager'][email] = {'otp': otp, 'expires_at': time.time() + 300}
-    store.pending_data[email] = pending
- 
- 
-    success, error = store.send_otp_email(email, otp)
+    otp = generate_otp()  # Use imported function
+    
+    # Use imported otp_store directly
+    otp_store['add_manager'][email] = {'otp': otp, 'expires_at': time.time() + 300}
+    pending_data[email] = pending
+    
+    success, error = send_otp_email(email, otp)  # Use imported function
     if not success:
-        store.otp_store['add_manager'].pop(email, None)
-        store.pending_data.pop(email, None)
+        otp_store['add_manager'].pop(email, None)
+        pending_data.pop(email, None)
         return jsonify({'status': 'error', 'message': f'Failed to send OTP: {error}'}), 500
  
     return jsonify({
@@ -132,15 +131,15 @@ def verify_add_manager(id=None, org_id=None, role=None, org_name=None):
         return jsonify({'status': 'fail', 'message': 'Email and OTP are required'}), 400
  
     
-    stored = store.otp_store['add_manager'].get(email)
+    stored = otp_store['add_manager'].get(email)
     if not stored or time.time() > stored['expires_at']:
         return jsonify({'status': 'fail', 'message': 'OTP expired or not requested'}), 400
     if stored['otp'] != otp:
         return jsonify({'status': 'fail', 'message': 'Invalid OTP'}), 400
- 
-    # OTP is valid — clear it immediately to prevent reuse
-    store.otp_store['add_manager'].pop(email, None)
-    pending = store.pending_data.pop(email, None)
+    
+    # Clear OTP
+    otp_store['add_manager'].pop(email, None)
+    pending = pending_data.pop(email, None)  # Use imported pending_data
  
     if not pending:
         return jsonify({'status': 'fail', 'message': 'No pending registration for this email'}), 400

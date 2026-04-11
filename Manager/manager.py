@@ -7,7 +7,7 @@ from decorators import jwt_required
 import os
 from leave import _auto_create_balance_for_employee
 import time
-import models.models as store
+from models.models import otp_store, pending_data, generate_otp, send_otp_email
 manager_bp = Blueprint('manager', __name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -101,17 +101,17 @@ def add_emp(id=None, org_id=None, role=None, org_name=None):
         'role': 'EMP'
     }
  
-    otp = store.generate_otp()
+    otp = generate_otp()
  
-    # Namespaced store: 'add_employee' flow — replaces any previous OTP for this email
-    store.otp_store['add_employee'][email] = {'otp': otp, 'expires_at': time.time() + 300}
-    store.pending_data[email] = pending
+    # CHANGE: Use imported otp_store directly
+    otp_store['add_employee'][email] = {'otp': otp, 'expires_at': time.time() + 300}
+    pending_data[email] = pending
  
- 
-    success, error = store.send_otp_email(email, otp)
+    # CHANGE: Use imported send_otp_email directly
+    success, error = send_otp_email(email, otp)
     if not success:
-        store.otp_store['add_employee'].pop(email, None)
-        store.pending_data.pop(email, None)
+        otp_store['add_employee'].pop(email, None)
+        pending_data.pop(email, None)
         return jsonify({'status': 'error', 'message': f'Failed to send OTP: {error}'}), 500
  
     return jsonify({
@@ -139,15 +139,16 @@ def verify_add_emp(id=None, org_id=None, role=None, org_name=None):
         return jsonify({'status': 'fail', 'message': 'Email and OTP are required'}), 400
  
  
-    stored = store.otp_store['add_employee'].get(email)
+    stored = otp_store['add_employee'].get(email)
     if not stored or time.time() > stored['expires_at']:
         return jsonify({'status': 'fail', 'message': 'OTP expired or not requested'}), 400
     if stored['otp'] != otp:
         return jsonify({'status': 'fail', 'message': 'Invalid OTP'}), 400
  
     # OTP is valid — clear it immediately to prevent reuse
-    store.otp_store['add_employee'].pop(email, None)
-    pending = store.pending_data.pop(email, None)
+    otp_store['add_employee'].pop(email, None)
+    # CHANGE: Use imported pending_data directly
+    pending = pending_data.pop(email, None)
  
     if not pending:
         return jsonify({'status': 'fail', 'message': 'No pending registration for this email'}), 400
