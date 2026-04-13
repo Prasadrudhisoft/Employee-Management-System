@@ -48,15 +48,17 @@ def _has_overlap(user_id, from_date, to_date, cursor, exclude_id=None):
     return cursor.fetchone() is not None
 
 
-def _auto_create_balance_for_employee(user_id, org_id, cursor, conn):
+def _auto_create_balance_for_employee(user_id, org_id, manager_id, cursor, conn):
     """
     Call this inside add_emp() after inserting the employee.
-    Creates a leave_balance row for every active leave type in the org.
+    Creates a leave_balance row for every active leave type created by the employee's manager.
+    Uses created_by on users table to identify which manager owns the employee.
     """
     year = datetime.now().year
     cursor.execute(
-        "SELECT id, total_days FROM leave_types WHERE org_id = %s AND is_active = 1",
-        (org_id,)
+        "SELECT id, total_days FROM leave_types "
+        "WHERE org_id = %s AND is_active = 1 AND created_by = %s",
+        (org_id, manager_id)  # only leave types belonging to this employee's manager
     )
     leave_types = cursor.fetchall()
     for lt in leave_types:
@@ -70,15 +72,17 @@ def _auto_create_balance_for_employee(user_id, org_id, cursor, conn):
     conn.commit()
 
 
-def _auto_create_balance_for_leave_type(leave_type_id, total_days, org_id, cursor, conn):
+def _auto_create_balance_for_leave_type(leave_type_id, total_days, org_id, created_by, cursor, conn):
     """
     Called when a new leave type is created.
-    Creates a leave_balance row for every active employee in the org.
+    Creates a leave_balance row only for employees assigned to the creating manager.
+    Uses created_by on users table to find which employees belong to this manager.
     """
     year = datetime.now().year
     cursor.execute(
-        "SELECT id FROM users WHERE org_id = %s AND role = 'EMP' AND status = 'Active'",
-        (org_id,)
+        "SELECT id FROM users "
+        "WHERE org_id = %s AND role = 'EMP' AND status = 'Active' AND created_by = %s",
+        (org_id, created_by)  # only employees created/managed by this manager
     )
     employees = cursor.fetchall()
     for emp in employees:
@@ -121,8 +125,8 @@ def add_leave_type(id=None, org_id=None, role=None, org_name=None):
         )
         conn.commit()
 
-        # Auto-create balance for all existing employees in this org
-        _auto_create_balance_for_leave_type(new_id, total_days, org_id, cursor, conn)
+        # Auto-create balance only for employees belonging to this manager (created_by = id)
+        _auto_create_balance_for_leave_type(new_id, total_days, org_id, id, cursor, conn)
 
         return jsonify({'status': 'success', 'message': 'Leave Type Added Successfully'})
 
@@ -144,10 +148,35 @@ def get_leave_types(id=None, org_id=None, role=None, org_name=None):
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
 
-        cursor.execute(
-            "SELECT * FROM leave_types WHERE org_id = %s AND is_active = 1 ORDER BY name",
-            (org_id,)
-        )
+        if role == 'EMP':
+            # Find the manager who created this employee
+            cursor.execute(
+                "SELECT created_by FROM users WHERE id = %s AND org_id = %s",
+                (id, org_id)
+            )
+            user_row = cursor.fetchone()
+
+            if not user_row or not user_row['created_by']:
+                return jsonify({'status': 'error', 'message': 'No manager assigned to this employee'})
+
+            manager_id = user_row['created_by']
+
+            # Return only leave types created by the employee's manager
+            cursor.execute(
+                "SELECT * FROM leave_types "
+                "WHERE org_id = %s AND is_active = 1 AND created_by = %s "
+                "ORDER BY name",
+                (org_id, manager_id)
+            )
+        else:
+            # Manager sees only the leave types they created
+            cursor.execute(
+                "SELECT * FROM leave_types "
+                "WHERE org_id = %s AND is_active = 1 AND created_by = %s "
+                "ORDER BY name",
+                (org_id, id)
+            )
+
         leave_types = cursor.fetchall()
 
         return jsonify({
@@ -177,9 +206,11 @@ def delete_leave_type(id=None, org_id=None, role=None, org_name=None):
         data          = request.json
         leave_type_id = data.get('leave_type_id')
 
+        # Ensure manager can only delete their own leave types
         cursor.execute(
-            "UPDATE leave_types SET is_active = 0 WHERE id = %s AND org_id = %s",
-            (leave_type_id, org_id)
+            "UPDATE leave_types SET is_active = 0 "
+            "WHERE id = %s AND org_id = %s AND created_by = %s",
+            (leave_type_id, org_id, id)
         )
         conn.commit()
 
@@ -210,6 +241,15 @@ def get_leave_balance(id=None, org_id=None, role=None, org_name=None):
 
         target_user = request.args.get('user_id', id)
         year        = request.args.get('year', datetime.now().year)
+
+        # If manager is viewing another employee, ensure that employee belongs to them
+        if role != 'EMP' and target_user != id:
+            cursor.execute(
+                "SELECT id FROM users WHERE id = %s AND org_id = %s AND created_by = %s AND role = 'EMP'",
+                (target_user, org_id, id)
+            )
+            if not cursor.fetchone():
+                return jsonify({'status': 'error', 'message': 'Employee not found under your management'})
 
         cursor.execute(
             """
@@ -271,6 +311,24 @@ def apply_leave(id=None, org_id=None, role=None, org_name=None):
         # Half-day only on a single date
         if day_type == 'Half Day' and from_date != to_date:
             return jsonify({'status': 'error', 'message': 'Half Day leave is only allowed for a single date'})
+
+        # Validate that the leave type belongs to the employee's manager
+        cursor.execute(
+            "SELECT created_by FROM users WHERE id = %s AND org_id = %s",
+            (id, org_id)
+        )
+        emp_row = cursor.fetchone()
+
+        if not emp_row or not emp_row['created_by']:
+            return jsonify({'status': 'error', 'message': 'No manager assigned to your account'})
+
+        cursor.execute(
+            "SELECT id FROM leave_types "
+            "WHERE id = %s AND org_id = %s AND is_active = 1 AND created_by = %s",
+            (leave_type_id, org_id, emp_row['created_by'])
+        )
+        if not cursor.fetchone():
+            return jsonify({'status': 'error', 'message': 'Invalid leave type for your account'})
 
         # Count working days
         leave_days = _count_leave_days(from_date, to_date, day_type, org_id, cursor)
@@ -378,13 +436,14 @@ def get_my_leaves(id=None, org_id=None, role=None, org_name=None):
 def get_leave_requests(id=None, org_id=None, role=None, org_name=None):
     conn = None
     cursor = None
-    """Manager views all leave requests in their org. Pass ?status=Pending to filter."""
+    """Manager views leave requests only from their own employees."""
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
 
         status_filter = request.args.get('status', '')
 
+        # Join with users to ensure only this manager's employees are returned
         sql = """
             SELECT lr.*, lt.name AS leave_type_name,
                    u.Name AS employee_name, u.Email AS employee_email,
@@ -393,9 +452,9 @@ def get_leave_requests(id=None, org_id=None, role=None, org_name=None):
             JOIN leave_types lt ON lr.leave_type_id = lt.id
             JOIN users u ON lr.user_id = u.id
             LEFT JOIN users rv ON lr.reviewed_by = rv.id
-            WHERE lr.org_id = %s
+            WHERE lr.org_id = %s AND u.created_by = %s
         """
-        params = [org_id]
+        params = [org_id, id]  # id = logged-in manager's id
 
         if status_filter:
             sql += " AND lr.status = %s"
@@ -439,10 +498,15 @@ def approve_leave(id=None, org_id=None, role=None, org_name=None):
         comment    = data.get('comment', '')
         year       = datetime.now().year
 
-        # Fetch the pending leave request
+        # Fetch the pending leave request — also verify the employee belongs to this manager
         cursor.execute(
-            "SELECT * FROM leave_requests WHERE id = %s AND org_id = %s AND status = 'Pending'",
-            (request_id, org_id)
+            """
+            SELECT lr.* FROM leave_requests lr
+            JOIN users u ON lr.user_id = u.id
+            WHERE lr.id = %s AND lr.org_id = %s AND lr.status = 'Pending'
+              AND u.created_by = %s
+            """,
+            (request_id, org_id, id)  # id = logged-in manager
         )
         leave_req = cursor.fetchone()
 
@@ -500,9 +564,15 @@ def reject_leave(id=None, org_id=None, role=None, org_name=None):
         request_id = data.get('request_id')
         comment    = data.get('comment', '')
 
+        # Verify the employee belongs to this manager before rejecting
         cursor.execute(
-            "SELECT * FROM leave_requests WHERE id = %s AND org_id = %s AND status = 'Pending'",
-            (request_id, org_id)
+            """
+            SELECT lr.* FROM leave_requests lr
+            JOIN users u ON lr.user_id = u.id
+            WHERE lr.id = %s AND lr.org_id = %s AND lr.status = 'Pending'
+              AND u.created_by = %s
+            """,
+            (request_id, org_id, id)  # id = logged-in manager
         )
         leave_req = cursor.fetchone()
 
@@ -660,15 +730,16 @@ def get_employee_leave_summary(id=None, org_id=None, role=None, org_name=None):
         if not user_id:
             return jsonify({'status': 'error', 'message': 'user_id is required'})
 
-        # Make sure employee belongs to this org
+        # Make sure employee belongs to this manager (created_by = manager's id)
         cursor.execute(
-            "SELECT id, Name, Email FROM users WHERE id = %s AND org_id = %s AND role = 'EMP'",
-            (user_id, org_id)
+            "SELECT id, Name, Email FROM users "
+            "WHERE id = %s AND org_id = %s AND role = 'EMP' AND created_by = %s",
+            (user_id, org_id, id)  # id = logged-in manager
         )
         employee = cursor.fetchone()
 
         if not employee:
-            return jsonify({'status': 'error', 'message': 'Employee not found in your organisation'})
+            return jsonify({'status': 'error', 'message': 'Employee not found under your management'})
 
         # Leave balances
         cursor.execute(
@@ -742,17 +813,18 @@ def get_org_employees(id=None, org_id=None, role=None, org_name=None):
     conn = None
     cursor = None
     """
-    Returns all active employees in the org for the manager's dropdown.
+    Returns only the active employees that belong to the logged-in manager.
     """
     try:
         conn = get_connection()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
 
+        # Filter by created_by = manager's id, so each manager only sees their own employees
         cursor.execute(
             "SELECT id, Name, Email FROM users "
-            "WHERE org_id = %s AND role = 'EMP' AND status = 'Active' "
+            "WHERE org_id = %s AND role = 'EMP' AND status = 'Active' AND created_by = %s "
             "ORDER BY Name ASC",
-            (org_id,)
+            (org_id, id)  # id = logged-in manager
         )
         employees = cursor.fetchall()
 
@@ -768,5 +840,4 @@ def get_org_employees(id=None, org_id=None, role=None, org_name=None):
         if cursor:
             cursor.close()
         if conn:
-            conn.close()        
-
+            conn.close()

@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Leave Balance | StaffCores</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Standard favicon -->
-<link rel="icon" href="/static/images/StaffCores .png" type="image/x-icon">
+    <link rel="icon" href="/static/images/StaffCores .png" type="image/x-icon">
 
-<!-- PNG icons -->
-<link rel="icon" type="image/png" sizes="32x32" href="/static/images/StaffCores .png">
-<link rel="icon" type="image/png" sizes="16x16" href="/static/images/StaffCores .png">
+    <!-- PNG icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/StaffCores .png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/StaffCores .png">
 
-<!-- Apple devices -->
-<link rel="apple-touch-icon" href="/static/images/StaffCores .png">
+    <!-- Apple devices -->
+    <link rel="apple-touch-icon" href="/static/images/StaffCores .png">
 
-<!-- Android / PWA -->
-<link rel="" href="/static/images/StaffCores .png">
+    <!-- Android / PWA -->
+    <link rel="" href="/static/images/StaffCores .png">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         :root {
             --primary: #4f46e5;
@@ -57,10 +65,10 @@
             --text-tertiary: #64748b;
             --text-muted: #94a3b8;
             --text-placeholder: #cbd5e1;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.07);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-            --shadow-xl: 0 25px 50px -12px rgba(0,0,0,0.15);
-            --shadow-card-hover: 0 10px 28px -5px rgba(0,0,0,0.10);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.07);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            --shadow-card-hover: 0 10px 28px -5px rgba(0, 0, 0, 0.10);
             --radius-sm: 6px;
             --radius: 8px;
             --radius-lg: 12px;
@@ -72,7 +80,11 @@
             --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        html { font-size: 16px; scroll-behavior: smooth; }
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-body);
@@ -81,144 +93,372 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.4); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.6); }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.4);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.6);
+        }
 
         /* ========== TOPBAR ========== */
         .topbar {
-            position: sticky; top: 0; height: 68px;
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            height: 68px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 32px; z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            z-index: 50;
         }
-        .topbar-left { display: flex; align-items: center; gap: 13px; }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
         .topbar-icon {
-            width: 40px; height: 40px; border-radius: var(--radius-lg);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-lg);
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 16px;
-            box-shadow: 0 4px 12px var(--primary-glow); flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            box-shadow: 0 4px 12px var(--primary-glow);
+            flex-shrink: 0;
         }
-        .topbar-info h1 { font-size: 17px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.2; }
-        .topbar-info span { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+
+        .topbar-info h1 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .topbar-info span {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
 
         .btn-back {
-            display: inline-flex; align-items: center; gap: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             padding: 9px 20px;
-            background: var(--bg-white); border: 1.5px solid var(--border);
+            background: var(--bg-white);
+            border: 1.5px solid var(--border);
             border-radius: var(--radius-full);
-            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
-            color: var(--text-secondary); text-decoration: none; cursor: pointer;
-            transition: all var(--transition-fast); white-space: nowrap;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
         }
-        .btn-back i { font-size: 11px; transition: transform var(--transition-fast); }
-        .btn-back:hover { background: var(--primary-subtle); border-color: var(--primary-lighter); color: var(--primary); }
-        .btn-back:hover i { transform: translateX(-3px); }
+
+        .btn-back i {
+            font-size: 11px;
+            transition: transform var(--transition-fast);
+        }
+
+        .btn-back:hover {
+            background: var(--primary-subtle);
+            border-color: var(--primary-lighter);
+            color: var(--primary);
+        }
+
+        .btn-back:hover i {
+            transform: translateX(-3px);
+        }
 
         .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 9px 18px; border-radius: var(--radius);
-            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
-            cursor: pointer; transition: all var(--transition-fast);
-            border: none; text-decoration: none; white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 9px 18px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: none;
+            text-decoration: none;
+            white-space: nowrap;
         }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); box-shadow: 0 4px 14px var(--primary-glow); transform: translateY(-1px); }
-        .btn-secondary { background: var(--bg-white); border: 1.5px solid var(--border); color: var(--text-secondary); }
-        .btn-secondary:hover { background: var(--bg-muted); color: var(--text-primary); }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 4px 14px var(--primary-glow);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-white);
+            border: 1.5px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-muted);
+            color: var(--text-primary);
+        }
 
         /* ========== PAGE BODY ========== */
-        .page-body { padding: 28px 32px; max-width: 1100px; margin: 0 auto; }
+        .page-body {
+            padding: 28px 32px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
         /* ========== BANNER ========== */
         .page-banner {
             background: linear-gradient(135deg, #4f46e5 0%, #6366f1 45%, #818cf8 100%);
-            border-radius: var(--radius-2xl); padding: 30px 38px;
-            margin-bottom: 24px; color: white;
-            position: relative; overflow: hidden;
+            border-radius: var(--radius-2xl);
+            padding: 30px 38px;
+            margin-bottom: 24px;
+            color: white;
+            position: relative;
+            overflow: hidden;
         }
+
         .page-banner::before {
-            content: ''; position: absolute; top: -60%; right: -8%;
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(255,255,255,0.09) 0%, transparent 60%);
+            content: '';
+            position: absolute;
+            top: -60%;
+            right: -8%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.09) 0%, transparent 60%);
             pointer-events: none;
         }
+
         .page-banner .decor-ring {
-            position: absolute; bottom: -25px; right: 160px;
-            width: 100px; height: 100px;
-            border: 2px solid rgba(255,255,255,0.08);
-            border-radius: 50%; pointer-events: none;
+            position: absolute;
+            bottom: -25px;
+            right: 160px;
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            pointer-events: none;
         }
-        .banner-inner { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-        .banner-text h2 { font-size: 22px; font-weight: 700; margin-bottom: 7px; letter-spacing: -0.02em; }
-        .banner-text p  { font-size: 13.5px; opacity: 0.78; max-width: 460px; line-height: 1.7; }
+
+        .banner-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .banner-text h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 7px;
+            letter-spacing: -0.02em;
+        }
+
+        .banner-text p {
+            font-size: 13.5px;
+            opacity: 0.78;
+            max-width: 460px;
+            line-height: 1.7;
+        }
+
         .banner-icon {
-            width: 68px; height: 68px; border-radius: var(--radius-xl);
-            background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.22);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 28px; flex-shrink: 0;
+            width: 68px;
+            height: 68px;
+            border-radius: var(--radius-xl);
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
         }
 
         /* ========== SUMMARY STRIP ========== */
         .summary-strip {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 14px; margin-bottom: 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 24px;
         }
+
         .summary-card {
-            background: var(--bg-white); border: 1px solid var(--border);
-            border-radius: var(--radius-xl); padding: 20px 22px;
-            display: flex; align-items: center; gap: 16px;
-            transition: all var(--transition-base); position: relative; overflow: hidden;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 20px 22px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
         }
+
         .summary-card::after {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
             border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-            opacity: 0; transition: opacity var(--transition-base);
+            opacity: 0;
+            transition: opacity var(--transition-base);
         }
-        .summary-card:hover { box-shadow: var(--shadow-card-hover); transform: translateY(-2px); border-color: transparent; }
-        .summary-card:hover::after { opacity: 1; }
-        .summary-card.total::after   { background: var(--primary); }
-        .summary-card.used::after    { background: var(--warning); }
-        .summary-card.avail::after   { background: var(--success); }
+
+        .summary-card:hover {
+            box-shadow: var(--shadow-card-hover);
+            transform: translateY(-2px);
+            border-color: transparent;
+        }
+
+        .summary-card:hover::after {
+            opacity: 1;
+        }
+
+        .summary-card.total::after {
+            background: var(--primary);
+        }
+
+        .summary-card.used::after {
+            background: var(--warning);
+        }
+
+        .summary-card.avail::after {
+            background: var(--success);
+        }
 
         .summary-icon {
-            width: 48px; height: 48px; border-radius: var(--radius-lg);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
         }
-        .summary-icon.total { background: var(--primary-subtle); color: var(--primary); }
-        .summary-icon.used  { background: var(--warning-light);  color: var(--warning); }
-        .summary-icon.avail { background: var(--success-light);  color: var(--success); }
 
-        .summary-info small { font-size: 12px; color: var(--text-muted); font-weight: 500; display: block; }
-        .summary-info strong { font-size: 28px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.04em; line-height: 1.1; }
-        .summary-info span  { font-size: 12px; color: var(--text-muted); }
+        .summary-icon.total {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+
+        .summary-icon.used {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .summary-icon.avail {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .summary-info small {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+            display: block;
+        }
+
+        .summary-info strong {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+        }
+
+        .summary-info span {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
 
         /* ========== CARD ========== */
         .card {
-            background: var(--bg-white); border: 1px solid var(--border);
-            border-radius: var(--radius-2xl); overflow: hidden; margin-bottom: 24px;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            margin-bottom: 24px;
         }
 
         /* ========== CARD TOOLBAR ========== */
         .card-toolbar {
-            display: flex; align-items: center; justify-content: space-between;
-            gap: 14px; padding: 18px 24px;
-            border-bottom: 1px solid var(--border-light); flex-wrap: wrap;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-light);
+            flex-wrap: wrap;
         }
-        .toolbar-left { display: flex; align-items: center; gap: 12px; }
+
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .section-icon {
-            width: 40px; height: 40px; border-radius: var(--radius-lg);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 16px; flex-shrink: 0;
-            background: var(--primary-subtle); color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+            background: var(--primary-subtle);
+            color: var(--primary);
         }
-        .section-title h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); }
-        .section-title p  { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+
+        .section-title h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .section-title p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
 
         /* ========== BALANCE GRID ========== */
         .balance-grid {
@@ -239,10 +479,19 @@
             animation: cardIn .4s ease forwards;
             opacity: 0;
         }
+
         @keyframes cardIn {
-            from { opacity: 0; transform: translateY(14px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .balance-card:hover {
             box-shadow: var(--shadow-card-hover);
             transform: translateY(-4px);
@@ -251,162 +500,345 @@
 
         /* top colour strip */
         .balance-card-strip {
-            height: 5px; width: 100%;
+            height: 5px;
+            width: 100%;
         }
 
-        .balance-card-body { padding: 20px 22px 18px; }
+        .balance-card-body {
+            padding: 20px 22px 18px;
+        }
 
         /* header row */
         .bc-header {
-            display: flex; align-items: center; justify-content: space-between;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             margin-bottom: 18px;
         }
-        .bc-left { display: flex; align-items: center; gap: 13px; }
-        .bc-icon {
-            width: 46px; height: 46px; border-radius: var(--radius-lg);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 19px; flex-shrink: 0;
+
+        .bc-left {
+            display: flex;
+            align-items: center;
+            gap: 13px;
         }
-        .bc-name { font-size: 15px; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
-        .bc-cycle { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+
+        .bc-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            flex-shrink: 0;
+        }
+
+        .bc-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .bc-cycle {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
 
         .bc-remaining {
-            text-align: right; flex-shrink: 0;
+            text-align: right;
+            flex-shrink: 0;
         }
+
         .bc-remaining .rem-num {
-            font-size: 32px; font-weight: 800;
-            letter-spacing: -0.04em; line-height: 1;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
         }
+
         .bc-remaining .rem-label {
-            font-size: 11px; color: var(--text-muted); font-weight: 500;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
         }
 
         /* progress bar */
         .bc-progress-wrap {
             margin-bottom: 14px;
         }
+
         .bc-progress-labels {
-            display: flex; justify-content: space-between;
-            font-size: 11.5px; color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            font-size: 11.5px;
+            color: var(--text-muted);
             margin-bottom: 6px;
         }
-        .bc-progress-labels strong { color: var(--text-secondary); font-weight: 600; }
-        .bc-progress-track {
-            height: 7px; background: var(--bg-muted);
-            border-radius: var(--radius-full); overflow: hidden;
+
+        .bc-progress-labels strong {
+            color: var(--text-secondary);
+            font-weight: 600;
         }
+
+        .bc-progress-track {
+            height: 7px;
+            background: var(--bg-muted);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
         .bc-progress-bar {
-            height: 100%; border-radius: var(--radius-full);
-            width: 0; transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            border-radius: var(--radius-full);
+            width: 0;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* stats row */
         .bc-stats {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 1px; background: var(--border-light);
-            border-radius: var(--radius-lg); overflow: hidden;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border-light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
             border: 1px solid var(--border-light);
         }
+
         .bc-stat {
-            padding: 10px 12px; background: var(--bg-muted);
+            padding: 10px 12px;
+            background: var(--bg-muted);
             text-align: center;
         }
-        .bc-stat small { display: block; font-size: 10.5px; color: var(--text-muted); font-weight: 500; margin-bottom: 3px; }
-        .bc-stat strong { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+
+        .bc-stat small {
+            display: block;
+            font-size: 10.5px;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        .bc-stat strong {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
 
         /* apply btn inside card */
         .bc-apply-btn {
-            display: flex; align-items: center; justify-content: center; gap: 7px;
-            width: 100%; margin-top: 14px;
-            padding: 9px 14px; border-radius: var(--radius-lg);
-            font-family: 'Inter', sans-serif; font-size: 12.5px; font-weight: 600;
-            cursor: pointer; transition: all var(--transition-fast);
-            border: 1.5px solid var(--border); background: var(--bg-white);
-            color: var(--text-secondary); text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            width: 100%;
+            margin-top: 14px;
+            padding: 9px 14px;
+            border-radius: var(--radius-lg);
+            font-family: 'Inter', sans-serif;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: 1.5px solid var(--border);
+            background: var(--bg-white);
+            color: var(--text-secondary);
+            text-decoration: none;
         }
+
         .bc-apply-btn:hover {
-            background: var(--primary-subtle); border-color: var(--primary-lighter);
+            background: var(--primary-subtle);
+            border-color: var(--primary-lighter);
             color: var(--primary);
         }
-        .bc-apply-btn i { font-size: 12px; }
+
+        .bc-apply-btn i {
+            font-size: 12px;
+        }
 
         /* disabled / depleted state */
         .balance-card.depleted .bc-apply-btn {
-            opacity: 0.5; cursor: not-allowed; pointer-events: none;
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
         }
+
         .depleted-badge {
             display: none;
-            position: absolute; top: 14px; right: 14px;
-            padding: 3px 10px; border-radius: var(--radius-full);
-            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
             letter-spacing: 0.06em;
-            background: var(--danger-light); color: var(--danger);
+            background: var(--danger-light);
+            color: var(--danger);
             border: 1px solid var(--danger-border);
         }
-        .balance-card.depleted .depleted-badge { display: block; }
+
+        .balance-card.depleted .depleted-badge {
+            display: block;
+        }
 
         /* low-balance warning */
         .low-warning {
-            display: none; align-items: center; gap: 7px;
-            padding: 8px 11px; margin-bottom: 14px;
-            background: var(--warning-light); border: 1px solid var(--warning-border);
-            border-radius: var(--radius); font-size: 12px; color: var(--warning);
+            display: none;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 11px;
+            margin-bottom: 14px;
+            background: var(--warning-light);
+            border: 1px solid var(--warning-border);
+            border-radius: var(--radius);
+            font-size: 12px;
+            color: var(--warning);
             font-weight: 500;
         }
-        .low-warning i { font-size: 12px; flex-shrink: 0; }
-        .balance-card.low .low-warning { display: flex; }
+
+        .low-warning i {
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .balance-card.low .low-warning {
+            display: flex;
+        }
 
         /* ========== POLICY TABLE ========== */
-        .policy-table-wrap { padding: 0 24px 24px; }
+        .policy-table-wrap {
+            padding: 0 24px 24px;
+        }
+
         .policy-table {
-            width: 100%; border-collapse: collapse;
+            width: 100%;
+            border-collapse: collapse;
             font-size: 13px;
         }
+
         .policy-table thead th {
-            text-align: left; padding: 10px 14px;
-            font-size: 11px; font-weight: 700; color: var(--text-muted);
-            text-transform: uppercase; letter-spacing: 0.07em;
+            text-align: left;
+            padding: 10px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
             background: var(--bg-muted);
             border-bottom: 1px solid var(--border);
         }
-        .policy-table thead th:first-child { border-radius: var(--radius) 0 0 0; }
-        .policy-table thead th:last-child  { border-radius: 0 var(--radius) 0 0; text-align: right; }
+
+        .policy-table thead th:first-child {
+            border-radius: var(--radius) 0 0 0;
+        }
+
+        .policy-table thead th:last-child {
+            border-radius: 0 var(--radius) 0 0;
+            text-align: right;
+        }
+
         .policy-table tbody tr {
             border-bottom: 1px solid var(--border-light);
             transition: background var(--transition-fast);
         }
-        .policy-table tbody tr:last-child { border-bottom: none; }
-        .policy-table tbody tr:hover { background: var(--bg-hover); }
-        .policy-table td { padding: 14px; vertical-align: middle; }
-        .policy-table td:last-child { text-align: right; }
 
-        .pt-type { display: flex; align-items: center; gap: 11px; }
+        .policy-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .policy-table tbody tr:hover {
+            background: var(--bg-hover);
+        }
+
+        .policy-table td {
+            padding: 14px;
+            vertical-align: middle;
+        }
+
+        .policy-table td:last-child {
+            text-align: right;
+        }
+
+        .pt-type {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
         .pt-icon {
-            width: 36px; height: 36px; border-radius: var(--radius);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 15px; flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
         }
-        .pt-name { font-size: 13.5px; font-weight: 600; color: var(--text-primary); }
-        .pt-carry { font-size: 11.5px; color: var(--text-muted); margin-top: 1px; }
 
-        .mini-bar-wrap { display: flex; align-items: center; gap: 8px; }
-        .mini-bar-track {
-            flex: 1; height: 5px; background: var(--bg-muted);
-            border-radius: var(--radius-full); overflow: hidden; min-width: 80px;
+        .pt-name {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text-primary);
         }
-        .mini-bar { height: 100%; border-radius: var(--radius-full); width: 0; transition: width 1s ease; }
-        .mini-bar-pct { font-size: 11px; color: var(--text-muted); font-weight: 600; white-space: nowrap; }
+
+        .pt-carry {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
+
+        .mini-bar-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mini-bar-track {
+            flex: 1;
+            height: 5px;
+            background: var(--bg-muted);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            min-width: 80px;
+        }
+
+        .mini-bar {
+            height: 100%;
+            border-radius: var(--radius-full);
+            width: 0;
+            transition: width 1s ease;
+        }
+
+        .mini-bar-pct {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+            white-space: nowrap;
+        }
 
         .td-badge {
-            padding: 4px 11px; border-radius: var(--radius-full);
-            font-size: 11.5px; font-weight: 700;
+            padding: 4px 11px;
+            border-radius: var(--radius-full);
+            font-size: 11.5px;
+            font-weight: 700;
         }
 
         /* ========== SKELETON ========== */
         @keyframes shimmer {
-            0%   { background-position: -500px 0; }
-            100% { background-position: 500px 0; }
+            0% {
+                background-position: -500px 0;
+            }
+
+            100% {
+                background-position: 500px 0;
+            }
         }
+
         .skel {
             background: linear-gradient(90deg, var(--bg-muted) 25%, #e8edf2 50%, var(--bg-muted) 75%);
             background-size: 500px 100%;
@@ -415,61 +847,189 @@
         }
 
         .skeleton-card {
-            border: 1px solid var(--border); border-radius: var(--radius-xl);
-            overflow: hidden; padding: 0;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            padding: 0;
         }
-        .skel-strip  { height: 5px; }
-        .skel-body   { padding: 20px 22px; }
-        .skel-row    { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
-        .skel-circle { width: 46px; height: 46px; border-radius: var(--radius-lg); flex-shrink: 0; }
-        .skel-lines  { flex: 1; }
-        .skel-line   { height: 10px; margin-bottom: 7px; }
-        .skel-line.w40 { width: 40%; }
-        .skel-line.w60 { width: 60%; }
-        .skel-line.w80 { width: 80%; height: 7px; }
-        .skel-track  { height: 7px; border-radius: var(--radius-full); margin-bottom: 14px; }
-        .skel-grid   { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; }
-        .skel-cell   { height: 46px; border-radius: 0; }
+
+        .skel-strip {
+            height: 5px;
+        }
+
+        .skel-body {
+            padding: 20px 22px;
+        }
+
+        .skel-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .skel-circle {
+            width: 46px;
+            height: 46px;
+            border-radius: var(--radius-lg);
+            flex-shrink: 0;
+        }
+
+        .skel-lines {
+            flex: 1;
+        }
+
+        .skel-line {
+            height: 10px;
+            margin-bottom: 7px;
+        }
+
+        .skel-line.w40 {
+            width: 40%;
+        }
+
+        .skel-line.w60 {
+            width: 60%;
+        }
+
+        .skel-line.w80 {
+            width: 80%;
+            height: 7px;
+        }
+
+        .skel-track {
+            height: 7px;
+            border-radius: var(--radius-full);
+            margin-bottom: 14px;
+        }
+
+        .skel-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+        }
+
+        .skel-cell {
+            height: 46px;
+            border-radius: 0;
+        }
 
         /* ========== EMPTY STATE ========== */
         .empty-state {
-            display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 60px 24px; text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+            text-align: center;
         }
+
         .empty-icon {
-            width: 72px; height: 72px; border-radius: var(--radius-xl);
+            width: 72px;
+            height: 72px;
+            border-radius: var(--radius-xl);
             background: var(--bg-muted);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 30px; color: var(--text-muted); margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: var(--text-muted);
+            margin-bottom: 18px;
         }
-        .empty-state h3 { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
-        .empty-state p  { font-size: 13px; color: var(--text-muted); max-width: 280px; line-height: 1.6; margin-bottom: 20px; }
+
+        .empty-state h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .empty-state p {
+            font-size: 13px;
+            color: var(--text-muted);
+            max-width: 280px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
 
         /* ========== RESPONSIVE ========== */
         @media (max-width: 900px) {
-            .summary-strip { grid-template-columns: repeat(3, 1fr); }
-            .balance-grid  { grid-template-columns: 1fr 1fr; }
+            .summary-strip {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .balance-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
+
         @media (max-width: 768px) {
-            .topbar { padding: 0 16px; }
-            .topbar-info span { display: none; }
-            .page-body { padding: 16px; }
-            .page-banner { padding: 20px 18px; }
-            .banner-icon { display: none; }
-            .summary-strip { grid-template-columns: 1fr; gap: 10px; }
-            .balance-grid  { grid-template-columns: 1fr; padding: 16px; gap: 14px; }
-            .card-toolbar  { flex-direction: column; align-items: flex-start; }
-            .policy-table-wrap { padding: 0 12px 16px; overflow-x: auto; }
-            .policy-table { min-width: 480px; }
+            .topbar {
+                padding: 0 16px;
+            }
+
+            .topbar-info span {
+                display: none;
+            }
+
+            .page-body {
+                padding: 16px;
+            }
+
+            .page-banner {
+                padding: 20px 18px;
+            }
+
+            .banner-icon {
+                display: none;
+            }
+
+            .summary-strip {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .balance-grid {
+                grid-template-columns: 1fr;
+                padding: 16px;
+                gap: 14px;
+            }
+
+            .card-toolbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .policy-table-wrap {
+                padding: 0 12px 16px;
+                overflow-x: auto;
+            }
+
+            .policy-table {
+                min-width: 480px;
+            }
         }
+
         @media (max-width: 480px) {
-            .topbar { height: 60px; }
-            .btn-back-label { display: none; }
-            .summary-strip { grid-template-columns: 1fr 1fr; }
-            .summary-card.avail { grid-column: span 2; }
+            .topbar {
+                height: 60px;
+            }
+
+            .btn-back-label {
+                display: none;
+            }
+
+            .summary-strip {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .summary-card.avail {
+                grid-column: span 2;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- ========== TOPBAR ========== -->
@@ -498,7 +1058,8 @@
             <div class="banner-inner">
                 <div class="banner-text">
                     <h2>Your Leave Balance</h2>
-                    <p>A complete overview of your leave entitlements, used days, and remaining balance for the current leave cycle.</p>
+                    <p>A complete overview of your leave entitlements, used days, and remaining balance for the current
+                        leave cycle.</p>
                 </div>
                 <div class="banner-icon"><i class="fas fa-calendar-minus"></i></div>
             </div>
@@ -548,7 +1109,8 @@
                                 <div class="skel skel-line w60" style="height:13px;margin-bottom:8px"></div>
                                 <div class="skel skel-line w40"></div>
                             </div>
-                            <div class="skel skel-line" style="width:50px;height:36px;border-radius:8px;flex-shrink:0"></div>
+                            <div class="skel skel-line" style="width:50px;height:36px;border-radius:8px;flex-shrink:0">
+                            </div>
                         </div>
                         <div class="skel skel-track"></div>
                         <div class="skel-grid">
@@ -565,7 +1127,8 @@
         <div class="card" id="policyCard" style="display:none">
             <div class="card-toolbar">
                 <div class="toolbar-left">
-                    <div class="section-icon" style="background:var(--info-light);color:var(--info)"><i class="fas fa-table-list"></i></div>
+                    <div class="section-icon" style="background:var(--info-light);color:var(--info)"><i
+                            class="fas fa-table-list"></i></div>
                     <div class="section-title">
                         <h3>Leave Policy Summary</h3>
                         <p>Entitlement, usage and availability at a glance</p>
@@ -592,13 +1155,13 @@
         </div>
 
     </div><!-- /page-body -->
- 
+
     <script>
         'use strict';
 
         /* ── AUTH ── */
         function getToken() {
-            const keys = ['token','authToken','access_token','auth_token','user_token','x-access-token'];
+            const keys = ['token', 'authToken', 'access_token', 'auth_token', 'user_token', 'x-access-token'];
             for (const k of keys) { const t = localStorage.getItem(k); if (t) return t; }
             for (const k of keys) { const t = sessionStorage.getItem(k); if (t) return t; }
             return null;
@@ -606,29 +1169,30 @@
 
         /* ── THEME PALETTE per leave type index ── */
         const PALETTE = [
-            { strip:'#4f46e5', icon:'fa-calendar-days',      iconBg:'var(--primary-subtle)', iconColor:'var(--primary)',  bar:'#4f46e5', badgeBg:'var(--primary-subtle)', badgeColor:'var(--primary)' },
-            { strip:'#dc2626', icon:'fa-briefcase-medical',  iconBg:'var(--danger-light)',   iconColor:'var(--danger)',   bar:'#dc2626', badgeBg:'var(--danger-light)',   badgeColor:'var(--danger)'   },
-            { strip:'#0284c7', icon:'fa-umbrella-beach',     iconBg:'var(--info-light)',     iconColor:'var(--info)',     bar:'#0284c7', badgeBg:'var(--info-light)',     badgeColor:'var(--info)'     },
-            { strip:'#d97706', icon:'fa-sun',                iconBg:'var(--warning-light)',  iconColor:'var(--warning)',  bar:'#d97706', badgeBg:'var(--warning-light)',  badgeColor:'var(--warning)'  },
-            { strip:'#059669', icon:'fa-leaf',               iconBg:'var(--success-light)',  iconColor:'var(--success)',  bar:'#059669', badgeBg:'var(--success-light)',  badgeColor:'var(--success)'  },
-            { strip:'#7c3aed', icon:'fa-user',               iconBg:'var(--violet-light)',   iconColor:'var(--violet)',   bar:'#7c3aed', badgeBg:'var(--violet-light)',   badgeColor:'var(--violet)'   },
-            { strip:'#0d9488', icon:'fa-baby',               iconBg:'var(--teal-light)',     iconColor:'var(--teal)',     bar:'#0d9488', badgeBg:'var(--teal-light)',     badgeColor:'var(--teal)'     },
+            { strip: '#4f46e5', icon: 'fa-calendar-days', iconBg: 'var(--primary-subtle)', iconColor: 'var(--primary)', bar: '#4f46e5', badgeBg: 'var(--primary-subtle)', badgeColor: 'var(--primary)' },
+            { strip: '#dc2626', icon: 'fa-briefcase-medical', iconBg: 'var(--danger-light)', iconColor: 'var(--danger)', bar: '#dc2626', badgeBg: 'var(--danger-light)', badgeColor: 'var(--danger)' },
+            { strip: '#0284c7', icon: 'fa-umbrella-beach', iconBg: 'var(--info-light)', iconColor: 'var(--info)', bar: '#0284c7', badgeBg: 'var(--info-light)', badgeColor: 'var(--info)' },
+            { strip: '#d97706', icon: 'fa-sun', iconBg: 'var(--warning-light)', iconColor: 'var(--warning)', bar: '#d97706', badgeBg: 'var(--warning-light)', badgeColor: 'var(--warning)' },
+            { strip: '#059669', icon: 'fa-leaf', iconBg: 'var(--success-light)', iconColor: 'var(--success)', bar: '#059669', badgeBg: 'var(--success-light)', badgeColor: 'var(--success)' },
+            { strip: '#7c3aed', icon: 'fa-user', iconBg: 'var(--violet-light)', iconColor: 'var(--violet)', bar: '#7c3aed', badgeBg: 'var(--violet-light)', badgeColor: 'var(--violet)' },
+            { strip: '#0d9488', icon: 'fa-baby', iconBg: 'var(--teal-light)', iconColor: 'var(--teal)', bar: '#0d9488', badgeBg: 'var(--teal-light)', badgeColor: 'var(--teal)' },
         ];
 
         function getPalette(i) { return PALETTE[i % PALETTE.length]; }
 
         /* ── RENDER SUMMARY STRIP ── */
         function renderSummary(balances) {
-            const totalEntitled  = balances.reduce((s, b) => s + (b.total_days     || 0), 0);
-            const totalRemaining = balances.reduce((s, b) => s + (b.remaining_days || 0), 0);
-            const totalUsed      = totalEntitled - totalRemaining;
+            // ✅ Fix: parseFloat prevents string concatenation → NaN
+            const totalEntitled = balances.reduce((s, b) => s + (parseFloat(b.total_days) || 0), 0);
+            const totalRemaining = balances.reduce((s, b) => s + (parseFloat(b.remaining_days) || 0), 0);
+            const totalUsed = totalEntitled - totalRemaining;
 
             document.getElementById('summaryStrip').innerHTML = `
                 <div class="summary-card total">
                     <div class="summary-icon total"><i class="fas fa-layer-group"></i></div>
                     <div class="summary-info">
                         <small>Total Entitled</small>
-                        <strong>${totalEntitled}</strong>
+                        <strong>${Math.round(totalEntitled)}</strong>
                         <span>days / year</span>
                     </div>
                 </div>
@@ -636,7 +1200,7 @@
                     <div class="summary-icon used"><i class="fas fa-hourglass-half"></i></div>
                     <div class="summary-info">
                         <small>Days Used</small>
-                        <strong>${totalUsed}</strong>
+                        <strong>${Math.round(totalUsed)}</strong>
                         <span>this cycle</span>
                     </div>
                 </div>
@@ -644,7 +1208,7 @@
                     <div class="summary-icon avail"><i class="fas fa-circle-check"></i></div>
                     <div class="summary-info">
                         <small>Days Available</small>
-                        <strong>${totalRemaining}</strong>
+                        <strong>${Math.round(totalRemaining)}</strong>
                         <span>remaining</span>
                     </div>
                 </div>`;
@@ -669,12 +1233,17 @@
                 `${balances.length} leave type${balances.length !== 1 ? 's' : ''} configured`;
 
             grid.innerHTML = balances.map((b, i) => {
-                const pal       = getPalette(i);
-                const used      = (b.total_days || 0) - (b.remaining_days || 0);
-                const pct       = b.total_days ? Math.min(100, Math.round((used / b.total_days) * 100)) : 0;
-                const isDepleted = b.remaining_days <= 0;
-                const isLow      = !isDepleted && b.remaining_days <= 2;
-                const cardClass  = isDepleted ? 'balance-card depleted' : isLow ? 'balance-card low' : 'balance-card';
+                const pal = getPalette(i);
+                // ✅ Fix: parseFloat on individual card values too
+                const totalDays = parseFloat(b.total_days) || 0;
+                const remDays = parseFloat(b.remaining_days) || 0;
+                const used = Math.round(totalDays - remDays);
+                const remaining = Math.round(remDays);
+                const total = Math.round(totalDays);
+                const pct = totalDays ? Math.min(100, Math.round((used / totalDays) * 100)) : 0;
+                const isDepleted = remDays <= 0;
+                const isLow = !isDepleted && remDays <= 2;
+                const cardClass = isDepleted ? 'balance-card depleted' : isLow ? 'balance-card low' : 'balance-card';
 
                 return `
                 <div class="${cardClass}" style="animation-delay:${i * 80}ms">
@@ -688,18 +1257,18 @@
                                 </div>
                                 <div>
                                     <div class="bc-name">${b.leave_type_name}</div>
-                                    <div class="bc-cycle">Annual · ${b.total_days} days</div>
+                                    <div class="bc-cycle">Annual · ${total} days</div>
                                 </div>
                             </div>
                             <div class="bc-remaining">
-                                <div class="rem-num" style="color:${isDepleted ? 'var(--danger)' : pal.strip}">${b.remaining_days}</div>
+                                <div class="rem-num" style="color:${isDepleted ? 'var(--danger)' : pal.strip}">${remaining}</div>
                                 <div class="rem-label">remaining</div>
                             </div>
                         </div>
 
                         <div class="low-warning">
                             <i class="fas fa-triangle-exclamation"></i>
-                            Only ${b.remaining_days} day${b.remaining_days !== 1 ? 's' : ''} left — use wisely!
+                            Only ${remaining} day${remaining !== 1 ? 's' : ''} left — use wisely!
                         </div>
 
                         <div class="bc-progress-wrap">
@@ -715,7 +1284,7 @@
                         <div class="bc-stats">
                             <div class="bc-stat">
                                 <small>Entitled</small>
-                                <strong>${b.total_days}</strong>
+                                <strong>${total}</strong>
                             </div>
                             <div class="bc-stat">
                                 <small>Used</small>
@@ -723,7 +1292,7 @@
                             </div>
                             <div class="bc-stat">
                                 <small>Available</small>
-                                <strong style="color:${isDepleted ? 'var(--danger)' : 'var(--success)'}">${b.remaining_days}</strong>
+                                <strong style="color:${isDepleted ? 'var(--danger)' : 'var(--success)'}">${remaining}</strong>
                             </div>
                         </div>
 
@@ -739,9 +1308,11 @@
             requestAnimationFrame(() => {
                 setTimeout(() => {
                     balances.forEach((b, i) => {
-                        const used = (b.total_days || 0) - (b.remaining_days || 0);
-                        const pct  = b.total_days ? Math.min(100, (used / b.total_days) * 100) : 0;
-                        const bar  = document.getElementById(`bar-${i}`);
+                        const totalDays = parseFloat(b.total_days) || 0;
+                        const remDays = parseFloat(b.remaining_days) || 0;
+                        const used = totalDays - remDays;
+                        const pct = totalDays ? Math.min(100, (used / totalDays) * 100) : 0;
+                        const bar = document.getElementById(`bar-${i}`);
                         if (bar) bar.style.width = pct + '%';
                     });
                 }, 100);
@@ -754,13 +1325,16 @@
 
             const tbody = document.getElementById('policyTableBody');
             tbody.innerHTML = balances.map((b, i) => {
-                const pal    = getPalette(i);
-                const used   = (b.total_days || 0) - (b.remaining_days || 0);
-                const pct    = b.total_days ? Math.min(100, Math.round((used / b.total_days) * 100)) : 0;
-                const isDep  = b.remaining_days <= 0;
-                const isLow  = !isDep && b.remaining_days <= 2;
-                const badgeBg    = isDep ? 'var(--danger-light)'   : 'var(--success-light)';
-                const badgeColor = isDep ? 'var(--danger)'         : 'var(--success)';
+                const pal = getPalette(i);
+                // ✅ Fix: parseFloat on table values too
+                const totalDays = parseFloat(b.total_days) || 0;
+                const remDays = parseFloat(b.remaining_days) || 0;
+                const used = Math.round(totalDays - remDays);
+                const remaining = Math.round(remDays);
+                const total = Math.round(totalDays);
+                const pct = totalDays ? Math.min(100, Math.round((used / totalDays) * 100)) : 0;
+                const isDep = remDays <= 0;
+                const isLow = !isDep && remDays <= 2;
 
                 return `
                 <tr>
@@ -775,7 +1349,7 @@
                             </div>
                         </div>
                     </td>
-                    <td style="font-weight:600;color:var(--text-primary)">${b.total_days} days</td>
+                    <td style="font-weight:600;color:var(--text-primary)">${total} days</td>
                     <td style="font-weight:600;color:${used > 0 ? pal.strip : 'var(--text-muted)'}">${used} days</td>
                     <td>
                         <div class="mini-bar-wrap">
@@ -787,7 +1361,7 @@
                     </td>
                     <td>
                         <span class="td-badge" style="background:${isDep ? 'var(--danger-light)' : isLow ? 'var(--warning-light)' : 'var(--success-light)'};color:${isDep ? 'var(--danger)' : isLow ? 'var(--warning)' : 'var(--success)'}">
-                            ${b.remaining_days} days
+                            ${remaining} days
                         </span>
                     </td>
                 </tr>`;
@@ -799,9 +1373,11 @@
             requestAnimationFrame(() => {
                 setTimeout(() => {
                     balances.forEach((b, i) => {
-                        const used = (b.total_days || 0) - (b.remaining_days || 0);
-                        const pct  = b.total_days ? Math.min(100, (used / b.total_days) * 100) : 0;
-                        const bar  = document.getElementById(`mbar-${i}`);
+                        const totalDays = parseFloat(b.total_days) || 0;
+                        const remDays = parseFloat(b.remaining_days) || 0;
+                        const used = totalDays - remDays;
+                        const pct = totalDays ? Math.min(100, (used / totalDays) * 100) : 0;
+                        const bar = document.getElementById(`mbar-${i}`);
                         if (bar) bar.style.width = pct + '%';
                     });
                 }, 200);
@@ -812,11 +1388,11 @@
         async function loadBalance() {
             const token = getToken();
             try {
-               const res = await fetch(`/get_leave_balance`, {
-    headers: {
-        'Authorization': `Bearer ${token}`
-    }
-});
+                const res = await fetch(`/get_leave_balance`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
                 const data = await res.json();
                 const balances = data.balances || [];
 
@@ -848,4 +1424,5 @@
         });
     </script>
 </body>
+
 </html>
