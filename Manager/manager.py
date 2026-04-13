@@ -7,7 +7,12 @@ from decorators import jwt_required
 import os
 from leave import _auto_create_balance_for_employee
 import time
-from models.models import otp_store, pending_data, generate_otp, send_otp_email
+from models.models import generate_otp, send_otp_email
+from redis_client import (
+    store_otp, get_otp, delete_otp,
+    store_pending_data, get_pending_data, delete_pending_data
+)
+
 manager_bp = Blueprint('manager', __name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -101,17 +106,22 @@ def add_emp(id=None, org_id=None, role=None, org_name=None):
         'role': 'EMP'
     }
  
+    # Generate OTP
     otp = generate_otp()
+    
+    # Store OTP in Redis with 5 minutes expiry
+    otp_data = {'otp': otp, 'expires_at': time.time() + 300}
+    store_otp('add_employee', email, otp_data)
+    
+    # Store pending data in Redis with 1 hour expiry
+    store_pending_data(email, pending)
  
-    # CHANGE: Use imported otp_store directly
-    otp_store['add_employee'][email] = {'otp': otp, 'expires_at': time.time() + 300}
-    pending_data[email] = pending
- 
-    # CHANGE: Use imported send_otp_email directly
+    # Send OTP email
     success, error = send_otp_email(email, otp)
     if not success:
-        otp_store['add_employee'].pop(email, None)
-        pending_data.pop(email, None)
+        # Clean up Redis data if email sending fails
+        delete_otp('add_employee', email)
+        delete_pending_data(email)
         return jsonify({'status': 'error', 'message': f'Failed to send OTP: {error}'}), 500
  
     return jsonify({
@@ -138,17 +148,19 @@ def verify_add_emp(id=None, org_id=None, role=None, org_name=None):
     if not email or not otp:
         return jsonify({'status': 'fail', 'message': 'Email and OTP are required'}), 400
  
- 
-    stored = otp_store['add_employee'].get(email)
+    # Get OTP from Redis
+    stored = get_otp('add_employee', email)
     if not stored or time.time() > stored['expires_at']:
         return jsonify({'status': 'fail', 'message': 'OTP expired or not requested'}), 400
     if stored['otp'] != otp:
         return jsonify({'status': 'fail', 'message': 'Invalid OTP'}), 400
  
     # OTP is valid — clear it immediately to prevent reuse
-    otp_store['add_employee'].pop(email, None)
-    # CHANGE: Use imported pending_data directly
-    pending = pending_data.pop(email, None)
+    delete_otp('add_employee', email)
+    
+    # Get pending data from Redis
+    pending = get_pending_data(email)
+    delete_pending_data(email)
  
     if not pending:
         return jsonify({'status': 'fail', 'message': 'No pending registration for this email'}), 400

@@ -6,7 +6,12 @@ import pymysql
 from werkzeug.security import generate_password_hash
 import os
 import time
-from models.models import otp_store, pending_data, generate_otp, send_otp_email
+from models.models import generate_otp, send_otp_email
+
+from redis_client import (
+    store_otp, get_otp, delete_otp,
+    store_pending_data, get_pending_data, delete_pending_data
+)
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -97,16 +102,22 @@ def add_manager(id=None, org_id=None, role=None, org_name=None):
         'role': 'Manager'
     }
  
-    otp = generate_otp()  # Use imported function
+    # Generate OTP
+    otp = generate_otp()
     
-    # Use imported otp_store directly
-    otp_store['add_manager'][email] = {'otp': otp, 'expires_at': time.time() + 300}
-    pending_data[email] = pending
+    # Store OTP in Redis with 5 minutes expiry
+    otp_data = {'otp': otp, 'expires_at': time.time() + 300}
+    store_otp('add_manager', email, otp_data)
     
-    success, error = send_otp_email(email, otp)  # Use imported function
+    # Store pending data in Redis with 1 hour expiry
+    store_pending_data(email, pending)
+ 
+    # Send OTP email
+    success, error = send_otp_email(email, otp)
     if not success:
-        otp_store['add_manager'].pop(email, None)
-        pending_data.pop(email, None)
+        # Clean up Redis data if email sending fails
+        delete_otp('add_manager', email)
+        delete_pending_data(email)
         return jsonify({'status': 'error', 'message': f'Failed to send OTP: {error}'}), 500
  
     return jsonify({
@@ -130,16 +141,19 @@ def verify_add_manager(id=None, org_id=None, role=None, org_name=None):
     if not email or not otp:
         return jsonify({'status': 'fail', 'message': 'Email and OTP are required'}), 400
  
-    
-    stored = otp_store['add_manager'].get(email)
+    # Get OTP from Redis
+    stored = get_otp('add_manager', email)
     if not stored or time.time() > stored['expires_at']:
         return jsonify({'status': 'fail', 'message': 'OTP expired or not requested'}), 400
     if stored['otp'] != otp:
         return jsonify({'status': 'fail', 'message': 'Invalid OTP'}), 400
+ 
+    # OTP is valid — clear it immediately to prevent reuse
+    delete_otp('add_manager', email)
     
-    # Clear OTP
-    otp_store['add_manager'].pop(email, None)
-    pending = pending_data.pop(email, None)  # Use imported pending_data
+    # Get pending data from Redis
+    pending = get_pending_data(email)
+    delete_pending_data(email)
  
     if not pending:
         return jsonify({'status': 'fail', 'message': 'No pending registration for this email'}), 400
@@ -206,10 +220,7 @@ def verify_add_manager(id=None, org_id=None, role=None, org_name=None):
         if conn:
             conn.close()
  
- 
-# ------------------ Existing Endpoints (unchanged) ------------------
 
-# ------------------ Existing Endpoints (unchanged) ------------------
 @admin_bp.route('/adddepartments', methods=['POST'])
 @jwt_required
 def adddepartments(id=None, org_id=None, role=None, org_name=None):

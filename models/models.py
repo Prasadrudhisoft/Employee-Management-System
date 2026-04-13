@@ -1,3 +1,4 @@
+# models.py
 import random
 import time
 import os
@@ -8,8 +9,17 @@ from werkzeug.security import generate_password_hash
 from connector import get_connection
 from decorators import jwt_required
 import pymysql
+from redis_client import (
+    store_otp, get_otp, delete_otp, 
+    store_pending_data, get_pending_data, delete_pending_data,
+    store_reset_token, get_reset_token, delete_reset_token,
+    test_redis_connection
+)
 
 models_bp = Blueprint('models', __name__)
+
+# Test Redis connection on startup
+test_redis_connection()
 
 # ------------------ ZeptoMail Configuration ------------------
 ZEPTOMAIL_API_URL = "https://api.zeptomail.in/v1.1/email"
@@ -17,26 +27,13 @@ ZEPTOMAIL_API_TOKEN = os.environ.get("ZEPTO_TOKEN")
 ZEPTOMAIL_FROM_EMAIL = "contact@rudhisoft.com"
 ZEPTOMAIL_FROM_NAME = "StaffCores"
 
-# ------------------ In-memory stores (namespaced by flow) ------------------
-# Each key is a flow name, value is a dict of {email: {otp, expires_at}}
-# This prevents OTP collisions across different flows (register, reset, add_manager, etc.)
-otp_store = {
-    'register': {},      # used by register_request / register_verify
-    'reset': {},         # used by send_otp / verify_otp / reset_password
-    'add_manager': {},   # used by add_manager / verify_add_manager
-    'add_employee': {},  # reserved for future employee addition flow
-}
-pending_data = {}        # email -> registration/addition data dict
-reset_token_store = {}   # email -> reset_token (for password reset)
-
-
 def generate_otp():
     return str(random.randint(100000, 999999))
-
 
 def send_otp_email(email, otp):
     """Send OTP email using ZeptoMail. Returns (success, error_msg)"""
     if not ZEPTOMAIL_API_TOKEN:
+        print("ZeptoMail API token not set in environment variables.")
         return False, "ZEPTO_TOKEN environment variable not set"
 
     headers = {
@@ -85,6 +82,8 @@ def send_otp_email(email, otp):
 
     try:
         response = requests.post(ZEPTOMAIL_API_URL, headers=headers, json=payload, timeout=10)
+        print(f"ZeptoMail Status: {response.status_code}")
+        print(f"ZeptoMail Response: {response.text}")
 
         if response.status_code in (200, 201, 202):
             return True, None
@@ -92,7 +91,6 @@ def send_otp_email(email, otp):
             return False, f"API returned {response.status_code}: {response.text}"
     except Exception as e:
         return False, str(e)
-
 
 # ===================== REGISTRATION (Step 1: Send OTP) =====================
 
@@ -116,7 +114,7 @@ def register_request():
     cursor.close()
     conn.close()
 
-    pending_data[email] = {
+    pending_data_dict = {
         'name': data.get('name'),
         'email': email,
         'password': data.get('password'),
@@ -129,13 +127,19 @@ def register_request():
         'profile_img': None,
     }
 
+    # Store in Redis instead of memory
+    store_pending_data(email, pending_data_dict)
+    
     otp = generate_otp()
-    otp_store['register'][email] = {'otp': otp, 'expires_at': time.time() + 300}
-
+    otp_data = {'otp': otp, 'expires_at': time.time() + 300}
+    
+    # Store OTP in Redis
+    store_otp('register', email, otp_data)
+    
     success, error = send_otp_email(email, otp)
     if not success:
-        otp_store['register'].pop(email, None)
-        pending_data.pop(email, None)
+        delete_otp('register', email)
+        delete_pending_data(email)
         return jsonify({'status': 'error', 'message': f'Failed to send OTP: {error}'}), 500
 
     return jsonify({
@@ -143,7 +147,6 @@ def register_request():
         'message': 'OTP sent to your email. Please verify to complete registration.',
         'pending_id': email
     })
-
 
 # ===================== REGISTRATION (Step 2: Verify OTP) =====================
 
@@ -156,14 +159,18 @@ def register_verify():
     if not email or not otp:
         return jsonify({'status': 'fail', 'message': 'Email and OTP are required'}), 400
 
-    stored = otp_store['register'].get(email)
+    # Get OTP from Redis
+    stored = get_otp('register', email)
     if not stored or time.time() > stored['expires_at']:
         return jsonify({'status': 'fail', 'message': 'OTP expired or not requested'}), 400
     if stored['otp'] != otp:
         return jsonify({'status': 'fail', 'message': 'Invalid OTP'}), 400
 
-    pending = pending_data.pop(email, None)
-    otp_store['register'].pop(email, None)
+    # Get pending data from Redis
+    pending = get_pending_data(email)
+    delete_otp('register', email)
+    delete_pending_data(email)
+    
     if not pending:
         return jsonify({'status': 'fail', 'message': 'No pending registration for this email'}), 400
 
@@ -193,7 +200,6 @@ def register_verify():
         if conn:
             conn.close()
 
-
 # ===================== PASSWORD RESET (Step 1: Send OTP) =====================
 
 @models_bp.route('/send_otp', methods=['POST'])
@@ -219,15 +225,15 @@ def send_otp():
         return jsonify({'status': 'fail', 'message': 'Email not registered'}), 404
 
     otp = generate_otp()
-    otp_store['reset'][email] = {'otp': otp, 'expires_at': time.time() + 300}
+    otp_data = {'otp': otp, 'expires_at': time.time() + 300}
+    store_otp('reset', email, otp_data)
 
     success, error = send_otp_email(email, otp)
     if success:
         return jsonify({'status': 'success', 'message': 'OTP sent to your email'})
     else:
-        otp_store['reset'].pop(email, None)
+        delete_otp('reset', email)
         return jsonify({'status': 'error', 'message': error}), 500
-
 
 # ===================== PASSWORD RESET (Step 2: Verify OTP) =====================
 
@@ -240,22 +246,21 @@ def verify_otp():
     if not email or not otp:
         return jsonify({'status': 'fail', 'message': 'Email and OTP are required'}), 400
 
-    stored = otp_store['reset'].get(email)
+    stored = get_otp('reset', email)
     if not stored or time.time() > stored['expires_at']:
         return jsonify({'status': 'fail', 'message': 'OTP expired or not requested'}), 400
     if stored['otp'] != otp:
         return jsonify({'status': 'fail', 'message': 'Invalid OTP'}), 400
 
     reset_token = str(uuid.uuid4())
-    reset_token_store[email] = reset_token
-    otp_store['reset'].pop(email, None)
+    store_reset_token(email, reset_token)
+    delete_otp('reset', email)
 
     return jsonify({
         'status': 'success',
         'message': 'OTP verified',
         'reset_token': reset_token
     })
-
 
 # ===================== PASSWORD RESET (Step 3: Reset Password) =====================
 
@@ -271,7 +276,7 @@ def reset_password():
     if not email or not new_pass or not reset_token:
         return jsonify({'status': 'fail', 'message': 'Email, new password and reset token required'}), 400
 
-    stored_token = reset_token_store.get(email)
+    stored_token = get_reset_token(email)
     if not stored_token or stored_token != reset_token:
         return jsonify({'status': 'fail', 'message': 'Invalid or missing reset token'}), 401
 
@@ -285,10 +290,9 @@ def reset_password():
     if conn:
         conn.close()
 
-    reset_token_store.pop(email, None)
+    delete_reset_token(email)
 
     return jsonify({'status': 'success', 'message': 'Password changed successfully'})
-
 
 # ===================== Existing Endpoints (unchanged) =====================
 
@@ -323,7 +327,6 @@ def my_profile(id=None, org_id=None, role=None, org_name=None):
         if conn:
             conn.close()
 
-
 @models_bp.route('/forgot_pass', methods=['POST'])
 def forgot_pass():
     conn = None
@@ -349,7 +352,6 @@ def forgot_pass():
             cursor.close()
         if conn:
             conn.close()
-
 
 @models_bp.route('/contact_us', methods=['POST'])
 def contact_us():
