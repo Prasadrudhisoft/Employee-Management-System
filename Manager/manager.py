@@ -212,8 +212,9 @@ def verify_add_emp(id=None, org_id=None, role=None, org_name=None):
               pending['bank_acc_no'], pending['ifsc_code'], pending['bank_name'], pending['bank_address'],
               pending['submitted_by']))
  
+        
+        _auto_create_balance_for_employee(user_id, pending['org_id'], pending['submitted_by'], cursor, conn)
         conn.commit()
-        _auto_create_balance_for_employee(user_id, pending['org_id'], cursor, conn)
  
         return jsonify({'status': 'success', 'message': 'Employee added successfully after OTP verification'})
  
