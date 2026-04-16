@@ -1522,7 +1522,7 @@
 
             grid.innerHTML = types.map((lt, i) => {
                 const bal = balances.find(b => String(b.leave_type_id) === String(lt.id));
-                const rem = bal ? bal.remaining_days : (lt.total_days || '—');
+                const rem = bal ? +parseFloat(bal.remaining_days) : (lt.total_days ? +parseFloat(lt.total_days) : '—');
                 const icon = LT_ICONS[i % LT_ICONS.length];
                 return `
                     <div class="leave-type-card">
@@ -1559,7 +1559,7 @@
                     </div>
                     <div class="balance-chip-info">
                         <small>${b.leave_type_name}</small>
-                        <strong>${b.remaining_days} <span style="font-size:12px;font-weight:500;color:var(--text-muted)">/ ${b.total_days}</span></strong>
+                        <strong>${+parseFloat(b.remaining_days)} <span style="font-size:12px;font-weight:500;color:var(--text-muted)">/ ${+parseFloat(b.total_days)}</span></strong>
                     </div>
                 </div>`).join('');
         }
