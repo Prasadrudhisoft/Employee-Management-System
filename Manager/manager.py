@@ -239,9 +239,9 @@ def get_emp(role=None, id=None, org_id=None, org_name=None):
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         if role != 'Manager':
             return jsonify({'status': 'fail', 'message': 'Unauthorized Access'})
-        cursor.execute("SELECT * FROM users WHERE org_id = %s and Status = 'Active' and role = 'EMP'", (org_id,))
+        cursor.execute("SELECT * FROM users WHERE org_id = %s and Status = 'Active' and role = 'EMP' AND created_by = %s", (org_id, id))
         active_users = cursor.fetchall()
-        cursor.execute("SELECT * FROM users WHERE org_id = %s and Status != 'Active' and role = 'EMP'", (org_id,))
+        cursor.execute("SELECT * FROM users WHERE org_id = %s and Status != 'Active' and role = 'EMP' AND created_by = %s", (org_id, id))
         deactive_users = cursor.fetchall()
         if not active_users and not deactive_users:
             return jsonify({'status': 'fail', 'message': 'No User Found'})
@@ -266,7 +266,7 @@ def toggle_emp_status(id=None, org_id=None, role=None, org_name=None):
         user_id = data.get('user_id')
         if not user_id:
             return jsonify({'status': 'error', 'message': 'user_id is required'}), 400
-        cursor.execute("SELECT id, name, status FROM users WHERE id = %s AND org_id = %s AND role = 'EMP'", (user_id, org_id))
+        cursor.execute("SELECT id, name, status FROM users WHERE id = %s AND org_id = %s AND role = 'EMP' AND created_by = %s", (user_id, org_id, id))
         emp = cursor.fetchone()
         if not emp:
             return jsonify({'status': 'error', 'message': 'Employee not found'}), 404
@@ -290,7 +290,7 @@ def total_emp(role=None, id=None, org_id=None, org_name=None):
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         if role != 'Manager':
             return jsonify({'status': 'fail', 'message': 'Unauthorized Access'})
-        cursor.execute("select count(*) as total_emp, SUM(status='Active') as active_emp, SUM(status='Deactive')as deactive_emp from users where org_id = %s AND role!='Admin'", (org_id,))
+        cursor.execute("select count(*) as total_emp, SUM(status='Active') as active_emp, SUM(status='Deactive')as deactive_emp from users WHERE org_id = %s AND role = 'EMP' AND created_by = %s", (org_id, id))
         total_emp = cursor.fetchone()
         return jsonify({'status': 'success', 'message': 'Successfully Total Counts Fetched', 'total_emp': total_emp})
     except Exception as e:
