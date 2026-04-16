@@ -14,15 +14,20 @@ leave_bp = Blueprint('leave', __name__)
 
 def _count_leave_days(from_date, to_date, day_type, org_id, cursor):
     """Count working days between two dates excluding weekends & org holidays."""
-    if day_type == 'Half Day':
-        return 0.5
 
+    # Always fetch holidays first — needed for both Half Day and Full Day validation
     cursor.execute(
         "SELECT holiday_date FROM holidays "
         "WHERE org_id = %s AND holiday_date BETWEEN %s AND %s",
         (org_id, from_date, to_date)
     )
     holidays = {row['holiday_date'] for row in cursor.fetchall()}
+
+    if day_type == 'Half Day':
+        # Half Day is always a single date — return 0 if it's a holiday or weekend
+        if from_date in holidays or from_date.weekday() >= 5:
+            return 0  # not a working day, cannot apply
+        return 0.5
 
     count = 0.0
     cur = from_date
@@ -312,6 +317,39 @@ def apply_leave(id=None, org_id=None, role=None, org_name=None):
         if day_type == 'Half Day' and from_date != to_date:
             return jsonify({'status': 'error', 'message': 'Half Day leave is only allowed for a single date'})
 
+        # ── WEEKEND GUARD ──────────────────────────────────────────────────────────
+        # Blocks both Full Day and Half Day on weekends
+        if from_date.weekday() >= 5:
+            day_name = from_date.strftime('%A')
+            return jsonify({
+                'status': 'error',
+                'message': f'Leave start date ({from_date_str}) is a {day_name}. Weekends are not working days.'
+            })
+        if to_date.weekday() >= 5:
+            day_name = to_date.strftime('%A')
+            return jsonify({
+                'status': 'error',
+                'message': f'Leave end date ({to_date_str}) is a {day_name}. Weekends are not working days.'
+            })
+
+        # ── HOLIDAY GUARD ──────────────────────────────────────────────────────────
+        # Blocks both Full Day and Half Day on org holidays (including half-day on a holiday)
+        cursor.execute(
+            "SELECT holiday_date, name FROM holidays "
+            "WHERE org_id = %s AND holiday_date BETWEEN %s AND %s",
+            (org_id, from_date, to_date)
+        )
+        holiday_rows = cursor.fetchall()
+        if holiday_rows:
+            holiday_names = ', '.join(
+                f"{row['name']} ({row['holiday_date']})" for row in holiday_rows
+            )
+            return jsonify({
+                'status': 'error',
+                'message': f'Your selected dates include a holiday: {holiday_names}. Please choose different dates.'
+            })
+
+        # ── MANAGER LEAVE TYPE VALIDATION ──────────────────────────────────────────
         # Validate that the leave type belongs to the employee's manager
         cursor.execute(
             "SELECT created_by FROM users WHERE id = %s AND org_id = %s",
@@ -330,17 +368,18 @@ def apply_leave(id=None, org_id=None, role=None, org_name=None):
         if not cursor.fetchone():
             return jsonify({'status': 'error', 'message': 'Invalid leave type for your account'})
 
-        # Count working days
+        # ── COUNT WORKING DAYS ─────────────────────────────────────────────────────
+        # _count_leave_days also validates holiday/weekend for half-day as a safety net
         leave_days = _count_leave_days(from_date, to_date, day_type, org_id, cursor)
 
         if leave_days <= 0:
             return jsonify({'status': 'error', 'message': 'Selected dates have no working days'})
 
-        # Check overlap
+        # ── OVERLAP CHECK ──────────────────────────────────────────────────────────
         if _has_overlap(id, from_date, to_date, cursor):
             return jsonify({'status': 'error', 'message': 'You already have a leave overlapping these dates'})
 
-        # Check balance
+        # ── BALANCE CHECK ──────────────────────────────────────────────────────────
         cursor.execute(
             "SELECT * FROM leave_balances WHERE user_id = %s AND leave_type_id = %s AND year = %s",
             (id, leave_type_id, year)
@@ -356,7 +395,7 @@ def apply_leave(id=None, org_id=None, role=None, org_name=None):
                 'message': f"Insufficient balance. Available: {balance['remaining_days']} days, Requested: {leave_days} days"
             })
 
-        # Insert leave request
+        # ── INSERT LEAVE REQUEST ───────────────────────────────────────────────────
         new_id = str(uuid.uuid4())
         cursor.execute(
             "INSERT INTO leave_requests "
