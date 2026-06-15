@@ -1349,7 +1349,7 @@
                 });
                 const data = await res.json();
 
-                if (data.status === 'success' || res.ok) {
+                if (data.status === 'success') {
                     showAlert(data.message || 'Department created successfully!', 'success');
                     document.getElementById('f-name').value = '';
                     document.getElementById('f-desc').value = '';

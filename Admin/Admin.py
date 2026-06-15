@@ -233,6 +233,15 @@ def adddepartments(id=None, org_id=None, role=None, org_name=None):
             return jsonify({'status': 'fail', 'message': 'Unauthorized Access'})
         data = request.json
         department = data.get("department")
+        cursor.execute("select department_name from departments where org_id=%s",(org_id,))
+        ex_dept = cursor.fetchall()
+
+        for i in ex_dept:
+            if i['department_name'].lower() == department.lower():
+                return jsonify({
+                    'status':'fail', 'message': f'Department {department} is already existed.'
+                })
+        
         new_id = str(uuid.uuid4())
         cursor.execute("insert into departments(id,org_id,department_name, created_by, created_at) values(%s,%s,%s,%s,NOW())", (new_id, org_id, department, id))
         conn.commit()
@@ -243,6 +252,7 @@ def adddepartments(id=None, org_id=None, role=None, org_name=None):
     finally:
         if cursor: cursor.close()
         if conn: conn.close()
+
 
 @admin_bp.route('/get_departments', methods=['GET'])
 @jwt_required
