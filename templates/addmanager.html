@@ -1338,19 +1338,28 @@
                         <div class="field-err"><i class="fas fa-circle-exclamation"></i> Invalid IFSC (e.g.
                             SBIN0001234).</div>
                     </div>
+<div class="form-group">
+    <label class="form-label">
+        <i class="fas fa-building-columns"></i>
+        Bank Name <span class="req">*</span>
+    </label>
 
-                    <div class="form-group">
-                       <label class="form-label">
-  <i class="fas fa-building-columns"></i> Bank Name <span class="req">*</span>
-</label>
-                                class="opt">(Optional)</span></label>
-                        <p class="field-hint">Max 80 characters</p>
-                        <div class="input-wrap" id="wrap-bank_name">
-                            <i class="fas fa-building-columns icon"></i>
-                            <input type="text" id="f-bank_name" placeholder="e.g. State Bank of India" maxlength="80">
-                        </div>
-                        <div class="field-err"><i class="fas fa-circle-exclamation"></i> Bank name is too short.</div>
-                    </div>
+    <p class="field-hint">Max 80 characters</p>
+
+    <div class="input-wrap" id="wrap-bank_name">
+        <i class="fas fa-building-columns icon"></i>
+        <input
+            type="text"
+            id="f-bank_name"
+            placeholder="e.g. State Bank of India"
+            maxlength="80">
+    </div>
+
+    <div class="field-err">
+        <i class="fas fa-circle-exclamation"></i>
+        Bank name is too short.
+    </div>
+</div>
 
                     <div class="form-group">
                         <label class="form-label"><i class="fas fa-location-dot"></i> Branch Address <span
